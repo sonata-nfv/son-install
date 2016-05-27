@@ -7,3 +7,4 @@ The SONATA Service Platform installation scripts
 The following lead developers are responsible for this repository and have admin rights. They can, for example, merge pull requests.
 
 - Alberto Rocha (arocha7)
+- Michael Bredel (mbredel)
