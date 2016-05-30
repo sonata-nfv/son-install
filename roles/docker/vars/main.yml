@@ -1,0 +1,5 @@
+---
+# vars file for docker
+svc_name:
+hosts_list:
+

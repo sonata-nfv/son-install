@@ -1,0 +1,6 @@
+---
+- name: deploy a MySQL database fo SON-SP     
+  hosts: "{{ targets }}"
+  sudo: yes
+  roles:
+  - mysql

@@ -1,0 +1,22 @@
+---
+- name: deploy Docker-Python library to CentOS and/or Ubuntu machines
+  hosts: "{{ targets }}"
+  sudo: yes
+  tasks:
+
+  - name: Install Docker dependency libraries
+    apt: name={{ item }} state=present update_cache=yes
+    with_items:
+    - apparmor
+    - aptitude
+    - git
+    - python-pip
+    - python-dev
+    - python-setuptools
+
+  - name: "Install PIP"
+    easy_install: name=pip
+
+  - name: "Install docker-py library on the remote server"
+    pip: name=docker-py state=present
+

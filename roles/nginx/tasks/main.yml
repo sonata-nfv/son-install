@@ -1,0 +1,12 @@
+---
+# tasks file for nginx
+- name: NGINX | installing NGINX for CentOS
+  include: redhat.yml
+  when: ansible_os_family == "RedHat"
+ 
+- name: NGINX | installing NGINX for Ubuntu
+  include: debian.yml
+  when: ansible_os_family == "Debian"
+
+#- name: copy www content
+#  include: copy-www-content.yml

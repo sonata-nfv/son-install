@@ -1,0 +1,40 @@
+---
+- name: define proxy settings to run a playbook behind proxy 
+  hosts: "{{ targets }}"
+  sudo: yes
+  tasks: 
+
+  - name: make sure proxy is not used on hosts with a default route
+    file:
+      dest: /etc/profile.d/proxy.sh
+      state: absent
+    when:  ansible_default_ipv4.gateway is defined and ansible_default_ipv4.network | match("10")
+
+  - name: install http proxy env profile
+    template:
+      dest: /etc/profile.d/proxy.sh
+      mode: 0755
+      src: proxy.sh
+    when:  ansible_default_ipv4.gateway is not defined or ansible_default_ipv4.gateway | match("10")
+
+  - name: configure Proxy for YUM
+    file: 
+      dest: /etc/yum.conf
+      mode: 0644 
+      src: yum.conf
+    when: ansible_os_family == "RedHat" and ansible_default_ipv4.gateway is defined and ansible_default_ipv4.gateway | match("10")
+
+  - name: configure Proxy for YUM
+    file:
+      dest: /etc/apt/apt.conf
+      mode: 0644
+      src: apt.conf
+    when: ansible_os_family == "Debian" and ansible_default_ipv4.gateway is defined and ansible_default_ipv4.gateway | match("10")
+
+  - name: insert proxy settings
+    lineinfile: dest=~/.bash_profile line="export http_proxy=http://192.168.89.32:11111/"
+    when: ansible_default_ipv4.gateway is defined and ansible_default_ipv4.gateway | match("10")
+
+  - name: insert proxy settings
+    lineinfile: dest=/home/ptin_admin/.bash_profile line="export https_proxy=http://192.168.89.32:11111/"
+    when: ansible_default_ipv4.gateway is defined and ansible_default_ipv4.gateway | match("10")

@@ -1,0 +1,31 @@
+---
+
+- name: import the MongoDB public GPG Key
+#  apt-key:
+#    keyserver: keyserver.ubuntu.com
+#    id: EA312927
+#    url: https://www.mongodb.org/static/pgp/server-3.2.asc
+#    state: present
+  shell: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+
+#- name: add a list file for MongoDB 3.+ 
+#  copy: src=~/ansible/roles/mongo/files/mongodb-org-3.2_deb.repo dest=/etc/apt/sources.list.d/mongodb-org-3.2.list owner=root group=root mode=0644
+
+- name: "Install MongoDB APT repository in Ubuntu 16.04 LTS"
+  apt_repository:
+    repo: "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse"
+    state: present
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "16"
+
+- name: "Install MongoDB APT repository in Ubuntu 14.04 LTS"
+  apt_repository:
+    repo: "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse"
+    state: present
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "14"
+
+- name: "Install MongoDB package"
+  apt: name=mongodb-org state=present update_cache=yes
+
+- name: start MongoDB daemon
+  service: name=mongod state=started enabled=yes
+

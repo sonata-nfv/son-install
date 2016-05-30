@@ -1,0 +1,13 @@
+---
+
+- name: upgrade all packages to the latest version
+  apt: upgrade=yes update_cache=yes
+
+- name: install useful operating system tools
+  apt: name={{ item }}
+  with_items:
+  - sysstat
+  - nmap
+  - tree
+  - htop
+  - policycoreutils

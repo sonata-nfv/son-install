@@ -1,0 +1,6 @@
+---
+- name: deploy RabbitMQ to CentOS and/or Ubuntu machines
+  hosts: "{{ targets }}"
+  sudo: yes
+  roles:
+  - rabbitmq
