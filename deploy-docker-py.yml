@@ -1,5 +1,5 @@
 ---
-- name: deploy Docker-Python library to CentOS and/or Ubuntu machines
+- name: deploy Docker-Python library to the SON-SP VM appliance
   hosts: "{{ targets }}"
   sudo: yes
   tasks:

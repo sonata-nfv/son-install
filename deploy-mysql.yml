@@ -1,5 +1,5 @@
 ---
-- name: deploy a MySQL database fo SON-SP     
+- name: create a MySQL database for the SON-SP VM appliance
   hosts: "{{ targets }}"
   sudo: yes
   roles:

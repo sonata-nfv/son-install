@@ -2,9 +2,6 @@
 - name: Upgrade the target machines and reboot
   hosts: "{{ targets }}"
   sudo: yes
-#  environment:
-#    proxy_env:
-#      http://192.168.89.32:11111/
   tasks: 
 
   - name:  upgrade all packages to the latest version

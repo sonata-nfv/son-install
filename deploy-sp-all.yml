@@ -1,0 +1,26 @@
+---
+
+- include: deploy-common.yml
+
+- include: deploy-nginx.yml
+
+- include: deploy-pgsql.yml
+
+- include: deploy-mysql.yml
+
+- include: deploy-mongo.yml
+
+- include: deploy-docker.yml
+
+- include: deploy-docker-py.yml
+
+- include: deploy-sp-broker.yml
+
+- include: deploy-sp-gk.yml
+
+- include: deploy-sp-repos.yml
+
+- include: deploy-sp-mano.yml
+
+- include: deploy-sp-monit.yml
+

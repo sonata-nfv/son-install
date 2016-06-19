@@ -1,5 +1,5 @@
 ---
-- name: deploy NGINX to CentOS and/or Ubuntu machines
+- name: deploy NGINX to the SON-SP VM appliance
   hosts: "{{ targets }}"
   sudo: yes
   roles:

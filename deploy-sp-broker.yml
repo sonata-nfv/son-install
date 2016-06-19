@@ -1,0 +1,25 @@
+---
+- name: deployment of RabbitMQ for the SON-SP VM appliance as a Docker containers from private Registry
+  hosts: "{{ targets }}"
+  sudo: yes
+  tasks:
+
+# Login to private Registry
+
+- name: Log into private registry and force re-authorization
+  docker_login:
+    registry: registry.sonata-nfv.eu
+    username: sonata
+    password: $0n@t@
+    reauthorize: yes
+
+# Getting the Sonata Docker Images
+
+  - name: pull SP Message Bus image to local repository
+    docker_image: 
+      name: son-images/{{ items }}
+      repository: registry.sonata-nfv.eu
+      state: started
+      tag: latest
+      with items:
+      - son-broker

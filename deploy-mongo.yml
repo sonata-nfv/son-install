@@ -1,5 +1,5 @@
 ---
-- name: deploy MongoDB to CentOS and/or Ubuntu machines
+- name: create a MongoDB for the SON-SP VM appliance
   hosts: "{{ targets }}"
   sudo: yes
   roles:

@@ -1,0 +1,27 @@
+---
+- name: deploy MANO FRAMEWORK as Docker containers from private Registry to the SP VM appliance
+  hosts: "{{ targets }}"
+  sudo: yes
+  tasks:
+
+# Login to private Registry
+
+- name: Log into private registry and force re-authorization
+  docker_login:
+    registry: registry.sonata-nfv.eu
+    username: sonata
+    password: $0n@t@
+    reauthorize: yes
+
+# Getting the Sonata Docker Images
+
+  - name: pull MANO image to the local repository
+    docker_image: 
+      name: son-images/{{ items }}
+      repository: registry.sonata-nfv.eu
+      state: started
+      tag: latest
+      with items:
+      - son-pluginmanager
+      - son-servicelifecyclemanagement
+      - son-sp-infrabstract
