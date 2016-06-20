@@ -10,7 +10,7 @@
   apt_key: keyserver=keyserver.ubuntu.com id=58118E89F3A912897C070ADBF76221572C52609D
 
 - name: DOCKER pre-requirements step 3 > right package
-  copy: src=/home/ptin_admin/stable/ansible/docker/roles/docker/files/docker.list dest=/etc/apt/sources.list.d/ owner=root group=root mode=644
+  copy: src=docker.list dest=/etc/apt/sources.list.d/ owner=root group=root mode=644
 
 - name: upgrade all packages to the latest version
   apt: upgrade=yes update_cache=yes

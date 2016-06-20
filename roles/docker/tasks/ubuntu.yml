@@ -65,7 +65,7 @@
   user: name=ptin_admin shell=/bin/bash groups=docker append=yes
 
 - name: "Configuring Docker Options"
-  copy: src=/home/ptin_admin/ansible/roles/docker/files/docker dest=/etc/default/docker owner=root group=root mode=0644
+  copy: src=docker dest=/etc/default/docker owner=root group=root mode=0644
   notify:
   - restart docker
 
