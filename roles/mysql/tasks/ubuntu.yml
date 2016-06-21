@@ -19,6 +19,9 @@
   seboolean: name=mysql_connect_any state=true persistent=yes
   when: sestatus.rc != 0
 
+- name: enable root login
+  copy: src=my.cnf dest=/root/.my.cnf owner=root group=root mode=0600
+
 - name: create the DB configuration file
   template: src=my.cnf.j2 dest=/etc/my.cnf owner=root group=root mode=0600
   notify: 
