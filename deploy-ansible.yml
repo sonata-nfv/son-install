@@ -1,0 +1,7 @@
+---
+- name: deploy Ansible Control Center to a remote machine
+  hosts: "{{ targets }}"
+  sudo: yes
+  roles:
+  - ansible
+

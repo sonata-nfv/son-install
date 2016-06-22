@@ -1,0 +1,14 @@
+---
+
+- name: preparing Ansible packages installation
+  apt: name=software-properties-common state=present update_cache=yes
+
+- name: adding repositories
+  apt_repository: repo='ppa:ansible/ansible' state=present update_cache=yes
+
+- name: upgrade all packages to the latest version
+  apt: upgrade=yes update_cache=yes
+
+- name: installing Ansible
+  apt: name=ansible state=present  update_cache=yes
+

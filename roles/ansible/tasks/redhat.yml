@@ -1,0 +1,8 @@
+---
+
+- name: install Ansible
+  yum: name={{ item }} state=present update_cache=yes
+  with_items:
+  - epel-release
+  - ansible
+
