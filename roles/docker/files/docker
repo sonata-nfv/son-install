@@ -1,1 +1,1 @@
-DOCKER_OPTS="-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --dns 8.8.8.8"
+DOCKER_OPTS="-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --dns 8.8.8.8 --insecure-registry registry.sonata-nfv.eu:5000"
