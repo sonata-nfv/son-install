@@ -8,16 +8,25 @@
 
   - name: Log into private registry and force re-authorization
     docker_login:
-      registry: registry.sonata-nfv.eu
-      username: sonata-nfv
-      password: s0n@t@
+      registry_url: registry.sonata-nfv.eu:5000
+      username: {{ registry_user }}
+      password: {{ registry_pass }}
       reauthorize: yes
 
 # Getting the Sonata Docker Images
 
-  - name: pull SP Message Bus image to local repository
+  - name: pull the "SP Message Bus" image from local repository
     docker_image: 
       name: son-broker
-      repository: registry.sonata-nfv.eu
-      state: started
+      repository: registry.sonata-nfv.eu:5000
+      state: present
       tag: latest
+
+# Running the Sonata Docker Images
+
+  - name: run the "SP Message Bus"
+    docker_container: 
+      name: son-sp-broker
+      image: son-broker
+      state: started
+      # ports: 

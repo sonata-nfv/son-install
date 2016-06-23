@@ -1,5 +1,4 @@
 
-
 - name: ensure that APT works with the HTTPS method, and that CA certificates are installed
   apt: name={{ item }} state=present update_cache=yes
   with_items:
@@ -68,6 +67,15 @@
   copy: src=docker dest=/etc/default/docker owner=root group=root mode=0644
   notify:
   - restart docker
+
+- name: "Install PIP"
+  easy_install: name=pip
+
+- name: "Install docker-py library on the remote server"
+  pip: name=docker-py state=present
+
+- name: "The docker_service module also requires docker-compose"
+  pip: name=docker-compose state=present
 
 - name: start Docker daemon
   service: name=docker state=restarted enabled=yes
