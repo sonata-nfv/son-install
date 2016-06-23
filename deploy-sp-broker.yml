@@ -9,8 +9,8 @@
   - name: Log into private registry and force re-authorization
     docker_login:
       registry_url: registry.sonata-nfv.eu:5000
-      username: {{ registry_user }}
-      password: {{ registry_pass }}
+      username: "{{ registry_user }}"
+      password: "{{ registry_pass }}"
       reauthorize: yes
 
 # Getting the Sonata Docker Images
