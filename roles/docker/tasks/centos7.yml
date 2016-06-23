@@ -13,7 +13,7 @@
   yum: name=docker-engine state=present update_cache=yes
 
 - name: add user to Docker group
-  user: name=ptin_admin shell=/bin/bash groups=docker append=yes
+  user: name=sonata shell=/bin/bash groups=docker append=yes
 
 - name: "Configuring Docker Options"
   copy: src=docker.conf dest=/etc/systemd/system/docker.service.d/docker.conf owner=root group=root mode=0644

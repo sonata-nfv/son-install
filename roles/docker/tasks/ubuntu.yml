@@ -62,7 +62,7 @@
   service: name=docker enabled=yes
 
 - name: "Add user to group"
-  user: name=ptin_admin shell=/bin/bash groups=docker append=yes
+  user: name=sonata shell=/bin/bash groups=docker append=yes
 
 - name: "Configuring Docker Options"
   copy: src=docker dest=/etc/default/docker owner=root group=root mode=0644
