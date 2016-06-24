@@ -21,4 +21,4 @@
       name: son-sp-broker
       image: son-broker
       state: started
-      # ports: 
+      ports: 5672

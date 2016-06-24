@@ -6,32 +6,93 @@
 
 # Getting the Sonata MONITORY Docker Images
 
-  - name: MONIT - pull images to local repository
+  - name: MONIT InfuxDB - pull images to local repository
     docker_image: 
-      name: son-images/{{ items }}
+      name: son-monitor-influxdb
       repository: registry.sonata-nfv.eu:5000
-      state: started
+      state: present
       tag: latest
-      with items:
-      - son-monitor-influxdb
-      - son-monitor-mysql
-      - son-monitor-pusggateway
-      - son-monitor-prometheus
-      - son-monitor-manager
-      - son-monitor-probe
+
+  - name: MONIT MySQL - pull images to local repository
+    docker_image:
+      name: son-monitor-mysql
+      repository: registry.sonata-nfv.eu:5000
+      state: present
+      tag: latest
+
+  - name: MONIT Pusg Gateway - pull images to local repository
+    docker_image:
+      name: son-monitor-pushgateway
+      repository: registry.sonata-nfv.eu:5000
+      state: present
+      tag: latest
+
+  - name: MONIT Prometheus Server - pull images to local repository
+    docker_image:
+      name: son-monitor-prometheus
+      repository: registry.sonata-nfv.eu:5000
+      state: present
+      tag: latest
+
+  - name: MONIT Prometheus Manager - pull images to local repository
+    docker_image:
+      name: son-monitor-manager
+      repository: registry.sonata-nfv.eu:5000
+      state: present
+      tag: latest
+
+  - name: MONIT probe - pull images to local repository
+    docker_image:
+      name: son-monitor-probe
+      repository: registry.sonata-nfv.eu:5000
+      state: present
+      tag: latest
+
 
 # Running the Sonata MONITORY Docker Images
+
+  - name: MONIT InfluxDB  - running Docker containers
+    docker_container:
+      name: son-monitor-influxdb
+      image: son-monitor-influxdb
+      state: started
+      ports: 8086
+
+
+  - name: MONIT MySQL - running Docker containers
+    docker_container:
+      name: son-monitor-mysql
+      image: son-monitor-mysql
+      state: started
+      ports: 3306
+
+  - name: MONIT Push Gateway - running Docker containers
+    docker_container:
+      name: son-monitor-pushgateway
+      image: son-monitor-pushgateway
+      state: started
+      ports: 9091
+
   - name: MONIT - running Docker containers
     docker_container:
-      name: {{ items }}
-      image: son-images/{{ items }}
+      name: son-monitor-prometheus
+      image: son-monitor-prometheus
       state: started
-      # ports:
-      with items:
-      - son-monitor-influxdb
-      - son-monitor-mysql
-      - son-monitor-pusggateway
-      - son-monitor-prometheus
-      - son-monitor-manager
-      - son-monitor-probe
+      ports: 
+      - 9090
+      - 9089
+
+  - name: MONIT Manager - running Docker containers
+    docker_container:
+      name: son-monitor-manager
+      image: son-monitor-manager
+      state: started
+      ports: 8000
+
+# - name: MONIT Probe - running Docker containers
+#    docker_container:
+#      name: son-monitor-probe
+#      image: son-monitor-probe
+#      state: started
+#      ports: 
 

@@ -6,30 +6,78 @@
 
 # Getting the Sonata GK Docker Images
 
-  - name: GATEKEEPER - pull images to local repository
+  - name: GATEKEEPER SERVER - pull images to local repository
     docker_image: 
-      name: son-images/{{ items }}
+      name: son-gtksrv
       repository: registry.sonata-nfv.eu:5000
       state: present
       tag: latest
-      with items:
-      - son-gk-gui
-      - son-gk-bss
-      - son-gtkpkg
-      - son-gtksrv
-      - son-gtkapi
+
+  - name: GATEKEEPER PACKAGES - pull images to local repository
+    docker_image:
+      name: son-gtkpkg
+      repository: registry.sonata-nfv.eu:5000
+      state: present
+      tag: latest
+
+  - name: GATEKEEPER API - pull images to local repository
+    docker_image:
+      name: son-gtkapi
+      repository: registry.sonata-nfv.eu:5000
+      state: present
+      tag: latest
+
+  - name: GATEKEEPER BSS - pull images to local repository
+    docker_image:
+      name: son-gtkbss
+      repository: registry.sonata-nfv.eu:5000
+      state: present
+      tag: latest
+
+  - name: GATEKEEPER GUI - pull images to local repository
+    docker_image:
+      name: son-gtkgui
+      repository: registry.sonata-nfv.eu:5000
+      state: present
+      tag: latest
+
 
 # Running the Sonata GK Docker Images
-  - name: GATEKEEPER - running Docker containers
+
+  - name: GATEKEEPER SERVER - running Docker containers
     docker_container: 
-      name: {{ items }}
-      image: son-images/{{ items }}
+      name: son-gtksrv
+      image: son-gtksrv
       state: started
-      # ports: 
-      with items:
-      - son-gk-gui
-      - son-gk-bss
-      - son-gtkpkg
-      - son-gtksrv
-      - son-gtkapi
+      ports: 5300
  
+  - name: GATEKEEPER PACKAGES - running Docker containers
+    docker_container:
+      name: son-gtkpkg
+      image: son-gtkpkg
+      state: started
+      ports: 5100
+
+  - name: GATEKEEPER API - running Docker containers
+    docker_container:
+      name: son-gtkapi
+      image: son-gtkapi
+      state: started
+      ports: 320001
+
+  - name: GATEKEEPER BSS - running Docker containers
+    docker_container:
+      name: son-bss
+      image: son-yo-gen-bss
+      state: started
+      ports: 
+      - 25001
+      - 25002
+
+  - name: GATEKEEPER GUI - running Docker containers
+    docker_container:
+      name: son-gui
+      image: son-gui
+      state: started
+      ports: 80
+

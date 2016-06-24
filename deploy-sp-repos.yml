@@ -8,20 +8,16 @@
 
   - name: REPOs - pull image to local repository
     docker_image: 
-      name: son-images/{{ items }}
+      name: son-catalogue-repos
       repository: registry.sonata-nfv.eu
-      state: started
+      state: present
       tag: latest
-      with items:
-      - son-catalogue-repos
 
 # Running the Sonata REPOs Docker Images
 
   - name: REPOs - running Docker containers
     docker_container:
-      name: {{ items }}
-      image: son-images/{{ items }}
+      name: son-catalogue-repos
+      image: son-catalogue-repos
       state: started
-      # ports:
-      with items:
-      - son-catalogue-repos
+      ports: 4002
