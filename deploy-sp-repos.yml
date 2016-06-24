@@ -4,22 +4,24 @@
   sudo: yes
   tasks:
 
-# Login to private Registry
+# Getting the Sonata REPOSITORIES Docker Images
 
-- name: Log into private registry and force re-authorization
-  docker_login:
-    registry: registry.sonata-nfv.eu
-    username: sonata
-    password: $0n@t@
-    reauthorize: yes
-
-# Getting the Sonata Docker Images
-
-  - name: pull Repositories image to local repository
+  - name: REPOs - pull image to local repository
     docker_image: 
       name: son-images/{{ items }}
       repository: registry.sonata-nfv.eu
       state: started
       tag: latest
+      with items:
+      - son-catalogue-repos
+
+# Running the Sonata REPOs Docker Images
+
+  - name: REPOs - running Docker containers
+    docker_container:
+      name: {{ items }}
+      image: son-images/{{ items }}
+      state: started
+      # ports:
       with items:
       - son-catalogue-repos

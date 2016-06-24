@@ -4,21 +4,12 @@
   sudo: yes
   tasks:
 
-# Login to private Registry
+# Getting the Sonata MONITORY Docker Images
 
-- name: Log into private registry and force re-authorization
-  docker_login:
-    registry: registry.sonata-nfv.eu
-    username: sonata
-    password: $0n@t@
-    reauthorize: yes
-
-# Getting the Sonata Docker Images
-
-  - name: pull Monitory images to local repository\
+  - name: MONIT - pull images to local repository
     docker_image: 
       name: son-images/{{ items }}
-      repository: registry.sonata-nfv.eu
+      repository: registry.sonata-nfv.eu:5000
       state: started
       tag: latest
       with items:
@@ -28,3 +19,19 @@
       - son-monitor-prometheus
       - son-monitor-manager
       - son-monitor-probe
+
+# Running the Sonata MONITORY Docker Images
+  - name: MONIT - running Docker containers
+    docker_container:
+      name: {{ items }}
+      image: son-images/{{ items }}
+      state: started
+      # ports:
+      with items:
+      - son-monitor-influxdb
+      - son-monitor-mysql
+      - son-monitor-pusggateway
+      - son-monitor-prometheus
+      - son-monitor-manager
+      - son-monitor-probe
+
