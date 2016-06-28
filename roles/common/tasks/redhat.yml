@@ -9,7 +9,7 @@
   yum: name='*' state=latest update_cache=yes
 
 - name: install useful operating system tools
-  yum: name={{ item }}
+  yum: name={{ item }} state=latest
   with_items:
   - sysstat
   - nmap
