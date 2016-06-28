@@ -1,0 +1,21 @@
+---
+- name: UNINSTALLING MySQL database server
+  hosts: "{{ targets }}"
+  sudo: yes
+  tasks:
+
+  - name: ensure the MySQL service is stopped
+    service: name=mysql state=stopped enabled=no
+
+  - name: removing packages
+    apt: name={{ item }} update_cache=true purge=yes state=absent
+    with_items:
+    - mysql
+    when: ansible_distribution == "Ubuntu"
+
+  - name: removing datafiles
+    file: path={{ item }} state=absent
+    with_items: 
+    - /var/lib/mysql/
+    - /var/lib/mysql/
+    - /etc/mysql/

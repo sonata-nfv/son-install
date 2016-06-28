@@ -1,0 +1,24 @@
+---
+- name: UNINSTALLING PostgreSQL database server
+  hosts: "{{ targets }}"
+  sudo: yes
+  tasks:
+
+  - name: reEnsure the PostgreSQL service is stopped
+    service: name=postgresql state=stopped enabled=no
+
+  - name: removing packages
+    apt: name={{ item }} update_cache=true purge=yes state=absent
+    with_items:
+    - postgresql
+    - postgresql-contrib
+    - libpq-dev
+    - python-psycopg2
+    when: ansible_distribution == "Ubuntu"
+
+  - name: removing datafiles
+    file: path={{ item }} state=absent
+    with_items: 
+    - /var/lib/postgresql/
+    - /var/lib/postgresql/
+    - /etc/postgresql/
