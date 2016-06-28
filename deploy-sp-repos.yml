@@ -4,20 +4,11 @@
   sudo: yes
   tasks:
 
-# Getting the Sonata REPOSITORIES Docker Images
-
-  - name: REPOs - pull image to local repository
-    docker_image: 
-      name: son-catalogue-repos
-      repository: registry.sonata-nfv.eu
-      state: present
-      tag: latest
-
 # Running the Sonata REPOs Docker Images
 
   - name: REPOs - running Docker containers
     docker_container:
       name: son-catalogue-repos
-      image: son-catalogue-repos
+      image: registry.sonata-nfv.eu:5000/son-catalogue-repos
       state: started
       ports: 4002

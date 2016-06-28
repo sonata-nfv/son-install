@@ -4,21 +4,20 @@
   sudo: yes
   tasks:
 
+# Login to private Docker Registry
 
-# Getting the Sonata Docker Images
+  - name: Log into private registry and force re-authorization
+    docker_login:
+      registry_url: registry.sonata-nfv.eu:5000
+      username: "{{ registry_user }}"
+      password: "{{ registry_pass }}"
+      reauthorize: yes
 
-  - name: pull the "SP Message Bus" image from local repository
-    docker_image: 
-      name: son-broker
-      repository: registry.sonata-nfv.eu:5000/son-broker
-      state: present
-      tag: latest
-
-# Running the Sonata Docker Images
+# Running the Sonata BROKER Docker Image
 
   - name: run the "SP Message Bus"
     docker_container: 
-      name: son-sp-broker
-      image: son-broker
+      name: broker
+      image: registry.sonata-nfv.eu:5000/broker
       state: started
       ports: 5672
