@@ -13,17 +13,17 @@
 - include: deploy-docker.yml
 
 # deploy RabbitMQ message bus
-- include: deploy-sp-broker.yml
+#- include: deploy-sp-broker.yml
 
 # deploy Gatekepper module
-- include: deploy-sp-gk.yml
+#- include: deploy-sp-gk.yml
 
 # deploy Repositories
-- include: deploy-sp-repos.yml
+#- include: deploy-sp-repos.yml
 
 # deploy MANO framework
-- include: deploy-sp-mano.yml
+#- include: deploy-sp-mano.yml
 
 # deploy Monitoring
-- include: deploy-sp-monit.yml
+#- include: deploy-sp-monit.yml
 

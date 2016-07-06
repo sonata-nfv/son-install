@@ -19,15 +19,10 @@
 - name: Ensure the PostgreSQL service is running 
   service: name=postgresql state=started enabled=yes
 
-- name: Test
-  command: /usr/bin/pg_createcluster {{ item }} main --start
-  ignore_errors: yes
-  with_items:
-    - 9.1
-    - 9.2
-    - 9.3
-    - 9.4
-    - 9.5
+- name: Start clusters
+  include_vars: 9.3
+  {{postgresql_version}}
+  command: /usr/bin/pg_createcluster {{postgresql_version}} main --start
 
 - name: Ensure database is created 
   sudo_user: postgres
