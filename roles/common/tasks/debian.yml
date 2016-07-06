@@ -1,7 +1,7 @@
 ---
 
 - name: clean local repos database 
-  command: 'apt-get clean all'
+  command: 'apt clean all'
 
 - name: previous install APTitude
   apt: name=aptitude state=latest
