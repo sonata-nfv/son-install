@@ -19,7 +19,7 @@
 - name: Ensure the PostgreSQL service is running 
   service: name=postgresql state=started enabled=yes
 
-- name: Test
+- name: Create cluster for pgsql
   command: /usr/bin/pg_createcluster {{ item }} main --start
   ignore_errors: yes
   with_items:
