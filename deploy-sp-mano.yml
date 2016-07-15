@@ -7,7 +7,7 @@
 # Running the Sonata MANO Docker Images
 
   - name: MANO Plug-in Manager - running Docker containers
-    docker:
+    docker_container:
       name: pluginmanager
       image: registry.sonata-nfv.eu:5000/pluginmanager
       env:
