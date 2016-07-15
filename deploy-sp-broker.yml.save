@@ -19,8 +19,7 @@
     docker_container: 
       name: broker
       image: registry.sonata-nfv.eu:5000/broker
-      env:
-        RABBITMQ_CONSOLE_LOG: new
+      env: 
+        RABBITMQ_CONSOLE_LOG: new rabbitmq:3-management
       state: started
-      ports: "5672:5672, 8080:15672"
-      privileged: yes
+      ports: 5672
