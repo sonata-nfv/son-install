@@ -7,12 +7,14 @@
 # Running the Sonata MANO Docker Images
 
   - name: MANO Plug-in Manager - running Docker containers
-    docker:
+    docker_container:
       name: pluginmanager
       image: registry.sonata-nfv.eu:5000/pluginmanager
       env:
         mongo_host: "{{ ansible_eth0.ipv4.address }}"
-        broker_host: amqp://guest:guest@{{ ansible_eth0.ipv4.address }}:5672/%2F
+#        broker_host: amqp://guest:guest@"{{ ansible_eth0.ipv4.address }}":5672/%2F
+        broker_host: amqp://guest:guest@127.0.0.1:5672/%2F
+#      command: /delayedstart.sh 10
       state: started
       ports: 8001
 
@@ -23,10 +25,10 @@
       name: servicelifecyclemanagement
       image: registry.sonata-nfv.eu:5000/servicelifecyclemanagement
       env:
-        url_nsr_repository: http://{{ ansible_eth0.ipv4.address }}:4002/records/nsr/
-        url_vnfr_repository: http://{{ ansible_eth0.ipv4.address }}:4002/records/vnfr/
-        url_monitoring_server: http://{{ ansible_eth0.ipv4.address }}:8000/api/v1/
-        broker_host: amqp://guest:guest@{{ ansible_eth0.ipv4.address }}:5672/%2F
+        url_nsr_repository: http://"{{ targets }}":4002/records/nsr/
+        url_vnfr_repository: http://"{{ targets }}":4002/records/vnfr/
+        url_monitoring_server: http://"{{ targets }}":8000/api/v1/
+        broker_host: ampq://guest:guest@{{ ansible_eth0.ipv4.address }}:5672/%2F
       state: started
       # ports:
 
