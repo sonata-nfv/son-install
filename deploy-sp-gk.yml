@@ -15,40 +15,65 @@
 
 # Running the Sonata GK Docker Images
 
-  - name: GATEKEEPER SERVER - running Docker containers
-    docker_container: 
-      name: son-gtksrv
-      image: registry.sonata-nfv.eu:5000/son-gtksrv
-      state: started
-      ports: 5300
- 
-  - name: GATEKEEPER PACKAGES - running Docker containers
+  - name: GATEKEEPER GUI - running Docker containers
     docker_container:
-      name: son-gtkpkg
-      image: registry.sonata-nfv.eu:5000/son-gtkpkg
+      name: son-gui
+      image: registry.sonata-nfv.eu:5000/son-gui
+      env:
+        MON_URL: http://{{ ansible_eth0.ipv4.address }}:8000
+        GK_URL: http://{{ ansible_eth0.ipv4.address }}:32001
       state: started
-      ports: 5100
-
-  - name: GATEKEEPER API - running Docker containers
-    docker_container:
-      name: son-gtkapi
-      image: registry.sonata-nfv.eu:5000/son-gtkapi
-      state: started
-      ports: 32001
+      ports: 80
 
   - name: GATEKEEPER BSS - running Docker containers
     docker_container:
       name: son-bss
       image: registry.sonata-nfv.eu:5000/son-yo-gen-bss
+      command: grunt serve:integration
+      env:
+        gkApiUrl: http://{{ ansible_eth0.ipv4.address }}:32001
       state: started
-      ports: 
+      ports:
       - 25001
       - 25002
 
-  - name: GATEKEEPER GUI - running Docker containers
+  - name: GATEKEEPER PACKAGES - running Docker containers
     docker_container:
-      name: son-gui
-      image: registry.sonata-nfv.eu:5000/son-gui
+      name: son-gtkpkg
+      image: registry.sonata-nfv.eu:5000/son-gtkpkg
+      env:
+        CATALOGUES_URL: http://{{ ansible_eth0.ipv4.address }}:4002/catalogues
+        RACK_ENV: integration
       state: started
-      ports: 80
+      ports: 5100
 
+  - name: GATEKEEPER SERVER - running Docker containers
+    docker_container:
+      name: son-gtksrv
+      image: registry.sonata-nfv.eu:5000/son-gtksrv
+      env:
+        CATALOGUES_URL: http://{{ ansible_eth0.ipv4.address }}:4002/catalogues
+        RACK_ENV: integration
+        MQSERVER: amqp://guest:guest@{{ ansible_eth0.ipv4.address }}:5672
+        DATABASE_HOST: "{{ ansible_eth0.ipv4.address }}"
+        DATABASE_PORT: 5432
+        POSTGRES_PASSWORD: $0n@t@
+        POSTGRES_USER: sonata
+      links:
+        - broker
+      state: started
+ 
+  - name: GATEKEEPER API - running Docker containers
+    docker_container:
+      name: son-gtkapi
+      image: registry.sonata-nfv.eu:5000/son-gtkapi
+      env:
+        RACK_ENV: integration
+        PACKAGE_MANAGEMENT_URL: http://{{ ansible_eth0.ipv4.address }}:5100
+        SERVICE_MANAGEMENT_URL: http://{{ ansible_eth0.ipv4.address }}:5300
+        FUNCTION_MANAGEMENT_URL: http://{{ ansible_eth0.ipv4.address }}:5500
+      links:
+        - son-gtkpkg
+        - son-gtksrv
+      state: started
+      ports: 32001
