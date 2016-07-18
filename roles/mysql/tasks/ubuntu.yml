@@ -31,7 +31,7 @@
   service: name=mysql state=started enabled=yes
 
 - name: create the DB application
-  mysql_db: name={{ dbname }} state=present
+  mysql_db: name=son-sp state=present
 
 - name: create the DB User
-  mysql_user: name={{ dbuser }} password={{ upassword }} priv=*.*:ALL host='%' state=present
+  mysql_user: name=root password=123qwe priv=*.*:ALL host='%' state=present
