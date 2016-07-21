@@ -24,8 +24,8 @@
       image: registry.sonata-nfv.eu:5000/son-monitor-mysql
       env:
         MYSQL_ROOT_PASSWORD: "{{ upassword }}"
-        MYSQL_USER: "{{ dbuser }}"
-        MYSQL_PASSWORD: "{{ upassword }}"
+        #MYSQL_USER: "{{ dbuser }}"
+        #MYSQL_PASSWORD: "{{ upassword }}"
         MYSQL_DATABASE: "{{ dbname }}"
       state: started
       ports: 3306
