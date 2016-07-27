@@ -15,7 +15,7 @@
       name: son-monitor-influxdb
       image: sonatanfv/son-monitor-influxdb
       state: started
-      ports: 8086
+      ports: 8086:8086
 
 
   - name: MONIT MySQL - running Docker containers
@@ -43,15 +43,15 @@
       image: sonatanfv/son-monitor-prometheus
       state: started
       ports: 
-      - 9090
-      - 9089
+      - 9090:9090
+      - 9089:9089
 
   - name: MONIT Manager - running Docker containers
     docker_container:
       name: son-monitor-manager
       image: sonatanfv/son-monitor-manager
       state: started
-      ports: 8000
+      ports: 8000:8000
 
 # - name: MONIT Probe - running Docker containers
 #    docker_container:
