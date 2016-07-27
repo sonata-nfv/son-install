@@ -9,7 +9,7 @@
   shell: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
 
 #- name: add a list file for MongoDB 3.+ 
-#  copy: src=~/ansible/roles/mongo/files/mongodb-org-3.2_deb.repo dest=/etc/apt/sources.list.d/mongodb-org-3.2.list owner=root group=root mode=0644
+#  copy: src=roles/mongo/files/mongodb-org-3.2_deb.repo dest=/etc/apt/sources.list.d/mongodb-org-3.2.list owner=root group=root mode=0644
 
 - name: "Install MongoDB APT repository in Ubuntu 16.04 LTS"
   apt_repository:

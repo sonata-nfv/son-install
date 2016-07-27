@@ -24,10 +24,16 @@
   selinux: policy=targeted state=permissive
 
 - name: add MongoDB 3.+ repo to YUM
-  copy: src=~/ansible/roles/mongo/files/mongodb-org-3.2.repo dest=/etc/yum.repos.d/mongodb-org-3.2_rpm.repo owner=root group=root mode=0644
+  copy: src=roles/mongo/files/mongodb.repo dest=/etc/yum.repos.d/mongodb.repo owner=root group=root mode=0644
 
 - name: install MongoDB to CentOS7
-  yum: name=mongodb-org state=present update_cache=yes
+  yum: name={{ item }} state=present update_cache=yes
+  with_items:
+  - mongodb-org
+  - mongodb-org-server
+
+- name: fix MongoDB to listen at all interfaces
+  copy: src=roles/mongo/files/mongod.conf dest=/etc/mongod.conf owner=root group=root mode=0644
 
 - name: start MongoDB database service
   service: name=mongod state=started enabled=yes
