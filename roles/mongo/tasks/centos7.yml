@@ -33,7 +33,7 @@
   - mongodb-org-server
 
 - name: fix MongoDB to listen at all interfaces
-  copy: src=roles/mongo/files/mongod.conf dest=/etc/mongod.conf owner=root group=root mode=0644
+  copy: src=roles/mongo/files/mongod_rpm.conf dest=/etc/mongod.conf owner=root group=root mode=0644
 
 - name: start MongoDB database service
   service: name=mongod state=started enabled=yes
