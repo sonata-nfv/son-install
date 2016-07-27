@@ -13,7 +13,7 @@
   - name: MONIT InfluxDB  - running Docker containers
     docker_container:
       name: son-monitor-influxdb
-      image: registry.sonata-nfv.eu:5000/son-monitor-influxdb
+      image: sonatanfv/son-monitor-influxdb
       state: started
       ports: 8086
 
@@ -21,7 +21,7 @@
   - name: MONIT MySQL - running Docker containers
     docker_container:
       name: son-monitor-mysql
-      image: registry.sonata-nfv.eu:5000/son-monitor-mysql
+      image: sonatanfv/son-monitor-mysql
       env:
         MYSQL_ROOT_PASSWORD: "{{ upassword }}"
         #MYSQL_USER: "{{ dbuser }}"
@@ -33,14 +33,14 @@
   - name: MONIT Push Gateway - running Docker containers
     docker_container:
       name: son-monitor-pushgateway
-      image: registry.sonata-nfv.eu:5000/son-monitor-pushgateway
+      image: sonatanfv/son-monitor-pushgateway
       state: started
       ports: 9091
 
   - name: MONIT - running Docker containers
     docker_container:
       name: son-monitor-prometheus
-      image: registry.sonata-nfv.eu:5000/son-monitor-prometheus
+      image: sonatanfv/son-monitor-prometheus
       state: started
       ports: 
       - 9090
@@ -49,7 +49,7 @@
   - name: MONIT Manager - running Docker containers
     docker_container:
       name: son-monitor-manager
-      image: registry.sonata-nfv.eu:5000/son-monitor-manager
+      image: sonatanfv/son-monitor-manager
       state: started
       ports: 8000
 

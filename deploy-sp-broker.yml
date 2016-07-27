@@ -6,19 +6,19 @@
 
 # Login to private Docker Registry
 
-  - name: Log into private registry and force re-authorization
-    docker_login:
-      registry_url: registry.sonata-nfv.eu:5000
-      username: sonata-nfv
-      password: s0n@t@
-      reauthorize: yes
+#  - name: Log into private registry and force re-authorization
+#    docker_login:
+#      registry_url: registry.sonata-nfv.eu:5000
+#      username: sonata-nfv
+#      password: s0n@t@
+#      reauthorize: yes
 
 # Running the Sonata BROKER Docker Image
 
   - name: run the "SP Message Bus"
     docker_container: 
       name: broker
-      image: registry.sonata-nfv.eu:5000/broker
+      image: rabbitmq
       env:
         RABBITMQ_CONSOLE_LOG: new
       state: started

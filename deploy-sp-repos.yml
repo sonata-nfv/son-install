@@ -9,6 +9,6 @@
   - name: REPOs - running Docker containers
     docker_container:
       name: son-catalogue-repos
-      image: registry.sonata-nfv.eu:5000/son-catalogue-repos
+      image: sonatanfv/son-catalogue-repos
       state: started
       ports: 4002

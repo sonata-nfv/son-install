@@ -9,7 +9,7 @@
   - name: MANO Plug-in Manager - running Docker containers
     docker_container:
       name: pluginmanager
-      image: registry.sonata-nfv.eu:5000/pluginmanager
+      image: sonatanfv/pluginmanager
       env:
         mongo_host: "{{ ansible_eth0.ipv4.address }}"
         broker_host: amqp://guest:guest@{{ ansible_eth0.ipv4.address }}:5672/%2F
@@ -21,7 +21,7 @@
   - name: MANO Service Life-cycle Management (SLM) - running Docker containers
     docker_container:
       name: servicelifecyclemanagement
-      image: registry.sonata-nfv.eu:5000/servicelifecyclemanagement
+      image: sonatanfv/servicelifecyclemanagement
       env:
         url_nsr_repository: http://{{ ansible_eth0.ipv4.address }}:4002/records/nsr/
         url_vnfr_repository: http://{{ ansible_eth0.ipv4.address }}:4002/records/vnfr/
@@ -30,16 +30,16 @@
       state: started
       # ports:
 
-  - name: MANO Function Life-cycle Management (FML) - running Docker containers
-    docker_container:
-      name: functionlifecyclemanagement
-      image: registry.sonata-nfv.eu:5000/functionlifecyclemanagement
-      state: started
-      # ports:
+#  - name: MANO Function Life-cycle Management (FML) - running Docker containers
+#    docker_container:
+#      name: functionlifecyclemanagement
+#      image: sonatanfv/functionlifecyclemanagement
+#      state: started
+#      # ports:
 
   - name: MANO Infrastructure Abstractor - running Docker containers
     docker_container:
       name: son-sp-infrabstract
-      image: registry.sonata-nfv.eu:5000/son-sp-infrabstract
+      image: sonatanfv/son-sp-infrabstract
       state: started
       # ports:
