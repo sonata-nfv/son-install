@@ -14,7 +14,7 @@
         mongo_host: "{{ ansible_eth0.ipv4.address }}"
         broker_host: amqp://guest:guest@{{ ansible_eth0.ipv4.address }}:5672/%2F
       state: started
-      ports: 8001
+      ports: 8001:8001
 
 #  - pause: seconds=15
 
@@ -28,7 +28,6 @@
         url_monitoring_server: http://{{ ansible_eth0.ipv4.address }}:8000/api/v1/
         broker_host: amqp://guest:guest@{{ ansible_eth0.ipv4.address }}:5672/%2F
       state: started
-      # ports:
 
 #  - name: MANO Function Life-cycle Management (FML) - running Docker containers
 #    docker_container:
@@ -42,4 +41,3 @@
       name: son-sp-infrabstract
       image: sonatanfv/son-sp-infrabstract
       state: started
-      # ports:
