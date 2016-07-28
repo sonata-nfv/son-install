@@ -19,17 +19,17 @@
       ports: 8086:8086
 
 
-#  - name: MONIT MySQL - running Docker containers
-#    docker_container:
-#      name: son-monitor-mysql
-#      image: sonatanfv/son-monitor-mysql
-#      env:
-#        MYSQL_ROOT_PASSWORD: "{{ urootpw }}"
-#        MYSQL_USER: "{{ dbuser }}"
-#        MYSQL_PASSWORD: "{{ upassword }}"
-#        MYSQL_DATABASE: "{{ dbname }}"
-#      state: started
-#      ports: 3306:3306
+  - name: MONIT MySQL - running Docker containers
+    docker_container:
+      name: son-monitor-mysql
+      image: sonatanfv/son-monitor-mysql
+      env:
+        MYSQL_ROOT_PASSWORD: "{{ urootpw }}"
+        MYSQL_USER: "{{ dbuser }}"
+        MYSQL_PASSWORD: "{{ upassword }}"
+        MYSQL_DATABASE: "{{ dbname }}"
+      state: started
+      ports: 3306:3306
 
   - name: MONIT Push Gateway - running Docker containers
     docker_container:

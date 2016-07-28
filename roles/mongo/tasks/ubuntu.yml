@@ -30,5 +30,5 @@
   copy: src=roles/mongo/files/mongod_deb.conf dest=/etc/mongod.conf owner=root group=root mode=0644
 
 - name: start MongoDB daemon
-  service: name=mongod state=started enabled=yes
+  service: name=mongod state=restarted enabled=yes
 
