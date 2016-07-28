@@ -23,6 +23,7 @@
         MON_URL: http://{{ ansible_eth0.ipv4.address }}:8000
         GK_URL: http://{{ ansible_eth0.ipv4.address }}:32001
       state: started
+      exposed_ports: 80
       ports: "80:80"
 
   - name: GATEKEEPER BSS - running Docker containers
