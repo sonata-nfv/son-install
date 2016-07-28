@@ -12,12 +12,15 @@ echo ' '
 echo "Cleaning apt"
 apt-get clean all
 echo "Check and install software-properties-common"
-apt-get install -y software-properties-common
+apt-get update
+apt-get install -y software-properties-common git
 echo "Installing ansible"
 apt-add-repository -y ppa:ansible/ansible
 apt-get update
 apt-get install -y ansible
 
 echo "Starting Sonata installation"
+git clone https://github.com/sonata-nfv/son-install.git
+cd son-install
 ansible-playbook deploy-sp-all.yml -e targets=localhost
 fi
