@@ -23,7 +23,7 @@
   copy: src=my.cnf dest=/root/.my.cnf owner=root group=root mode=0600
 
 - name: create the DB configuration file
-  template: src=my.cnf.j2 dest=/etc/my.cnf owner=root group=root mode=0600
+  template: src=my.cnf.j2 dest=/etc/mysql/my.cnf owner=root group=root mode=0600
   notify: 
   - restart mysql
 
