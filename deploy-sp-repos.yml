@@ -11,4 +11,4 @@
       name: son-catalogue-repos
       image: sonatanfv/son-catalogue-repos
       state: started
-      ports: 4002:4002
+      ports: 4002:4011
