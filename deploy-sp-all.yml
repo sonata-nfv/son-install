@@ -1,5 +1,4 @@
 ---
-
 #- include: deploy-nginx.yml
 
 # deploying SONATA SP dependencies
