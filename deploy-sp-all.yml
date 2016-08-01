@@ -1,5 +1,4 @@
 ---
-
 #- include: deploy-nginx.yml
 
 # deploying SONATA SP dependencies
@@ -28,4 +27,3 @@
 
 # deploy Monitoring
 - include: deploy-sp-monit.yml
-
