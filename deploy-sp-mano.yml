@@ -41,3 +41,10 @@
       name: son-sp-infrabstract
       image: sonatanfv/son-sp-infrabstract
       state: started
+      env:
+        broker_host: "{{ ansible_eth0.ipv4.address }}"
+        broker_url: "amqp://guest:guest@{{ ansible_eth0.ipv4.address }}/%2F"
+        repo_host: "{{ ansible_eth0.ipv4.address }}"
+        repo_port: "5432"
+        repo_user: "sonatatest"
+        repo_pass: "sonata"
