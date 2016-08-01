@@ -28,4 +28,3 @@
 
 # deploy Monitoring
 - include: deploy-sp-monit.yml
-
