@@ -3,7 +3,7 @@
 #- include: deploy-nginx.yml
 
 # deploying SONATA SP dependencies
-- include: deploy-common.yml
+ - include: deploy-common.yml
 
 - include: deploy-pgsql.yml
 
