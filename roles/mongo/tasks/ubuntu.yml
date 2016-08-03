@@ -24,7 +24,7 @@
   when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "14"
 
 - name: "Install MongoDB package"
-  apt: name=mongodb-org state=present update_cache=yes
+  apt: name=mongodb-org state=present update_cache=yes force=yes
 
 - name: fix MongoDB to listen at all interfaces
   copy: src=roles/mongo/files/mongod_deb.conf dest=/etc/mongod.conf owner=root group=root mode=0644
