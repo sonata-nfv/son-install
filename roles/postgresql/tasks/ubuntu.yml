@@ -30,7 +30,7 @@
     - 9.5
 
 - name: get path postgres configuration file
-  shell find /etc -name postgresql.conf
+  shell: find /etc -name postgresql.conf
   register: pgversion
 
 - name: Ensure PostgreSQL is listening on all localhost
@@ -38,6 +38,17 @@
     regexp='^#?listen_addresses\s*='
     line="listen_addresses = '*'"
     state=present
+  notify: restart postgresql
+
+- name: get path postgres hba configuration file
+  shell: find /etc -name pg_hba.conf
+  register: pghbaversion
+
+- name: Ensure PostgreSQL allow connections from docker network
+  lineinfile: dest={{ pghbaversion.stdout}}
+    regexp='host\s+all\s+all\s+127.0.0.1/32\s+md5'
+    line='host all all 172.17.0.0/16 md5'
+    insertbefore=BOF
   notify: restart postgresql
 
 - name: Ensure database is created 
@@ -48,9 +59,9 @@
   sudo_user: postgres 
   postgresql_user: db={{ db_name }} name={{ db_user }} password={{ db_password }} priv=ALL state=present 
 
-- name: Ensure user does not have unnecessary privileges 
-  sudo_user: postgres 
-  postgresql_user: name={{ db_user }} role_attr_flags=NOSUPERUSER,NOCREATEDB state=present
+#- name: Ensure user does not have unnecessary privileges 
+#  sudo_user: postgres 
+#  postgresql_user: name={{ db_user }} role_attr_flags=NOSUPERUSER,NOCREATEDB state=present
 
 - name: Ensure postgres have uuid-ossp extension
   sudo_user: postgres
