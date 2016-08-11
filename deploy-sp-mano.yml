@@ -43,7 +43,8 @@
       state: started
       env:
         broker_host: "{{ ansible_eth0.ipv4.address }}"
-        broker_url: "amqp://guest:guest@{{ ansible_eth0.ipv4.address }}/%2F"
+        broker_url: amqp://guest:guest@{{ ansible_eth0.ipv4.address }}/%2F
+        broker_uri: amqp://guest:guest@{{ ansible_eth0.ipv4.address }}:5672/%2F
         repo_host: "{{ ansible_eth0.ipv4.address }}"
         repo_port: "5432"
         repo_user: "sonatatest"

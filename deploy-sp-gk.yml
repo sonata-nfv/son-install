@@ -24,7 +24,7 @@
         GK_URL: "10.38.0.1:32001"
       state: started
       exposed_ports: 80
-      ports: "80:80"
+      ports: "81:80"
 
   - name: GATEKEEPER BSS - running Docker containers
     docker:
