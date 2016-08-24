@@ -1,0 +1,11 @@
+---
+
+- include: upgrade-sp4ii.yml
+  when: ops == "II"
+
+- include: upgrade-sp4qi.yml
+  when: ops == "QI"
+
+- include: upgrade-sp4di.yml
+  when: ops == "DI"
+

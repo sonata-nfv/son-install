@@ -1,0 +1,6 @@
+---
+- name: create a MySQL database for the SON-SP VM appliance
+  hosts: "{{ targets }}"
+  sudo: yes
+  roles:
+  - mysql

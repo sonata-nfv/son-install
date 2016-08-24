@@ -1,0 +1,33 @@
+---
+
+#- include: deploy-common.yml
+
+#- include: deploy-nginx.yml
+
+#- include: deploy-pgsql.yml
+
+#- include: deploy-mysql.yml
+
+#- include: deploy-mongo.yml
+
+#- include: deploy-docker.yml
+
+# deploy RabbitMQ message bus
+- include: deploy-sp-broker.yml
+  when: svc == "sp-broker"
+
+# deploy Gatekepper module
+- include: deploy-sp-gk.yml
+  when: svc == "sp-gk"
+
+# deploy Repositories
+- include: deploy-sp-repos.yml
+  when: svc == "sp-repos"
+
+# deploy MANO framework
+- include: deploy-sp-mano.yml
+  when: svc == "sp-mano"
+
+# deploy Monitoring
+- include: deploy-sp-monit.yml
+  when: svc == "sp-monit"

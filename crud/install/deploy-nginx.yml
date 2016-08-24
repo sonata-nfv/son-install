@@ -1,0 +1,6 @@
+---
+- name: deploy NGINX to the SON-SP VM appliance
+  hosts: "{{ targets }}"
+  sudo: yes
+  roles:
+  - nginx

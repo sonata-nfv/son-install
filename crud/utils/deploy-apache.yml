@@ -1,0 +1,6 @@
+---
+- name: "deploy Apache to the SON-SP VM appliance"
+  hosts: "{{ targets }}"
+  sudo: yes
+  roles:
+  - apache

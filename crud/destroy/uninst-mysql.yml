@@ -1,0 +1,36 @@
+---
+- name: UNINSTALLING MySQL database server
+  hosts: "{{ targets }}"
+  sudo: yes
+  tasks:
+
+  - name: check if the MySQL service exists
+    stat: path=/etc/init.d/mysql
+    register: service_status
+
+  - name: ensure the MySQL service is stopped
+    service: name=mysql state=stopped enabled=no
+    when: service_status.stat.exists
+    register: service_stopped
+
+  - name: removing packages
+    apt: name={{ item }} update_cache=true purge=yes state=absent
+    with_items:
+    - mysql-server
+    when: ansible_distribution == "Ubuntu"
+
+  - name: install MySQL package on Redhat/CentOS machine
+    yum: name={{ item }} state=present
+    with_items:
+    - mariadb
+    - mariadb-server
+    when: ansible_distribution == "CentOS"
+
+  - name: removing datafiles
+    file: path={{ item }} state=absent
+    with_items: 
+    - /var/run/mysqld
+    - /var/lib/mysql/
+    - /var/log/mysql/
+    - /usr/share/mysql/
+    - /etc/mysql/

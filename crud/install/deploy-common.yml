@@ -1,0 +1,7 @@
+---
+- name: deploy useful tools and common libraries to the SON-SP VM appliance 
+  hosts: "{{ targets }}"
+  sudo: yes
+  roles:
+  - common
+  - ntp

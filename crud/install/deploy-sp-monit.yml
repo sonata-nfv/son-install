@@ -1,0 +1,77 @@
+---
+- name: deploy Docker containers from private Registry to the SP VM
+  hosts: "{{ targets }}"
+  vars:
+    upassword: sonata
+    urootpw: 1234
+    dbname: monitoring
+    dbuser: monitoringuser
+  sudo: yes
+  tasks:
+
+# Running the Sonata MONITORY Docker Images
+
+  - name: MONIT InfluxDB  - running Docker containers
+    docker_container:
+      name: son-monitor-influxdb
+      image: sonatanfv/son-monitor-influxdb
+      state: started
+      ports: 8086:8086
+
+
+  - name: MONIT MySQL - running Docker containers
+    docker_container:
+      name: son-monitor-mysql
+      image: sonatanfv/son-monitor-mysql
+      env:
+        MYSQL_ROOT_PASSWORD: "{{ urootpw }}"
+        MYSQL_USER: "{{ dbuser }}"
+        MYSQL_PASSWORD: "{{ upassword }}"
+        MYSQL_DATABASE: "{{ dbname }}"
+      state: started
+      ports: 3306:3306
+
+  - name: MONIT Push Gateway - running Docker containers
+    docker_container:
+      name: son-monitor-pushgateway
+      image: sonatanfv/son-monitor-pushgateway
+      state: started
+      ports: 9091:9091
+
+  - name: MONIT PROMETHEUS - running Docker containers
+    docker:
+      name: son-monitor-prometheus
+      image: sonatanfv/son-monitor-prometheus
+      state: started
+      env:
+        RABBIT_URL: "{{ ansible_eth0.ipv4.address }}:5672"
+        EMAIL_PASS: "czBuQHRAX21vbl9zeXNfMTY="
+      ports: 
+      - 9090:9090
+      - 9089:9089
+      extra_hosts:
+       influx: "{{ ansible_eth0.ipv4.address }}"
+       pushgateway: "{{ ansible_eth0.ipv4.address }}"
+
+  - name: MONIT MANAGER - running Docker containers
+    docker:
+      name: son-monitor-manager
+      image: sonatanfv/son-monitor-manager
+      state: started
+      ports: 8000:8000
+      extra_hosts:
+       mysql: "{{ ansible_eth0.ipv4.address }}"
+       prometheus: "{{ ansible_eth0.ipv4.address }}"
+
+  - name: MONIT Probe - running Docker containers
+    docker:
+      name: son-monitor-probe
+      image: sonatanfv/son-monitor-probe
+      state: started
+      env:
+       NODE_NAME: "{{ ansible_hostname }}"
+       PROM_SRV: "http://{{ ansible_eth0.ipv4.address }}:9091/metrics"
+      volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/:/rootfs:ro"
+      - "/proc:/myhost/proc"

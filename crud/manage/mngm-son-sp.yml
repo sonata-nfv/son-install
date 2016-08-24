@@ -1,0 +1,11 @@
+---
+
+- include: manage-sp4ii.yml
+  when: ops == "II"
+
+- include: manage-sp4qi.yml
+  when: ops == "QI"
+
+- include: manage-sp4di.yml
+  when: ops == "DI"
+

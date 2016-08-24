@@ -1,0 +1,16 @@
+---
+
+- include: uninst-sp-broker.yml
+  when: svc == "ALL" or svc == "BROKER"
+
+
+- include: uninst-apache.yml
+
+- include: uninst-nginx.yml
+
+- include: uninst-mysql.yml
+
+- include: uninst-pgsql.yml
+
+- include: uninst-mongo.yml
+

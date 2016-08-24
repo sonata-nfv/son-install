@@ -1,0 +1,6 @@
+---
+# vars file for docker
+#svc_name:
+#hosts_list:
+registry_user: sonata-nfv
+registry_pass: s0n@t@

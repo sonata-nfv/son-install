@@ -1,0 +1,8 @@
+---
+- name: create a PostgreSQL database server for the SON-SP VM appliance
+  hosts: "{{ targets }}"
+  sudo: yes 
+  vars_files:
+  - roles/postgresql/vars/main.yml 
+  roles:
+  - postgresql

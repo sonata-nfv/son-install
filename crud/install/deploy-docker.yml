@@ -1,0 +1,6 @@
+---
+- name: deploy Docker engine to the SON-SP VM appliance
+  hosts: "{{ targets }}"
+  sudo: yes
+  roles:
+  - docker

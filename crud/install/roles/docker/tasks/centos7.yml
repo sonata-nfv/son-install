@@ -1,0 +1,24 @@
+---
+
+- name: install Docker dependency libraries
+  yum: name={{ item }} state=present update_cache=yes
+  with_items:
+  - git
+  - python-pip
+
+- name: add Docker repo to YUM
+  copy: src=docker.repo dest=/etc/yum.repos.d/docker.repo owner=root group=root mode=0644
+
+- name: install Docker on CentOS7
+  yum: name=docker-engine state=present update_cache=yes
+
+- name: add user to Docker group
+  user: name=sonata shell=/bin/bash groups=docker append=yes
+
+- name: "Configuring Docker Options"
+  copy: src=docker.conf dest=/etc/systemd/system/docker.service.d/docker.conf owner=root group=root mode=0644
+#  notify:
+#  - restart docker
+
+- name: start Docker daemon
+  service: name=docker state=restarted enabled=yes

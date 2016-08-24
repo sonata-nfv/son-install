@@ -1,0 +1,16 @@
+---
+
+- name: previous install APTitude
+  apt: name=aptitude state=latest
+
+- name: upgrade all packages to the latest version
+  apt: upgrade=yes update_cache=yes
+
+- name: install useful operating system tools
+  apt: name={{ item }} state=latest
+  with_items:
+  - sysstat
+  - nmap
+  - tree
+  - htop
+  - policycoreutils
