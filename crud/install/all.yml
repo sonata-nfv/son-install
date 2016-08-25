@@ -1,0 +1,33 @@
+---
+# upgrade packages and deploy useful tools
+- include: common.yml
+
+# deploy web server 
+- include: nginx.yml
+
+# deploy MySQL database engine
+- include: pgsql.yml
+
+# deploy MySQL database engine
+- include: mysql.yml
+
+# deploy MongoDB engine
+- include: mongo.yml
+
+# deploy Docker engine
+- include: docker.yml
+
+# deploy RabbitMQ message bus
+- include: broker.yml
+
+# deploy Gatekepper module
+- include: gk.yml
+
+# deploy Repositories
+- include: repos.yml
+
+# deploy MANO framework
+- include: mano.yml
+
+# deploy Monitoring
+- include: monit.yml

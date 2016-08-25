@@ -1,29 +1,18 @@
 ---
-
-# This playbook is structured in 4 layers of parameters
-# ops = INST | MNGM | UPGR | DELE
-# ver = <SP_VERSION> or <SVC_VERSION>
-# svc = ALL | SVC_ID
-# action = START | STOP | RESTART | KILL
-
-
 - name: SONATA-NVF Service Platform CRUD 
   hosts: "{{ targets }}"
   sudo: yes
-#  vars:
-#    ops: INST
-#    ver: VERSION
-#    svc: ALL
 
-- include: install/inst-son-sp.yml
-  when: ops == "INST"
+#  - include: "{{ operation }}/{{ service }}.yml"
 
-- include: manage/mngm-son-sp.yml
-  when: ops == "MNGM"
+- include: install/{{ service }}.yml
+  when: operation == "install"
 
-- include: upgrade/upgr-son-sp.yml
-  when: ops == "UPGR"
+- include: manage/{{ service }}.yml
+  when: operation == "manage"
 
-- include: destroy/dele-son-sp.yml
-  when: ops == "DELE"
+- include: upgrade/{{ service }}.yml
+  when: operation == "upgrade"
 
+- include: destroy/{{ service }}.yml
+  when: operation == "delete"
