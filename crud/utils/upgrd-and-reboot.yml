@@ -1,6 +1,6 @@
 ---
 - name: Upgrade the target machines and reboot
-  hosts: "{{ targets }}"
+  hosts: "{{ target }}"
   sudo: yes
   tasks: 
 

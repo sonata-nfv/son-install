@@ -26,7 +26,7 @@ Example Playbook
 ----------------
 
 To run the 'rabbitmq' playbook, just run:
-$ ansible-playbook deploy-rabbitmq.yml -e targets='servername' -vvvv
+$ ansible-playbook deploy-rabbitmq.yml -e target='servername' -vvvv
 
 License
 -------

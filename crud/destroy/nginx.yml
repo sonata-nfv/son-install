@@ -1,7 +1,7 @@
 ---
 
 - name: UNINSTALLING NGINX database server
-  hosts: "{{ targets }}"
+  hosts: "{{ target }}"
   sudo: yes
   tasks:
 

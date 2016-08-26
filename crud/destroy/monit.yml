@@ -1,6 +1,6 @@
 ---
 - name: remove Docker containers from the SP VM
-  hosts: "{{ targets }}"
+  hosts: "{{ target }}"
   sudo: yes
   tasks:
 

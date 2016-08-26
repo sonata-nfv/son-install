@@ -1,6 +1,6 @@
 ---
 - name: SONATA-NVF Service Platform CRUD 
-  hosts: "{{ targets }}"
+  hosts: "{{ target }}"
   sudo: yes
 
 #  - include: "{{ operation }}/{{ service }}.yml"

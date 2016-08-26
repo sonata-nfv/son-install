@@ -1,6 +1,6 @@
 ---
-- name: set NTP on the SON-SP VM appliance
-  hosts: "{{ targets }}"
+- name: set NTP on the target machine
+  hosts: "{{ target }}"
   sudo: yes
   roles:
   - ntp

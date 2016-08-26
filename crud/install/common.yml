@@ -1,6 +1,6 @@
 ---
-- name: "deploy useful tools and common libraries to the VM appliance" 
-  hosts: "{{ targets }}"
+- name: deploy useful tools and common libraries to the 'target' machine
+  hosts: "{{ target }}"
   sudo: yes
   roles:
     - common

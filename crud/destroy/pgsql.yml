@@ -1,6 +1,6 @@
 ---
 - name: UNINSTALLING PostgreSQL database server
-  hosts: "{{ targets }}"
+  hosts: "{{ target }}"
   sudo: yes
   tasks:
 

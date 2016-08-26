@@ -1,7 +1,7 @@
 ---
 
 - name: UNINSTALLING NTP
-  hosts: "{{ targets }}"
+  hosts: "{{ target }}"
   sudo: yes
   tasks:
 

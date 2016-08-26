@@ -1,6 +1,6 @@
 ---
-- name: deploy TERRAFORM to the SON-SP VM appliance
-  hosts: "{{ targets }}"
+- name: deploy TERRAFORM to the VM appliance
+  hosts: "{{ target }}"
   sudo: yes
   tasks:
 

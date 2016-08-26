@@ -8,7 +8,7 @@ Target machines running:
 
 Usage syntax:
 
-$ ansible-playbook deploy-docker.yml -e targets=<yourInventoryHostsAggregation>
+$ ansible-playbook deploy-docker.yml -e target='yourInventoryHostsAggregation'
 
 Validation using an ad-hoc command:
 

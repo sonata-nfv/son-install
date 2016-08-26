@@ -1,6 +1,6 @@
 ---
 - name: Upgrade the target machines (without rebooting)
-  hosts: "{{ targets }}"
+  hosts: "{{ target }}"
   sudo: yes
   tasks: 
 

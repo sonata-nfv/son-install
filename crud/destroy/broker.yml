@@ -1,6 +1,6 @@
 ---
 - name: remove the Sonata Message Bus (based on RabbitMQ) from the SON-SP VM appliance
-  hosts: "{{ targets }}"
+  hosts: "{{ target }}"
   sudo: yes
   tasks:
 

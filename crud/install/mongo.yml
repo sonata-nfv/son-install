@@ -1,6 +1,6 @@
 ---
-- name: create a MongoDB for the SON-SP VM appliance
-  hosts: "{{ targets }}"
+- name: create a MongoDB for the target machine
+  hosts: "{{ target }}"
   sudo: yes
   roles:
   - mongo

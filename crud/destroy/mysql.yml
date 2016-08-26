@@ -1,6 +1,6 @@
 ---
 - name: UNINSTALLING MySQL database server
-  hosts: "{{ targets }}"
+  hosts: "{{ target }}"
   sudo: yes
   tasks:
 

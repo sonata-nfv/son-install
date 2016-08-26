@@ -1,6 +1,6 @@
 ---
 - name: UNINSTALLING Docker 
-  hosts: "{{ targets }}"
+  hosts: "{{ target }}"
   sudo: yes
   tasks:
 

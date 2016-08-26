@@ -1,7 +1,7 @@
 ---
 
 - name: UNINSTALLING APACHE
-  hosts: "{{ targets }}"
+  hosts: "{{ target }}"
   sudo: yes
   tasks:
 

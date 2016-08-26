@@ -1,6 +1,6 @@
 ---
-- name: "deploy OTRS 5 HelpDesk to the SON-SP VM appliance"
-  hosts: "{{ targets }}"
+- name: "deploy OTRS 5 HelpDesk to the VM appliance"
+  hosts: "{{ target }}"
   sudo: yes
   roles:
   - apache

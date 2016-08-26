@@ -1,6 +1,6 @@
 ---
 - name: deploy Docker containers from private Registry to the SP VM
-  hosts: "{{ targets }}"
+  hosts: "{{ target }}"
   vars:
     upassword: sonata
     urootpw: 1234

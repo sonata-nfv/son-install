@@ -1,6 +1,6 @@
 ---
 - name: UNINSTALLING MongDB database server
-  hosts: "{{ targets }}"
+  hosts: "{{ target }}"
   sudo: yes
   tasks:
 

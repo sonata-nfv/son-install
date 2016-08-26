@@ -1,6 +1,6 @@
 ---
 - name: deploy MANO FRAMEWORK as Docker containers from private Registry to the SP VM appliance
-  hosts: "{{ targets }}"
+  hosts: "{{ target }}"
   sudo: yes
   tasks:
 
