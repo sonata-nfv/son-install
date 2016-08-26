@@ -6,17 +6,17 @@ Include CRUD (Create, Read/manage, Upgrade, Destroy) CLI functionality to SP SON
 The SP CLI is invoked with the following parameters:
 * target
 * operation
-* services
+* service
 * action
 
 
-### targets
+### target
 
 * localhost - to execute on the same machine
 * alias - the referenced in the hosts file (Inventory) to the machine (or group of machines)
 
 
-### operations
+### operation
 
 The available type of Operations are (OPS_TYPE):
 * "install" - contains the playbooks to deploy a SP from the scratch
@@ -25,52 +25,52 @@ The available type of Operations are (OPS_TYPE):
 * "destroy" - contains the playbooks to uninstall a SP or its individual components
 
 
-### services 
+### service
 
 The available type of Services are (SVC_ID):
-* GK:
-** "gtk-pkg"
-** "gtk-srv"
-** "gtk-api"
-** "gtk-bss"
-** "gtk-gui"
-** "gtk-fnct"
-** "gtk-rec"
-** "gtk-vim"
-** (default: "gtk-all")
-* REPO: 
-** "catalog"
-* MANO:
-** "slm"
-** "ssm"
-** "fsm"
-** "plugin-mgr"
-** (default: "mano-all")
-* IFTA:
-** "ifta-vim"
-** "ifta-wim"
-** (default: "ifta-all")
-* MON:
-** "mon-srv"
-** "mon-mgr"
-** "mon-pushgw"
-** (default: "mon-all")
-* LOG:
-** "log-srv"
-** "log-elk"
-** "log-graylog"
-** (default: "log-all")
-* ALL:
-** "all" (apply to all SP services)
+ GK:
+* "gtk-pkg"
+* "gtk-srv"
+* "gtk-api"
+* "gtk-bss"
+* "gtk-gui"
+* "gtk-fnct"
+* "gtk-rec"
+* "gtk-vim"
+* "gtk-all" (default)
+ REPO: 
+* "catalog"
+ MANO:
+* "slm"
+* "ssm"
+* "fsm"
+* "plugin-mgr"
+* "mano-all" (default)
+ IFTA:
+* "ifta-vim"
+* "ifta-wim"
+* "ifta-all" (default)
+ MON:
+* "mon-srv"
+* "mon-mgr"
+* "mon-pushgw"
+* "mon-all" (default)
+ LOG:
+* "log-srv"
+* "log-elk"
+* "log-graylog"
+* "log-all" (default)
+ ALL:
+* "all" (apply to all SP services)
 
 
-### versions (for Y2 - to be implemented)
+### version (for Y2 - to be implemented)
 
-The 'ver' parameter designates the SP (or SVC) version to apply ("install", "upgrade", "remove")
-* ver: VERSION (default: 'latest')
+The 'version' parameter designates the SP (or SVC) version to apply ("install", "upgrade", "remove")
+* <VERSION_ID> (default: 'latest')
 
 
-### actions
+### action
 
 The available actions for MANAGE operations are:
 * start, stop, restart, status
