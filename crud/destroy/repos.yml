@@ -1,0 +1,13 @@
+---
+- name: remove Docker containers REPOSITORIES from the SP VM appliance
+  hosts: "{{ targets }}"
+  sudo: yes
+  tasks:
+
+# Removing the Sonata REPOs Docker Images
+
+  - name: REPOs - running Docker containers
+    docker:
+      name: son-catalogue-repos
+      state: absent
+

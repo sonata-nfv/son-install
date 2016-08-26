@@ -1,0 +1,31 @@
+---
+
+- include: broker.yml
+  when: svc == "all" or svc == "broker"
+
+- include: gk.yml
+  when: svc == "all" or svc == "gk"
+
+# son-gui, son-bss, son-gtkpkg, son-gtksrv, son-gtkfnct, son-gtkrec, son-gtkvim, son-gtkapi
+
+- include: mano.yml
+  when: svc == "all" or svc == "mano"
+
+- include: docker.yml
+  when: svc == "all" or svc == "docker"
+
+- include: apache.yml
+  when: svc == "all" or svc == "apache"
+
+- include: nginx.yml
+  when: svc == "all" or svc == "nginx"
+
+- include: mysql.yml
+  when: svc == "all" or svc == "mysql"
+
+- include: pgsql.yml
+  when: svc == "all" or svc == "pgsql"
+
+- include: mongo.yml
+  when: svc == "all" or svc == "mongo"
+
