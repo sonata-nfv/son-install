@@ -1,8 +1,13 @@
 ---
 - name: deploy a PostgreSQL database server to the 'target' machine
   hosts: "{{ target }}"
-  sudo: yes 
-  vars_files:
-  - roles/postgresql/vars/main.yml 
-  roles:
-  - postgresql
+  sudo: yes
+  tasks:
+  - name: deploy postgres container
+    docker_container:
+      name: postgres
+      image: postgres
+      env:
+        POSTGRES_PASSWORD=sonata
+      state: started
+      ports: 5432:5432
