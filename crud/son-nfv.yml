@@ -15,4 +15,4 @@
   when: operation == "upgrade"
 
 - include: destroy/{{ service }}.yml
-  when: operation == "delete"
+  when: operation == "destroy"
