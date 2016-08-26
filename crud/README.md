@@ -1,9 +1,9 @@
 Include CRUD (Create, Read/manage, Upgrade, Destroy) CLI functionality to SP SON-NFV Operations - experimental version (PoC)
 
 
-## SP playbook structure
+## SP playbook parameters
 
-The SP CLI is invoked with the following parameters:
+The SP CLI tool 'son-nfv' is invoked with the following parameters:
 * target
 * operation
 * service
@@ -28,6 +28,7 @@ The available type of Operations are (OPS_TYPE):
 ### service
 
 The available type of Services are (SVC_ID):
+
 GK:
 * "gtk-pkg"
 * "gtk-srv"
@@ -38,41 +39,47 @@ GK:
 * "gtk-rec"
 * "gtk-vim"
 * "gtk-all" (default)
+
 REPO: 
 * "catalog"
+
 MANO:
 * "slm"
 * "ssm"
 * "fsm"
 * "plugin-mgr"
 * "mano-all" (default)
+
 IFTA:
 * "ifta-vim"
 * "ifta-wim"
 * "ifta-all" (default)
+
 MON:
 * "mon-srv"
 * "mon-mgr"
 * "mon-pushgw"
 * "mon-all" (default)
+
 LOG:
 * "log-srv"
 * "log-elk"
 * "log-graylog"
 * "log-all" (default)
+
 ALL:
 * "all" (apply to all SP services)
 
 
 ### version (for Y2 - to be implemented)
 
-The 'version' parameter designates the SP (or SVC) version to apply ("install", "upgrade", "remove")
-* <VERSION_ID> (default: 'latest')
+The 'version' parameter designates the SP or SVC version to apply on install", "upgrade", "remove" operations
+* VERSION_ID (default: 'latest')
 
 
 ### action
 
-The available actions for MANAGE operations are:
+The action parameter is only used at MANAGE operations:
 * start, stop, restart, status
 
 
