@@ -28,7 +28,7 @@ The available type of Operations are (OPS_TYPE):
 ### service
 
 The available type of Services are (SVC_ID):
- GK:
+GK:
 * "gtk-pkg"
 * "gtk-srv"
 * "gtk-api"
@@ -38,29 +38,29 @@ The available type of Services are (SVC_ID):
 * "gtk-rec"
 * "gtk-vim"
 * "gtk-all" (default)
- REPO: 
+REPO: 
 * "catalog"
- MANO:
+MANO:
 * "slm"
 * "ssm"
 * "fsm"
 * "plugin-mgr"
 * "mano-all" (default)
- IFTA:
+IFTA:
 * "ifta-vim"
 * "ifta-wim"
 * "ifta-all" (default)
- MON:
+MON:
 * "mon-srv"
 * "mon-mgr"
 * "mon-pushgw"
 * "mon-all" (default)
- LOG:
+LOG:
 * "log-srv"
 * "log-elk"
 * "log-graylog"
 * "log-all" (default)
- ALL:
+ALL:
 * "all" (apply to all SP services)
 
 
