@@ -3,13 +3,13 @@
 - include: common.yml
 
 # deploy web server 
-- include: nginx.yml
+#- include: nginx.yml
 
-# deploy MySQL database engine
+# deploy postgreSQL database engine
 - include: pgsql.yml
 
 # deploy MySQL database engine
-- include: mysql.yml
+#- include: mysql.yml
 
 # deploy MongoDB engine
 - include: mongo.yml
