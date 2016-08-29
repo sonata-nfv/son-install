@@ -6,15 +6,15 @@
 #- include: nginx.yml
 
 # deploy MySQL database engine
-- include: pgsql.yml
-
-# deploy MySQL database engine
 #- include: mysql.yml
 
-# deploy MongoDB engine
+# deploy postgreSQL database engine
+- include: pgsql.yml
+
+# deploy MongoDB database engine
 - include: mongo.yml
 
-# deploy Docker engine
+# deploy Docker container engine
 - include: docker.yml
 
 # deploy RabbitMQ message bus
