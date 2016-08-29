@@ -1,6 +1,4 @@
 ---
-# upgrade packages and deploy useful tools
-- include: common.yml
 
 # deploy web server 
 #- include: nginx.yml

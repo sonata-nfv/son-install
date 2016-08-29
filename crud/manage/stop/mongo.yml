@@ -1,0 +1,10 @@
+---
+
+- name: stopping MongDB database services
+  hosts: "{{ target }}"
+  sudo: yes
+  tasks:
+
+
+  - name: stop MongoDB services
+    service: name=mongod state=stopped 

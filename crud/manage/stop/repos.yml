@@ -1,0 +1,13 @@
+---
+- name: deploy Docker containers REPOSITORIES from private Registry to the SP VM appliance
+  hosts: "{{ target }}"
+  sudo: yes
+  tasks:
+
+# Stopping the Sonata REPOs Docker Images
+
+  - name: REPOs - stopping Docker containers
+    docker:
+      name: son-catalogue-repos
+      state: stopped
+

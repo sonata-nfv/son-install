@@ -31,6 +31,6 @@
     with_items: 
     - /var/run/mysqld
     - /var/lib/mysql/
-    - /var/log/mysql/
+    - /var/log/mysql*
     - /usr/share/mysql/
     - /etc/mysql/

@@ -1,10 +1,10 @@
 ---
 # tasks file for mysql
 - name: installing MYSQL for CentOS
-  include: centos.yml
-  when: ansible_os_family == "RedHat"
+  include: "{{ ansible_os_family }}.yml"
+#  when: ansible_os_family == "RedHat"
  
-- name: installing MYSQL for Ubuntu
-  include: ubuntu.yml
-  when: ansible_os_family == "Debian"
+#- name: installing MYSQL for Ubuntu
+#  include: ubuntu.yml
+#  when: ansible_os_family == "Debian"
 

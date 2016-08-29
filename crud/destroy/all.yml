@@ -1,31 +1,31 @@
 ---
 
-- include: broker.yml
-  when: svc == "all" or svc == "broker"
-
 - include: gk.yml
-  when: svc == "all" or svc == "gk"
+  when: service == "all" or service == "gk"
 
 # son-gui, son-bss, son-gtkpkg, son-gtksrv, son-gtkfnct, son-gtkrec, son-gtkvim, son-gtkapi
 
 - include: mano.yml
-  when: svc == "all" or svc == "mano"
+  when: service == "all" or service == "mano"
+
+- include: monit.yml
+  when: service == "all" or service == "monit"
+
+- include: broker.yml
+  when: service == "all" or service == "broker"
 
 - include: docker.yml
-  when: svc == "all" or svc == "docker"
+  when: service == "all" or service == "docker"
 
-- include: apache.yml
-  when: svc == "all" or svc == "apache"
+#- include: nginx.yml
+#  when: service == "all" or service == "nginx"
 
-- include: nginx.yml
-  when: svc == "all" or svc == "nginx"
-
-- include: mysql.yml
-  when: svc == "all" or svc == "mysql"
+#- include: mysql.yml
+#  when: service == "all" or service == "mysql"
 
 - include: pgsql.yml
-  when: svc == "all" or svc == "pgsql"
+  when: service == "all" or service == "pgsql"
 
 - include: mongo.yml
-  when: svc == "all" or svc == "mongo"
+  when: service == "all" or service == "mongo"
 

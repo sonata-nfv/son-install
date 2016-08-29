@@ -8,7 +8,7 @@
 - include: install/{{ service }}.yml
   when: operation == "install"
 
-- include: manage/{{ service }}.yml
+- include: manage/{{ action }}/{{ service }}.yml
   when: operation == "manage"
 
 - include: upgrade/{{ service }}.yml
@@ -16,3 +16,4 @@
 
 - include: destroy/{{ service }}.yml
   when: operation == "destroy"
+
