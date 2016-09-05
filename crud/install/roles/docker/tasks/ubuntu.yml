@@ -10,16 +10,29 @@
   with_items:
   - apparmor
   - aptitude
-  - git
   - python-pip
   - python-dev
   - python-setuptools
+  - python-httplib2
+  - python-keyczar
+  - python-pkg-resources
+  - git
 
 - name: "Install PIP"
   easy_install: name=pip
 
 - name: "Install docker-py library on the remote server"
-  pip: name=docker-py state=present
+  pip: name={{ item }}  state=present
+  with_items:
+  - paramiko
+  - jinja2
+  - PyYAML
+  - setuptools
+  - pycrypto>=2.6
+  - six
+  - requests
+  - docker-py
+
 
 #- name: on Trusty it is recommended to install the linux-image-extra kernel package
 #  apt: name=linux-image-extra-$(uname -r) state=present update_cache=yes
@@ -68,14 +81,8 @@
   notify:
   - restart docker
 
-- name: "Install PIP"
-  easy_install: name=pip
-
-- name: "Install docker-py library on the remote server"
-  pip: name=docker-py state=present
-
-- name: "The docker_service module also requires docker-compose"
-  pip: name=docker-compose state=present
+#- name: "The docker_service module also requires docker-compose"
+#  pip: name=docker-compose state=present
 
 - name: start Docker daemon
   service: name=docker state=restarted enabled=yes
