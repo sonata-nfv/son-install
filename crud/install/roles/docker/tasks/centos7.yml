@@ -29,8 +29,11 @@
 - name: add user to Docker group
   user: name=sonata shell=/bin/bash groups=docker append=yes
 
-# create a directory if it doesn't exist
-- file: path=/etc/systemd/system/docker.service.d/ state=directory mode=0755
+- name: add Docker configuration options
+  copy: src=docker dest=/etc/sysconfig/docker owner=root group=root mode=0644
+
+- name: create a directory if it doesn't exist
+  file: path=/etc/systemd/system/docker.service.d/ state=directory mode=0755
 
 - name: "Configuring Docker Options"
   copy: src=docker.conf dest=/etc/systemd/system/docker.service.d/docker.conf owner=root group=root mode=0644
