@@ -2,6 +2,9 @@
 # upgrade packages and deploy useful tools
 - include: common.yml
 
+# deploy Docker container engine
+- include: docker.yml
+
 # deploy web server 
 #- include: nginx.yml
 
@@ -9,13 +12,10 @@
 #- include: mysql.yml
 
 # deploy postgreSQL database engine
-- include: pgsql.yml
+#- include: pgsql.yml
 
 # deploy MongoDB database engine
 - include: mongo.yml
-
-# deploy Docker container engine
-- include: docker.yml
 
 # deploy RabbitMQ message bus
 - include: broker.yml
