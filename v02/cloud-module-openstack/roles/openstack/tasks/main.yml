@@ -1,0 +1,28 @@
+---
+# tasks file for openstack-ansible
+
+- name: launch an Openstack 'nova-compute' instance
+  os_server:
+    state: present
+    auth:
+      auth_url: http://172.31.6.4:5000/v2.0/
+      username: son-qual
+      password: S0n-qu@l
+      project_name: son-qual
+    name: "{{ vm_name }}"
+    #region_name: RegionOne
+    availability_zone: nova
+    #image: "Ubuntu 14.04.5 (Trusty)"
+    #image: "trusty-cloud-image"
+    image: "7129fb44-a239-458c-a45f-f93342ed458c"
+    key_name: son-ift-ptin
+    timeout: "180"
+    flavor: m1.small
+    security_groups: son-qual-secgrp
+    nics:
+      - net-id: "ffdf5f4f-eeee-49ac-ac34-ccaf814bfb84"
+#      - net-name: "son-qual-subnet"
+    auto_ip: yes
+    userdata:
+      - userdata_ansible_{{ ansible_distribution_release }}.txt
+      - userdata_openstackclients_{{ ansible_distribution_release  }}.txt
