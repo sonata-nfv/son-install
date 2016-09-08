@@ -1,4 +1,10 @@
 #!/bin/bash
+wget https://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm
+sudo rpm -iUhv epel-release-7-8.noarch.rpm
+sudo yum update
+sudo yum install htop -y
+sudo yum install ansible -y
+sudo yum install git -y
 sudo yum groupinstall "Development tools" -y
 sudo yum install python-devel python-pip -y
 sudo yum install openssl-devel -y

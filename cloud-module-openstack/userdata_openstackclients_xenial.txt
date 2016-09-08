@@ -1,5 +1,6 @@
-apt-get install openssl-dev -y
-apt-get install libffi-dev -y
+#!/bin/bash
+sudo apt-get install openssl-dev -y
+sudo apt-get install libffi-dev -y
 pip install munch
 pip install keystoneauth1
 pip install dogpile
@@ -14,7 +15,7 @@ pip install python-troveclient
 pip install python-designateclient
 pip install python-ironicclient
 
-yum install wget -y
+sudo apt-get install wget -y
 wget https://pypi.python.org/packages/cc/6a/51fdde55a5ab2bb74ab123e5b8003587bd883ee417b51e389b7986d0f545/shade-1.12.1.tar.gz#md5=7a49274c19fef9a17dda8465db6b37eb
 tar zxvf shade-1-12-1.tar.gz
 cd shade-1.12.1
