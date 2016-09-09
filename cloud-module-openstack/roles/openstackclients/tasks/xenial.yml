@@ -1,0 +1,18 @@
+---
+
+- name: previous install APTitude
+  apt: name=aptitude state=latest
+
+- name: upgrade all packages to the latest version
+  apt: upgrade=yes update_cache=yes
+
+- name: install required libraries and tools for PIP
+  apt: name={{ item }} state=latest
+  with_items:
+  - build-essential
+  - python-dev
+  - python-pip
+  - openssl-dev
+  - libffi-dev
+  - wget
+

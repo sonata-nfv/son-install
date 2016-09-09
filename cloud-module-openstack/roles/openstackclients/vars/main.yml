@@ -1,0 +1,4 @@
+---
+# vars file for openstackclients
+#deploy_user: "{{ ansible_user_id }}"
+tarball_version: 1.12.1

@@ -1,0 +1,15 @@
+---
+
+# Redhat
+
+- name:  upgrade all packages to the latest version
+  yum: name='*' state=latest update_cache=yes
+
+- name: install required libraries and tools for PIP
+  yum: name={{ item }} state=latest
+  with_items:
+    - python-devel
+    - python-pip
+    - openssl-devel
+    - libffi-devel
+    - wget

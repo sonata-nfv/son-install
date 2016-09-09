@@ -1,0 +1,64 @@
+---
+
+- name: previous install APTitude
+  apt: name=aptitude state=latest
+
+- name: upgrade all packages to the latest version
+  apt: upgrade=yes update_cache=yes
+
+- name: install required libraries and tools for PIP
+  apt: name={{ item }} state=latest
+  with_items:
+  - build-essential
+  - python-setuptools
+  - python-dev
+  - python-pip
+  - openssl
+  - libssl-dev
+  - libffi-dev
+  - wget
+
+- name: "Install PIP"
+  easy_install: name=pip
+
+- name: "Install dependency libraries on the remote server"
+  pip: name={{ item }}  state=present
+  with_items:
+  - PyYAML
+  - setuptools
+  - pycrypto>=2.6
+  - six
+  - requests
+#
+  - munch
+  - monotonic
+  - cryptography
+  - oslo.config
+  - oslo.config --upgrade
+  #- concurrent.futures
+  #- futures
+  #- concurrent
+  - warlock
+#
+  - python-openstackclient
+  - python-heatclient
+  - python-magnumclient
+  - python-neutronclient
+  - python-troveclient
+  - python-designateclient
+  - python-ironicclient
+
+# Install 'shade' python module (needed by Ansible Cloud module)
+- name: Gets 'shade' tarball
+#  remote_user: "{{ deploy_user }}"
+#  sudo: yes
+#  sudo_user: "{{ deploy_user }}"
+  get_url:
+    url="https://pypi.python.org/packages/cc/6a/51fdde55a5ab2bb74ab123e5b8003587bd883ee417b51e389b7986d0f545/shade-{{ tarball_version }}.tar.gz#md5=7a49274c19fef9a17dda8465db6b37eb"
+    dest="/{{ ansible_user_id }}/"
+  register: new_archive
+
+- name: install tarball
+  pip: name='file:///{{ ansible_user_id }}/shade-{{ tarball_version }}.tar.gz'
+  when: new_archive|changed
+

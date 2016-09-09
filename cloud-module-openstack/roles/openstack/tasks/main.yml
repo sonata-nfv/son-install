@@ -5,27 +5,31 @@
   os_server:
     state: present
     auth:
-      auth_url: http://172.31.6.4:5000/v2.0/
-      username: son-qual
-      password: S0n-qu@l
-      project_name: son-qual
+      auth_url: "{{ os_auth_url }}"
+      username: "{{ os_user }}"
+      password: "{{ os_pswd }}"
+      project_name: "{{ os_proj}}"
     name: "{{ vm_name }}"
     #region_name: RegionOne
     availability_zone: nova
     #image: "Ubuntu 14.04.5 (Trusty)"
-    #image: "trusty-cloud-image"
     image: "7129fb44-a239-458c-a45f-f93342ed458c"
-    key_name: son-ift-ptin
+    key_name: "{{ os_priv_key }}"
     timeout: "180"
     flavor: m1.small
-    security_groups: son-qual-secgrp
+    security_groups: "{{ os_secur_groups }}"
     nics:
       - net-id: "ffdf5f4f-eeee-49ac-ac34-ccaf814bfb84"
 #      - net-name: "son-qual-subnet"
     auto_ip: yes
     meta:
       hostname: "{{ vm_name }}"
-    userdata:
-      - userdata_all_{{ ansible_distribution_release }}.txt
-      #- userdata_ansible_{{ ansible_distribution_release }}.txt
-      #- userdata_openstackclients_{{ ansible_distribution_release  }}.txt
+    userdata: userdata_ansible_{{ ansible_distribution_release }}.txt
+  register: sonqualvm
+
+- add_host:
+    name: son-qual-vm
+    groups: qualification
+    ansible_host: "{{sonqualvm.server.public_v4}}"
+    ansible_user: ubuntu
+    ansible_become: true
