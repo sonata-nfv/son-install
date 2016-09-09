@@ -24,7 +24,8 @@
     auto_ip: yes
     meta:
       hostname: "{{ vm_name }}"
-    userdata: userdata_ansible_{{ ansible_distribution_release }}.txt
+    #userdata: userdata_ansible_{{ ansible_distribution_release }}.txt
+    userdata: "{{ lookup('file', 'userdata_ansible_{{ ansible_distribution_release }}.txt') }}"
   register: sonqualvm
 
 - add_host:
