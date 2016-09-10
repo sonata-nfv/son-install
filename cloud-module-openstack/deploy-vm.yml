@@ -3,5 +3,20 @@
   hosts: localhost
   connection: local
   sudo: yes
+
+  vars_files: 
+    - "environments/{{ env }}/group_vars/vim/{{ vim_type }}/location/{{ pop }}/provider_auth"
+    - "environments/{{ env }}/group_vars/vim/{{ vim_type }}/location/{{ pop }}/provider_vm"
+    - "environments/{{ env }}/group_vars/vim/{{ vim_type }}/location/{{ pop }}/provider_flavor"
+    - "environments/{{ env }}/group_vars/vim/{{ vim_type }}/location/{{ pop }}/provider_image"
+
   roles:
-  - openstack
+  #- openstackclients
+  #- openstack
+    - "{{ vim_type }}"
+#  environment: "{{ env }}"
+
+#  - "{{ infra }}"
+#  - "{{ distro }}"
+#  - "{{ location }}"
+#  - "{{ vim }}"

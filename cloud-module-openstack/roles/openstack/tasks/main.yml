@@ -13,10 +13,12 @@
     #region_name: RegionOne
     availability_zone: nova
     #image: "Ubuntu 14.04.5 (Trusty)"
-    image: "7129fb44-a239-458c-a45f-f93342ed458c"
+    #image: "{{ os_image }}"
+    image: "{{ os_image }}"
     key_name: "{{ os_priv_key }}"
     timeout: "180"
-    flavor: m1.small
+    #flavor: m1.small
+    flavor: "{{ os_flavor }}"
     security_groups: "{{ os_secur_groups }}"
     nics:
       - net-id: "ffdf5f4f-eeee-49ac-ac34-ccaf814bfb84"
