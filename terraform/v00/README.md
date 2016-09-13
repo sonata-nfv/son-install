@@ -16,6 +16,7 @@ Each Directory contains its specific configuration code, ie,
 * variables.tf (CHANGES GOES HERE)
 * main.tf (reference to variables)
 * output.tf
+* bootstrap-son.sh (install Ansible and GIT on VM creation)
 
 
 USAGE
