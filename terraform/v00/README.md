@@ -26,6 +26,12 @@ $ terraform plan [-var "vm_name=son-sp4qi" -var "distro=trusty"]
 
 NOTE: use 'var' only for non-default values
 
+$ terraform apply
+
+$ terraform output
+
+Now, you can SSH to the allocated IP 
+
 
 FEEDBACK TO
 ===========
