@@ -12,9 +12,9 @@ For each Environment, a Directory is created:
 * demo - for Demonstration Infrastructure
 
 Each Directory contains its specific configuration code, ie,
-* providers.tf (use variables)
+* providers.tf (reference to variables)
 * variables.tf (CHANGES GOES HERE)
-* main.tf (use variables)
+* main.tf (reference to variables)
 * output.tf
 
 
