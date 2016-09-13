@@ -1,0 +1,7 @@
+GOAL
+====
+
+This version "v01" tries to support multi-location and multi-environment in a generic configuration. However it's not working for the time beeing but possible it's not possible in current stage of Terraform.
+
+INFO:
+http://stackoverflow.com/questions/37279720/terraform-pass-in-variable-to-source-parameter 
