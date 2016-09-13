@@ -25,4 +25,5 @@ resource "openstack_compute_instance_v2" "son-sp4qi" {
       #fixed_ip = ""
   }
   floating_ip = "${openstack_compute_floatingip_v2.fip.address}"
+  user_data = "${file("bootstrap-son.sh")}"
 }
