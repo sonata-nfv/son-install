@@ -5,7 +5,7 @@ variable "os_username" {default = "son-qual"}
 variable "os_password" {default = "S0n-qu@l"}
 
 # VM
-variable "vm_name"     {default = "son-sp4qi"}
+variable "vm_name"     {default = "son-sp"}
 variable "img_name"    {default = "trusty-cldimg"}
 variable "flv_name"    {default = "m1.small"}
 variable "sec_grp"     {default = "son-qual-secgrp"}

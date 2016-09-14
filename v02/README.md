@@ -1,9 +1,9 @@
-Include CRUD (Create, Read/manage, Upgrade, Destroy) CLI functionality to SP SON-NFV Operations - experimental version (PoC)
+Include CMUD (Create, Manage, Upgrade, Destroy) CLI functionality to SP SON-NFV Operations - experimental version (PoC)
 
 
 ## SP playbook parameters
 
-The SP CLI tool 'son-crud' is invoked with the following parameters:
+The SP CLI tool 'son-cmud' is invoked with the following parameters:
 * target
 * operation
 * service
@@ -86,16 +86,16 @@ The action parameter is only used at MANAGE operations:
 ## SP CLI
 
 ### INSTALL SP ALL
-$ ansible-playbook son-crud.yml -e "target=localhost operation=install service=ALL|SVC_ID" -vvvv
+$ ansible-playbook son-cmud.yml -e "target=localhost operation=install service=ALL|SVC_ID" -vvvv
 
 ### MANAGE SP ALL
-$ ansible-playbook son-crud.yml -e "target=localhost operation=manage service=ALL|SVC_ID action=status|stop|start|restart" -vvvv
+$ ansible-playbook son-cmud.yml -e "target=localhost operation=manage service=ALL|SVC_ID action=status|stop|start|restart" -vvvv
 
 ### UPGRADE SP ALL
-$ ansible-playbook son-crud.yml -e "target=localhost operation=upgrade service=VERSION svc=ALL|SVC_ID" -vvvv
+$ ansible-playbook son-cmud.yml -e "target=localhost operation=upgrade service=VERSION svc=ALL|SVC_ID" -vvvv
 
 ### REMOVE SP ALL
-$ ansible-playbook son-crud.yml -e "target=localhost operation=destroy service=ALL|SVC_ID" -vvvv
+$ ansible-playbook son-cmud.yml -e "target=localhost operation=destroy service=ALL|SVC_ID" -vvvv
 
 
 ## Report feedback to:
