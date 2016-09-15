@@ -15,6 +15,6 @@ v02
 * Module based
 * the goal is to handle with MULTI-VIM, MULTI-LOCATION, MULTI-ENVIRONMENT and
  MULTI-DISTRO
-* Passing parameters (-var)
+* Passing parameters (-var "key=value")
 * status: NOT WORKING YET (but under exploration)
 
