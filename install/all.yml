@@ -9,7 +9,7 @@
 #- include: nginx.yml
 
 # deploy MySQL database engine
-#- include: mysql.yml
+- include: mysql.yml
 
 # deploy postgreSQL database engine
 - include: pgsql.yml

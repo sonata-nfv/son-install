@@ -2,5 +2,12 @@
 - name: create a MongoDB for the target machine
   hosts: "{{ target }}"
   sudo: yes
-  roles:
-  - mongo
+  tasks:
+  - name: deploy MongoDB container for Monitory
+    docker_container:
+      name: son-mongo
+      image: sonatanfv/son-mongo
+      #env:
+      state: started
+      ports: 27017:27017
+
