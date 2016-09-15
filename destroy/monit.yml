@@ -23,16 +23,16 @@
       state: absent
 
   - name: MONIT PROMETHEUS - removing Docker containers
-    docker:
+    docker_container:
       name: son-monitor-prometheus
       state: absent
 
   - name: MONIT MANAGER - removing Docker containers
-    docker:
+    docker_container:
       name: son-monitor-manager
       state: absent
 
   - name: MONIT Probe - removing Docker containers
-    docker:
+    docker_container:
       name: son-monitor-probe
       state: absent
