@@ -10,7 +10,7 @@
       state: absent
 
   - name: GATEKEEPER BSS - removing Docker containers
-    docker:
+    docker_container:
       name: son-bss
       state: absent
 
