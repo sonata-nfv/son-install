@@ -5,8 +5,8 @@
   tasks:
   - name: deploy postgres container
     docker_container:
-      name: postgres
-      image: postgres
+      name: son-postgres
+      image: sonatanfv/son-postgres
       env:
         POSTGRES_PASSWORD=sonata
       state: started

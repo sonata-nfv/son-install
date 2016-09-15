@@ -1,5 +1,5 @@
 ---
-- name: deploy MANO FRAMEWORK as Docker containers from private Registry to the SP VM appliance
+- name: stopping MANO FRAMEWORK as Docker containers from Registry to the SP VM appliance
   hosts: "{{ target }}"
   sudo: yes
   tasks:
@@ -23,7 +23,3 @@
 #      name: functionlifecyclemanagement
 #      state: stopped
 
-  - name: MANO Infrastructure Abstractor - stopping Docker containers
-    docker_container:
-      name: son-sp-infrabstract
-      state: stopped

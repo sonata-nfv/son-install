@@ -1,5 +1,5 @@
 ---
-- name: deployment of SP GATEKEEPER as a Docker containers from private Registry
+- name: stopping SP GATEKEEPER 
   hosts: "{{ target }}"
   sudo: yes
   tasks:

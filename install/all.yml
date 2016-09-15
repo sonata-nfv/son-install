@@ -12,7 +12,7 @@
 #- include: mysql.yml
 
 # deploy postgreSQL database engine
-#- include: pgsql.yml
+- include: pgsql.yml
 
 # deploy MongoDB database engine
 - include: mongo.yml
@@ -28,6 +28,9 @@
 
 # deploy MANO framework
 - include: mano.yml
+
+# deploy Infastructure Adaptor
+- include: ifta.yml
 
 # deploy Monitoring
 - include: monit.yml

@@ -125,9 +125,9 @@ Installation guide for multiple Linux platforms at:
   $ ansible-playbook son-cmud.yml -e "target=localhost operation=manage service='SVC_ID'" action=[status|start|stop|restart]"
 
 
-### Upgrade (not implemented yet; in the roadmap for next version)
+### Upgrade
 
-// UPGRADE all SP 
+// UPGRADE all SP (not implemented yet; in the roadmap for next version)
 
   $ ansible-playbook son-cmud.yml -e "target=localhost operation=upgrade service=all"
 
@@ -148,7 +148,7 @@ Installation guide for multiple Linux platforms at:
 
 ## License
 
-SONATA gui is published under Apache 2.0 license. Please see the LICENSE file for more details. 
+'son-install'  is published under Apache 2.0 license. Please see the LICENSE file for more details. 
 
 
 ## Lead Developers

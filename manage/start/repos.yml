@@ -1,5 +1,5 @@
 ---
-- name: deploy Docker containers REPOSITORIES from private Registry to the SP VM appliance
+- name: starting REPOSITORIES Docker containers at SP VM appliance
   hosts: "{{ target }}"
   sudo: yes
   tasks:
@@ -7,12 +7,7 @@
 # Running the Sonata REPOs Docker Images
 
   - name: REPOs - running Docker containers
-    docker:
+    docker_container:
       name: son-catalogue-repos
-      image: sonatanfv/son-catalogue-repos
       state: started
-      expose: 4011
-      ports: 4002:4011
-      extra_hosts:
-       mongo: "{{ ansible_eth0.ipv4.address }}"
 

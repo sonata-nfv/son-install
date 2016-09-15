@@ -1,5 +1,5 @@
 ---
-- name: deploy Docker containers from private Registry to the SP VM
+- name: start MONITORY Docker containers at SP VM appliance
   hosts: "{{ target }}"
   sudo: yes
   tasks:

@@ -1,5 +1,5 @@
 ---
-- name: deployment of RabbitMQ for the SON-SP VM appliance as a Docker containers from private Registry
+- name: stopping RabbitMQ Docker container at SON-SP VM appliance
   hosts: "{{ target }}"
   sudo: yes
   tasks:

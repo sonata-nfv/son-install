@@ -1,0 +1,16 @@
+---
+- name: stopping IFTA Docker containers at SP VM appliance
+  hosts: "{{ target }}"
+  sudo: yes
+  tasks:
+
+  - name: Infrastructure Abstractor VIM Adaptor - stopping Docker containers
+    docker_container:
+      name: son-sp-infrabstract
+      state: stopped
+
+  - name: Infrastructure Abstractor WIM Adaptor - stopping Docker containers
+    docker_container:
+      name: wim-adaptor
+      state: stopped
+
