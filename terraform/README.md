@@ -2,20 +2,19 @@ STATUS
 ======
 
 v00 
-* multi-environment 
-* basic structure based in directories
-* one Dir per environment
-* WORKING
+* Multi-Environment 
+* basic implementation based on directory structure: one dir per environment
+* status: OK
 
 v01 
-* nested Modules (not a good practice - [sic])
-* logical structure: vim_type --> placement --> environment --> distro
-* NOT WORKING YET (and should never work)
+* nested Modules
+* logical structure: VIM_type --> Placement --> Environment --> Distro
+* status: NOT WORKING YET (and should never work, since is considered 'not a good practice' - [sic])
 
 v02
 * Module based
 * the goal is to handle with MULTI-VIM, MULTI-LOCATION, MULTI-ENVIRONMENT and
  MULTI-DISTRO
 * Passing parameters (-var)
-* NOT WORKING YET (but under exploration)
+* status: NOT WORKING YET (but under exploration)
 
