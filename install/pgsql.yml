@@ -8,6 +8,8 @@
       name: son-postgres
       image: sonatanfv/son-postgres
       env:
+        POSTGRES_DB=gatekeeper
+        POSTGRES_USER=sonatatest
         POSTGRES_PASSWORD=sonata
       state: started
       ports: 5432:5432
