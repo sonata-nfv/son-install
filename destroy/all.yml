@@ -11,21 +11,18 @@
 - include: monit.yml
   when: service == "all" or service == "monit"
 
-- include: broker.yml
-  when: service == "all" or service == "broker"
+- include: ifta.yml
+  when: service == "all" or service == "ifta"
 
-- include: docker.yml
-  when: service == "all" or service == "docker"
-
-#- include: nginx.yml
-#  when: service == "all" or service == "nginx"
-
-#- include: mysql.yml
-#  when: service == "all" or service == "mysql"
+- include: mysql.yml
+  when: service == "all" or service == "mysql"
 
 - include: pgsql.yml
   when: service == "all" or service == "pgsql"
 
 - include: mongo.yml
   when: service == "all" or service == "mongo"
+
+- include: broker.yml
+  when: service == "all" or service == "broker"
 
