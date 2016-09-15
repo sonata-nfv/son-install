@@ -4,15 +4,76 @@
 
 'son-install' is built of a set of Ansible playbooks to automate the deployment of infrastructure and applications. So, all that you need is a 'bash' shell with Ansible.
  
+Actually 'son-install' v1.0 has a main playbook ('son-cmud.yml') invoked with external parameters to control the life-cycle of all the SP Services.
 
-## Development
 
-Actually 'son-install-v1.0' has the following code structure:
+## son-install parameters
 
-* v01 - simple deployment of Sonata SP
+* target
+* operation
+* service
+* action
 
-* v02 - deployment of Sonata SP with extended CMUD functions to Create, Manage, Upgrade and Destroy resources
 
+### target
+
+* localhost - to execute on the same machine
+* alias - the referenced in the hosts file (Inventory) to the machine or group of machines
+
+
+### operation
+
+The available type of Operations are:
+* "install" - contains the playbooks to deploy a SP from the scratch
+* "manage"  - contains the playbooks to manage the global SP lyfe-cycle and its individual componentes
+* "upgrade" - contains the playbooks to update the SP to a desired state
+* "destroy" - contains the playbooks to uninstall a SP or any of its individual components
+
+
+### service
+
+The available type of Services are (SVC_ID):
+
+GK:
+* "gtk-pkg"
+* "gtk-srv"
+* "gtk-api"
+* "gtk-bss"
+* "gtk-gui"
+* "gtk-fnct"
+* "gtk-rec"
+* "gtk-vim"
+* "gtk-all" (default)
+
+REPO:
+* "catalog"
+
+MANO:
+* "slm"
+* "ssm"
+* "fsm"
+* "plugin-mgr"
+* "mano-all" (default)
+
+IFTA:
+* "ifta-vim"
+* "ifta-wim"
+* "ifta-all" (default)
+
+MON:
+* "mon-srv"
+* "mon-mgr"
+* "mon-pushgw"
+* "mon-all" (default)
+
+LOG:
+* "log-srv"
+* "log-elk"
+* "log-graylog"
+* "log-all" (default)
+
+ALL:
+* "all" (apply to all SP services)
 
 
 ### Contributing

@@ -1,4 +1,0 @@
-# son-install
-The SONATA Service Platform is based on a micro-service architecture and therefore comprises several independent service systems, like a RabbitMQ service, a [Gatekeeper service](https://github.com/sonata-nfv/son-gkeeper), a [MANO service](https://github.com/sonata-nfv/son-mano-framework), several databases, etc. In order to simplify the installation and configuration of the SONATA Service Platform, we provide several scripts, based on the [Ansible IT automation engine](https://www.ansible.com), to automate this process.
-
-Using a single configuration file and a single install script, one can install the SONATA Service Platform by a single simple command. To this end, the installation script downloads the current components from the SONATA GitHub repositories and installs them on the target machine(s).

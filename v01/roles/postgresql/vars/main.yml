@@ -1,5 +1,0 @@
----
-# vars file for postgresql
-db_name: sonata
-db_user: sonatatest
-db_password: sonata
