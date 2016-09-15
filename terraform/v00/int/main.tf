@@ -8,7 +8,7 @@ resource "openstack_compute_floatingip_v2" "fip" {
     pool = "${var.floatip}"
 }
  
-resource "openstack_compute_instance_v2" "son-sp4qi" {
+resource "openstack_compute_instance_v2" "sonata-sp" {
   #count = "${var.node_count}"
   region = ""
   name = "${var.vm_name}"
