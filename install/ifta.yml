@@ -20,7 +20,7 @@
 
   - name: Infrastructure Abstractor WIM Adaptor - running Docker containers
     docker_container:
-      name: son-sp-wim-adaptor
+      name: wim-adaptor
       image: sonatanfv/wim-adaptor
       state: started
       env:

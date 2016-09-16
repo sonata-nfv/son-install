@@ -62,12 +62,16 @@
       extra_hosts:
        mysql: "{{ ansible_eth0.ipv4.address }}"
        prometheus: "{{ ansible_eth0.ipv4.address }}"
+      volumes:
+      - "/tmp/monitoring/mgr:/var/log/apache2"
 
   - name: MONIT Probe - running Docker containers
     docker:
       name: son-monitor-probe
       image: sonatanfv/son-monitor-probe
       state: started
+      net: host
+      privileged: yes
       env:
        NODE_NAME: "{{ ansible_hostname }}"
        PROM_SRV: "http://{{ ansible_eth0.ipv4.address }}:9091/metrics"
