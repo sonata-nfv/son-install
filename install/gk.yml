@@ -49,7 +49,7 @@
         POSTGRES_PASSWORD: sonata
         POSTGRES_USER: sonatatest
       links:
-        - broker
+        - son-broker
       state: started
       ports: "5300:5300"
 
@@ -85,7 +85,7 @@
         POSTGRES_PASSWORD: sonata
         POSTGRES_USER: sonatatest
       links:
-        - broker
+        - son-broker
       state: started
       ports: "5700:5700"
 

@@ -35,9 +35,9 @@
       image: sonatanfv/specificmanagerregistry
       env:
         broker_host: amqp://guest:guest@{{ ansible_eth0.ipv4.address }}:5672/%2F
-        broker_name: broker
+        broker_name: son-broker,broker
       links:
-        - broker
+        - son-broker
       state: started
       volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"

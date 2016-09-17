@@ -10,13 +10,13 @@
   # Remove the Sonata BROKER Container (if running)
   - name: stop the "SP Message Bus"
     docker_container: 
-      name: broker
+      name: son-broker
       state: stopped
       stop_timeout: 10
 
   # Remove the Sonata BROKER Container (if running)
   - name: destroy the "SP Message Bus"
     docker_container:
-      name: broker
+      name: son-broker
       state: absent
 
