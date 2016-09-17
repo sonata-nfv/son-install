@@ -29,10 +29,17 @@
         broker_host: amqp://guest:guest@{{ ansible_eth0.ipv4.address }}:5672/%2F
       state: started
 
-#  - name: MANO Function Life-cycle Management (FML) - running Docker containers
-#    docker_container:
-#      name: functionlifecyclemanagement
-#      image: sonatanfv/functionlifecyclemanagement
-#      state: started
-#      # ports:
+  - name: MANO Specific Manager Registry (SMR) - running Docker containers
+    docker:
+      name: specificmanagerregistry
+      image: sonatanfv/specificmanagerregistry
+      env:
+        broker_host: amqp://guest:guest@{{ ansible_eth0.ipv4.address }}:5672/%2F
+        broker_name: broker
+      links:
+        - broker
+      state: started
+      volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
 
