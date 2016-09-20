@@ -28,3 +28,22 @@ resource "openstack_compute_instance_v2" "sonata-sp" {
   floating_ip = "${element(openstack_compute_floatingip_v2.fip.*.address, count.index)}"
   user_data = "${file("bootstrap-son.sh")}"
 }
+
+data "template_file" "sp_hosts" {
+  count = "${var.node_count}"
+  template = "${file("hostname.tpl")}"
+  vars {
+    #index = "${count.index + 1}"
+    name  = "os-${var.vm_name}${format("%02d",count.index)}"
+    env   = "${var.env}"
+    extra = "${element(openstack_compute_floatingip_v2.fip.*.address,count.index)}"
+  }
+}
+
+data "template_file" "son_inventory" {
+  template = "${file("inventory.tpl")}"
+  vars {
+    env     = "${var.env}"
+    sp_hosts = "${join("\n",template_file.sp_hosts.*.rendered)}"
+  }
+}

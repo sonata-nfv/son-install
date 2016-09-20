@@ -19,3 +19,6 @@ variable "floatip"               {default = "admin_floating_net"}
 # LOCATION
 variable "region"            {default = "RegionOne"}
 variable "availability_zone" {default = "nova"}
+
+# ENVIRONMENTs
+variable "env"         {default = "qual"}
