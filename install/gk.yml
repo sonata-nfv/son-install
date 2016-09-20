@@ -11,8 +11,9 @@
       name: son-gui
       image: sonatanfv/son-gui
       env:
-        MON_URL: "10.38.0.1:8000"
-        GK_URL: "10.38.0.1:32001"
+        MON_URL: "{{ public_ip }}:8000"
+        GK_URL: "{{ public_ip }}:32001"
+        LOGS_URL: "{{ public_ip }}:12900"
       state: started
       exposed_ports: 80
       ports: "80:80"
@@ -21,7 +22,7 @@
     docker:
       name: son-bss
       image: sonatanfv/son-yo-gen-bss
-      command: grunt serve:qualification --gkApiUrl=http://{{ ansible_eth0.ipv4.address }}:32001 --debug
+      command: grunt serve:integration --gkApiUrl=http://{{ public_ip }}:32001
       state: started
       ports: "25001:1337"
 
@@ -30,7 +31,7 @@
       name: son-gtkpkg
       image: sonatanfv/son-gtkpkg
       env:
-        CATALOGUES_URL: http://{{ ansible_eth0.ipv4.address }}:4002/catalogues
+        CATALOGUES_URL: http://{{ public_ip }}:4002/catalogues
         RACK_ENV: integration
       state: started
       ports: "5100:5100"
@@ -40,15 +41,15 @@
       name: son-gtksrv
       image: sonatanfv/son-gtksrv
       env:
-        CATALOGUES_URL: http://{{ ansible_eth0.ipv4.address }}:4002/catalogues
+        CATALOGUES_URL: http://{{ public_ip }}:4002/catalogues
         RACK_ENV: integration
-        MQSERVER: amqp://guest:guest@{{ ansible_eth0.ipv4.address }}:5672
-        DATABASE_HOST: "{{ ansible_eth0.ipv4.address }}"
+        MQSERVER: amqp://guest:guest@{{ public_ip }}:5672
+        DATABASE_HOST: "{{ public_ip }}"
         DATABASE_PORT: 5432
-        POSTGRES_PASSWORD: $0n@t@
-        POSTGRES_USER: sonata
+        POSTGRES_PASSWORD: sonata
+        POSTGRES_USER: sonatatest
       links:
-        - broker
+        - son-broker
       state: started
       ports: "5300:5300"
 
@@ -57,7 +58,7 @@
       name: son-gtkfnct
       image: sonatanfv/son-gtkfnct
       env:
-        CATALOGUES_URL: http://{{ ansible_eth0.ipv4.address }}:4002/catalogues
+        CATALOGUES_URL: http://{{ public_ip }}:4002/catalogues
         RACK_ENV: integration
       state: started
       ports: "5500:5500"
@@ -67,7 +68,7 @@
       name: son-gtkrec
       image: sonatanfv/son-gtkrec
       env:
-        REPOSITORIES_URL: http://{{ ansible_eth0.ipv4.address }}:4002/catalogues
+        REPOSITORIES_URL: http://{{ public_ip }}:4002/records
         RACK_ENV: integration
       state: started
       ports: "5800:5800"
@@ -78,13 +79,13 @@
       image: sonatanfv/son-gtkvim
       env:
         RACK_ENV: integration
-        MQSERVER: amqp://guest:guest@{{ ansible_eth0.ipv4.address }}:5672
-        DATABASE_HOST: "{{ ansible_eth0.ipv4.address }}"
+        MQSERVER: amqp://guest:guest@{{ public_ip }}:5672
+        DATABASE_HOST: "{{ public_ip }}"
         DATABASE_PORT: 5432
-        POSTGRES_PASSWORD: $0n@t@
-        POSTGRES_USER: sonata
+        POSTGRES_PASSWORD: sonata
+        POSTGRES_USER: sonatatest
       links:
-        - broker
+        - son-broker
       state: started
       ports: "5700:5700"
 
@@ -94,11 +95,17 @@
       image: sonatanfv/son-gtkapi
       env:
         RACK_ENV: integration
-        PACKAGE_MANAGEMENT_URL: http://{{ ansible_eth0.ipv4.address }}:5100
-        SERVICE_MANAGEMENT_URL: http://{{ ansible_eth0.ipv4.address }}:5300
-        FUNCTION_MANAGEMENT_URL: http://{{ ansible_eth0.ipv4.address }}:5500
+        PACKAGE_MANAGEMENT_URL: http://{{ public_ip }}:5100
+        SERVICE_MANAGEMENT_URL: http://{{ public_ip }}:5300
+        FUNCTION_MANAGEMENT_URL: http://{{ public_ip }}:5500
+        VIM_MANAGEMENT_URL: http://{{ public_ip }}:5700 
+        RECORD_MANAGEMENT_URL: http://{{ public_ip }}:5800
       links:
         - son-gtkpkg
+        - son-gtkfnct
+        - son-gtkrec
         - son-gtksrv
+        - son-gtkvim
       state: started
       ports: "32001:5000"
+

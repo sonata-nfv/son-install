@@ -10,7 +10,7 @@
 
   - name: run the "SP Message Bus"
     docker_container: 
-      name: broker
+      name: son-broker
       image: rabbitmq
       env:
         RABBITMQ_CONSOLE_LOG: new
