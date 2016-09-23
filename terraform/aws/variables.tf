@@ -7,7 +7,7 @@ variable "aws_secret_key" {
 }
 
 variable "aws_key_path" {
-  default = "~/.ssh/aws-key.pem"
+  default = "~/.ssh/aws-key.ppk"
 }
 variable "aws_key_name" {
   default = "AWS Key"
