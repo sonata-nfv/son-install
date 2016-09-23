@@ -22,4 +22,8 @@ variable "region"            {default = "RegionOne"}
 variable "availability_zone" {default = "nova"}
 
 # ENVIRONMENTs
-variable "env"         {default = "qual"}
+variable "env"    {default = "qual"}
+
+# DISTROs
+variable "distro" {default = "trusty"}
+

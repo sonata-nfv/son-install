@@ -26,44 +26,26 @@ resource "openstack_compute_instance_v2" "sonata-sp" {
       #fixed_ip = ""
   }
   floating_ip = "${element(openstack_compute_floatingip_v2.fip.*.address, count.index)}"
-  user_data = "${file("bootstrap-son.sh")}"
+  user_data = "${file("bootstrap-son-${distro}.sh")}"
 }
 
-<<<<<<< HEAD
 resource "template_file" "host_ipaddr" {
   count = "${var.node_count}"
   template = "${file("hostname.tpl")}"
   vars {
     index = "${count.index + 1}"
-    name  = ""
-    env   = "demo"
-    #extra = " ansible_host=${element(split(",",var.floatipaddr),count.index)}"
+    name  = "sp"
+    env   = "qual"
     extra = " ansible_host=${element(openstack_compute_floatingip_v2.fip.*.address, count.index)}"
   }
 }
 
 resource "template_file" "inventory" {
+  #count = "${var.node_count}"
   template = "${file("inventory.tpl")}"
   vars {
-    env       = "demo"
+    env       = "qual"
     os_hosts  = "${join("\n",template_file.host_ipaddr.*.rendered)}"
-=======
-data "template_file" "sp_hosts" {
-  count = "${var.node_count}"
-  template = "${file("hostname.tpl")}"
-  vars {
-    #index = "${count.index + 1}"
-    name  = "os-${var.vm_name}${format("%02d",count.index)}"
-    env   = "${var.env}"
-    extra = "${element(openstack_compute_floatingip_v2.fip.*.address,count.index)}"
   }
 }
 
-data "template_file" "son_inventory" {
-  template = "${file("inventory.tpl")}"
-  vars {
-    env     = "${var.env}"
-    sp_hosts = "${join("\n",template_file.sp_hosts.*.rendered)}"
->>>>>>> 372095f9bbb0935567f4ded694b07e531021d0d4
-  }
-}
