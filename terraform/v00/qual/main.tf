@@ -5,7 +5,7 @@ variable "node_count" {
 
 resource "openstack_compute_floatingip_v2" "fip" {
     region = ""
-    pool = "${var.floatip}"
+    pool = "${var.floatipnet}"
     count = "${var.node_count}"
 }
  
@@ -27,4 +27,24 @@ resource "openstack_compute_instance_v2" "sonata-sp" {
   }
   floating_ip = "${element(openstack_compute_floatingip_v2.fip.*.address, count.index)}"
   user_data = "${file("bootstrap-son.sh")}"
+}
+
+resource "template_file" "host_ipaddr" {
+  count = "${var.node_count}"
+  template = "${file("hostname.tpl")}"
+  vars {
+    index = "${count.index + 1}"
+    name  = ""
+    env   = "demo"
+    #extra = " ansible_host=${element(split(",",var.floatipaddr),count.index)}"
+    extra = " ansible_host=${element(openstack_compute_floatingip_v2.fip.*.address, count.index)}"
+  }
+}
+
+resource "template_file" "inventory" {
+  template = "${file("inventory.tpl")}"
+  vars {
+    env       = "demo"
+    os_hosts  = "${join("\n",template_file.host_ipaddr.*.rendered)}"
+  }
 }

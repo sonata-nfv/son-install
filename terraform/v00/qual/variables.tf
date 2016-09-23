@@ -5,7 +5,7 @@ variable "os_username" {default = "son-qual"}
 variable "os_password" {default = "S0n-qu@l"}
 
 # VM
-variable "vm_name"     {default = "sonata-sp"}
+variable "vm_name"     {default = "vm"}
 variable "img_name"    {default = "trusty-cldimg"}
 variable "flv_name"    {default = "m1.small"}
 variable "sec_grp"     {default = "son-qual-secgrp"}
@@ -14,7 +14,8 @@ variable "key_pair"    {default = "son-ift-ptin"}
 # NETW
 variable "internal_network_name" {default = "son-qual-netw"}
 variable "internal_network_id"   {default = ""}
-variable "floatip"               {default = "admin_floating_net"}
+variable "floatipnet"            {default = "admin_floating_net"}
+variable "floatipaddr"           {default = ""}
 
 # LOCATION
 variable "region"            {default = "RegionOne"}
