@@ -20,3 +20,6 @@ variable "floatipaddr"           {default = ""}
 # LOCATION
 variable "region"            {default = "RegionOne"}
 variable "availability_zone" {default = "nova"}
+
+# ENVIRONMENTs
+variable "env"         {default = "qual"}
