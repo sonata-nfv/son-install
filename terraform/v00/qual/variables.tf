@@ -13,17 +13,17 @@ variable "key_pair"    {default = "son-ift-ptin"}
 
 # NETW
 variable "internal_network_name" {default = "son-qual-netw"}
-variable "internal_network_id"   {default = ""}
+variable "internal_network_id"   {default = "ffdf5f4f-eeee-49ac-ac34-ccaf814bfb84"}
 variable "floatipnet"            {default = "admin_floating_net"}
-variable "floatipaddr"           {default = ""}
+#variable "floatipaddr"           {default = ""}
 
 # LOCATION
-variable "region"            {default = "RegionOne"}
-variable "availability_zone" {default = "nova"}
+#variable "region"            {default = "RegionOne"}
+#variable "availability_zone" {default = "nova"}
 
 # ENVIRONMENTs
-variable "env"    {default = "qual"}
+variable "env"         {default = "qual"}
 
 # DISTROs
-variable "distro" {default = "trusty"}
+variable "distro"      {default = "trusty"}
 

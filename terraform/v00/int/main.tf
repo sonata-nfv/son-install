@@ -3,11 +3,11 @@ variable "node_count" {
   default = 2
 }
 
-resource "openstack_compute_floatingip_v2" "fip" {
-    region = ""
-    pool = "${var.floatip}"
-    count = "${var.node_count}"
-}
+#resource "openstack_compute_floatingip_v2" "fip" {
+#    region = ""
+#    pool = "${var.floatip}"
+#    count = "${var.node_count}"
+#}
  
 resource "openstack_compute_instance_v2" "sonata-sp" {
   count = "${var.node_count}"
@@ -25,6 +25,6 @@ resource "openstack_compute_instance_v2" "sonata-sp" {
       name = "${var.internal_network_name}"
       #fixed_ip = ""
   }
-  floating_ip = "${element(openstack_compute_floatingip_v2.fip.*.address, count.index)}"
-  user_data = "${file("bootstrap-son.sh")}"
+#  floating_ip = "${element(openstack_compute_floatingip_v2.fip.*.address, count.index)}"
+#  user_data = "${file("bootstrap-son.sh")}"
 }

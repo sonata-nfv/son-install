@@ -17,9 +17,9 @@ resource "openstack_compute_instance_v2" "sonata-sp" {
   flavor_name = "${var.flv_name}"
   key_pair = "${var.key_pair}"
   security_groups = ["${var.sec_grp}"]
-  metadata {
-      demo = "metadata"
-  }
+  #metadata {
+  #    demo = "metadata"
+  #}
   network {
       uuid = "${var.internal_network_id}"
       name = "${var.internal_network_name}"
