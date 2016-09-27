@@ -1,0 +1,12 @@
+---
+- name: deployment of SP GATEKEEPER as a Docker containers from Registry
+  hosts: "{{ target }}"
+  sudo: yes
+  tasks:
+
+  - name: stop running containers
+    command: docker stop $(docker ps -a)
+
+  - name: stop running containers
+    command: docker rm $(docker ps -a)
+

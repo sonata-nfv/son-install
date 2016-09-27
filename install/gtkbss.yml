@@ -1,0 +1,15 @@
+---
+- name: deployment of SP GATEKEEPER as a Docker containers from Registry
+  hosts: "{{ target }}"
+  sudo: yes
+  tasks:
+
+  # Running the Sonata GK BSS Docker Image
+  - name: GATEKEEPER BSS - running Docker containers
+    docker:
+      name: son-bss
+      image: sonatanfv/son-yo-gen-bss
+      command: grunt serve:integration --gkApiUrl=http://{{ public_ip }}:32001
+      state: started
+      ports: "25001:1337"
+

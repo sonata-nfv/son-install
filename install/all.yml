@@ -21,7 +21,7 @@
 - include: broker.yml
 
 # deploy Gatekepper module
-- include: gk.yml
+- include: gtkall.yml
 
 # deploy Repositories
 - include: repos.yml

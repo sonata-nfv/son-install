@@ -1,0 +1,17 @@
+---
+- name: deployment of SP GATEKEEPER as a Docker containers from Registry
+  hosts: "{{ target }}"
+  sudo: yes
+  tasks:
+
+  # Running the Sonata GK PACKAGES Docker Image
+  - name: GATEKEEPER PACKAGES - running Docker containers
+    docker_container:
+      name: son-gtkpkg
+      image: sonatanfv/son-gtkpkg
+      env:
+        CATALOGUES_URL: http://{{ public_ip }}:4002/catalogues
+        RACK_ENV: integration
+      state: started
+      ports: "5100:5100"
+

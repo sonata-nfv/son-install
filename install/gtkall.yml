@@ -52,6 +52,12 @@
         - son-broker
       state: started
       ports: "5300:5300"
+      command: sh -c -e "bundle exec rake db:migrate"
+      detach: false
+
+  - name: wait for Container to finish
+    shell: >
+      docker wait son-gtksrv
 
   - name: GATEKEEPER FUNCTIONS - running Docker containers
     docker_container:
@@ -88,6 +94,12 @@
         - son-broker
       state: started
       ports: "5700:5700"
+      command: sh -c -e "bundle exec rake db:migrate"
+      detach: false
+
+  - name: wait for Container to finish
+    shell: >
+      docker wait son-gtkvim
 
   - name: GATEKEEPER API - running Docker containers
     docker_container:

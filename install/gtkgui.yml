@@ -1,0 +1,18 @@
+---
+- name: deployment of SP GATEKEEPER as a Docker containers from Registry
+  hosts: "{{ target }}"
+  sudo: yes
+  tasks:
+
+  # Running the Sonata GK GUI Docker Image
+  - name: GATEKEEPER GUI - running Docker containers
+    docker_container:
+      name: son-gui
+      image: sonatanfv/son-gui
+      env:
+        MON_URL: "{{ public_ip }}:8000"
+        GK_URL: "{{ public_ip }}:32001"
+        LOGS_URL: "{{ public_ip }}:12900"
+      state: started
+      exposed_ports: 80
+      ports: "80:80"
