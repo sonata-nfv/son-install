@@ -25,7 +25,8 @@
       ports: "5300:5300"
       volumes: 
         - /home/{{ ansible_user_id }}/son-gkeeper/son-gtksrv/:/opt/sonata/son-gktsrv
-      #detach: false
+        - /var/log/sonata:/var/log/sonata/son-gtksrv
+      log_driver: syslog
 
   - command: /usr/bin/docker exec -d son-gtksrv /bin/bash -c "cd /opt/sonata/son-gtksrv" && "bundle install" && "bundle exec rake db:migrate"
 

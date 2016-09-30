@@ -88,3 +88,11 @@
 - name: start Docker daemon
   service: name=docker state=restarted enabled=yes
 
+- name: configure RSYSLOG
+  copy: src=roles/docker/templates/rsyslog.j2 dest=/etc/rsyslog.d/30-docker.conf
+
+- name: configure LOGROTATE
+  copy: src=roles/docker/templates/logrotate.j2 dest=/etc/logrotate.d/docker
+  notify:
+  - restart rsyslog
+

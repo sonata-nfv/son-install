@@ -25,3 +25,6 @@
       state: started
       ports: "32001:5000"
       restart_policy: "unless-stopped"
+      volumes:
+        - /var/log/sonata:/var/log/sonata/son-gtkapi
+      log_driver: syslog

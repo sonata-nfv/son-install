@@ -15,3 +15,6 @@
       state: started
       ports: "5800:5800"
       restart_policy: "unless-stopped"
+      volumes:
+        - /var/log/sonata:/var/log/sonata/son-gtkrec
+      log_driver: syslog

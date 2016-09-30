@@ -17,3 +17,6 @@
       exposed_ports: 80
       ports: "80:80"
       restart_policy: "unless-stopped"
+      volumes:
+        - /var/log/sonata:/var/log/sonata/son-gtkgui
+      log_driver: syslog

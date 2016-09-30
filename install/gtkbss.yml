@@ -13,3 +13,6 @@
       state: started
       ports: "25001:1337"
       restart_policy: "unless-stopped"
+      volumes:
+        - /var/log/sonata:/var/log/sonata/son-gtkbss
+      log_driver: syslog
