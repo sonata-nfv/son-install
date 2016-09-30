@@ -26,7 +26,8 @@
         - /home/{{ ansible_user_id }}/son-gkeeper/son-gtkvim/:/opt/sonata/son-gktvim
       #detach: false
 
-  - command: /usr/bin/docker exec -d son-gtkvim /bin/bash -c "cd /opt/sonata/son-gtkvim" && "bundle install" && "bundle exec rake db:migrate"
+  - name: create data model and populate db
+    command: /usr/bin/docker exec -d son-gtkvim /bin/bash -c "cd /opt/sonata/son-gtkvim" && "bundle install" && "bundle exec rake db:migrate"
 
 #  - name: wait for Container to finish
 #    shell: >
