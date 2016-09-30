@@ -1,0 +1,10 @@
+---
+- name: STOPing Docker containers
+  hosts: "{{ target }}"
+  sudo: yes
+  tasks:
+
+  - command: /usr/bin/docker stop $(docker ps -q)
+
+  - command: /usr/bin/docker rm $("docker ps -q")
+
