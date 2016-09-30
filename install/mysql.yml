@@ -14,5 +14,5 @@
         MYSQL_DATABASE=monitoring
       state: started
       ports: 3306:3306
-
-  
+      volumes:
+        - /var/log/sonata:/var/log/monitor-mysql

@@ -16,5 +16,5 @@
       ports: "5100:5100"
       restart_policy: "unless-stopped"
       volumes:
-        - /var/log/sonata:/var/log/sonata/son-gtkpkg
+        - /var/log/sonata:/var/log/son-gtkpkg
       log_driver: syslog

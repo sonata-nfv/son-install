@@ -16,6 +16,10 @@
         repo_port: "5432"
         repo_user: "sonatatest"
         repo_pass: "sonata"
+      volumes:
+        - /var/log/sonata:/var/log/ifta-vim
+      log_driver: syslog
+
 
 
   - name: Infrastructure Abstractor WIM Adaptor - running Docker containers
@@ -30,4 +34,7 @@
         repo_port: "5432"
         repo_user: "sonatatest"
         repo_pass: "sonata"
+      volumes:
+        - /var/log/sonata:/var/ifta-wim
+      log_driver: syslog
 

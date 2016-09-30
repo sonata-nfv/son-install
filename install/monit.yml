@@ -17,6 +17,9 @@
       image: sonatanfv/son-monitor-influxdb
       state: started
       ports: 8086:8086
+      volumes:
+        - /var/log/sonata:/var/log/monitor-influxdb
+      log_driver: syslog
 
 
   - name: MONIT MySQL - running Docker containers
@@ -30,6 +33,10 @@
         MYSQL_DATABASE: "{{ dbname }}"
       state: started
       ports: 3306:3306
+      volumes:
+        - /var/log/sonata:/var/log/monitor-mysql
+      log_driver: syslog
+
 
   - name: MONIT Push Gateway - running Docker containers
     docker_container:
@@ -37,6 +44,10 @@
       image: sonatanfv/son-monitor-pushgateway
       state: started
       ports: 9091:9091
+      volumes:
+        - /var/log/sonata:/var/log/monitor-pushgateway
+      log_driver: syslog
+
 
   - name: MONIT PROMETHEUS - running Docker containers
     docker:
@@ -52,6 +63,10 @@
       extra_hosts:
        influx: "{{ ansible_eth0.ipv4.address }}"
        pushgateway: "{{ ansible_eth0.ipv4.address }}"
+      volumes:
+        - /var/log/sonata:/var/log/monitor-prometheus
+      log_driver: syslog
+
 
   - name: MONIT MANAGER - running Docker containers
     docker:
@@ -64,6 +79,10 @@
        prometheus: "{{ ansible_eth0.ipv4.address }}"
       volumes:
       - "/tmp/monitoring/mgr:/var/log/apache2"
+      volumes:
+        - /var/log/sonata:/var/log/monitor-manager
+      log_driver: syslog
+
 
   - name: MONIT Probe - running Docker containers
     docker:
@@ -79,3 +98,4 @@
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "/:/rootfs:ro"
       - "/proc:/myhost/proc"
+      - /var/log/sonata:/var/log/monitor-probe

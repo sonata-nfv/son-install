@@ -14,5 +14,5 @@
       ports: "25001:1337"
       restart_policy: "unless-stopped"
       volumes:
-        - /var/log/sonata:/var/log/sonata/son-gtkbss
+        - /var/log/sonata:/var/log/son-bss
       log_driver: syslog

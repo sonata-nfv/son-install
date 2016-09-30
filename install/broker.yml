@@ -17,5 +17,7 @@
       state: started
       ports: "5672:5672, 8080:15672"
       privileged: yes
+      volumes:
+        - /var/log/sonata:/var/log/son-broker
     when: service_status.stat.exists
 

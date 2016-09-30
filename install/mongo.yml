@@ -10,4 +10,5 @@
       #env:
       state: started
       ports: 27017:27017
-
+      volumes:
+        - /var/log/sonata:/var/log/mongo
