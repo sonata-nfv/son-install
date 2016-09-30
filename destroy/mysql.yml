@@ -19,7 +19,7 @@
     - mysql-server
     when: ansible_distribution == "Ubuntu"
 
-  - name: install MySQL package on Redhat/CentOS machine
+  - name: uninstall MySQL package on Redhat/CentOS machine
     yum: name={{ item }} state=present
     with_items:
     - mariadb

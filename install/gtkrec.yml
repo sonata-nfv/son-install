@@ -14,4 +14,4 @@
         RACK_ENV: integration
       state: started
       ports: "5800:5800"
-
+      restart_policy: "unless-stopped"

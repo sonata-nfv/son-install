@@ -16,3 +16,4 @@
       state: started
       exposed_ports: 80
       ports: "80:80"
+      restart_policy: "unless-stopped"

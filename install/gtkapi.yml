@@ -24,4 +24,4 @@
         - son-gtkvim
       state: started
       ports: "32001:5000"
-
+      restart_policy: "unless-stopped"
