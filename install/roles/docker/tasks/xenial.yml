@@ -10,6 +10,8 @@
   with_items:
   - apparmor
   - aptitude
+  - python-apt
+  - python3-apt
   - python-pip
   - python-dev
   - python-setuptools
@@ -62,11 +64,8 @@
     state: present
   when: ansible_distribution_major_version == "16"
 
-- name: "Install Docker APT repository in Ubuntu 14.04 LTS"
-  apt_repository:
-    repo: "deb https://apt.dockerproject.org/repo ubuntu-trusty main"
-    state: present
-  when: ansible_distribution_major_version == "14"
+- name: local package update
+  apt: update_cache=yes
 
 - name: "Install Docker package"
   apt: name=docker-engine state=present
