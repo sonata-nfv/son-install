@@ -1,9 +1,10 @@
 ---
 
-- include: gk.yml
-  when: service == "all" or service == "gk"
+- include: stop-containers.yml
+  when: service == "all"
 
-# son-gui, son-bss, son-gtkpkg, son-gtksrv, son-gtkfnct, son-gtkrec, son-gtkvim, son-gtkapi
+- include: gtkall.yml
+  when: service == "all" or service == "gtk"
 
 - include: mano.yml
   when: service == "all" or service == "mano"
