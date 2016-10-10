@@ -1,7 +1,7 @@
 ---
 - name: Upgrade the target machines and reboot
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks: 
 
   - name:  upgrade all packages to the latest version
