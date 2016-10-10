@@ -40,13 +40,20 @@
   #- concurrent
   - warlock
 #
+  - msgpack-python
   - python-openstackclient
+  - python-keystoneclient
   - python-heatclient
+  - python-glanceclient
+  - python-cinderclient
+  - python-swiftclient
   - python-magnumclient
+  - python-novaclient
   - python-neutronclient
   - python-troveclient
   - python-designateclient
   - python-ironicclient
+  - python-systemd
 
 # Install 'shade' python module (needed by Ansible Cloud module)
 - name: Gets 'shade' tarball
