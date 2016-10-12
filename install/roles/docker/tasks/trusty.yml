@@ -33,8 +33,8 @@
   - pycrypto>=2.6
   - six
   - requests
-  #- docker-py==1.9.0
-  - docker-py>=1.9.0
+  - docker-py==1.9.0
+  #docker-compose 1.8.0 requires docker-py >1.9,<2.0, however if you're specifically setting docker-py to a version lower than 1.9.0 and installing docker-compose 1.8.0 it will upgrade docker-py all the way to 1.10.1 which presently breaks the string version comparison. Set docker-py to 1.9.0 prevent this.
 
 
 #- name: on Trusty it is recommended to install the linux-image-extra kernel package
