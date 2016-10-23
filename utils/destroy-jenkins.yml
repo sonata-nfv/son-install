@@ -1,0 +1,18 @@
+---
+- name: "destroy JENKINS CI server from the VM appliance"
+  hosts: "{{ target }}"
+  become: true
+  tasks:
+
+  - name: check if service is running
+    stat: path=/etc/init.d/jenkins
+    register: service_status
+
+  - name: stop Jenkins service
+    service: name=jenkins state=stopped
+    when: service_status.stat.exists
+    register: service_stopped
+
+  - name: remove Jenkins package
+    yum: name=jenkins state=absent update_cache=yes
+
