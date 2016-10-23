@@ -45,3 +45,4 @@
 
 - name: open Jenkins listening port at fw
   firewalld: port=8080/tcp permanent=true state=enabled
+  notify: reload firewall
