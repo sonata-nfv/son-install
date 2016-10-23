@@ -1,0 +1,3 @@
+---
+# tasks file for JENKINS
+- include: "{{ ansible_distribution_release }}.yml"

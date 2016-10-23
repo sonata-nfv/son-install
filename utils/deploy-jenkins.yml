@@ -1,0 +1,7 @@
+---
+- name: "deploy JENKINS CI server to the VM appliance"
+  hosts: "{{ target }}"
+  become: true
+  roles:
+  - apache
+  - jenkins
