@@ -3,5 +3,5 @@
   hosts: "{{ target }}"
   become: true
   roles:
-  - apache
+#  - apache
   - jenkins
