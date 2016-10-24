@@ -2,7 +2,7 @@
 - name: destroying a VM via Ansible Cloud Module for Openstack
   hosts: localhost
   connection: local
-  sudo: yes
+  become: true
   tasks:
 
   - name: remove an Openstack 'nova-compute' instance

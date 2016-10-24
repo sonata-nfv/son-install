@@ -29,7 +29,6 @@
   - pycrypto>=2.6
   - six
   - requests
-#
   - munch
   - monotonic
   - cryptography
@@ -39,21 +38,29 @@
   #- futures
   #- concurrent
   - warlock
-#
-  - msgpack-python
+  - requestsexceptions>=1.1.1
   - python-openstackclient
-  - python-keystoneclient
-  - python-heatclient
-  - python-glanceclient
-  - python-cinderclient
-  - python-swiftclient
-  - python-magnumclient
-  - python-novaclient
-  - python-neutronclient
-  - python-troveclient
-  - python-designateclient
-  - python-ironicclient
+  - python-keystoneclient>=0.11.0
+  - python-heatclient>=1.0.0
+  - python-glanceclient>=1.0.0
+  - python-cinderclient>=1.3.1
+  - python-swiftclient>=2.5.0
+  - python-magnumclient>=2.1.0
+  - python-novaclient!=2.32.0,>=2.21.0,!=2.27.0
+  - python-neutronclient>=2.3.10
+  - python-troveclient>=1.2.0
+  - python-designateclient>=2.1.0
+  - python-ironicclient>=0.10.0
   - python-systemd
+  - pbr>=0.11,<2.0
+  - os-client-config>=1.20.0
+  - netifaces>=0.10.4
+  - munch
+  - keystoneauth1>=2.11.0
+  - jsonpatch
+  - ipaddress
+  - dogpile.cache>=0.5.3
+  - decorator
 
 # Install 'shade' python module (needed by Ansible Cloud module)
 - name: Gets 'shade' tarball
