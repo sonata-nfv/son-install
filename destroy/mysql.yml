@@ -20,7 +20,7 @@
     when: ansible_distribution == "Ubuntu"
 
   - name: uninstall MySQL package on Redhat/CentOS machine
-    yum: name={{ item }} state=present
+    yum: name={{ item }} state=absent
     with_items:
     - mariadb
     - mariadb-server

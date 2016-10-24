@@ -21,3 +21,12 @@
     apt: name=jenkins state=absent update_cache=yes
     when: ansible_os_family == "Debian"
 
+  - name: removing datafiles
+    file: path={{ item }} state=absent
+    with_items:
+    - /var/run/jenkins/
+    - /var/lib/jenkins/
+    - /var/log/jenkins/
+    - /usr/share/jenkins/
+    - /etc/init.d/jenkins
+
