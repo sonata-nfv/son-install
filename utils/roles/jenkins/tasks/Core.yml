@@ -27,22 +27,8 @@
 - name: starting Jenkins service
   service: name=jenkins state=started
 
-# Manage FW
-
-#- name: install firewalld Python dependencies
-#  yum: name={{ item }} state=present
-#  with_items:
-#  - python-pip
-#  - python-devel
-#  - python-setuptools
-#  - policycoreutils
+# Managing FW
 
 - name: install 'firewalld' to manage arbitrary ports/services
   yum: name=firewalld state=latest
 
-- name: start 'firewalld' service (replaces 'iptables' in CentOS 7)
-  service: name=firewalld state=started
-
-- name: open Jenkins listening port at fw
-  firewalld: port=8080/tcp permanent=true state=enabled
-  notify: reload firewall

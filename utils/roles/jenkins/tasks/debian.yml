@@ -42,3 +42,8 @@
 - name: starting Jenkins service
   service: name=jenkins state=started
 
+# Managing FW
+
+- name: install 'firewalld' to manage arbitrary ports/services
+  apt: name=firewalld state=latest
+

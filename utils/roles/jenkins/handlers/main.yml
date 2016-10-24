@@ -1,2 +1,5 @@
 ---
-# handlers file for otrs5
+# handlers file for Jenkins
+- name: reload firewalld
+  service: name=firewalld state=reloaded
+

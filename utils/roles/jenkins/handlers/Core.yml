@@ -1,3 +1,0 @@
----
-- mame: reload firewalld
-  service: name=firewalld state=reloaded

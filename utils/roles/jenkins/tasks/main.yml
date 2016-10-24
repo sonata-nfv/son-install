@@ -9,3 +9,11 @@
   include: debian.yml
   when: ansible_os_family == "Debian"
 
+# Managing firewall
+- name: start 'firewalld' service 
+  service: name=firewalld state=started
+
+- name: open Jenkins listening port at fw
+  firewalld: port=8080/tcp permanent=true state=enabled
+  notify: reload firewall
+
