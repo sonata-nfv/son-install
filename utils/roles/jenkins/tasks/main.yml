@@ -1,3 +1,11 @@
 ---
 # tasks file for JENKINS
-- include: "{{ ansible_distribution_release }}.yml"
+
+- name: installing JENKINS on CentOS 7
+  include: "{{ ansible_distribution_release }}.yml"
+  when: ansible_os_family == "RedHat"
+
+- name: installing JENKINS on Debian systems
+  include: debian.yml
+  when: ansible_os_family == "Debian"
+

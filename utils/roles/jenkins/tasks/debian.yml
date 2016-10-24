@@ -1,0 +1,27 @@
+---
+
+- name: install common libraries and tools
+  apt: name={{ item }} state=present
+  with_items: 
+  - software-properties-common
+
+- name: add OpenJDK repo from PPA
+  command: sudo add-apt-repository ppa:openjdk-r/ppa
+
+- apt: update_cache=yes
+
+- name: installing JDK
+  apt: name=openjdk-8-jdk state=present update_cache=yes
+
+- name: Installing Jenkins APT GPG key
+  apt_key: state=present key=https://jenkins-ci.org/debian/jenkins-ci.org.key
+
+- name: install Jenkins repo
+  shell: sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+
+- name: installing Jenkins package
+  apt: name=jenkins state=latest update_cache=yes
+
+- name: starting Jenkins service
+  service: name=jenkins state=started
+
