@@ -15,4 +15,9 @@
 
   - name: remove Jenkins package
     yum: name=jenkins state=absent update_cache=yes
+    when: ansible_os_family == "RedHat" and ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
+
+  - name: remove Jenkins package
+    apt: name=jenkins state=absent update_cache=yes
+    when: ansible_os_family == "Debian"
 
