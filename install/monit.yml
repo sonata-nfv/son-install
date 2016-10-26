@@ -55,14 +55,14 @@
       image: sonatanfv/son-monitor-prometheus
       state: started
       env:
-        RABBIT_URL: "{{ ansible_eth0.ipv4.address }}:5672"
+        RABBIT_URL: "ansible_{{ ansible_default_ipv4.interface }}.ipv4.address:5672"
         EMAIL_PASS: "czBuQHRAX21vbl9zeXNfMTY="
       ports: 
       - 9090:9090
       - 9089:9089
       extra_hosts:
-       influx: "{{ ansible_eth0.ipv4.address }}"
-       pushgateway: "{{ ansible_eth0.ipv4.address }}"
+       influx: "ansible_{{ ansible_default_ipv4.interface }}.ipv4.address"
+       pushgateway: ansible_{{ ansible_default_ipv4.interface }}.ipv4.address
       volumes:
         - /var/log/sonata:/var/log/monitor-prometheus
       log_driver: syslog
@@ -75,11 +75,10 @@
       state: started
       ports: 8000:8000
       extra_hosts:
-       mysql: "{{ ansible_eth0.ipv4.address }}"
-       prometheus: "{{ ansible_eth0.ipv4.address }}"
+       mysql: ansible_{{ ansible_default_ipv4.interface }}.ipv4.address
+       prometheus: ansible_{{ ansible_default_ipv4.interface }}.ipv4.address
       volumes:
-      - "/tmp/monitoring/mgr:/var/log/apache2"
-      volumes:
+        - "/tmp/monitoring/mgr:/var/log/apache2"
         - /var/log/sonata:/var/log/monitor-manager
       log_driver: syslog
 
@@ -93,7 +92,7 @@
       privileged: yes
       env:
        NODE_NAME: "{{ ansible_hostname }}"
-       PROM_SRV: "http://{{ ansible_eth0.ipv4.address }}:9091/metrics"
+       PROM_SRV: "http://ansible_{{ ansible_default_ipv4.interface }}.ipv4.address:9091/metrics"
       volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "/:/rootfs:ro"
