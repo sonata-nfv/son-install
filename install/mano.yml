@@ -1,7 +1,7 @@
 ---
 - name: deploy MANO FRAMEWORK as Docker containers from Registry to the SP VM appliance
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
 # Running the Sonata MANO Docker Images

@@ -1,6 +1,6 @@
 ---
 - name: deploy son-broker to the 'target' machine
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   roles:
   - broker

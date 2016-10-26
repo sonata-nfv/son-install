@@ -4,7 +4,7 @@
 
 - name: Install elasticsearch.org yum repo
   copy: src=elasticsearch.repo dest=/etc/yum.repos.d/elasticsearch.repo
-  sudo: yes
+  become: true
 
 - name: Install Elasticsearch
   yum: name=elasticsearch state=latest

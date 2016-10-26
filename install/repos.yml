@@ -1,7 +1,7 @@
 ---
 - name: deploy Docker containers REPOSITORIES from Registry to the SP VM appliance
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
 # Running the Sonata REPOs Docker Images

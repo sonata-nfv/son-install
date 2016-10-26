@@ -1,7 +1,7 @@
 ---
 - name: deploy INFRASTRUCTURE ABSTRATOR as Docker containers from Registry to the SP VM appliance
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
   - name: Infrastructure Abstractor VIM Adaptor running Docker containers

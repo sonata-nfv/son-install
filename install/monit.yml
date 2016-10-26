@@ -6,7 +6,7 @@
     urootpw: 1234
     dbname: monitoring
     dbuser: monitoringuser
-  sudo: yes
+  become: true
   tasks:
 
 # Running the Sonata MONITORY Docker Images
