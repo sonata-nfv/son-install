@@ -11,8 +11,8 @@
       name: pluginmanager
       image: sonatanfv/pluginmanager
       env:
-        mongo_host: ansible_{{ ansible_default_ipv4.interface }}.ipv4.address
-        broker_host: amqp://guest:guest@ansible_{{ ansible_default_ipv4.interface }}.ipv4.address:5672/%2F
+        mongo_host: "{{ ansible_default_ipv4.address }}"
+        broker_host: amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F
       state: started
       ports: 8001:8001
       volumes:
@@ -27,10 +27,10 @@
       name: servicelifecyclemanagement
       image: sonatanfv/servicelifecyclemanagement
       env:
-        url_nsr_repository: http://ansible_{{ ansible_default_ipv4.interface }}.ipv4.address:4002/records/nsr/
-        url_vnfr_repository: http://ansible_{{ ansible_default_ipv4.interface }}.ipv4.address:4002/records/vnfr/
-        url_monitoring_server: http://ansible_{{ ansible_default_ipv4.interface }}.ipv4.address:8000/api/v1/
-        broker_host: amqp://guest:guest@ansible_{{ ansible_default_ipv4.interface }}.ipv4.address:5672/%2F
+        url_nsr_repository: http://{{ ansible_default_ipv4.address }}:4002/records/nsr/
+        url_vnfr_repository: http://{{ ansible_default_ipv4.address }}:4002/records/vnfr/
+        url_monitoring_server: http://{{ ansible_default_ipv4.address }}:8000/api/v1/
+        broker_host: amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F
       state: started
       volumes:
         - /var/log/sonata:/var/log/mano-slm
@@ -42,7 +42,7 @@
       name: specificmanagerregistry
       image: sonatanfv/specificmanagerregistry
       env:
-        broker_host: amqp://guest:guest@ansible_{{ ansible_default_ipv4.interface }}.ipv4.address:5672/%2F
+        broker_host: amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F
         broker_name: son-broker,broker
       links:
         - son-broker

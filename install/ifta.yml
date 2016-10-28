@@ -10,9 +10,9 @@
       image: sonatanfv/son-sp-infrabstract
       state: started
       env:
-        broker_host: "ansible_{{ ansible_default_ipv4.interface }}.ipv4.address"
-        broker_uri: "amqp://guest:guest@ansible_{{ ansible_default_ipv4.interface }}.ipv4.address:5672/%2F"
-        repo_host: "ansible_{{ ansible_default_ipv4.interface }}.ipv4.address"
+        broker_host: "{{ ansible_default_ipv4.address }}"
+        broker_uri: "amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F"
+        repo_host: "{{ ansible_default_ipv4.address }}"
         repo_port: "5432"
         repo_user: "sonatatest"
         repo_pass: "sonata"
@@ -28,9 +28,9 @@
       image: sonatanfv/wim-adaptor
       state: started
       env:
-        broker_host: "ansible_{{ ansible_default_ipv4.interface }}.ipv4.address"
-        broker_uri: "amqp://guest:guest@ansible_{{ ansible_default_ipv4.interface }}.ipv4.address:5672/%2F"
-        repo_host: "ansible_{{ ansible_default_ipv4.interface }}.ipv4.address"
+        broker_host: "{{ ansible_default_ipv4.address }}"
+        broker_uri: "amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F"
+        repo_host: "{{ ansible_default_ipv4.address }}"
         repo_port: "5432"
         repo_user: "sonatatest"
         repo_pass: "sonata"
