@@ -1,7 +1,7 @@
 ---
 
-- include: stop-containers.yml
-  when: service == "all"
+#- include: stop-containers.yml
+#  when: service == "all"
 
 - include: gtkall.yml
   when: service == "all" or service == "gtk"
