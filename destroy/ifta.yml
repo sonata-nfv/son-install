@@ -1,7 +1,7 @@
 ---
 - name: remove Infrastructure Abstraction Docker containers from the SP VM appliance
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
   - name: Infrastructure Abstractor VIM Adaptor - removing Docker containers

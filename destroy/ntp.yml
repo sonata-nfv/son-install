@@ -2,7 +2,7 @@
 
 - name: UNINSTALLING NTP
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
   - name: check if the NTP service exists on Debian systems

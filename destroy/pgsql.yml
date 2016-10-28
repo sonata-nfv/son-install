@@ -1,7 +1,7 @@
 ---
 - name: remove PostgreSQL container from the 'target' machine
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
   - name: deploy postgres container
     docker_container:

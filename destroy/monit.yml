@@ -1,7 +1,7 @@
 ---
 - name: remove Docker containers from the SP VM
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
 # Removing the Sonata MONITORY Docker Images

@@ -1,7 +1,7 @@
 ---
 - name: remove MANO FRAMEWORK Docker containers from the SP VM appliance
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
 # Running the Sonata MANO Docker Images

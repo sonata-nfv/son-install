@@ -1,7 +1,7 @@
 ---
 - name: UNINSTALLING Docker 
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
   # UBUNTU

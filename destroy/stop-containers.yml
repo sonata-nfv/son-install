@@ -1,7 +1,7 @@
 ---
 - name: STOPing Docker containers
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
   - name: check if the DOCKER service exists

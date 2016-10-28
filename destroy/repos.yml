@@ -1,7 +1,7 @@
 ---
 - name: remove Docker containers REPOSITORIES from the SP VM appliance
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
 # Removing the Sonata REPOs Docker Images

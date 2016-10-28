@@ -1,7 +1,7 @@
 ---
-- name: remove SP GATEKEEPER Docker containers from VM
+- name: remove ALL SP Docker containers from VM
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
   - name: GATEKEEPER GUI - removing Docker containers
