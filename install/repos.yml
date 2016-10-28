@@ -14,7 +14,7 @@
       expose: 4011
       ports: 4002:4011
       extra_hosts:
-        mongo:  ansible_{{ interface }}.ipv4.address
+        mongo:  ansible_{{ ansible_default_ipv4.interface }}.ipv4.address
       restart_policy: "unless-stopped"
       volumes:
         - /var/log/sonata:/var/log/son-catalogue-repos
