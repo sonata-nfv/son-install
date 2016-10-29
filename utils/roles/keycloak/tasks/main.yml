@@ -1,0 +1,40 @@
+---
+# tasks file for keycloak
+
+- name: get tarball
+  become: true
+  become_user: "{{ ansible_user_id }}"
+  get_url:
+    #url="http://some.host/some_tarball-{{ tarball_version }}.tar.gz"
+    url="http://downloads.jboss.org/keycloak/{{ tarball_version }}/keycloak-{{ tarball_version }}.tar.gz"
+    dest="/home/{{ ansible_user_id }}/"
+  register: new_archive
+
+- name: unarchive source
+  become: true
+  become_user: "{{ ansible_user_id }}"
+  unarchive:
+    src="/home/{{ ansible_user_id }}/keycloak-{{ tarball_version }}.tar.gz"
+    dest="/opt"
+    copy=no
+  when: new_archive|changed
+
+# installing firewall for different distros
+
+- name: installing FIREWALLD on Redhat
+  include: "{{ ansible_distribution_release }}.yml"
+  when: ansible_os_family == "RedHat"
+
+- name: installing FIREWALLD on Debian systems
+  include: "{{ ansible_os_family }}.yml"
+  when: ansible_os_family == "Debian"
+
+# Managing firewall
+
+- name: start 'firewalld' service
+  service: name=firewalld state=started
+
+- name: open KEYCLOAK listening port at fw
+  firewalld: port=8080/tcp permanent=true state=enabled
+  notify: reload firewall
+

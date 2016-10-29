@@ -23,7 +23,8 @@
 #      name: functionlifecyclemanagement
 #      state: absent
 
-  - name: MANO Infrastructure Abstractor - removing Docker containers
+  - name: MANO Specific Manager Registry - removing Docker containers
     docker_container:
-      name: son-sp-infrabstract
+      name: specificmanagerregistry
       state: absent
+
