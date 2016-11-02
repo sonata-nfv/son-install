@@ -1,7 +1,7 @@
 ---
-- name: stop REPOSITORIES Docker containers at SP VM appliance
+- name: stoping REPOSITORIES Docker containers at SP VM appliance
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
 # Stopping the Sonata REPOs Docker Images

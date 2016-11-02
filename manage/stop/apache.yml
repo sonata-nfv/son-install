@@ -1,8 +1,8 @@
 ---
 
-- name: UNINSTALLING APACHE
+- name: MANAGING APACHE LIFE CYCLE
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
 # Debian/Ubuntu

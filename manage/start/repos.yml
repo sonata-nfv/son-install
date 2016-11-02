@@ -1,7 +1,7 @@
 ---
 - name: starting REPOSITORIES Docker containers at SP VM appliance
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
 # Running the Sonata REPOs Docker Images

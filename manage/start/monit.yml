@@ -1,7 +1,7 @@
 ---
-- name: start MONITORY Docker containers at SP VM appliance
+- name: starting MONITORY Docker containers at SP VM appliance
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
 # Running the Sonata MONITORY Docker Images

@@ -1,7 +1,7 @@
 ---
 - name: starting GATEKEEPER Docker containers at SP VM appliance
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
   # Running the Sonata GK Docker Images

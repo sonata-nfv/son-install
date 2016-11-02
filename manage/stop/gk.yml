@@ -1,7 +1,7 @@
 ---
 - name: stopping SP GATEKEEPER 
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
   # Stopping the Sonata GK Docker Images

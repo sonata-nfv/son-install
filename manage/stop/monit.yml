@@ -1,7 +1,7 @@
 ---
 - name: stopping MONITORY Docker containers at SP VM
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
 # Stopping the Sonata MONITORY Docker Images

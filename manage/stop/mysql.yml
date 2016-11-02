@@ -2,7 +2,7 @@
 
 - name: stopping MySQL database services
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
   - name: check if the Apache service exists

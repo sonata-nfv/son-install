@@ -1,7 +1,7 @@
 ---
 - name: starting MANO FRAMEWORK Docker containers at SP VM appliance
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
 # Running the Sonata MANO Docker Images

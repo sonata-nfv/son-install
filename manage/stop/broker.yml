@@ -1,7 +1,7 @@
 ---
 - name: stopping RabbitMQ Docker container at SON-SP VM appliance
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
   - name: check if the DOCKER service exists
