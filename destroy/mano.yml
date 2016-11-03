@@ -6,6 +6,11 @@
 
 # Running the Sonata MANO Docker Images
 
+  - name: MANO Specific Manager Registry - removing Docker containers
+    docker_container:
+      name: specificmanagerregistry
+      state: absent
+
   - name: MANO Plug-in Manager - removing Docker containers
     docker_container:
       name: pluginmanager
@@ -22,9 +27,4 @@
 #    docker_container:
 #      name: functionlifecyclemanagement
 #      state: absent
-
-  - name: MANO Specific Manager Registry - removing Docker containers
-    docker_container:
-      name: specificmanagerregistry
-      state: absent
 

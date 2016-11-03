@@ -6,6 +6,9 @@
 - include: gtkall.yml
   when: service == "all" or service == "gtk"
 
+- include: repos.yml
+  when: service == "all" or service == "repos"
+
 - include: mano.yml
   when: service == "all" or service == "mano"
 
