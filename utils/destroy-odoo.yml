@@ -28,4 +28,4 @@
     - /var/lib/odoo/
     - /var/log/odoo/
     - /etc/init.d/odoo
-
+    - /etc/odoo
