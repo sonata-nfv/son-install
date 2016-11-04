@@ -1,0 +1,33 @@
+---
+# CENTOS 7
+
+- name: installing EPEL
+  yum_repository:
+    name: epel
+    description: EPEL YUM repo
+    baseurl: http://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+
+- yum: name=* state=latest update_cache=yes
+
+- name: installing POSTGRESQL
+  yum: name=postgresql-server state=present
+
+- name: postgresql database initialization
+  command: "sudo postgresql-setup initdb"
+
+- name: starting postgresql database engine
+  service: name=postgresql state=started enabled=yes
+
+- name: installing Odoo repo
+  get_url:
+    url: https://nightly.odoo.com/{{ tarball }}/nightly/rpm/odoo.repo
+    dest: /etc/yum.repos.d/odoo.repo
+    mode: 0644
+
+- yum: name=* state=latest update_cache=yes
+
+- name: installing ODOO
+  yum: name=odoo state=present
+
+- name: starting Odoo 
+  service: name=odoo state=started enabled=yes
