@@ -1,0 +1,9 @@
+---
+- name: "deploy ODOO (OpenERP Community Edition) to the VM appliance"
+  hosts: "{{ target }}"
+  become: true
+  vars:
+    tarball: "10.0"
+  roles:
+#  - common
+  - odoo
