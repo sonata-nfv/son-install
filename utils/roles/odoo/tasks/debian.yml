@@ -34,5 +34,5 @@
   apt: name=odoo state=latest update_cache=yes
 
 - name: "starting Odoo service"
-  service: name=odoo state=started
+  service: name=odoo.dpkg-dist state=started
 
