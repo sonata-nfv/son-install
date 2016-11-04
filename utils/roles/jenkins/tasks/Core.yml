@@ -1,19 +1,7 @@
 # CENTOS 7
-- name: installing EPEL
-  yum_repository:
-    name: epel
-    description: EPEL YUM repo
-    baseurl: http://download.fedoraproject.org/pub/epel/$releasever/$basearch/
-
-- name: installing JDK
-  yum: name=java-1.8.0-openjdk state=present update_cache=yes
 
 - name: Installing Jenkins YUM GPG key
   rpm_key: state=present key=https://jenkins-ci.org/redhat/jenkins-ci.org.key
-
-#- name: Installing Jenkins YUM repo
-#  copy: src=jenkins.repo dest=/etc/yum.repos.d/jenkins.repo
-#  sudo: yes
 
 - name: install Jenkins repo
   get_url:
@@ -26,9 +14,4 @@
 
 - name: starting Jenkins service
   service: name=jenkins state=started
-
-# Managing FW
-
-- name: install 'firewalld' to manage arbitrary ports/services
-  yum: name=firewalld state=latest
 

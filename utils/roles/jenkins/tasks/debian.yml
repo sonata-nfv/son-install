@@ -1,34 +1,29 @@
 ---
 
-- name: install common libraries and tools
-  apt: name={{ item }} state=present
-  with_items: 
-  - build-essential
-  - software-properties-common
-  - python-dev
-  - python-pip
+- name: install common libraries and tools 
+  apt: name={{ item }} state=present 
+  with_items:  
+  - build-essential 
+  - software-properties-common 
+  - python-dev 
+  - python-pip 
 
-- name: install PIP
-  easy_install: name=pip
+- name: install PIP 
+  easy_install: name=pip 
 
-- name: install libraries and tools for https url
-  pip: name={{ item }}  state=present
-  with_items:
-  - PyYAML
-  - setuptools
-  - urllib3
-  - pyopenssl
-  - ndg-httpsclient
-  - pyasn1
 # If the website serving the url uses SNI you need python >= 2.7.9 on your managed machine or you can install the `urllib3`, `pyopenssl`, `ndg-httpsclient`, and `pyasn1` python modules to perform SNI verification in python >= 2.6 
 
-- name: add OpenJDK repo from PPA
-  command: add-apt-repository ppa:openjdk-r/ppa
+- name: install libraries and tools for https url 
+  pip: name={{ item }}  state=present 
+  with_items: 
+  - PyYAML 
+  - setuptools 
+  - urllib3 
+  - pyopenssl 
+  - ndg-httpsclient 
+  - pyasn1 
 
 - apt: update_cache=yes
-
-- name: installing JDK
-  apt: name=openjdk-8-jdk state=present update_cache=yes
 
 - name: Installing Jenkins APT GPG key
   apt_key: state=present url=http://jenkins-ci.org/debian/jenkins-ci.org.key
@@ -41,9 +36,4 @@
 
 - name: starting Jenkins service
   service: name=jenkins state=started
-
-# Managing FW
-
-- name: install 'firewalld' to manage arbitrary ports/services
-  apt: name=firewalld state=latest
 
