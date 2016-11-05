@@ -1,0 +1,21 @@
+---
+
+- name: installing PostgreSQL on CentOS7 distro
+  yum:
+    name: https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
+    state: present
+    update_cache: yes
+
+- name: installing PostgreSQL
+  yum: name={{ item }} update_cache=true state=installed
+  with_items:
+  - postgresql96
+  - postgresql96-server
+  - postgresql96-contrib
+  - postgresql96-libs
+#  - postgresql-contrib
+#  - libpq-dev
+  - python-devel
+  - python-psycopg2
+
+- shell: /usr/pgsql-{{ tarball }}/bin/postgresql{{ pg_ver }}-setup initdb
