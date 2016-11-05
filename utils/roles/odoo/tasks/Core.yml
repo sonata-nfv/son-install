@@ -9,8 +9,19 @@
 
 - yum: name=* state=latest update_cache=yes
 
-- name: installing POSTGRESQL
-  yum: name=postgresql-server state=present
+- name: installing PostgreSQL
+  yum:
+    name: https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
+    state: present
+    update_cache: yes
+
+- name: installing PostgreSQL
+  yum: name={{ item }} update_cache=true state=installed
+  with_items:
+  - postgresql96
+  - postgresql96-server
+  - postgresql96-contrib
+  - postgresql96-libs
 
 - name: postgresql database initialization
   command: "sudo postgresql-setup initdb"
@@ -31,3 +42,7 @@
 
 - name: starting Odoo 
   service: name=odoo state=started enabled=yes
+
+- name: install 'firewalld' to manage arbitrary ports/services
+  yum: name=firewalld state=latest
+

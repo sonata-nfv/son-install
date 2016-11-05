@@ -18,3 +18,12 @@
   become_user: postgres
   postgresql_user: name={{ db_user }} role_attr_flags=NOSUPERUSER,NOCREATEDB state=present
 
+# Managing firewall
+
+- name: start 'firewalld' service
+  service: name=firewalld state=started
+
+- name: open pgSQL listening port at fw
+  firewalld: port=5432/tcp permanent=true state=enabled
+  notify: reload firewalld
+

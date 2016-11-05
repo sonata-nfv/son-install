@@ -17,5 +17,6 @@
 #  - libpq-dev
   - python-devel
   - python-psycopg2
+  - firewalld
 
 - shell: /usr/pgsql-{{ tarball }}/bin/postgresql{{ pg_ver }}-setup initdb

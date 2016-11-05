@@ -1,4 +1,9 @@
 ---
 # handlers file for postgresql
+
 - name: restart postgresql 
   service: name=postgresql state=restarted 
+
+- name: reload firewalld
+  service: name=firewalld state=reloaded
+

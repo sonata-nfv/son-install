@@ -12,6 +12,7 @@ Role Variables
 --------------
 Current version is: 9.6
 To install a different version, change variable "tarball". 
+To set your own dbname, username and passwd, change it at 'vars'
 
 
 Dependencies
