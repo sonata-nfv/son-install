@@ -2,7 +2,10 @@
 # tasks file for PostgreSQL
 
 - include: "{{ ansible_distribution_release }}.yml"
+  when: ansible_os_family == "RedHat"
 
+- include: debian.yml
+  when: ansible_os_family == "Debian"
 
 # Create DB, Users and privileges
 
