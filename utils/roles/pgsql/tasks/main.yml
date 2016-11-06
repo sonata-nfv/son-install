@@ -3,8 +3,8 @@
 
 - include: "{{ ansible_distribution_release }}.yml"
 
-- name: Ensure the PostgreSQL service is running
-  service: name=postgresql-{{ tarball }} state=started enabled=yes
+
+# Create DB, Users and privileges
 
 - name: Ensure database is created
   become_user: postgres
