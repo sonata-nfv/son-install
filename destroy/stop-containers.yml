@@ -9,9 +9,7 @@
     register: service_status
 
   - shell: "/usr/bin/docker stop $(docker ps -q)"
-    #become: true
     when: service_status.stat.exists    
 
   - shell: "/usr/bin/docker rm -v $(docker ps -q -f status=exited)"
-    #become: true
     when: service_status.stat.exists
