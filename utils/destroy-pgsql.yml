@@ -20,12 +20,12 @@
 
 #  - debug: var=service_status
 
-  - name: Ensure the PostgreSQL service is stopped
+  - name: ensure the PostgreSQL service is stopped
     service: name=postgresql-{{ tarball }} state=stopped enabled=no
     register: service_stopped
     when: ansible_os_family == "RedHat"
 
-  - name: remove pgSQL packages
+  - name: removing pgSQL packages
     yum: name={{ item }} update_cache=true state=absent
     with_items:
     - postgresql96
@@ -54,14 +54,14 @@
   - name: check if service is running
     stat: path=/etc/init.d/postgresql.dpkg-dist
     register: service_status
-    when: ansible_os_family == "Debian"
+    when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "14"
 
   - name: ensure the PostgreSQL service is stopped
     service: name=postgresql state=stopped enabled=no
     register: service_stopped
     when: ansible_os_family == "Debian"
 
-  - name: remove pgSQL packages
+  - name: removing pgSQL packages
     apt: name={{ item }} update_cache=true state=absent
     with_items:
     - postgresql

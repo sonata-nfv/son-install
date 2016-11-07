@@ -19,7 +19,8 @@
   - python-psycopg2
   - firewalld
 
+- shell: /usr/pgsql-{{ tarball }}/bin/postgresql{{ pg_ver }}-setup initdb
+
 - name: Ensure the PostgreSQL service is running
   service: name=postgresql-{{ tarball }} state=started enabled=yes
 
-- shell: /usr/pgsql-{{ tarball }}/bin/postgresql{{ pg_ver }}-setup initdb
