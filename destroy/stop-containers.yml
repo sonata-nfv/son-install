@@ -8,8 +8,10 @@
     stat: path=/etc/init.d/docker
     register: service_status
 
-  - shell: "sudo /usr/bin/docker stop $(sudo docker ps -q)"
+  - shell: "/usr/bin/docker stop $(docker ps -q)"
+    #become: true
     when: service_status.stat.exists    
 
-  - shell: "sudo /usr/bin/docker rm -v $(sudo docker ps -q -f status=exited)"
+  - shell: "/usr/bin/docker rm -v $(docker ps -q -f status=exited)"
+    #become: true
     when: service_status.stat.exists
