@@ -1,23 +1,30 @@
 Role Name
 =========
 
-'pgsql' role installs PostgreSQL on multiple distros (currently CentOS 7 and Ubuntu 14.04 and 16.04). The playbook maps the steps described here: https://wiki.postgresql.org/wiki/YUM_Installation
+'pgsql' role installs PostgreSQL on multiple distros 
+* CentOS 7 - as steps described here: https://wiki.postgresql.org/wiki/YUM_Installation
+* Ubuntu 14.04 
+* Ubuntu 16.04 
 
 
 Requirements
 ------------
 
+* Requires Ansible 2.2 because of managed services with 'systemd' 
+* 'firewalld'
+
 
 Role Variables
 --------------
-Current version is: 9.6
-To install a different version, change variable "tarball". 
-To set your own dbname, username and passwd, change it at 'vars'
+To install a different pgSQL version, change variable "tarball". 
+To set your own dbname, username and passwd, change it at role 'vars'
+Current version is: "9.6"
 
 
 Dependencies
 ------------
-Previous install Python module "psycopg2"
+Previous install 
+* Python module "psycopg2"
 
 
 Example Playbook

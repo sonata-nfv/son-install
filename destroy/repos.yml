@@ -7,7 +7,7 @@
 # Removing the Sonata REPOs Docker Images
 
   - name: REPOs - running Docker containers
-    docker:
+    docker_container:
       name: son-catalogue-repos
       state: absent
 
