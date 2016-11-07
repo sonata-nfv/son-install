@@ -28,5 +28,5 @@
   tags: postgresql
 
 - name: ensure the PostgreSQL service is running
-  service: name=postgresql.dpkg-dist state=started enabled=yes
+  service: name=postgresql state=started enabled=yes
 

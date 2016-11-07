@@ -57,7 +57,7 @@
     when: ansible_os_family == "Debian"
 
   - name: ensure the PostgreSQL service is stopped
-    service: name=postgresql.dpkg-dist state=stopped enabled=no
+    service: name=postgresql state=stopped enabled=no
     register: service_stopped
     when: ansible_os_family == "Debian"
 
