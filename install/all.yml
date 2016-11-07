@@ -9,22 +9,22 @@
 #- include: nginx.yml
 
 # deploy MySQL database engine
-- include: mysql.yml
+#- include: mysql.yml
 
 # deploy postgreSQL database engine
-- include: pgsql.yml
+#- include: pgsql.yml
 
 # deploy MongoDB database engine
 - include: mongo.yml
+
+# deploy Repositories
+- include: repos.yml
 
 # deploy RabbitMQ message bus
 - include: broker.yml
 
 # deploy Gatekepper module
 - include: gtkall.yml
-
-# deploy Repositories
-- include: repos.yml
 
 # deploy MANO framework
 - include: mano.yml
