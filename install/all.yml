@@ -12,7 +12,7 @@
 #- include: mysql.yml
 
 # deploy postgreSQL database engine
-#- include: pgsql.yml
+- include: pgsql.yml
 
 # deploy MongoDB database engine
 - include: mongo.yml
