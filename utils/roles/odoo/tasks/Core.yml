@@ -1,12 +1,6 @@
 ---
 # CENTOS 7
 
-- name: postgresql database initialization
-  command: "/usr/pgsql-9.6/bin/postgresql-setup initdb"
-
-- name: starting postgresql database engine
-  service: name=postgresql-{{ tarball }} state=started enabled=yes
-
 - name: installing Odoo repo
   get_url:
     url: https://nightly.odoo.com/{{ tarball }}/nightly/rpm/odoo.repo
