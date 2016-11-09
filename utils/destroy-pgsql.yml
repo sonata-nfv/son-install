@@ -9,7 +9,7 @@
 
 
 # REDHAT/CENTOS
-  - raw: /usr/bin/date >> /home/{{ ansible_user_id }}/play.log
+  - raw: /usr/bin/date >> /tmp/play.log
     when: ansible_os_family == "RedHat"
 
 #  - name: check if service is running
@@ -45,10 +45,14 @@
     - /usr/share/pgsql
     when: ansible_os_family == "RedHat"
 
+  - raw: /usr/bin/date >> /tmp/play.log
+    when: ansible_os_family == "RedHat"
+
+
 
 # DEBIAN/UBUNTU
 
-  - raw: /bin/date >> /home/{{ ansible_user_id }}/play.log
+  - raw: /bin/date >> /tmp/play.log
     when: ansible_os_family == "Debian"
 
   - name: check if service is running
@@ -83,5 +87,5 @@
     - /etc/init.d/postgresql
     when: ansible_os_family == "Debian"
 
-  - raw: /bin/date >> /home/{{ ansible_user_id }}/play.log
+  - raw: /bin/date >> /tmp/play.log
 
