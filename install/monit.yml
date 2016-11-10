@@ -50,7 +50,7 @@
 
 
   - name: MONIT PROMETHEUS - running Docker containers
-    docker:
+    docker_container:
       name: son-monitor-prometheus
       image: sonatanfv/son-monitor-prometheus
       state: started
@@ -69,7 +69,7 @@
 
 
   - name: MONIT MANAGER - running Docker containers
-    docker:
+    docker_container:
       name: son-monitor-manager
       image: sonatanfv/son-monitor-manager
       state: started
@@ -84,7 +84,7 @@
 
 
   - name: MONIT Probe - running Docker containers
-    docker:
+    docker_container:
       name: son-monitor-probe
       image: sonatanfv/son-monitor-probe
       state: started

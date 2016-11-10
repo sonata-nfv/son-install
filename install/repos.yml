@@ -7,7 +7,7 @@
 # Running the Sonata REPOs Docker Images
 
   - name: REPOs - running Docker containers
-    docker:
+    docker_container:
       name: son-catalogue-repos
       image: sonatanfv/son-catalogue-repos
       state: started
