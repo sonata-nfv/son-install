@@ -12,8 +12,8 @@
       state: started
 
   - name: GATEKEEPER BSS - running Docker containers
-    docker:
-      name: son-bss
+    docker_container:
+      name: son-yo-gen-bss
       state: started
 
   - name: GATEKEEPER PACKAGES - running Docker containers
