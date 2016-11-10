@@ -13,8 +13,9 @@
       state: started
       expose: 4011
       ports: 4002:4011
-      extra_hosts:
-        mongo:  "{{ ansible_default_ipv4.address }}"
+      etc_hosts:
+        mongo: "{{ ansible_default_ipv4.address }}"
+        #mongo: "{{ ansible_docker0['ipv4']['address']}}"
       restart_policy: "unless-stopped"
       volumes:
         - /var/log/sonata:/var/log/son-catalogue-repos
