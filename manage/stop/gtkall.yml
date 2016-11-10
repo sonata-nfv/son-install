@@ -13,7 +13,7 @@
 
   - name: GATEKEEPER BSS - stopping Docker containers
     docker_container:
-      name: son-yo-gen-bss
+      name: son-bss
       state: stopped
 
   - name: GATEKEEPER PACKAGES - stopping Docker containers

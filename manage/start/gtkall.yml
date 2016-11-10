@@ -13,7 +13,7 @@
 
   - name: GATEKEEPER BSS - running Docker containers
     docker_container:
-      name: son-yo-gen-bss
+      name: son-bss
       state: started
 
   - name: GATEKEEPER PACKAGES - running Docker containers
