@@ -1,0 +1,11 @@
+---
+- name: check service status
+  hosts: {{ target }}
+  #hosts: localhost
+  #connection: local
+  become: true
+  tasks:
+
+  - name: checking service status
+    command: /etc/init.d/{{ svc }} status
+    when: ansible_distribution_release == "trusty"
