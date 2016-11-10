@@ -1,5 +1,5 @@
 ---
-- name: "destroy ODOO CI server from the VM appliance"
+- name: "destroy ODOO ERP server from the VM appliance"
   hosts: "{{ target }}"
   become: true
   tasks:

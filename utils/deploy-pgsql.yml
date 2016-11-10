@@ -4,8 +4,5 @@
   become: true 
   vars_files:
   - roles/pgsql/vars/main.yml 
-  vars:
-    tarball: "9.6"
-    pg_ver: "96"
   roles:
   - pgsql

@@ -13,7 +13,7 @@
   - postgresql96-server
   - postgresql96-contrib
   - postgresql96-libs
-  - pgadmin
+  - pgadmin4
 #  - libpq-dev
   - python-devel
   - python-psycopg2

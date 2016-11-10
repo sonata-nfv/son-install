@@ -1,34 +1,6 @@
 ---
 # CENTOS 7
 
-- name: installing EPEL
-  yum_repository:
-    name: epel
-    description: EPEL YUM repo
-    baseurl: http://download.fedoraproject.org/pub/epel/$releasever/$basearch/
-
-- yum: name=* state=latest update_cache=yes
-
-- name: installing PostgreSQL
-  yum:
-    name: https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
-    state: present
-    update_cache: yes
-
-- name: installing PostgreSQL
-  yum: name={{ item }} update_cache=true state=installed
-  with_items:
-  - postgresql96
-  - postgresql96-server
-  - postgresql96-contrib
-  - postgresql96-libs
-
-- name: postgresql database initialization
-  command: "sudo postgresql-setup initdb"
-
-- name: starting postgresql database engine
-  service: name=postgresql state=started enabled=yes
-
 - name: installing Odoo repo
   get_url:
     url: https://nightly.odoo.com/{{ tarball }}/nightly/rpm/odoo.repo
