@@ -88,7 +88,7 @@
       name: son-monitor-probe
       image: sonatanfv/son-monitor-probe
       state: started
-      net: host
+      network_mode: host
       privileged: yes
       env:
        NODE_NAME: "{{ ansible_hostname }}"
