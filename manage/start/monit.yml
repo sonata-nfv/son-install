@@ -22,16 +22,16 @@
       state: started
 
   - name: MONIT PROMETHEUS - running Docker containers
-    docker:
+    docker_container:
       name: son-monitor-prometheus
       state: started
 
   - name: MONIT MANAGER - running Docker containers
-    docker:
+    docker_container:
       name: son-monitor-manager
       state: started
 
   - name: MONIT Probe - running Docker containers
-    docker:
+    docker_container:
       name: son-monitor-probe
       state: started

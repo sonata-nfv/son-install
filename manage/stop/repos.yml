@@ -7,7 +7,7 @@
 # Stopping the Sonata REPOs Docker Images
 
   - name: REPOs - stopping Docker containers
-    docker:
+    docker_container:
       name: son-catalogue-repos
       state: stopped
 

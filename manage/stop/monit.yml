@@ -22,16 +22,16 @@
       state: stopped
 
   - name: MONIT PROMETHEUS - stopping Docker containers
-    docker:
+    docker_container:
       name: son-monitor-prometheus
       state: stopped
 
   - name: MONIT MANAGER - stopping Docker containers
-    docker:
+    docker_container:
       name: son-monitor-manager
       state: stopped
 
   - name: MONIT Probe - stopping Docker containers
-    docker:
+    docker_container:
       name: son-monitor-probe
       state: stopped
