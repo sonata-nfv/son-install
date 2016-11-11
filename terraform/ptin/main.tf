@@ -32,7 +32,7 @@ resource "openstack_compute_instance_v2" "sonata-sp" {
 resource "template_file" "host_ipaddr" {
   count = "${var.node_count}"
 #  location = "${var.placement}"
-  template = "${file("sp4${var.env}/hostname.tpl")}"
+  template = "${file("${var.env}/hostname.tpl")}"
   vars {
     index = "${count.index + 1}"
     name  = "sp"
@@ -43,7 +43,7 @@ resource "template_file" "host_ipaddr" {
 
 resource "template_file" "inventory" {
   #count = "${var.node_count}"
-  template = "${file("sp4${var.env}/inventory.tpl")}"
+  template = "${file("${var.env}/inventory.tpl")}"
   vars {
     env       = "qual"
     os_hosts  = "${join("\n",template_file.host_ipaddr.*.rendered)}"

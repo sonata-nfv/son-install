@@ -48,7 +48,7 @@ USAGE
 
 1. $ cd 'ENVIRON'
 2. $ terraform get
-3. $ terraform plan -e var-files=terraform.tfvars
+3. $ terraform plan var-file=terraform.tfvars
 4. $ terraform apply
 5. $ terraform output inventory > hosts
 

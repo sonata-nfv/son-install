@@ -1,5 +1,6 @@
 [all:vars]
-# Environment: QUALIFICATION
+# Environment: DEMONSTRATION
+env=demo
 
 # Network to configure access in pg_hba
 network=172.31.6.0
@@ -10,6 +11,12 @@ netmask=24
 [sp]
 ${os_hosts}
 
+[nfv]
+${os_hosts}
+
+[ns:children]
+nfv
+
 [sp4${env}:children]
 sp
-
+ns
