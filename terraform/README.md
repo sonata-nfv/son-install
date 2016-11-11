@@ -46,11 +46,11 @@ ENV: DEMONSTRATION
 USAGE
 -----
 
- $ cd 'ENVIRON'
- $ terraform get
- $ terraform plan -e var-files=terraform.tfvars
- $ terraform apply
- $ terraform output inventory > hosts
+1. $ cd 'ENVIRON'
+2. $ terraform get
+3. $ terraform plan -e var-files=terraform.tfvars
+4. $ terraform apply
+5. $ terraform output inventory > hosts
 
 
 FEEDBACK TO
