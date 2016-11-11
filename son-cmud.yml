@@ -1,7 +1,7 @@
 ---
 - name: SONATA-NVF Service Platform CMUD 
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
 
 #  - include: "{{ operation }}/{{ service }}.yml"
 

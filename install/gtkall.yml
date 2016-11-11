@@ -22,7 +22,7 @@
       log_driver: syslog
 
   - name: GATEKEEPER BSS - running Docker containers
-    docker:
+    docker_container:
       name: son-bss
       image: sonatanfv/son-yo-gen-bss
       command: grunt serve:integration --gkApiUrl=http://{{ public_ip }}:32001

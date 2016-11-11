@@ -11,11 +11,6 @@
   - name: run the "SP Message Bus"
     docker_container: 
       name: son-broker
-      image: rabbitmq
-      env:
-        RABBITMQ_CONSOLE_LOG: new
       state: stopped
-      ports: "5672:5672, 8080:15672"
-      privileged: yes
     when: service_status.stat.exists
 

@@ -12,7 +12,7 @@
       state: stopped
 
   - name: GATEKEEPER BSS - stopping Docker containers
-    docker:
+    docker_container:
       name: son-bss
       state: stopped
 

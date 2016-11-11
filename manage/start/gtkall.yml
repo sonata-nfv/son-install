@@ -12,7 +12,7 @@
       state: started
 
   - name: GATEKEEPER BSS - running Docker containers
-    docker:
+    docker_container:
       name: son-bss
       state: started
 

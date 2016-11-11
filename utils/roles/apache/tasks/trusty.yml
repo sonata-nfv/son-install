@@ -18,8 +18,11 @@
   - apache2
   - apache2-utils
 
+- name: starting the Apache service
+  service: name=apache2 state=started enabled=yes
+
 - name: enabled mod_rewrite
   apache2_module: name=rewrite state=present
   notify:
-    - restart apache2
+  - restart apache2
 

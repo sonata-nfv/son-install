@@ -50,7 +50,7 @@
 
 
   - name: MONIT PROMETHEUS - running Docker containers
-    docker:
+    docker_container:
       name: son-monitor-prometheus
       image: sonatanfv/son-monitor-prometheus
       state: started
@@ -60,23 +60,23 @@
       ports: 
       - 9090:9090
       - 9089:9089
-      extra_hosts:
-       influx: "{{ ansible_default_ipv4.address }}"
-       pushgateway: "{{ ansible_default_ipv4.address }}"
+      etc_hosts:
+        influx: "{{ ansible_default_ipv4.address }}"
+        pushgateway: "{{ ansible_default_ipv4.address }}"
       volumes:
         - /var/log/sonata:/var/log/monitor-prometheus
       log_driver: syslog
 
 
   - name: MONIT MANAGER - running Docker containers
-    docker:
+    docker_container:
       name: son-monitor-manager
       image: sonatanfv/son-monitor-manager
       state: started
       ports: 8000:8000
-      extra_hosts:
-       mysql: "{{ ansible_default_ipv4.address }}"
-       prometheus: "{{ ansible_default_ipv4.address }}"
+      etc_hosts:
+        mysql: "{{ ansible_default_ipv4.address }}"
+        prometheus: "{{ ansible_default_ipv4.address }}"
       volumes:
         - "/tmp/monitoring/mgr:/var/log/apache2"
         - /var/log/sonata:/var/log/monitor-manager
@@ -84,11 +84,11 @@
 
 
   - name: MONIT Probe - running Docker containers
-    docker:
+    docker_container:
       name: son-monitor-probe
       image: sonatanfv/son-monitor-probe
       state: started
-      net: host
+      network_mode: host
       privileged: yes
       env:
        NODE_NAME: "{{ ansible_hostname }}"

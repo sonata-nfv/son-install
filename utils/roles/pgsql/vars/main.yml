@@ -5,6 +5,9 @@ db_name: son-sp
 db_user: sonata
 db_password: s0n@t@
 
+tarball: "9.6"
+pg_ver: "96"
+
 
 #postgresql_databases:
 #  - name: example_db
