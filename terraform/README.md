@@ -6,7 +6,7 @@ Deploy infrastructure for Sonata Service Platform (SP) multi-environment, namely
 REQUIREMENTS
 ------------
 * Multi-VIM - Openstack Provider is mandatory (others in the near future, eg: AWS)
-* Multi-Location - for PoC 2 sites are used (NCSRD and ALB) 
+* Multi-PoP - 2 geographicaly separated sites are used for a PoC (NCSRD and ALB)
 * Multi-Distro - actualy, CentOS 7, Ubuntu 14.04 and Ubuntu 16.04 is being tested 
 
 The implementation uses Modules.
@@ -46,11 +46,11 @@ ENV: DEMONSTRATION
 USAGE
 -----
 
-$ cd 'ENVIRON'
-$ terraform get
-$ terraform plan -e var-files=terraform.tfvars
-$ terraform apply
-$ terraform output inventory > hosts
+ $ cd 'ENVIRON'
+ $ terraform get
+ $ terraform plan -e var-files=terraform.tfvars
+ $ terraform apply
+ $ terraform output inventory > hosts
 
 
 FEEDBACK TO
