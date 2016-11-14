@@ -1,6 +1,5 @@
 [all:vars]
-# Environment: DEMONSTRATION
-env=demo
+# Environment: INTEGRATION | QUALIFICATION | DEMONSTRATION
 
 # Network to configure access in pg_hba
 network=172.31.6.0

@@ -1,6 +1,6 @@
 [all:vars]
-# Environment: INTEGRATION
-env=qual
+# Environment: INTEGRATION | QUALIFICATION | DEMONSTRATION
+env=int
 
 # Network to configure access in pg_hba
 network=172.31.6.0
@@ -8,21 +8,16 @@ network=172.31.6.0
 # Netmask to configure access in pg_hba
 netmask=24
 
-[jenkins]
+[sp]
+${jenkins_hosts}
+${intsrv_hosts}
+
+[nfv]
 ${os_hosts}
 
-[intserv1]
-${os_hosts}
-
-[intserv2]
-${os_hosts}
-
-[intserv3]
-${os_hosts}
-
+[ns:children]
+nfv
 
 [sp4${env}:children]
-jenkins
-intserv1
-intserv2
-intserv3
+sp
+ns

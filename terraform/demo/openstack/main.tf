@@ -3,7 +3,6 @@ variable "node_count" {
   default = 1
 }
 
-
 resource "openstack_compute_floatingip_v2" "fip" {
     region = ""
     pool = "${var.floatipnet}"
@@ -32,11 +31,12 @@ resource "openstack_compute_instance_v2" "sonata-sp" {
 
 resource "template_file" "host_ipaddr" {
   count = "${var.node_count}"
+#  location = "${var.placement}"
   template = "${file("hostname.tpl")}"
   vars {
     index = "${count.index + 1}"
     name  = "sp"
-    env   = "qual"
+    env   = "demo"
     extra = " ansible_host=${element(openstack_compute_floatingip_v2.fip.*.address, count.index)}"
   }
 }
@@ -45,7 +45,7 @@ resource "template_file" "inventory" {
   #count = "${var.node_count}"
   template = "${file("inventory.tpl")}"
   vars {
-    env       = "qual"
+    env       = "demo"
     os_hosts  = "${join("\n",template_file.host_ipaddr.*.rendered)}"
   }
 }
