@@ -20,6 +20,12 @@
   - firewalld
   tags: postgresql
 
+- file: path=/usr/local/pgsql/data state=directory owner=postgres group=postgres mode=0775
+
+- name: initialize database
+  become: yes
+  command: "/var/lib/postgresql/{{ tarball }}/bin/initdb -D /usr/local/pgsql/data"
+
 - name: ensure the PostgreSQL service is running
   become_sudo: yes
   service: name=postgresql state=started enabled=yes
