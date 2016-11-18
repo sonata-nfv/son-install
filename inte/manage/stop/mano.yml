@@ -1,5 +1,5 @@
 ---
-- name: stopping MANO FRAMEWORK as Docker containers from Registry to the SP VM appliance
+- name: stopping MANO FRAMEWORK Docker containers
   hosts: "{{ target }}"
   become: true
   tasks:
@@ -10,6 +10,7 @@
     docker_container:
       name: pluginmanager
       state: stopped
+  - wait_for: host=0.0.0.0 port=8001 timeout=30 delay=10 state=drained
 
 #  - pause: seconds=15
 

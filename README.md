@@ -131,6 +131,7 @@ Installation guide for multiple Linux platforms at:
 
   $ ansible-playbook son-cmud.yml -e "target=localhost env=demo operation=upgrade service='SVC_ID'"
 
+
 ### Destroy
 
 // Example to DESTROY all services in the SP at the Qualification environment
@@ -140,6 +141,14 @@ Installation guide for multiple Linux platforms at:
 // Example to DESTROY an individual service in the SP at the Demonstration environment
 
   $ ansible-playbook son-cmud.yml -e "target=localhost env=demo operation=destroy service='SVC_ID'"
+
+
+### Terraform 
+
+//  Change the 'variables.tf' file to meet your infrastructure parameters: depending on those variables, it deploys an INTEGRATION, QUALIFICATION or DEMONSTRATION environment to an Openstack VIM
+
+  $ cd terrafom/'ENV'
+  $ ./terraform.sh
 
 
 ### Contributing
@@ -157,6 +166,7 @@ To contribute to the development of the SONATA gui you have to fork the reposito
 New to version 1.1
 * multi-environment deployment included: now its possible to differentiate between INTEGRATION, QUALIFICATION and DEMONSTRATION environments
 * better control on start/stop containers
+* alternative deployment using Terraform
 
 
 ## Lead Developers

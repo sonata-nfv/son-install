@@ -11,8 +11,6 @@
       name: son-sp-infrabstract
       state: stopped
 
-#  - pause: seconds=15
-
   - name: stopping WIM Adaptor Docker container
     docker_container:
       name: wim-adaptor
