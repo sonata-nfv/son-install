@@ -1,8 +1,5 @@
 ---
 
-# deploy web server 
-#- include: nginx.yml
-
 # deploy MySQL database engine
 - include: pgsql.yml
 
