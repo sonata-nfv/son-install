@@ -8,3 +8,4 @@
       name: son-monitor-mysql
       state: absent
 
+  - wait_for: host=0.0.0.0 port=3306 timeout=30 delay=10 state=drained

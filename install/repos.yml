@@ -20,3 +20,5 @@
       volumes:
         - /var/log/sonata:/var/log/son-catalogue-repos
       log_driver: syslog
+
+#  - wait_for: host=0.0.0.0 port=4011 timeout=30 delay=10 state=started

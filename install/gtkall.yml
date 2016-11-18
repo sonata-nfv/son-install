@@ -21,6 +21,8 @@
         - /var/log/sonata/son-gtkgui:/var/log/son-gtkgui
       log_driver: syslog
 
+#  - wait_for: host=0.0.0.0 port=80 timeout=300 delay=10 state=started
+
   - name: GATEKEEPER BSS - running Docker containers
     docker_container:
       name: son-bss
@@ -31,6 +33,8 @@
       volumes:
         - /var/log/sonata/son-yo-gen-bss:/var/log/son-yo-gen-bss
       log_driver: syslog
+
+#  - wait_for: host=0.0.0.0 port=1337 timeout=300 delay=10 state=started
 
   - name: GATEKEEPER PACKAGES - running Docker containers
     docker_container:
@@ -44,6 +48,8 @@
       volumes:
         - /var/log/sonata/son-gtkpkg:/var/log/son-gtkpkg
       log_driver: syslog
+
+#  - wait_for: host=0.0.0.0 port=5100 timeout=300 delay=10 state=started
 
   - name: GATEKEEPER SERVICES - running Docker containers
     docker_container:
@@ -67,6 +73,8 @@
         - /var/log/sonata/son-gtksrv:/var/log/son-gtksrv
       log_driver: syslog
 
+#  - wait_for: host=0.0.0.0 port=5300 timeout=300 delay=10 state=started
+
   - name: create data model and populate db
     command: /usr/bin/docker exec -d son-gtksrv /bin/bash -c "cd /opt/sonata/son-gtksrv" && "bundle install" && "bundle exec rake db:migrate"
 
@@ -88,6 +96,8 @@
         - /var/log/sonata/son-gtkfnct:/var/log/son-gtkfnct
       log_driver: syslog
 
+#  - wait_for: host=0.0.0.0 port=5500 timeout=300 delay=10 state=started
+
   - name: GATEKEEPER RECORDS - running Docker containers
     docker_container:
       name: son-gtkrec
@@ -101,6 +111,8 @@
       volumes:
         - /var/log/sonata/son-gtkrec:/var/log/son-gtkrec
       log_driver: syslog
+
+#  - wait_for: host=0.0.0.0 port=5800 timeout=300 delay=10 state=started
 
   - name: GATEKEEPER VIM - running Docker containers
     docker_container:
@@ -122,6 +134,8 @@
         - /home/{{ ansible_user_id }}/son-gkeeper/son-gtkvim/:/opt/sonata/son-gktvim
         - /var/log/sonata/son-gtkvim:/var/log/son-gtkvim
       log_driver: syslog
+
+#  - wait_for: host=0.0.0.0 port=5700 timeout=300 delay=10 state=started
 
   - name: create data model and populate db
     command: /usr/bin/docker exec -d son-gtkvim /bin/bash -c "cd /opt/sonata/son-gtkvim" && "bundle install" && "bundle exec rake db:migrate"
@@ -153,3 +167,5 @@
       volumes:
         - /var/log/sonata/son-gtkapi:/var/log/son-gtkapi
       log_driver: syslog
+
+#  - wait_for: host=0.0.0.0 port=5000 timeout=300 delay=10 state=started

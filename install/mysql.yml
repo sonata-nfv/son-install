@@ -16,3 +16,5 @@
       ports: 3306:3306
       volumes:
         - /var/log/sonata:/var/log/monitor-mysql
+
+  - wait_for: host=0.0.0.0 port=3306 timeout=30 delay=10 state=started

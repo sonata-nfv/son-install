@@ -4,3 +4,7 @@
   become: true
   roles:
   - docker
+  tasks:
+  - name: create a directory for Docker logging
+    file: path=/var/log/sonata state=directory owner=sonata group=sonata mode=0755
+

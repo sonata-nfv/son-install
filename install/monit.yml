@@ -21,6 +21,7 @@
         - /var/log/sonata:/var/log/monitor-influxdb
       log_driver: syslog
 
+  - wait_for: host=0.0.0.0 port=8086 timeout=30 delay=10 state=started
 
   - name: MONIT MySQL - running Docker containers
     docker_container:
@@ -37,6 +38,7 @@
         - /var/log/sonata:/var/log/monitor-mysql
       log_driver: syslog
 
+  - wait_for: host=0.0.0.0 port=3306 timeout=30 delay=10 state=started
 
   - name: MONIT Push Gateway - running Docker containers
     docker_container:
@@ -48,6 +50,7 @@
         - /var/log/sonata:/var/log/monitor-pushgateway
       log_driver: syslog
 
+  - wait_for: host=0.0.0.0 port=9091 timeout=30 delay=10 state=started
 
   - name: MONIT PROMETHEUS - running Docker containers
     docker_container:
@@ -67,6 +70,7 @@
         - /var/log/sonata:/var/log/monitor-prometheus
       log_driver: syslog
 
+  - wait_for: host=0.0.0.0 port=9090 timeout=30 delay=10 state=started
 
   - name: MONIT MANAGER - running Docker containers
     docker_container:
@@ -82,6 +86,7 @@
         - /var/log/sonata:/var/log/monitor-manager
       log_driver: syslog
 
+  - wait_for: host=0.0.0.0 port=8000 timeout=30 delay=10 state=started
 
   - name: MONIT Probe - running Docker containers
     docker_container:
