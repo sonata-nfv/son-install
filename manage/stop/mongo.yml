@@ -5,5 +5,9 @@
   become: true
   tasks:
 
-  - name: stop MongoDB services
-    service: name=mongod state=stopped 
+  - name: MongoDB - stopping Docker containers
+    docker_container:
+      name: son-mongo
+      state: stopped
+  - wait_for: host=0.0.0.0 port=27017 timeout=30 delay=10 state=drained
+

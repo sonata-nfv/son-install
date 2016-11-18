@@ -5,10 +5,9 @@
   become: true
   tasks:
 
-  - name: check if the Apache service exists
-    stat: path=/etc/init.d/mysql
-    register: service_status
+  - name: MySQL  - stopping Docker containers
+    docker_container:
+      name: son-mysql
+      state: stopped
+  - wait_for: host=0.0.0.0 port=3306 timeout=30 delay=10 state=drained
 
-  - name: stop MySQL services
-    service: name=mysql state=stopped 
-    register: service_stopped

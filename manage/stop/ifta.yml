@@ -1,19 +1,15 @@
 ---
-- name: stop IFT ABSTRACTOR
+- name: remove Infrastructure Abstraction Docker containers from the SP VM appliance
   hosts: "{{ target }}"
   become: true
   tasks:
 
-# Stopping the Sonata SP IFT ABSTR Docker Images
-
-  - name: stopping SP IftAbstractor Docker container
+  - name: Infrastructure Abstractor VIM Adaptor - removing Docker containers
     docker_container:
       name: son-sp-infrabstract
       state: stopped
 
-#  - pause: seconds=15
-
-  - name: stopping WIM Adaptor Docker container
+  - name: Infrastructure Abstractor WIM Adaptor - removing Docker containers
     docker_container:
       name: wim-adaptor
       state: stopped

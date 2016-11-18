@@ -13,4 +13,4 @@
       name: son-broker
       state: stopped
     when: service_status.stat.exists
-
+  - wait_for: host=0.0.0.0 port=5672 timeout=30 delay=10 state=drained
