@@ -1,8 +1,5 @@
 ---
 
-# deploy RabbitMQ message bus
-- include: broker.yml
-
 # deploy Gatekepper module
 - include: gtkall.yml
 
@@ -26,4 +23,7 @@
 
 # deploy Docker engine
 - include: docker.yml
+
+# deploy RabbitMQ message bus
+- include: broker.yml
 
