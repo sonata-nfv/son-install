@@ -3,17 +3,32 @@
   hosts: "{{ target }}"
   become: true
 
-#  - include: "{{ operation }}/{{ service }}.yml"
+# - include: "{{ env }}/{{ operation }}/{{ service }}.yml"
 
-- include: install/{{ service }}.yml
-  when: operation == "install"
 
-- include: manage/{{ action }}/{{ service }}.yml
-  when: operation == "manage"
+#### INTEGRATION
 
-- include: upgrade/{{ service }}.yml
-  when: operation == "upgrade"
+- include: inte/{{ operation }}/{{ service }}.yml
+  when: env == "inte" and (operation == "install" or operation == "upgrade" or operation == "destroy")
 
-- include: destroy/{{ service }}.yml
-  when: operation == "destroy"
+- include: inte/{{ manage }}/{{ action }}/{{ service }}.yml
+  when: env == "inte" and operation == "manage"
+
+
+#### QUALIFICATION
+
+- include: qual/{{ operation }}/{{ service }}.yml
+  when: env == "qual" and (operation == "install" or operation == "upgrade" or operation == "destroy")
+
+- include: qual/{{ manage }}/{{ action }}/{{ service }}.yml
+  when: env == "qual" and operation == "manage"
+
+
+#### DEMONSTRATION
+
+- include: demo/{{ operation }}/{{ service }}.yml
+  when: env == "demo" and (operation == "install" or operation == "upgrade" or operation == "destroy")
+
+- include: demo/{{ manage }}/{{ action }}/{{ service }}.yml
+  when: env == "demo" and operation == "manage"
 

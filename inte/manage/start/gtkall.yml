@@ -1,0 +1,47 @@
+---
+- name: starting GATEKEEPER Docker containers at SP VM appliance
+  hosts: "{{ target }}"
+  become: true
+  tasks:
+
+  # Running the Sonata GK Docker Images
+
+  - name: GATEKEEPER GUI - running Docker containers
+    docker_container:
+      name: son-gui
+      state: started
+
+  - name: GATEKEEPER BSS - running Docker containers
+    docker_container:
+      name: son-bss
+      state: started
+
+  - name: GATEKEEPER PACKAGES - running Docker containers
+    docker_container:
+      name: son-gtkpkg
+      state: started
+
+  - name: GATEKEEPER SERVER - running Docker containers
+    docker_container:
+      name: son-gtksrv
+      state: started
+
+  - name: GATEKEEPER FUNCTIONS - running Docker containers
+    docker_container:
+      name: son-gtkfnct
+      state: started
+
+  - name: GATEKEEPER RECORDS - running Docker containers
+    docker_container:
+      name: son-gtkrec
+      state: started
+
+  - name: GATEKEEPER VIM - running Docker containers
+    docker_container:
+      name: son-gtkvim
+      state: started
+
+  - name: GATEKEEPER API - running Docker containers
+    docker_container:
+      name: son-gtkapi
+      state: started

@@ -1,0 +1,15 @@
+---
+- name: STOPing Docker containers
+  hosts: "{{ target }}"
+  become: true
+  tasks:
+
+  - name: check if the DOCKER service exists
+    stat: path=/etc/init.d/docker
+    register: service_status
+
+  - shell: "/usr/bin/docker stop $(docker ps -q)"
+    when: service_status.stat.exists    
+
+  - shell: "/usr/bin/docker rm -v $(docker ps -q -f status=exited)"
+    when: service_status.stat.exists

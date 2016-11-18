@@ -1,0 +1,5 @@
+---
+os_auth_url: http://172.31.6.4:5000/v2.0/
+os_user: son-qual
+os_pswd: S0n-qu@l
+os_proj: son-qual

@@ -1,0 +1,15 @@
+---
+- name: remove the Sonata Message Bus (based on RabbitMQ) from the SON-SP VM appliance
+  hosts: "{{ target }}"
+  become: true
+  tasks:
+
+  # Verify if the Container is running
+
+
+  # Remove the Sonata BROKER Container (if running)
+  - name: remove the "SP Message Bus" container
+    docker_container:
+      name: son-broker
+      state: absent
+

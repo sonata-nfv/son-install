@@ -4,12 +4,13 @@
 
 'son-install' is built of a set of Ansible playbooks to automate the deployment of infrastructure and applications. So, all that you need is a 'bash' shell with Ansible.
  
-Actually 'son-install' v1.0 has a main playbook ('son-cmud.yml') invoked with external parameters to control the life-cycle of all the SP Services.
+Actually 'son-install' v1.1 has a main playbook ('son-cmud.yml') invoked with external parameters to control the life-cycle of all the SP Services.
 
 
 ## son-install parameters
 
 * target
+* env
 * operation
 * service
 * action
@@ -35,15 +36,15 @@ The available type of Operations are:
 The available type of Services are (SVC_ID):
 
 GK:
-* "gtk-pkg"
-* "gtk-srv"
-* "gtk-api"
-* "gtk-bss"
-* "gtk-gui"
-* "gtk-fnct"
-* "gtk-rec"
-* "gtk-vim"
-* "gtk-all" (default)
+* "gtkpkg"
+* "gtksrv"
+* "gtkapi"
+* "gtkbss"
+* "gtkgui"
+* "gtkfnct"
+* "gtkrec"
+* "gtkvim"
+* "gtkall" (default)
 
 REPO:
 * "catalog"
@@ -76,11 +77,6 @@ ALL:
 * "all" (apply to all SP services)
 
 
-### Contributing
-
-To contribute to the development of the SONATA gui you have to fork the repository, commit new code and create pull requests. 
-
-
 ## Instalation
 
 1. Install Ansible 
@@ -100,55 +96,77 @@ Installation guide for multiple Linux platforms at:
 
 ## Usage
 
-  $ cd son-install/v02
+  $ cd son-install/
 
-  $ ansible-playbook son-cmud.yml -e "target='HOST' operation='OPS' service='ALL|SVC_ID'"
+  $ ansible-playbook son-cmud.yml -e "target='HOST' env='ENV' operation='OPS' service='ALL|SVC_ID'"
 
 ### Install
 
-// INSTALL full SP 
+// Example to INSTALL a full SP for Integration environment
 
-  $ ansible-playbook son-cmud.yml -e "target=localhost operation=install service=all"
+  $ ansible-playbook son-cmud.yml -e "target=localhost env=inte operation=install service=all"
 
-// INSTALL an individual SP Service
+// Example to INSTALL an individual SP service to the Qualification environment
 
-  $ ansible-playbook son-cmud.yml -e "target=localhost operation=install service='SVC_ID'"
+  $ ansible-playbook son-cmud.yml -e "target=localhost env=qual operation=install service='SVC_ID'"
 
 ### Manage
 
-// MANAGE functions (apply to all SP)
+// Example to MANAGE the life-cycle of ALL services at the Integration environment 
 
-  $ ansible-playbook son-cmud.yml -e "target=localhost operation=manage service=all action=[status|start|stop|restart]" 
+  $ ansible-playbook son-cmud.yml -e "target=localhost env=inte operation=manage service=all action=[status|start|stop|restart]" 
 
-// MANAGE functions (apply to an individual Service)
+// Example to MANAGE the life-cycle of an individual Service at the Demonstration environment
 
-  $ ansible-playbook son-cmud.yml -e "target=localhost operation=manage service='SVC_ID'" action=[status|start|stop|restart]"
+  $ ansible-playbook son-cmud.yml -e "target=localhost env=demo operation=manage service='SVC_ID'" action=[status|start|stop|restart]"
 
 
 ### Upgrade
 
-// UPGRADE all SP (not implemented yet; in the roadmap for next version)
+// Example to UPGRADE all SP at the Qualification environment (not implemented yet; in the roadmap for next version)
 
-  $ ansible-playbook son-cmud.yml -e "target=localhost operation=upgrade service=all"
+  $ ansible-playbook son-cmud.yml -e "target=localhost env=qual operation=upgrade service=all"
 
-// UPGRADE an individual Service
+// Example to UPGRADE an individual Service at the Demonstration environment
 
-  $ ansible-playbook son-cmud.yml -e "target=localhost operation=upgrade service='SVC_ID'"
+  $ ansible-playbook son-cmud.yml -e "target=localhost env=demo operation=upgrade service='SVC_ID'"
+
 
 ### Destroy
 
-// DESTROY functions (in the roadmap for next version)
+// Example to DESTROY all services in the SP at the Qualification environment
 
-  $ ansible-playbook son-cmud.yml -e "target=localhost operation=destroy service=all"
+  $ ansible-playbook son-cmud.yml -e "target=localhost env=qual operation=destroy service=all"
 
-// MANAGE functions (apply to an individual Service)
+// Example to DESTROY an individual service in the SP at the Demonstration environment
 
-  $ ansible-playbook son-cmud.yml -e "target=localhost operation=destroy service='SVC_ID'"
+  $ ansible-playbook son-cmud.yml -e "target=localhost env=demo operation=destroy service='SVC_ID'"
+
+
+### Terraform 
+
+//  Change the 'variables.tf' file to meet your infrastructure parameters: depending on those variables, it deploys an INTEGRATION, QUALIFICATION or DEMONSTRATION environment to an Openstack VIM
+
+  $ cd terrafom/'ENV'
+  $ ./terraform.sh
+
+
+### Contributing
+
+To contribute to the development of the SONATA gui you have to fork the repository, commit new code and create pull requests.
 
 
 ## License
 
 'son-install'  is published under Apache 2.0 license. Please see the LICENSE file for more details. 
+
+
+### Release Notes
+
+New to version 1.1
+* multi-environment deployment included: now its possible to differentiate between INTEGRATION, QUALIFICATION and DEMONSTRATION environments
+* better control on start/stop containers
+* alternative deployment using Terraform
 
 
 ## Lead Developers

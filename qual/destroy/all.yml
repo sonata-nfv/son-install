@@ -1,0 +1,32 @@
+---
+
+#- include: stop-containers.yml
+#  when: service == "all"
+
+- include: gtkall.yml
+  when: service == "all" or service == "gtk"
+
+- include: repos.yml
+  when: service == "all" or service == "repos"
+
+- include: mano.yml
+  when: service == "all" or service == "mano"
+
+- include: monit.yml
+  when: service == "all" or service == "monit"
+
+- include: ifta.yml
+  when: service == "all" or service == "ifta"
+
+- include: mysql.yml
+  when: service == "all" or service == "mysql"
+
+- include: pgsql.yml
+  when: service == "all" or service == "pgsql"
+
+- include: mongo.yml
+  when: service == "all" or service == "mongo"
+
+- include: broker.yml
+  when: service == "all" or service == "broker"
+
