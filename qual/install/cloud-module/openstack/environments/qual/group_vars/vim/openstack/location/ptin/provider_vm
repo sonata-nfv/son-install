@@ -1,0 +1,7 @@
+---
+os_publ_netw: son-qual-netw
+#os_key_name: son-qual
+os_nics: [ net-name: son-qual-subnet ]
+os_secur_groups: son-qual-secgrp
+os_priv_key: son-ift-ptin
+os_auto_floating_ip: yes

@@ -1,0 +1,6 @@
+---
+- name: deploy son-broker to the 'target' machine
+  hosts: "{{ target }}"
+  become: true
+  roles:
+  - broker

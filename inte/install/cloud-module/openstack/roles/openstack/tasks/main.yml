@@ -1,0 +1,36 @@
+---
+# tasks file for openstack-ansible
+
+- name: launch an Openstack 'nova-compute' instance
+  os_server:
+    state: present
+    auth:
+      auth_url: "{{ os_auth_url }}"
+      username: "{{ os_user }}"
+      password: "{{ os_pswd }}"
+      project_name: "{{ os_proj}}"
+    name: "{{ vm_name }}"
+    #region_name: RegionOne
+    availability_zone: nova
+    #image: "Ubuntu 14.04.5 (Trusty)"
+    image: "{{ os_image }}"
+    key_name: "{{ os_priv_key }}"
+    timeout: "180"
+    #flavor: m1.small
+    flavor: "{{ os_flavor }}"
+    security_groups: "{{ os_secur_groups }}"
+    nics:
+      #- net-id: "ffdf5f4f-eeee-49ac-ac34-ccaf814bfb84"
+      - net-name: "{{ os_publ_netw }}"
+    auto_ip: yes
+    meta:
+      hostname: "{{ vm_name }}"
+    userdata: "{{ lookup('file', 'userdata_ansible_{{ ansible_distribution_release }}.txt') }}"
+  register: sonqualvm
+
+- add_host:
+    name: son-qual-vm
+    groups: qualification
+    ansible_host: "{{sonqualvm.server.public_v4}}"
+    ansible_user: ubuntu
+    ansible_become: true

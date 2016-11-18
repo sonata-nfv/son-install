@@ -1,0 +1,9 @@
+---
+
+- name: stopping pgSQL database engine
+  hosts: "{{ target }}"
+  become: true
+  tasks:
+
+  - name: stop PostgreSQL services
+    service: name=postgresql state=stopped 

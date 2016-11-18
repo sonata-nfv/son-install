@@ -1,0 +1,34 @@
+---
+
+# deploy web server 
+#- include: nginx.yml
+
+# deploy MySQL database engine
+- include: pgsql.yml
+
+# deploy MySQL database engine
+#- include: mysql.yml
+
+# deploy MongoDB engine
+- include: mongo.yml
+
+# deploy Repositories
+- include: repos.yml
+
+# deploy Docker engine
+- include: docker.yml
+
+# deploy RabbitMQ message bus
+- include: broker.yml
+
+# deploy Gatekepper module
+- include: gtkall.yml
+
+# deploy MANO framework
+- include: mano.yml
+
+# deploy IFT Abstrator
+- include: ifta.yml
+
+# deploy Monitoring
+- include: monit.yml

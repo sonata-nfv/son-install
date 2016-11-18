@@ -1,0 +1,16 @@
+---
+- name: remove Infrastructure Abstraction Docker containers from the SP VM appliance
+  hosts: "{{ target }}"
+  become: true
+  tasks:
+
+  - name: Infrastructure Abstractor VIM Adaptor - removing Docker containers
+    docker_container:
+      name: son-sp-infrabstract
+      state: absent
+
+  - name: Infrastructure Abstractor WIM Adaptor - removing Docker containers
+    docker_container:
+      name: wim-adaptor
+      state: absent
+

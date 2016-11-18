@@ -1,0 +1,20 @@
+---
+- name: stop IFT ABSTRACTOR
+  hosts: "{{ target }}"
+  become: true
+  tasks:
+
+# Stopping the Sonata SP IFT ABSTR Docker Images
+
+  - name: stopping SP IftAbstractor Docker container
+    docker_container:
+      name: son-sp-infrabstract
+      state: stopped
+
+#  - pause: seconds=15
+
+  - name: stopping WIM Adaptor Docker container
+    docker_container:
+      name: wim-adaptor
+      state: stopped
+

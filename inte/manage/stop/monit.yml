@@ -1,0 +1,37 @@
+---
+- name: stopping MONITORY Docker containers at SP VM
+  hosts: "{{ target }}"
+  become: true
+  tasks:
+
+# Stopping the Sonata MONITORY Docker Images
+
+  - name: MONIT InfluxDB  - stopping Docker containers
+    docker_container:
+      name: son-monitor-influxdb
+      state: stopped
+
+  - name: MONIT MySQL - stopping Docker containers
+    docker_container:
+      name: son-monitor-mysql
+      state: stopped
+
+  - name: MONIT Push Gateway - stopping Docker containers
+    docker_container:
+      name: son-monitor-pushgateway
+      state: stopped
+
+  - name: MONIT PROMETHEUS - stopping Docker containers
+    docker_container:
+      name: son-monitor-prometheus
+      state: stopped
+
+  - name: MONIT MANAGER - stopping Docker containers
+    docker_container:
+      name: son-monitor-manager
+      state: stopped
+
+  - name: MONIT Probe - stopping Docker containers
+    docker_container:
+      name: son-monitor-probe
+      state: stopped

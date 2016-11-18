@@ -1,0 +1,47 @@
+---
+- name: stopping SP GATEKEEPER 
+  hosts: "{{ target }}"
+  become: true
+  tasks:
+
+  # Stopping the Sonata GK Docker Images
+
+  - name: GATEKEEPER GUI - stopping Docker containers
+    docker_container:
+      name: son-gui
+      state: stopped
+
+  - name: GATEKEEPER BSS - stopping Docker containers
+    docker_container:
+      name: son-bss
+      state: stopped
+
+  - name: GATEKEEPER PACKAGES - stopping Docker containers
+    docker_container:
+      name: son-gtkpkg
+      state: stopped
+
+  - name: GATEKEEPER SERVER - stopping Docker containers
+    docker_container:
+      name: son-gtksrv
+      state: stopped
+
+  - name: GATEKEEPER FUNCTIONS - stopping Docker containers
+    docker_container:
+      name: son-gtkfnct
+      state: stopped
+
+  - name: GATEKEEPER RECORDS - stopping Docker containers
+    docker_container:
+      name: son-gtkrec
+      state: stopped
+
+  - name: GATEKEEPER VIM - stopping Docker containers
+    docker_container:
+      name: son-gtkvim
+      state: stopped
+
+  - name: GATEKEEPER API - stopping Docker containers
+    docker_container:
+      name: son-gtkapi
+      state: stopped

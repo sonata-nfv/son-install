@@ -1,0 +1,7 @@
+---
+# vars file for openstack role
+vim_type: openstack
+pop: ptin
+env: qual,qualification
+vm_name: son-sp0
+distro: trusty

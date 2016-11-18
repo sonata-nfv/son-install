@@ -1,0 +1,21 @@
+---
+- name: deploying a VM via Ansible Cloud Module for Openstack
+  hosts: localhost
+  connection: local
+  become: yes
+
+  vars_files: 
+    - environments/{{ env }}/group_vars/vim/{{ vim_type }}/location/{{ pop }}/provider_auth
+    - environments/{{ env }}/group_vars/vim/{{ vim_type }}/location/{{ pop }}/provider_vm
+    - environments/{{ env }}/group_vars/vim/{{ vim_type }}/location/{{ pop }}/provider_flavor
+    - environments/{{ env }}/group_vars/vim/{{ vim_type }}/location/{{ pop }}/provider_image
+
+  roles:
+  - openstackclients
+  - openstack
+
+#  environment:
+#    - "{{ env }}"
+#    - "{{ vim_type }}"
+#    - "{{ pop }}"
+#    - "{{ distro }}"
