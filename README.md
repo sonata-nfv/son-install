@@ -4,12 +4,13 @@
 
 'son-install' is built of a set of Ansible playbooks to automate the deployment of infrastructure and applications. So, all that you need is a 'bash' shell with Ansible.
  
-Actually 'son-install' v1.0 has a main playbook ('son-cmud.yml') invoked with external parameters to control the life-cycle of all the SP Services.
+Actually 'son-install' v1.1 has a main playbook ('son-cmud.yml') invoked with external parameters to control the life-cycle of all the SP Services.
 
 
 ## son-install parameters
 
 * target
+* env
 * operation
 * service
 * action
@@ -100,50 +101,50 @@ Installation guide for multiple Linux platforms at:
 
 ## Usage
 
-  $ cd son-install/v02
+  $ cd son-install/
 
-  $ ansible-playbook son-cmud.yml -e "target='HOST' operation='OPS' service='ALL|SVC_ID'"
+  $ ansible-playbook son-cmud.yml -e "target='HOST' env='ENV' operation='OPS' service='ALL|SVC_ID'"
 
 ### Install
 
-// INSTALL full SP 
+// Example to INSTALL a full SP for Integration environment
 
-  $ ansible-playbook son-cmud.yml -e "target=localhost operation=install service=all"
+  $ ansible-playbook son-cmud.yml -e "target=localhost env=inte operation=install service=all"
 
-// INSTALL an individual SP Service
+// Example to INSTALL an individual SP service to the Qualification environment
 
-  $ ansible-playbook son-cmud.yml -e "target=localhost operation=install service='SVC_ID'"
+  $ ansible-playbook son-cmud.yml -e "target=localhost env=qual operation=install service='SVC_ID'"
 
 ### Manage
 
-// MANAGE functions (apply to all SP)
+// Example to MANAGE the life-cycle of ALL services at the Integration environment 
 
-  $ ansible-playbook son-cmud.yml -e "target=localhost operation=manage service=all action=[status|start|stop|restart]" 
+  $ ansible-playbook son-cmud.yml -e "target=localhost env=inte operation=manage service=all action=[status|start|stop|restart]" 
 
-// MANAGE functions (apply to an individual Service)
+// Example to MANAGE the life-cycle of an individual Service at the Demonstration environment
 
-  $ ansible-playbook son-cmud.yml -e "target=localhost operation=manage service='SVC_ID'" action=[status|start|stop|restart]"
+  $ ansible-playbook son-cmud.yml -e "target=localhost env=demo operation=manage service='SVC_ID'" action=[status|start|stop|restart]"
 
 
 ### Upgrade
 
-// UPGRADE all SP (not implemented yet; in the roadmap for next version)
+// Example to UPGRADE all SP at the Qualification environment (not implemented yet; in the roadmap for next version)
 
-  $ ansible-playbook son-cmud.yml -e "target=localhost operation=upgrade service=all"
+  $ ansible-playbook son-cmud.yml -e "target=localhost env=qual operation=upgrade service=all"
 
-// UPGRADE an individual Service
+// Example to UPGRADE an individual Service at the Demonstration environment
 
-  $ ansible-playbook son-cmud.yml -e "target=localhost operation=upgrade service='SVC_ID'"
+  $ ansible-playbook son-cmud.yml -e "target=localhost env=demo operation=upgrade service='SVC_ID'"
 
 ### Destroy
 
-// DESTROY functions (in the roadmap for next version)
+// Example to DESTROY all services in the SP at the Qualification environment
 
-  $ ansible-playbook son-cmud.yml -e "target=localhost operation=destroy service=all"
+  $ ansible-playbook son-cmud.yml -e "target=localhost env=qual operation=destroy service=all"
 
-// MANAGE functions (apply to an individual Service)
+// Example to DESTROY an individual service in the SP at the Demonstration environment
 
-  $ ansible-playbook son-cmud.yml -e "target=localhost operation=destroy service='SVC_ID'"
+  $ ansible-playbook son-cmud.yml -e "target=localhost env=demo operation=destroy service='SVC_ID'"
 
 
 ## License
