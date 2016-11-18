@@ -11,7 +11,7 @@
 - include: inte/{{ operation }}/{{ service }}.yml
   when: env == "inte" and (operation == "install" or operation == "upgrade" or operation == "destroy")
 
-- include: inte/{{ manage }}/{{ action }}/{{ service }}.yml
+- include: inte/{{ operation }}/{{ action }}/{{ service }}.yml
   when: env == "inte" and operation == "manage"
 
 
@@ -20,7 +20,7 @@
 - include: qual/{{ operation }}/{{ service }}.yml
   when: env == "qual" and (operation == "install" or operation == "upgrade" or operation == "destroy")
 
-- include: qual/{{ manage }}/{{ action }}/{{ service }}.yml
+- include: qual/{{ operation }}/{{ action }}/{{ service }}.yml
   when: env == "qual" and operation == "manage"
 
 
@@ -29,6 +29,6 @@
 - include: demo/{{ operation }}/{{ service }}.yml
   when: env == "demo" and (operation == "install" or operation == "upgrade" or operation == "destroy")
 
-- include: demo/{{ manage }}/{{ action }}/{{ service }}.yml
+- include: demo/{{ operation }}/{{ action }}/{{ service }}.yml
   when: env == "demo" and operation == "manage"
 
