@@ -36,15 +36,15 @@ The available type of Operations are:
 The available type of Services are (SVC_ID):
 
 GK:
-* "gtk-pkg"
-* "gtk-srv"
-* "gtk-api"
-* "gtk-bss"
-* "gtk-gui"
-* "gtk-fnct"
-* "gtk-rec"
-* "gtk-vim"
-* "gtk-all" (default)
+* "gtkpkg"
+* "gtksrv"
+* "gtkapi"
+* "gtkbss"
+* "gtkgui"
+* "gtkfnct"
+* "gtkrec"
+* "gtkvim"
+* "gtkall" (default)
 
 REPO:
 * "catalog"
@@ -75,11 +75,6 @@ LOG:
 
 ALL:
 * "all" (apply to all SP services)
-
-
-### Contributing
-
-To contribute to the development of the SONATA gui you have to fork the repository, commit new code and create pull requests. 
 
 
 ## Instalation
@@ -147,9 +142,21 @@ Installation guide for multiple Linux platforms at:
   $ ansible-playbook son-cmud.yml -e "target=localhost env=demo operation=destroy service='SVC_ID'"
 
 
+### Contributing
+
+To contribute to the development of the SONATA gui you have to fork the repository, commit new code and create pull requests.
+
+
 ## License
 
 'son-install'  is published under Apache 2.0 license. Please see the LICENSE file for more details. 
+
+
+### Release Notes
+
+New to version 1.1
+* multi-environment deployment included: now its possible to differentiate between INTEGRATION, QUALIFICATION and DEMONSTRATION environments
+* better control on start/stop containers
 
 
 ## Lead Developers
