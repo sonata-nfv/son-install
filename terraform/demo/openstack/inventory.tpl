@@ -1,6 +1,6 @@
 [all:vars]
 # Environment: INTEGRATION | QUALIFICATION | DEMONSTRATION
-env=qual
+env=demo
 
 # Network to configure access
 network=172.31.6.0

@@ -9,7 +9,7 @@ resource "openstack_compute_floatingip_v2" "fip" {
     count = "${var.node_count}"
 }
  
-resource "openstack_compute_instance_v2" "sonata-sp" {
+resource "openstack_compute_instance_v2" "son-sp" {
   count = "${var.node_count}"
   region = ""
   name = "os-${var.vm_name}${format("%02d",count.index)}"
@@ -29,7 +29,7 @@ resource "openstack_compute_instance_v2" "sonata-sp" {
   user_data = "${file("bootstrap-${distro}.sh")}"
 }
 
-resource "template_file" "host_ipaddr" {
+resource "template_file" "os_hosts" {
   count = "${var.node_count}"
 #  location = "${var.placement}"
   template = "${file("hostname.tpl")}"
@@ -38,15 +38,6 @@ resource "template_file" "host_ipaddr" {
     name  = "sp"
     env   = "qual"
     extra = " ansible_host=${element(openstack_compute_floatingip_v2.fip.*.address, count.index)}"
-  }
-}
-
-resource "template_file" "inventory" {
-  #count = "${var.node_count}"
-  template = "${file("inventory.tpl")}"
-  vars {
-    env       = "qual"
-    os_hosts  = "${join("\n",template_file.host_ipaddr.*.rendered)}"
   }
 }
 

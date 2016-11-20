@@ -1,6 +1,5 @@
 [all:vars]
 # Environment: INTEGRATION | QUALIFICATION | DEMONSTRATION
-env=int
 
 # Network to configure access in pg_hba
 network=172.31.6.0
@@ -9,11 +8,10 @@ network=172.31.6.0
 netmask=24
 
 [sp]
-${jenkins_hosts}
-${intsrv_hosts}
+${sp_hosts}
 
 [nfv]
-${os_hosts}
+${nvf_hosts}
 
 [ns:children]
 nfv
