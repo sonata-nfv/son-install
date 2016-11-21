@@ -9,4 +9,4 @@ sudo yum install htop nmap sysstat tree -y
 # DEPLOY SONATA SP
 git clone https://github.com/sonata-nfv/son-install.git
 cd son-install
-ansible-playbook son-cmud.yml -e "target=localhost operation=install service=all"
+ansible-playbook son-cmud.yml -e "target=localhost env=int operation=install service=all"

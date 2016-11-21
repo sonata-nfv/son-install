@@ -104,7 +104,7 @@ Installation guide for multiple Linux platforms at:
 
 // Example to INSTALL a full SP for Integration environment
 
-  $ ansible-playbook son-cmud.yml -e "target=localhost env=inte operation=install service=all"
+  $ ansible-playbook son-cmud.yml -e "target=localhost env=intg operation=install service=all"
 
 // Example to INSTALL an individual SP service to the Qualification environment
 
@@ -114,7 +114,7 @@ Installation guide for multiple Linux platforms at:
 
 // Example to MANAGE the life-cycle of ALL services at the Integration environment 
 
-  $ ansible-playbook son-cmud.yml -e "target=localhost env=inte operation=manage service=all action=[status|start|stop|restart]" 
+  $ ansible-playbook son-cmud.yml -e "target=localhost env=intg operation=manage service=all action=[status|start|stop|restart]" 
 
 // Example to MANAGE the life-cycle of an individual Service at the Demonstration environment
 
@@ -147,8 +147,9 @@ Installation guide for multiple Linux platforms at:
 
 //  Change the 'variables.tf' file to meet your infrastructure parameters: depending on those variables, it deploys an INTEGRATION, QUALIFICATION or DEMONSTRATION environment to an Openstack VIM
 
-  $ cd terrafom/'ENV'
-  $ ./terraform.sh
+  $ cd /son-install/terrafom/'ENVIRON'
+  $ terraform plan  -var-file='ENVIRON'-'VIMTYPE'-'LOCATION'-'DISTRO'.tfvars
+  $ terraform apply -var-file='ENVIRON'-'VIMTYPE'-'LOCATION'-'DISTRO'.tfvars
 
 
 ### Contributing

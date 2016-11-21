@@ -8,11 +8,11 @@
 
 #### INTEGRATION
 
-- include: inte/{{ operation }}/{{ service }}.yml
-  when: env == "inte" and (operation == "install" or operation == "upgrade" or operation == "destroy")
+- include: intg/{{ operation }}/{{ service }}.yml
+  when: env == "intg" and (operation == "install" or operation == "upgrade" or operation == "destroy")
 
-- include: inte/{{ operation }}/{{ action }}/{{ service }}.yml
-  when: env == "inte" and operation == "manage"
+- include: intg/{{ operation }}/{{ action }}/{{ service }}.yml
+  when: env == "intg" and operation == "manage"
 
 
 #### QUALIFICATION

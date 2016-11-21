@@ -1,4 +1,0 @@
-module "inte" {
-  source = "./inte"
-}
-
