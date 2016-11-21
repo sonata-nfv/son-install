@@ -1,6 +1,6 @@
 #
 variable "jk_node_count" {
-  default = 1
+  default = 2
 }
 
 resource "openstack_compute_floatingip_v2" "jkfip" {
@@ -12,7 +12,7 @@ resource "openstack_compute_floatingip_v2" "jkfip" {
 resource "openstack_compute_instance_v2" "jenkins" {
   count = "${var.jk_node_count}"
   region = ""
-  name = "os-${var.vm_name}${format("%02d",count.index)}"
+  name = "jk-${var.vm_name}${format("%02d",count.index)}"
   image_name = "${var.img_name}"
   flavor_name = "${var.flv_name}"
   key_pair = "${var.key_pair}"
@@ -29,24 +29,15 @@ resource "openstack_compute_instance_v2" "jenkins" {
   user_data = "${file("bootstrap-${distro}.sh")}"
 }
 
-resource "template_file" "jk_host_ipaddr" {
+resource "template_file" "jk_hosts" {
   count = "${var.jk_node_count}"
 #  location = "${var.placement}"
   template = "${file("hostname.tpl")}"
   vars {
     index = "${count.index + 1}"
-    name  = "sp"
+    name  = "jk"
     env   = "int"
     extra = " ansible_host=${element(openstack_compute_floatingip_v2.jkfip.*.address, count.index)}"
-  }
-}
-
-resource "template_file" "jk_inventory" {
-  #count = "${var.jk_node_count}"
-  template = "${file("inventory.tpl")}"
-  vars {
-    env       = "int"
-    jenkins_hosts  = "${join("\n",template_file.host_ipaddr.*.rendered)}"
   }
 }
 

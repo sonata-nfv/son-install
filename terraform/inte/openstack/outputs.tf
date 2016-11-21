@@ -1,11 +1,11 @@
-resource "template_file" "sp4int_inventory" {
+resource "template_file" "inventory" {
   template = "${file("inventory.tpl")}"
   vars {
-    jk_host = "${join("\n",template_file.jk_host_ipaddr.*.rendered)}"
-    intsrv_host = "${join("\n",template_file.host_ipaddr.*.rendered)}"
+    jk_host = "${join("\n",template_file.jk_hosts.*.rendered)}"
+    intsrv_host = "${join("\n",template_file.intsrv_hosts.*.rendered)}"
   }
 }
 
-output "sp4int_inventory" {
+output "inventory" {
   value = "${template_file.inventory.rendered}"
 }
