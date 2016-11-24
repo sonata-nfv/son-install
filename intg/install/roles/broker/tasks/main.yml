@@ -1,4 +1,0 @@
----
-# tasks file for broker
-
-- include: "{{ ansible_distribution_release }}.yml"

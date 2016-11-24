@@ -1,0 +1,12 @@
+---
+- name: deploy Docker engine to the 'target' machine
+  hosts: "{{ target }}"
+  become: true
+  vars:
+     local_dir: "{{ lookup('env','LOGNAME') }}"
+  roles:
+  - docker
+  tasks:
+  - name: create a directory for Docker logging
+    file: path="/var/log/{{ lookup('env','LOGNAME') }}" state=directory owner="{{ lookup('env','LOGNAME') }}" group=docker mode=0755
+

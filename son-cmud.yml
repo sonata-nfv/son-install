@@ -3,32 +3,5 @@
   hosts: "{{ target }}"
   become: true
 
-# - include: "{{ env }}/{{ operation }}/{{ service }}.yml"
-
-
-#### INTEGRATION
-
-- include: intg/{{ operation }}/{{ service }}.yml
-  when: env == "intg" and (operation == "install" or operation == "upgrade" or operation == "destroy")
-
-- include: intg/{{ operation }}/{{ action }}/{{ service }}.yml
-  when: env == "intg" and operation == "manage"
-
-
-#### QUALIFICATION
-
-- include: qual/{{ operation }}/{{ service }}.yml
-  when: env == "qual" and (operation == "install" or operation == "upgrade" or operation == "destroy")
-
-- include: qual/{{ operation }}/{{ action }}/{{ service }}.yml
-  when: env == "qual" and operation == "manage"
-
-
-#### DEMONSTRATION
-
-- include: demo/{{ operation }}/{{ service }}.yml
-  when: env == "demo" and (operation == "install" or operation == "upgrade" or operation == "destroy")
-
-- include: demo/{{ operation }}/{{ action }}/{{ service }}.yml
-  when: env == "demo" and operation == "manage"
+- include: "./{{ operation }}/{{ service }}.yml"
 
