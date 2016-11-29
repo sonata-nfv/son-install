@@ -39,6 +39,7 @@ resource "template_file" "comp_hosts" {
     name  = "comp"
     env   = "${var.env}"
     extra = " ansible_host=${element(openstack_compute_floatingip_v2.comp_fip.*.address, count.index)}"
+    #extra2 = " ansible_ssh_private_key_file="${file("~/.ssh/son-ift-ptin.pem")}""
   }
 }
 

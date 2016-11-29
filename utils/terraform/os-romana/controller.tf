@@ -39,6 +39,7 @@ resource "template_file" "ctrl_hosts" {
     name  = "ctrl"
     env   = "${var.env}"
     extra = " ansible_host=${element(openstack_compute_floatingip_v2.ctrl_fip.*.address, count.index)}"
+    #extra2 = " ansible_ssh_private_key_file="${file("~/.ssh/son-ift-ptin.pem")}""
   }
 }
 
