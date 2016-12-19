@@ -13,14 +13,26 @@
   - postgresql96-server
   - postgresql96-contrib
   - postgresql96-libs
-  - pgadmin4
 #  - libpq-dev
   - python-devel
   - python-psycopg2
   - firewalld
 
-- shell: /usr/pgsql-{{ tarball }}/bin/postgresql{{ pg_ver }}-setup initdb
-
 - name: Ensure the PostgreSQL service is running
   service: name=postgresql-{{ tarball }} state=started enabled=yes
 
+# Managing firewall
+
+- name: Ensure the Fierwall service is running
+  service: name=firewalld state=started enabled=yes
+
+- name: open PostgreSQL port at firewall
+  firewalld:
+    port: 5432/tcp
+    permanent: true
+    state: enabled
+    immediate: yes
+  #when: not ( security_firewall is defined and not security_firewall )
+  notify: reload firewalld
+
+#- shell: /usr/pgsql-{{ tarball }}/bin/postgresql{{ pg_ver }}-setup initdb

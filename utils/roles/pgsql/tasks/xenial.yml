@@ -25,3 +25,14 @@
 - name: ensure the PostgreSQL service is running
   service: name=postgresql state=started enabled=yes
 
+# Managing firewall
+
+- name: open PostgreSQL port at firewall
+  firewalld:
+    port: 5432/tcp
+    permanent: true
+    state: enabled
+    immediate: yes
+  #when: not ( security_firewall is defined and not security_firewall )
+  notify: reload firewalld
+

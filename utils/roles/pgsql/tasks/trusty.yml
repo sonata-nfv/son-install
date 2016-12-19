@@ -9,12 +9,11 @@
 - apt: update_cache=yes
 
 - name: installing PostgreSQL
-  apt: name={{ item }} update_cache=true state=installed
+  apt: name={{ item }} update_cache=true state=latest
   with_items:
   - postgresql-{{ tarball }}
   - postgresql-contrib-{{ tarball }}
   - postgresql-client-{{ tarball }}
-  - pgadmin3
   - libpq-dev
   - python-psycopg2
   - firewalld
@@ -22,11 +21,24 @@
 
 - file: path=/usr/local/pgsql/data state=directory owner=postgres group=postgres mode=0775
 
-- name: initialize database
-  become: yes
-  command: "/var/lib/postgresql/{{ tarball }}/bin/initdb -D /usr/local/pgsql/data"
-
 - name: ensure the PostgreSQL service is running
-  become_sudo: yes
   service: name=postgresql state=started enabled=yes
+
+# Managing firewall
+
+- name: ensure the Firewall service is running
+  service: name=firewalld state=started enabled=yes
+
+- name: open PostgreSQL port at firewall
+  firewalld:
+    port: 5432/tcp
+    permanent: true
+    state: enabled
+    immediate: yes
+  #when: not ( security_firewall is defined and not security_firewall )
+  notify: reload firewalld
+
+#- name: initialize database
+#  become: yes
+#  command: "/var/lib/postgresql/{{ tarball }}/bin/initdb -D /usr/local/pgsql/data"
 
