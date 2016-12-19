@@ -2,6 +2,8 @@
 - name: installing a PostgreSQL database server
   hosts: "{{ target }}"
   become: true 
+  vars:
+    ansible_python_interpreter: /usr/bin/python2.7
   vars_files:
   - roles/pgsql/vars/main.yml 
   roles:

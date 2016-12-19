@@ -2,7 +2,7 @@
 # handlers file for postgresql
 
 - name: restart postgresql 
-  service: name=postgresql enabled=yes state=reloaded 
+  service: name=postgresql state=reloaded 
 # when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "14" 
 
 #- name: restart postgresql
@@ -11,5 +11,5 @@
 
 
 - name: reload firewalld
-  service: name=firewalld enabled=yes state=reloaded
+  service: name=firewalld state=reloaded
 

@@ -3,26 +3,46 @@
 
 - include: "{{ ansible_distribution_release }}.yml"
 
-# Create DB, Users and privileges
-
-- name: create database
-  become_user: postgres
-  postgresql_db: name={{ db_name }} encoding='UTF-8' lc_collate='en_US.UTF-8' lc_ctype='en_US.UTF-8' template='template0' state=present
-
-- name: create user to access database
-  become_user: postgres
-  postgresql_user: db={{ db_name }} name={{ db_user }} password={{ db_password }} priv=ALL state=present
-
-- name: ensure user does not have unnecessary privileges
-  become_user: postgres
-  postgresql_user: name={{ db_user }} role_attr_flags=NOSUPERUSER,NOCREATEDB state=present
-
 # Managing firewall
 
-- name: starting 'firewalld' service
-  service: name=firewalld state=started
-
-- name: open pgSQL listening port at fw
-  firewalld: port=5432/tcp permanent=true state=enabled
+- name: open PostgreSQL port at firewall
+  firewalld:
+    port: 5432/tcp
+    permanent: true
+    state: enabled
+    immediate: yes
+  #when: not ( security_firewall is defined and not security_firewall )
   notify: reload firewalld
+
+# Create DB, Users and privileges
+
+- name: Ensure database is created
+  become_user: postgres
+  become: yes
+  postgresql_db:
+    name: "{{ db_name }}"
+    encoding: 'UTF-8'
+    lc_collate: 'en_US.UTF-8'
+    lc_ctype: 'en_US.UTF-8'
+    template: 'template0'
+    state: present
+
+- name: Ensure user has access to the database
+  become_user: postgres
+  become: yes
+  postgresql_user:
+    db: "{{ db_name }}"
+    name: "{{ db_user }}"
+    password: "{{ db_password }}"
+    priv: ALL
+    state: present
+    encrypted: no
+
+- name: Ensure user does not have unnecessary privileges
+  become_user: postgres
+  become: yes
+  postgresql_user:
+    name: "{{ db_user }}"
+    role_attr_flags: NOSUPERUSER,NOCREATEDB
+    state: present
 
