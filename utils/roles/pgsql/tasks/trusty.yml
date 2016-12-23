@@ -1,5 +1,7 @@
 ---
 
+#- file: path=/usr/local/pgsql/data state=directory owner=postgres group=postgres mode=0775
+- file: path="/var/lib/postgresql/{{ tarball }}" state=directory mode=0777
 - name: installing pgSQL APT GPG key
   apt_key: state=present url=https://www.postgresql.org/media/keys/ACCC4CF8.asc
 
@@ -19,15 +21,13 @@
   - firewalld
   tags: postgresql
 
-- file: path=/usr/local/pgsql/data state=directory owner=postgres group=postgres mode=0775
-
 - name: ensure the PostgreSQL service is running
-  service: name=postgresql state=started enabled=yes
+  service: name=postgresql state=started enabled=yes sleep=5
 
 # Managing firewall
 
 - name: ensure the Firewall service is running
-  service: name=firewalld state=started enabled=yes
+  service: name=firewalld state=started enabled=yes sleep=2
 
 - name: open PostgreSQL port at firewall
   firewalld:

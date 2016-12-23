@@ -1,5 +1,7 @@
 ---
 
+- file: path="/var/lib/postgresql/{{ tarball }}" state=directory mode=0777
+
 - apt: update_cache=yes
 
 # FW
@@ -23,7 +25,7 @@
   #notify: restart postgresql
 
 - name: ensure the PostgreSQL service is running
-  service: name=postgresql state=started enabled=yes
+  service: name=postgresql state=started enabled=yes sleep=5
 
 # Managing firewall
 

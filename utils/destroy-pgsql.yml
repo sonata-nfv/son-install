@@ -39,10 +39,11 @@
     file: path={{ item }} state=absent
     with_items:
     - /var/run/postgresql/
-    - /var/lib/pgsql/
+    - /var/lib/pgsql/{{ tarball }}
     #- /var/log/pgsql/
     - /usr/lib64/pgsql
     - /usr/share/pgsql
+    - /usr/pgsql-{{ tarball }}
     when: ansible_os_family == "RedHat"
 
   - raw: /usr/bin/date >> /tmp/play.log

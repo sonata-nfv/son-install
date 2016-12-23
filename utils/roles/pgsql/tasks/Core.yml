@@ -1,8 +1,11 @@
 ---
 
+#- file: path=/usr/local/pgsql/data state=directory owner=postgres group=postgres mode=0777 # for CentOS 6.x
+- file: path=/var/lib/pgsql state=directory owner=postgres group=postgres mode=0775
+
 - name: installing PostgreSQL on CentOS7 distro
   yum:
-    name: https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
+    name: 'https://download.postgresql.org/pub/repos/yum/{{ tarball }}/redhat/rhel-7-x86_64/pgdg-centos{{ pg_ver }}-{{ tarball }}-3.noarch.rpm'
     state: present
     update_cache: yes
 
@@ -17,6 +20,9 @@
   - python-devel
   - python-psycopg2
   - firewalld
+
+- name: initialize postgresql
+  shell: '/usr/pgsql-{{ tarball }}/bin/postgresql{{ pg_ver }}-setup initdb'
 
 - name: Ensure the PostgreSQL service is running
   service: name=postgresql-{{ tarball }} state=started enabled=yes
