@@ -1,8 +1,24 @@
 ---
 - name: deploy TERRAFORM to the VM appliance
   hosts: "{{ target }}"
-  sudo: yes
+  become: true
   tasks:
 
-  - name: get zip file from URL
-    get_url: url=https://releases.hashicorp.com/terraform/0.6.16/terraform_0.6.16_linux_amd64.zip dest=/opt/terraform
+  - name: get Zip file from URL
+    get_url:
+      url: https://releases.hashicorp.com/terraform/0.8.4/terraform_0.8.4_linux_amd64.zip
+      dest: /tmp
+    register: new_archive
+
+  - name: install Unzip package
+    apt: name=unzip state=present update_cache=yes
+
+  - name: unarchive source
+    #become: true
+    become_user: "{{ ansible_user_id }}"
+    unarchive:
+      src: /tmp/terraform_0.8.4_linux_amd64.zip
+      dest: /usr/local/bin
+      remote_src: True
+    when: new_archive|changed
+
