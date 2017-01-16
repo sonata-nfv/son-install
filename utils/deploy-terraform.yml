@@ -12,6 +12,11 @@
 
   - name: install Unzip package
     apt: name=unzip state=present update_cache=yes
+    when: when: ansible_os_family == "Debian"
+
+  - name: install Unzip package
+    yum: name=unzip state=present update_cache=yes
+    when: when: ansible_os_family == "RedHat"
 
   - name: unarchive source
     #become: true
