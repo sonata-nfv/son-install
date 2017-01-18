@@ -15,6 +15,7 @@
     - libffi-devel
     - wget
 
+# https://pypi.python.org/pypi/shade/1.14.1
 - name: install Openstack clients
   pip: name={{ item }} state=latest
   with_items: 
@@ -38,6 +39,7 @@
   - munch
   - keystoneauth1>=2.11.0
   - jsonpatch
+  . jmespath
   - ipaddress
   - dogpile.cache>=0.5.3
   - decorator
@@ -46,8 +48,10 @@
 # Install 'shade' python module (needed by Ansible Cloud module)
 - name: Gets 'shade' tarball
   get_url:
-    url="https://pypi.python.org/packages/cc/6a/51fdde55a5ab2bb74ab123e5b8003587bd883ee417b51e389b7986d0f545/shade-{{ tarball_version }}.tar.gz#md5=7a49274c19fef9a17dda8465db6b37eb"
-    dest="/{{ ansible_user_id }}/"
+    #url="https://pypi.python.org/packages/cc/6a/51fdde55a5ab2bb74ab123e5b8003587bd883ee417b51e389b7986d0f545/shade-{{ tarball_version }}.tar.gz#md5=7a49274c19fef9a17dda8465db6b37eb" # 1.12.1
+    url: "https://pypi.python.org/packages/7e/1f/2409fd66f2574a2dc9daf335b47384e91f1ae52d8c1bb713ec1f840e188d/shade-{{ tarball_version }}.tar.gz" # 1.14.1
+    dest: "/{{ ansible_user_id }}/"
+    checksum: "a09e159e35727bbb68eb3e5779658df4"
   register: new_archive
 
 - name: install tarball

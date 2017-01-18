@@ -1,5 +1,5 @@
 ---
-- name: deploying a VM via Ansible Cloud Module for Openstack
+- name: deploying one (or more) VM's via Ansible Cloud Module for Openstack
   hosts: localhost
   connection: local
   become: yes

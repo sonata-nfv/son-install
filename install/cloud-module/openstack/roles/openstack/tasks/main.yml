@@ -12,15 +12,12 @@
     name: "{{ vm_name }}"
     #region_name: RegionOne
     availability_zone: nova
-    #image: "Ubuntu 14.04.5 (Trusty)"
     image: "{{ os_image }}"
     key_name: "{{ os_priv_key }}"
     timeout: "180"
-    #flavor: m1.small
     flavor: "{{ os_flavor }}"
     security_groups: "{{ os_secur_groups }}"
     nics:
-      #- net-id: "ffdf5f4f-eeee-49ac-ac34-ccaf814bfb84"
       - net-name: "{{ os_publ_netw }}"
     auto_ip: yes
     meta:
@@ -29,8 +26,8 @@
   register: sonqualvm
 
 - add_host:
-    name: son-qual-vm
-    groups: qualification
+    name: k8s-vm
+    groups: k8s
     ansible_host: "{{sonqualvm.server.public_v4}}"
-    ansible_user: ubuntu
+    ansible_user: centos
     ansible_become: true

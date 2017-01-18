@@ -1,5 +1,5 @@
 ---
-- name: deploy Openstack comand line clients to the 'target' machine
+- name: deploy Openstack command line clients to the 'target' machine
   hosts: "{{ target }}"
   become: true
   connection: local
