@@ -1,10 +1,14 @@
 ---
 
+<<<<<<< HEAD
 #- hosts: localhost
 #  connection: local
 #  roles:
 #    - openstackclients
 - include: ../../deploy-openstack-cli.yml
+=======
+- include: "../../deploy-openstack-cli.yml"
+>>>>>>> 5b2cd2f9621450517424ef6eac6b19137776ff09
 
 # talk to all hosts just so we can learn about them
 - hosts: localhost
