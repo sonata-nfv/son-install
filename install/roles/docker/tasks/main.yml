@@ -1,6 +1,10 @@
 ---
 # tasks file for docker
 
+- group:
+    name: docker
+    state: present
+
 - file:
     path: /etc/ansible/group_vars
     state: directory
