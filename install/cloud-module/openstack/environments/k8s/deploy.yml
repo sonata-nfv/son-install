@@ -2,12 +2,6 @@
 
 - include: "../../deploy-openstack-cli.yml"
 
-#- hosts: localhost
-#  connection: local
-#  roles:
-#    - openstackclients
-
-
 # talk to all hosts just so we can learn about them
 - hosts: localhost
   connection: local
