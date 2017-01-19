@@ -49,7 +49,7 @@ case $CHOICE in
         3)
 	    dialog --title "VIM Configuration" --inputbox "Please enter the endpoint ip address.\nExample: 10.100.32.200" 10 60 2> /tmp/endpoint_ip
 	    dialog --title "VIM Configuration" --inputbox "Please enter the endpoint username.\nExample: admin" 10 60 2> /tmp/endpoint_user
-	    dialog --title "VIM Configuration" --inputbox "Please enter the endpoint password.\nExample: adminpass" 10 60 2> /tmp/endpoint_passwd
+	    dialog --title "VIM Configuration" --insecure --passwordbox "Please enter the endpoint password.\nExample: adminpass" 10 60 2> /tmp/endpoint_passwd
 	    dialog --title "VIM Configuration" --inputbox "Please enter the endpoint tenant name.\nExample: admin" 10 60 2> /tmp/endpoint_tenant_user
 	    dialog --title "VIM Configuration" --inputbox "Please enter the endpoint tenant external net uuid.\nThis is the UUID of the public network in the provided tenant/project that is used to provide floating IP addresses.\nExample: cbc5a4fa-59ed-4ec1-ad2d-adb270e21693" 10 90 2> /tmp/endpoint_external_net_uuid
 	    dialog --title "VIM Configuration" --inputbox "Please enter the endpoint tenant external router uuid.\nThis is the UUID of the Neutron Router used as gateway toward the external network by the networks of the provided tenant/project.\nExample: cbc5a4fa-59ed-4ec1-ad2d-adb270e21693" 10 90 2> /tmp/endpoint_external_router_uuid
@@ -90,8 +90,8 @@ case $CHOICE in
         6)
 	    dialog --title "WIM Configuration" --inputbox "Please enter the WIM uuid to be deleted.\nExample: cbc5a4fa-59ed-4ec1-ad2d-adb270e21693" 10 60 2> /tmp/wim_uuid_delete
             wim_uuid_delete=$(cat /tmp/wim_uuid_delete)
-	    docker exec -t son-postgres psql -h localhost -U postgres -d wimregistry -c "DELETE FROM SERVICED_SEGMENTS where WIM_UUID = '$wim_uuid_delete';" > /tmp/fail
-	    docker exec -t son-postgres psql -h localhost -U postgres -d wimregistry -c "DELETE FROM WIM where uuid = '$wim_uuid_delete';" > /tmp/fail
+	    docker exec -t son-postgres psql -h localhost -U postgres -d wimregistry -c "DELETE FROM SERVICED_SEGMENTS where WIM_UUID = '$wim_uuid_delete';" > /dev/null
+	    docker exec -t son-postgres psql -h localhost -U postgres -d wimregistry -c "DELETE FROM WIM where uuid = '$wim_uuid_delete';" > /dev/null
 	    dialog --title "WIM Configuration" --msgbox "WIM was deleted" 6 50
             ;;
         7)
