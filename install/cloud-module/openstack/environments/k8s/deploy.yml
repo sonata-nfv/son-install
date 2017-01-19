@@ -1,5 +1,7 @@
 ---
 
+- include: "../../deploy-openstack-cli.yml"
+
 #- hosts: localhost
 #  connection: local
 #  roles:
