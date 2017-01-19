@@ -1,6 +1,11 @@
 ---
 # tasks file for docker
 
+- file:
+    path: /etc/ansible/group_vars
+    state: directory
+    mode: 0755
+
 - name: create global/vars file for Ansible
   copy: src=group_vars.all dest=/etc/ansible/group_vars/all owner=root group=root mode=0644
 

@@ -4,7 +4,7 @@
 #  connection: local
 #  roles:
 #    - openstackclients
-
+- include: ../../deploy-openstack-cli.yml
 
 # talk to all hosts just so we can learn about them
 - hosts: localhost
