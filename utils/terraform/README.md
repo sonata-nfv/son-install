@@ -15,7 +15,7 @@ The implementation uses Modules.
 STRUCTURE
 ---------
 
-ENV: INTEGRATION
+ENVIRON: INTEGRATION
 
 1. deploy 4 VM's (INT-SRV#1, INT-SRV#2, INT-SRV#3 and JENKINS) at VIM (Openstack)
 
@@ -23,7 +23,7 @@ ENV: INTEGRATION
 
 
 
-ENV: QUALIFICATION
+ENVIRON: QUALIFICATION
 
 1. deploy 1 VM at VIM
 
@@ -34,7 +34,7 @@ ENV: QUALIFICATION
 4. run the Qualification tests
 
 
-ENV: DEMONSTRATION
+ENVIRON: DEMONSTRATION
 
 1. deploy 1 VM at VIM
 
@@ -48,7 +48,7 @@ USAGE
 
 1. $ cd 'ENVIRON'
 2. $ terraform get
-3. $ terraform plan var-file=terraform.tfvars
+3. $ terraform plan -var-file=terraform.tfvars
 4. $ terraform apply
 5. $ terraform output inventory > hosts
 

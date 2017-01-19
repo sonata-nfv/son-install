@@ -1,0 +1,6 @@
+[db]
+pg01 ansible_ssh_private_key_file=son-ift-ptin.pem ansible_host=172.31.6.228
+pg02 ansible_ssh_private_key_file=son-ift-ptin.pem ansible_host=172.31.6.237
+[www]
+web01 ansible_ssh_private_key_file=son-ift-ptin.pem ansible_host=172.31.6.204
+web02 ansible_ssh_private_key_file=son-ift-ptin.pem ansible_host=172.31.6.164

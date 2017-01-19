@@ -1,0 +1,4 @@
+vm_user: centos
+vm_os: centos
+environ: k8s
+

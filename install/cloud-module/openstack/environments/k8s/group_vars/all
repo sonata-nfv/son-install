@@ -1,0 +1,46 @@
+---
+
+prefix: k8s
+
+servers:
+
+  - name: kube-mstr01
+    image: "centos7-cldimg"
+    flavor: m1.small
+    key: "son-ift-ptin"
+    nics: "net-id=af1fbf15-2bb0-4fde-9dcb-b3fb6944341a" # k8s-netw
+    availability_zone: "nova"
+    userdata: "{{ lookup('file', 'userdata/Core.sh') }}"
+    meta:
+      group: kube-mstr
+
+  - name: kube-node01
+    image: "centos7-cldimg"
+    flavor: m1.small
+    key: "son-ift-ptin"
+    nics: "net-id=af1fbf15-2bb0-4fde-9dcb-b3fb6944341a" # k8s-netw
+    availability_zone: "nova"
+    userdata: "{{ lookup('file', 'userdata/Core.sh') }}"
+    meta:
+      group: kube-node
+
+  - name: kube-node02
+    image: "centos7-cldimg"
+    flavor: m1.small
+    key: "son-ift-ptin"
+    nics: "net-id=af1fbf15-2bb0-4fde-9dcb-b3fb6944341a" # k8s-netw
+    availability_zone: "nova"
+    userdata: "{{ lookup('file', 'userdata/Core.sh') }}"
+    meta:
+      group: kube-node
+
+  - name: kube-node0
+    image: "centos7-cldimg"
+    flavor: m1.small
+    key: "son-ift-ptin"
+    nics: "net-id=af1fbf15-2bb0-4fde-9dcb-b3fb6944341a" # k8s-netw
+    availability_zone: "nova"
+    userdata: "{{ lookup('file', 'userdata/Core.sh') }}"
+    meta:
+      group: kube-node
+
