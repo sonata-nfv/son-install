@@ -15,7 +15,6 @@
   - libssl-dev
   - libffi-dev
   - python-shade
-  - wget
 
 #- name: "Install dependency libraries on the remote server"
 #  pip: name={{ item }}  state=present

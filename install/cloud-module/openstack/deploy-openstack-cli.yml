@@ -4,4 +4,4 @@
   become: true
   connection: local
   roles:
-    - openstackclients
+    - ~/son-install/utils/roles/openstackclients
