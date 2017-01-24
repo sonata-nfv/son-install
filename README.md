@@ -6,6 +6,7 @@
  
 Actually 'son-install' v1.1 has a main playbook ('son-cmud.yml') invoked with external parameters to control the life-cycle of all the SP Services.
 
+[![asciicast](https://asciinema.org/a/a1q347o8bvxafr84xpo4q59d8.png)](https://asciinema.org/a/a1q347o8bvxafr84xpo4q59d8?autoplay=1)
 
 ## son-install parameters
 
