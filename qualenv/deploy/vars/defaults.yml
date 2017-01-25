@@ -1,0 +1,6 @@
+---
+vim: os
+pop: alb
+environ: qual
+nbofvms: 1
+distro: trusty

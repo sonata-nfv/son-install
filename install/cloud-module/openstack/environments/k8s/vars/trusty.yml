@@ -1,3 +1,0 @@
-vm_user: ubuntu
-vm_os: ubuntu
-environ: k8s

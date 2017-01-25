@@ -1,0 +1,25 @@
+---
+
+# talk to all hosts just so we can learn about them
+- hosts: localhost
+  connection: local
+  vars:
+    environ: qual
+  tasks:
+    - include_vars: "~/.config/openstack/os_{{ pop }}_{{ environ }}_vault.yaml"
+    - include_vars: "{{ item }}"
+      with_first_found:
+        - "vars/{{ ansible_distribution_release }}.yml"
+        - "vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version | int }}.yml"
+        - "vars/{{ ansible_distribution }}.yml"
+        - "vars/{{ ansible_os_family }}.yml"
+        - "vars/default.yml"
+      when: vm_user is not defined or vm_os is not defined
+
+    - name: terminate 'N' instances
+      os_server:
+        cloud: "{{ vim }}_{{ pop }}"
+        name: "{{ environ }}-{{ item.name }}"
+        state: "absent"
+      with_items: "{{ os_hosts.results }}"
+

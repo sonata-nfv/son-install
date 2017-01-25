@@ -1,0 +1,23 @@
+---
+
+- hosts: ci
+  remote_user: ubuntu
+  become: true
+  connection: ssh
+  roles:
+    - ~/ansible/utils/roles/jenkins
+
+- hosts: sp
+  remote_user: ubuntu
+  become: true
+  connection: ssh
+  tasks:
+    - include: '~/son-install/son-cmud.yml -e "operation=install service=all"'
+
+- hosts: vnf
+  remote_user: ubuntu
+  become: true
+  connection: ssh
+  tasks:
+    - include: "~/son-install/son-cmud.yml -e 'operation=install service=vnf nfvid=fw'"
+

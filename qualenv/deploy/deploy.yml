@@ -1,0 +1,10 @@
+---
+
+#  - include: "../../../utils/deploy-openstackclients.yml"
+
+- include: "./deploy-infra.yml"
+
+#  - include: "./deploy-common.yml"
+
+#  - include: "./deploy-apps.yml"
+
