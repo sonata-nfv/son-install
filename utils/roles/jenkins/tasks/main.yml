@@ -1,15 +1,14 @@
 ---
 # tasks file for JENKINS
 
-- name: installing JENKINS on CentOS 7
+- name: installing JENKINS 
   include: "{{ ansible_distribution_release }}.yml"
-  when: ansible_os_family == "RedHat"
 
-- name: installing JENKINS on Debian systems
-  include: debian.yml
-  when: ansible_os_family == "Debian"
+# MANAGE
 
-# Managing firewall
+- name: starting Jenkins service
+  service: name=jenkins state=started
+
 - name: start 'firewalld' service 
   service: name=firewalld state=started
 
