@@ -1,0 +1,11 @@
+---
+
+#- include: "./utils/install/openstackclients.yml"
+#  when: cld == "openstack"
+
+- include: "./{{ ops }}/infra.yml"
+
+#- include: "./{{ ops }}/common.yml"
+
+#- include: "./{{ ops }}/apps.yml"
+

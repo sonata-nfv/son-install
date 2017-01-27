@@ -1,0 +1,50 @@
+servers:
+
+  - name: jks
+    image: "{{ image }}"
+    flavor: "{{ flavor }}"
+    key: "{{ key_name }}"
+    nics:
+     - net-id: "{{ qual_int_net_id }}"
+    availability_zone: "{{ availability_zone }}"
+    userdata: "{{ lookup('file', './userdata/{{ distro }}.sh') }}"
+    meta:
+      hostname: jks
+      group: ci
+
+  - name: intsrv
+    image: "{{ image }}"
+    flavor: "{{ flavor }}"
+    key: "{{ key_name }}"
+    nics:
+     - net-id: "{{ qual_int_net_id }}"
+    availability_zone: "{{ availability_zone }}"
+    userdata: "{{ lookup('file', './userdata/{{ distro }}.sh') }}"
+    meta:
+      hostname: intsrv0
+      group: ci
+
+  - name: sp
+    image: "{{ image }}"
+    flavor: "{{ flavor }}"
+    key: "{{ key_name }}"
+    nics:
+     - net-id: "{{ qual_int_net_id }}"
+    availability_zone: "{{ availability_zone }}"
+    userdata: "{{ lookup('file', './userdata/{{ distro }}.sh') }}"
+    meta:
+      hostname: sp
+      group: sp
+
+  - name: vnf
+    image: "{{ image }}"
+    flavor: "{{ flavor }}"
+    key: "{{ key_name }}"
+    nics:
+     - net-id: "{{ qual_int_net_id }}"
+    availability_zone: "{{ availability_zone }}"
+    userdata: "{{ lookup('file', './userdata/{{ distro }}.sh') }}"
+    meta:
+      hostname: vnf
+      group: vnf
+

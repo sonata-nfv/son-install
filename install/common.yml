@@ -1,7 +1,27 @@
 ---
-- name: deploy useful tools and common libraries to the 'target' machine
-  hosts: "{{ target }}"
+
+#- include: "../../../utils/deploy-openstackclients.yml"
+
+- name: deploy COMMON to ALL nodes
+  hosts: all
   become: true
+  connection: ssh
   roles:
-    - common
-    - ntp
+    - ~/ansible/utils/roles/common
+
+- name: force a reboot to apply (eventual) new kernel
+  hosts: all
+  become: true
+  connection: ssh
+  tasks:
+    - name: REBOOT ALL VMs
+      shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+      async: 1
+      poll: 0
+      ignore_errors: true
+
+
+    - name: waiting for server to come back
+      local_action: wait_for host={{ ansible_host | default(inventory_hostname) }} port=22 state=started delay=10 timeout=300
+      become: false
+

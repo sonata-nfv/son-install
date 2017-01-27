@@ -1,4 +1,0 @@
----
-# handlers file for nginx
-- name: restart NGINX
-  action: name=nginx state=restarted

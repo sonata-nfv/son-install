@@ -1,0 +1,23 @@
+---
+
+- hosts: ci
+  remote_user: "{{ vm_user }}"
+  become: true
+  connection: ssh
+  roles:
+    - jenkins
+
+- hosts: sp
+  remote_user: "{{ vm_user }}"
+  become: true
+  connection: ssh
+  roles:
+    - sp
+
+- hosts: vnf
+  remote_user: "{{ vm_user }}"
+  become: true
+  connection: ssh
+  roles:
+    - nginx
+

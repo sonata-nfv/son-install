@@ -1,0 +1,25 @@
+---
+# tasks file for nginx
+- name: NGINX | installing NGINX for CentOS
+  include: "{{ ansible_os_family }}.yml"
+
+- name: copy www content
+  include: copy-www-content.yml
+  notify:
+  - restart nginx
+
+# Starting NGINX
+
+- name: start NGINX !!!
+  service: name=nginx state=started enabled=yes
+
+
+# Managing firewall
+
+- name: starting 'firewalld' service
+  service: name=firewalld state=started
+
+- name: open WWW listening port at fw
+  firewalld: port=80/tcp permanent=true state=enabled
+  notify: reload firewalld
+

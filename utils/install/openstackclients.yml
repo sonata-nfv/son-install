@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  connection: local
+  become: true
+  roles:
+    - $HOME/son-install/roles/openstackclients
+

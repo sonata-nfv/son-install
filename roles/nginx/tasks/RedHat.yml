@@ -1,0 +1,37 @@
+---
+# Uninstall previous Apache instalation
+
+- name: check if service exists
+  shell: "if chkconfig --list | grep -q httpd;   then echo true;   else echo false; fi;"
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "6"
+  register: service_exists
+
+- name: check if service exists
+  shell: "if systemctl list-unit-files | grep -q httpd;   then echo true;   else echo false; fi;"
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
+  register: service_exists
+
+- name: stop Apache service if it is running
+  service: name=httpd state=stopped enabled=no
+  when: service_exists.rc != 0
+
+- name: uninstall Apache service if it is installed
+  yum: name=httpd state=absent
+  when: service_exists.rc != 0
+
+# Install NGINX 
+
+#- name: installing NGINX for CentOS 7 from a remote repo
+#  yum:
+#    name: "http://nginx.org/packages/centos/{{ releasever }}/noarch/RPMS/nginx-release-centos-{{ releasever }}-0.el{{ releasever }}.ngx.noarch.rpm"
+#    state: present
+#    update_cache: yes
+ 
+- name: install EPEL repository
+  yum: name=epel-release state=present
+
+- yum: name=* state=latest
+
+- name: install NGINX 
+  yum: name=nginx state=present
+
