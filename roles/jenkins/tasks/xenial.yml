@@ -34,3 +34,6 @@
 - name: installing Jenkins package
   apt: name=jenkins state=latest update_cache=yes
 
+- name: installing Firewalld package
+  apt: name=firewalld state=latest update_cache=yes
+

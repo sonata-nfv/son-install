@@ -1,0 +1,67 @@
+environ: qual
+cld: openstack
+pop: alb
+distro: centos
+
+# VMs
+vm_user: centos
+nbofvms: 1
+image: centos7-cldimg
+flavor: m1.small
+security_groups: qual-secgrp
+availability_zone: nova
+region_name: RegionOne
+key_name: son-ift-ptin
+flavor: m1.small
+int_net_id: "3ef0b481-8c8c-49c7-88f5-10e4d8c5612f"
+
+servers:
+
+  - name: jk
+    image: "{{ image }}"
+    flavor: "{{ flavor }}"
+    key: "{{ key_name }}"
+    nics:
+     - net-id: "{{ int_net_id }}"
+    availability_zone: "{{ availability_zone }}"
+    userdata: "{{ lookup('file', './userdata/{{ ansible_distribution_release }}.sh') }}"
+    meta:
+      hostname: jk
+      group: ci
+
+  - name: qi
+    image: "{{ image }}"
+    flavor: "{{ flavor }}"
+    key: "{{ key_name }}"
+    nics:
+     - net-id: "{{ int_net_id }}"
+    availability_zone: "{{ availability_zone }}"
+    userdata: "{{ lookup('file', './userdata/{{ ansible_distribution_release }}.sh') }}"
+    meta:
+      hostname: qi
+      group: qi
+
+  - name: sp
+    image: "{{ image }}"
+    flavor: "{{ flavor }}"
+    key: "{{ key_name }}"
+    nics:
+     - net-id: "{{ int_net_id }}"
+    availability_zone: "{{ availability_zone }}"
+    userdata: "{{ lookup('file', './userdata/{{ ansible_distribution_release }}.sh') }}"
+    meta:
+      hostname: sp
+      group: sp
+
+  - name: ns
+    image: "{{ image }}"
+    flavor: "{{ flavor }}"
+    key: "{{ key_name }}"
+    nics:
+     - net-id: "{{ int_net_id }}"
+    availability_zone: "{{ availability_zone }}"
+    userdata: "{{ lookup('file', './userdata/{{ ansible_distribution_release }}.sh') }}"
+    meta:
+      hostname: ns
+      group: vnfi
+

@@ -4,15 +4,8 @@
 - name: Deploy Infrastructure resources
   hosts: localhost
   connection: local
-  vars:
-    cld: openstack
-    pop: alb
-    environ: qual
-    distro: trusty
-  vars_files:
-    - group_vars/{{ cld }}/{{ pop }}/{{ environ }}/{{ distro }}.yml
   tasks:
-    - debug: msg="{{ environ }}_{{ pop }}_{{ vim }}_{{ operation }}_{{ service }}_{{ distro }}"
+    - debug: msg="{{ environ }}_{{ pop }}_{{ cld }}_{{ ops }}_{{ svc }}_{{ distro }}"
 
     - include_vars: ~/.config/{{ cld }}/vault_{{ pop }}_{{ environ }}.yaml
 
