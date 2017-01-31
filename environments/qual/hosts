@@ -1,0 +1,8 @@
+[vnfi]
+ns ansible_user=centos ansible_ssh_private_key_file=~/.ssh/son-ift-ptin.pem ansible_host=172.31.6.66 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+[sp]
+sp ansible_user=centos ansible_ssh_private_key_file=~/.ssh/son-ift-ptin.pem ansible_host=172.31.6.67 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+[ci]
+jk ansible_user=centos ansible_ssh_private_key_file=~/.ssh/son-ift-ptin.pem ansible_host=172.31.6.73 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+[qi]
+qi ansible_user=centos ansible_ssh_private_key_file=~/.ssh/son-ift-ptin.pem ansible_host=172.31.6.63 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
