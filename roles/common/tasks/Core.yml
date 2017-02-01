@@ -1,14 +1,19 @@
----
+# REDHAT
+
+#- name: clean cache info
+#  command: 'yum clean all'
 
 - name:  upgrade all packages to the latest version
   yum: name='*' state=latest update_cache=yes
 
+- yum: name=epel-release state=latest
+
 - name: install useful operating system tools
-  yum: name={{ item }} state=latest
+  yum: name={{ item }}
   with_items:
-    - sysstat
-    - nmap
-    - lsof
-    - tree
-    - htop
-    - dialog
+  - sysstat
+  - nmap
+  - lsof
+  - tree
+  - wget
+  - dialog

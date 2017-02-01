@@ -21,7 +21,6 @@
         flavor: "{{ item.flavor }}"
         wait: yes
       with_items: "{{ servers }}"
-      #with_sequence: start=1 end="{{ nbofvms }}" format=%02x
       register: "os_hosts"
 
     - name: create in-memory Inventory # temporary in-memory group of hosts that only persists until the end of the playbook

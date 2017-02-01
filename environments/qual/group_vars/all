@@ -6,18 +6,18 @@ distro: centos
 ops: deploy
 svc: all
 
-# VMs
+# DEFAULT VM CONFIG
 vm_user: centos
-nbofvms: 1
+nbofvms: 2
 image: centos7-cldimg
 flavor: m1.small
 security_groups: qual-secgrp
 availability_zone: nova
 region_name: RegionOne
 key_name: son-ift-ptin
-flavor: m1.small
 int_net_id: "3ef0b481-8c8c-49c7-88f5-10e4d8c5612f"
 
+# LIST OF VMs TO INSTANTIATE
 servers:
 
   - name: jk
@@ -29,7 +29,7 @@ servers:
     availability_zone: "{{ availability_zone }}"
     userdata: "{{ lookup('file', './userdata/{{ ansible_distribution_release }}.sh') }}"
     meta:
-      hostname: jk{{ item }}
+      hostname: jk
       group: ci
     with_sequence: "start=1 end={{ nbofvms }} format=%02x"
 
@@ -42,7 +42,7 @@ servers:
     availability_zone: "{{ availability_zone }}"
     userdata: "{{ lookup('file', './userdata/{{ ansible_distribution_release }}.sh') }}"
     meta:
-      hostname: qi{{ item }}
+      hostname: qi
       group: qi
     with_sequence: "start=1 end={{ nbofvms }} format=%02x"
 
@@ -55,7 +55,7 @@ servers:
     availability_zone: "{{ availability_zone }}"
     userdata: "{{ lookup('file', './userdata/{{ ansible_distribution_release }}.sh') }}"
     meta:
-      hostname: sp{{ item }}
+      hostname: sp
       group: sp
     with_sequence: "start=1 end={{ nbofvms }} format=%02x"
 
@@ -68,6 +68,7 @@ servers:
     availability_zone: "{{ availability_zone }}"
     userdata: "{{ lookup('file', './userdata/{{ ansible_distribution_release }}.sh') }}"
     meta:
-      hostname: vnf{{ item }}
+      hostname: vnf
       group: ns
     with_sequence: "start=1 end={{ nbofvms }} format=%02x"
+
