@@ -34,6 +34,13 @@
 - name: installing Jenkins package
   apt: name=jenkins state=latest update_cache=yes
 
-- name: installing Firewalld package
-  apt: name=firewalld state=latest update_cache=yes
+#- name: installing Firewalld package
+#  apt: name=firewalld state=latest update_cache=yes
+
+- name: open Jenkins listening port at fw
+  ufw:
+    rule: allow
+    port: 8080
+    prot: tcp
+  notify: reload firewall
 

@@ -8,3 +8,5 @@ urootpw: 1234
 dbname: monitoring
 dbuser: monitoringuser
 
+# pre-load
+public_ip: 172.31.6.155

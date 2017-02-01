@@ -2,4 +2,9 @@
 # handlers file for Jenkins
 - name: reload firewalld
   service: name=firewalld state=reloaded
+  when: ansible_os_distribution == "RedHat"
+
+- name: reload firewalld
+  ufw: state=reloaded
+  when: ansible_os_distribution == "Debian"
 
