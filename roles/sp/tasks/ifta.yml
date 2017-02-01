@@ -1,0 +1,40 @@
+---
+- name: deploy INFRASTRUCTURE ABSTRATOR as Docker containers from Registry to the SP VM appliance
+  hosts: "{{ target }}"
+  become: true
+  tasks:
+
+  - name: Infrastructure Abstractor VIM Adaptor running Docker containers
+    docker_container:
+      name: son-sp-infrabstract
+      image: sonatanfv/son-sp-infrabstract
+      state: started
+      env:
+        broker_host: "{{ ansible_default_ipv4.address }}"
+        broker_uri: "amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F"
+        repo_host: "{{ ansible_default_ipv4.address }}"
+        repo_port: "5432"
+        repo_user: "sonatatest"
+        repo_pass: "sonata"
+      volumes:
+        - /var/log/sonata:/var/log/ifta-vim
+      log_driver: syslog
+
+
+
+  - name: Infrastructure Abstractor WIM Adaptor - running Docker containers
+    docker_container:
+      name: wim-adaptor
+      image: sonatanfv/wim-adaptor
+      state: started
+      env:
+        broker_host: "{{ ansible_default_ipv4.address }}"
+        broker_uri: "amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F"
+        repo_host: "{{ ansible_default_ipv4.address }}"
+        repo_port: "5432"
+        repo_user: "sonatatest"
+        repo_pass: "sonata"
+      volumes:
+        - /var/log/sonata:/var/ifta-wim
+      log_driver: syslog
+

@@ -1,0 +1,6 @@
+---
+# handlers file for keycloak
+
+- name: reload firewalld
+  service: name=firewalld state=reloaded
+

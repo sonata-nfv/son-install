@@ -1,12 +1,10 @@
 ---
 
-# talk to all hosts just so we can learn about them
-- name: Deploy Infrastructure resources
+- name: Deploy Infrastructure resources for SONATA specific environments
   hosts: localhost
   become: false
   connection: local
   tasks:
-    - debug: msg="{{ environ }}_{{ pop }}_{{ cld }}_{{ ops }}_{{ svc }}_{{ distro }}"
 
     - include_vars: ~/.config/{{ cld }}/vault_{{ pop }}_{{ environ }}.yaml
 

@@ -1,0 +1,105 @@
+---
+- name: deploy Docker containers from Registry to the SP VM
+  hosts: "{{ target }}"
+  vars:
+    upassword: sonata
+    urootpw: 1234
+    dbname: monitoring
+    dbuser: monitoringuser
+  become: true
+  tasks:
+
+# Running the Sonata MONITORY Docker Images
+
+  - name: MONIT InfluxDB  - running Docker containers
+    docker_container:
+      name: son-monitor-influxdb
+      image: sonatanfv/son-monitor-influxdb
+      state: started
+      ports: 8086:8086
+      volumes:
+        - /var/log/sonata:/var/log/monitor-influxdb
+      log_driver: syslog
+
+  - wait_for: host=0.0.0.0 port=8086 timeout=30 delay=10 state=started
+
+  - name: MONIT MySQL - running Docker containers
+    docker_container:
+      name: son-monitor-mysql
+      image: sonatanfv/son-monitor-mysql
+      env:
+        MYSQL_ROOT_PASSWORD: "{{ urootpw }}"
+        MYSQL_USER: "{{ dbuser }}"
+        MYSQL_PASSWORD: "{{ upassword }}"
+        MYSQL_DATABASE: "{{ dbname }}"
+      state: started
+      ports: 3306:3306
+      volumes:
+        - /var/log/sonata:/var/log/monitor-mysql
+      log_driver: syslog
+
+  - wait_for: host=0.0.0.0 port=3306 timeout=30 delay=10 state=started
+
+  - name: MONIT Push Gateway - running Docker containers
+    docker_container:
+      name: son-monitor-pushgateway
+      image: sonatanfv/son-monitor-pushgateway
+      state: started
+      ports: 9091:9091
+      volumes:
+        - /var/log/sonata:/var/log/monitor-pushgateway
+      log_driver: syslog
+
+  - wait_for: host=0.0.0.0 port=9091 timeout=30 delay=10 state=started
+
+  - name: MONIT PROMETHEUS - running Docker containers
+    docker_container:
+      name: son-monitor-prometheus
+      image: sonatanfv/son-monitor-prometheus
+      state: started
+      env:
+        RABBIT_URL: "{{ ansible_default_ipv4.address }}:5672"
+        EMAIL_PASS: "czBuQHRAX21vbl9zeXNfMTY="
+      ports: 
+      - 9090:9090
+      - 9089:9089
+      etc_hosts:
+        influx: "{{ ansible_default_ipv4.address }}"
+        pushgateway: "{{ ansible_default_ipv4.address }}"
+      volumes:
+        - /var/log/sonata:/var/log/monitor-prometheus
+      log_driver: syslog
+
+  - wait_for: host=0.0.0.0 port=9090 timeout=30 delay=10 state=started
+
+  - name: MONIT MANAGER - running Docker containers
+    docker_container:
+      name: son-monitor-manager
+      image: sonatanfv/son-monitor-manager
+      state: started
+      ports: 8000:8000
+      etc_hosts:
+        mysql: "{{ ansible_default_ipv4.address }}"
+        prometheus: "{{ ansible_default_ipv4.address }}"
+      volumes:
+        - "/tmp/monitoring/mgr:/var/log/apache2"
+        - /var/log/sonata:/var/log/monitor-manager
+      log_driver: syslog
+
+  - wait_for: host=0.0.0.0 port=8000 timeout=30 delay=10 state=started
+
+  - name: MONIT Probe - running Docker containers
+    docker_container:
+      name: son-monitor-probe
+      image: sonatanfv/son-monitor-probe
+      state: started
+      network_mode: host
+      privileged: yes
+      env:
+       NODE_NAME: "{{ ansible_hostname }}"
+       PROM_SRV: "http://{{ ansible_default_ipv4.address }}:9091/metrics"
+      volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/:/rootfs:ro"
+      - "/proc:/myhost/proc"
+      - /var/log/sonata:/var/log/monitor-probe

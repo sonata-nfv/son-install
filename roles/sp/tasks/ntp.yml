@@ -1,0 +1,7 @@
+---
+- name: set NTP on the target machine
+  hosts: "{{ target }}"
+  become: true
+  roles:
+  - ntp
+
