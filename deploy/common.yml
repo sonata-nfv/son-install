@@ -1,13 +1,22 @@
 ---
 
-#- include: "../../../utils/deploy-openstackclients.yml"
-
 - name: deploy COMMON to ALL nodes
   hosts: all
   become: true
   connection: ssh
+
+  pre_tasks:
+    - shell: echo 'applying standard configuration'
+
   roles:
-    - ~/ansible/utils/roles/common
+    - { role: common }
+
+  tasks:
+    - shell: echo 'still busy'
+
+  post_tasks:
+    - shell: echo 'standard configuration applied'
+
 
 - name: force a reboot to apply (eventual) new kernel
   hosts: all
@@ -19,7 +28,6 @@
       async: 1
       poll: 0
       ignore_errors: true
-
 
     - name: waiting for server to come back
       local_action: wait_for host={{ ansible_host | default(inventory_hostname) }} port=22 state=started delay=10 timeout=300

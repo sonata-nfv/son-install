@@ -1,0 +1,32 @@
+---
+
+- hosts: ci
+  remote_user: "{{ vm_user }}"
+  become: true
+  connection: ssh
+  tasks:
+    - debug: msg="DO NOTHING until Jenkins deployment fix"
+#  roles:
+#    - jenkins
+
+- hosts: qi
+  remote_user: "{{ vm_user }}"
+  become: true
+  connection: ssh
+  tasks:
+    - debug: msg="here goes the QUALIFICATION TOOLS for Performance/Security/Compliance tests"
+
+- hosts: sp
+  remote_user: "{{ vm_user }}"
+  become: true
+  connection: ssh
+  roles:
+    - sp
+
+- hosts: ns
+  remote_user: "{{ vm_user }}"
+  become: true
+  connection: ssh
+  roles:
+    - nginx
+

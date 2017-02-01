@@ -53,7 +53,7 @@ servers:
       hostname: sp
       group: sp
 
-  - name: ns
+  - name: vnf
     image: "{{ image }}"
     flavor: "{{ flavor }}"
     key: "{{ key_name }}"
@@ -62,6 +62,6 @@ servers:
     availability_zone: "{{ availability_zone }}"
     userdata: "{{ lookup('file', './userdata/{{ ansible_distribution_release }}.sh') }}"
     meta:
-      hostname: ns
+      hostname: vnf
       group: vnfi
 

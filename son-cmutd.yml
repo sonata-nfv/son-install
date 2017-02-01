@@ -5,7 +5,4 @@
 
 - include: "./{{ ops }}/infra.yml"
 
-#- include: "./{{ ops }}/common.yml"
-
-#- include: "./{{ ops }}/apps.yml"
-
+- include: "./{{ ops }}/apps.yml"

@@ -1,10 +1,11 @@
 ---
+# tasks file for sp
 
 # upgrade packages and deploy useful tools
-- include: '../deploy/common.yml'
+- include: common.yml
 
 # deploy Docker container engine
-- include: '../deploy/docker.yml'
+- include: docker.yml
 
 # deploy web server 
 #- include: nginx.yml
@@ -13,25 +14,25 @@
 #- include: mysql.yml
 
 # deploy postgreSQL database engine
-#- include: pgsql.yml
+- include: pgsql.yml
 
 # deploy MongoDB database engine
-#- include: mongo.yml
+- include: mongo.yml
 
 # deploy Repositories
-#- include: repos.yml
+- include: repos.yml
 
 # deploy RabbitMQ message bus
-#- include: broker.yml
+- include: broker.yml
 
 # deploy Gatekepper module
-#- include: gtkall.yml
+- include: gtkall.yml
 
 # deploy MANO framework
-#- include: mano.yml
+- include: mano.yml
 
 # deploy Infastructure Adaptor
-#- include: ifta.yml
+- include: ifta.yml
 
 # deploy Monitoring
-#- include: monit.yml
+- include: monit.yml
