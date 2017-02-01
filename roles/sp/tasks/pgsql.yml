@@ -1,19 +1,15 @@
 ---
-- name: deploy a PostgreSQL database server to the 'target' machine
-  hosts: "{{ target }}"
-  become: true
-  tasks:
-  - name: deploy postgres container
-    docker_container:
-      name: son-postgres
-      image: sonatanfv/son-postgres
-      env:
-        POSTGRES_DB=gatekeeper
-        POSTGRES_USER=sonatatest
-        POSTGRES_PASSWORD=sonata
-      state: started
-      ports: 5432:5432
-      volumes:
-        - /var/log/sonata:/var/log/son-postgres
+- name: deploy a PostgreSQL database server as a Container
+  docker_container:
+    name: son-postgres
+    image: sonatanfv/son-postgres
+    env:
+      POSTGRES_DB=gatekeeper
+      POSTGRES_USER=sonatatest
+      POSTGRES_PASSWORD=sonata
+    state: started
+    ports: 5432:5432
+    volumes:
+      - /var/log/sonata:/var/log/son-postgres
 
-  - wait_for: host=0.0.0.0 port=5432 timeout=30 delay=10 state=started
+- wait_for: host=0.0.0.0 port=5432 timeout=30 delay=10 state=started

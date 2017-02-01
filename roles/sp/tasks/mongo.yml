@@ -1,16 +1,12 @@
 ---
-- name: create a MongoDB for the target machine
-  hosts: "{{ target }}"
-  become: true
-  tasks:
-  - name: deploy MongoDB container for Monitory
-    docker_container:
-      name: son-mongo
-      image: sonatanfv/son-mongo
-      #env:
-      state: started
-      ports: 27017:27017
-      volumes:
-        - /var/log/sonata:/var/log/mongo
+- name: deploy MongoDB as a Container (used by Monitory)
+  docker_container:
+    name: son-mongo
+    image: sonatanfv/son-mongo
+    #env:
+    state: started
+    ports: 27017:27017
+    volumes:
+      - /var/log/sonata:/var/log/mongo
 
-  - wait_for: host=0.0.0.0 port=27017 timeout=30 delay=10 state=started
+- wait_for: host=0.0.0.0 port=27017 timeout=30 delay=10 state=started

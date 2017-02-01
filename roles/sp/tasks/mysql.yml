@@ -1,20 +1,30 @@
 ---
-- name: create a MySQL database for the SON-SP VM appliance
-  hosts: "{{ target }}"
-  become: true
-  tasks:
-  - name: deploy MySQL container for Monitory
-    docker_container:
-      name: son-monitor-mysql
-      image: sonatanfv/son-monitor-mysql
-      env:
-        MYSQL_ROOT_PASSWORD=1234
-        MYSQL_USER=monitoringuser
-        MYSQL_PASSWORD=sonata
-        MYSQL_DATABASE=monitoring
-      state: started
-      ports: 3306:3306
-      volumes:
-        - /var/log/sonata:/var/log/monitor-mysql
 
-  - wait_for: host=0.0.0.0 port=3306 timeout=30 delay=10 state=started
+- name: deploy MySQL container for Monitory
+
+  docker_container:
+
+    name: son-monitor-mysql
+
+    image: sonatanfv/son-monitor-mysql
+
+    env:
+
+      MYSQL_ROOT_PASSWORD=1234
+
+      MYSQL_USER=monitoringuser
+
+      MYSQL_PASSWORD=sonata
+
+      MYSQL_DATABASE=monitoring
+
+    state: started
+
+    ports: 3306:3306
+
+    volumes:
+
+      - /var/log/sonata:/var/log/monitor-mysql
+
+
+- wait_for: host=0.0.0.0 port=3306 timeout=30 delay=10 state=started

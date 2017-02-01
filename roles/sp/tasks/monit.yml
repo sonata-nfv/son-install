@@ -1,13 +1,4 @@
 ---
-- name: deploy Docker containers from Registry to the SP VM
-  hosts: "{{ target }}"
-  vars:
-    upassword: sonata
-    urootpw: 1234
-    dbname: monitoring
-    dbuser: monitoringuser
-  become: true
-  tasks:
 
 # Running the Sonata MONITORY Docker Images
 

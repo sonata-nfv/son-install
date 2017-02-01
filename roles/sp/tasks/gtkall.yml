@@ -1,10 +1,6 @@
 ---
-- name: deployment of SP GATEKEEPER as a Docker containers from Registry
-  hosts: "{{ target }}"
-  become: true
-  tasks:
 
-  # Running the Sonata GK Docker Images
+# Running the Sonata GK Docker Images
 
   - name: GATEKEEPER GUI - running Docker containers
     docker_container:

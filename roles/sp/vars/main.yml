@@ -1,2 +1,10 @@
 ---
 # vars file for sp
+
+
+# VARs for MONITOR
+upassword: sonata
+urootpw: 1234
+dbname: monitoring
+dbuser: monitoringuser
+
