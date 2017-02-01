@@ -13,11 +13,8 @@
 #    - { role: common, become: true } 
 #    - { role: openstackclients, become: true } 
 
-#  tasks:
-#    debug: msg="OK"
 - include: "./{{ ops }}/infra.yml"
-#- include: "./{{ ops }}/common.yml"
-#- include: "./{{ ops }}/apps.yml"
+- include: "./{{ ops }}/apps.yml"
 
 - hosts: localhost
   become: false

@@ -5,7 +5,7 @@
   become: true
   connection: ssh
   tasks:
-    - debug: msg="DO NOTHING until Jenkins deployment fix"
+    - debug: msg="JENKINS - DO NOTHING until Jenkins deployment fix"
 #  roles:
 #    - jenkins
 
@@ -14,14 +14,17 @@
   become: true
   connection: ssh
   tasks:
-    - debug: msg="here goes the QUALIFICATION TOOLS for Performance/Security/Compliance tests"
+    - debug: msg="QI - here goes the QUALIFICATION TOOLS for Performance/Security/Compliance tests"
 
 - hosts: sp
   remote_user: "{{ vm_user }}"
   become: true
   connection: ssh
-  roles:
-    - sp
+#  roles:
+#    - sp
+  tasks:
+    - debug: msg="SP - DO NOTHING"
+
 
 - hosts: ns
   remote_user: "{{ vm_user }}"
