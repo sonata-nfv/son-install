@@ -1,5 +1,5 @@
 ---
-- hosts: jk
+- hosts: ns
   remote_user: "{{ vm_user }}"
   become: true
   connection: ssh
@@ -7,4 +7,4 @@
     - ntp
     - common
     - nginx
-
+    - letsencrypt
