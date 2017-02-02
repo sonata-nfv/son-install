@@ -1,0 +1,12 @@
+---
+- hosts: sp
+  remote_user: "{{ vm_user }}"
+  become: true
+  connection: ssh
+  roles:
+    - ntp
+    - common
+    - docker
+    - broker
+    - sp
+
