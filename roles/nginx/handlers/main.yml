@@ -3,6 +3,12 @@
 - name: restart nginx
   service: name=nginx state=restarted
 
-- name: reload firewalld
+- name: reload firewall
   service: name=firewalld state=restarted
+  when: ansible_os_family == "RedHat"
+
+- name: open NGINX port and reload FW
+  ufw:
+    state: reloaded
+  when: ansible_os_family == "Debian"
 

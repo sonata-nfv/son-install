@@ -4,11 +4,9 @@
 - name: installing JENKINS 
   include: "{{ ansible_distribution_release }}.yml"
 
-# MANAGE
-
 - name: starting Jenkins service
   service: name=jenkins state=started
 
-#- name: start 'firewalld' service 
-#  service: name=firewalld state=started
 
+- name: enable FIREWALL mgmt
+  include: "fw.yml"
