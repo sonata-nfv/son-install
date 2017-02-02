@@ -16,3 +16,4 @@
   - policycoreutils
   - dialog
   - postgresql-client-common
+  - nscd
