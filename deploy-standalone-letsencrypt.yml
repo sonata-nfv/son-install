@@ -1,0 +1,6 @@
+---
+- hosts: ns
+  become: true
+  connection: ssh
+  roles:
+    - letsencrypt
