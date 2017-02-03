@@ -9,8 +9,8 @@
       register: ts
     - debug: msg={{ ts.stdout }}
   roles:
-    - common
-    - openstackclients
+    - { role: common, become: true }
+    - { role: openstackclients, become: true }
 - include: "./{{ ops }}/infra.yml"
 - include: "./{{ ops }}/common.yml"
 - include: "./{{ ops }}/apps.yml"
