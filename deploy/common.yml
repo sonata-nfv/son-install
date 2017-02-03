@@ -7,21 +7,13 @@
 
   pre_tasks:
     - shell: echo 'applying standard configuration'
+    - local_action: shell date +'%F %T'
+      register: ts
+    - debug: msg={{ ts.stdout }}
 
   roles:
-    - { role: common }
+    - common
 
-  tasks:
-    - shell: echo 'still busy'
-
-  post_tasks:
-    - shell: echo 'standard configuration applied'
-
-
-- name: force a reboot to apply (eventual) new kernel
-  hosts: all
-  become: true
-  connection: ssh
   tasks:
     - name: REBOOT ALL VMs
       shell: sleep 2 && shutdown -r now "Ansible updates triggered"

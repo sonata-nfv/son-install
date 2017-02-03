@@ -10,6 +10,12 @@
 - name: install CertBot client
   yum: name=certbot state=present
 
-- name: obtain certificate
-  shell: certbot --nginx -d alb.sonata-nfv.eu -d sp.alb.sonata-nfv.eu
+- name: obtain Certificate
+  shell: certbot certonly --webroot --email arocha@ptinovacao.pt -w /usr/share/nginx/html/ -d alabs.sonata-nfv.eu
+
+- service: name=nginx state=stopped
+
+- name: install Certificate
+  shell: certbot install 
+  notify: restart nginx
 

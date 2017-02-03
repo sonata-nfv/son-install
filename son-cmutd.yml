@@ -9,22 +9,7 @@
       register: ts
     - debug: msg={{ ts.stdout }}
 
-#  roles:
-#    - { role: common, become: true } 
-#    - { role: openstackclients, become: true } 
-
 - include: "./{{ ops }}/infra.yml"
+- include: "./{{ ops }}/common.yml"
 - include: "./{{ ops }}/apps.yml"
-
-- hosts: localhost
-  become: false
-  connection: local
-
-  post_tasks:
-
-  - local_action: shell date +'%F %T'
-    register: tsend
-
-  - name: Timestamp
-    debug: msg="{{ tsend.stdout }}"
 

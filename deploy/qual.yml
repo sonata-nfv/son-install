@@ -1,35 +1,33 @@
 ---
 
-- hosts: ci
-  remote_user: "{{ vm_user }}"
+- hosts: ci-jk
   become: true
   connection: ssh
-  tasks:
-    - debug: msg="JENKINS - DO NOTHING until Jenkins deployment fix"
-#  roles:
-#    - jenkins
+  pre_tasks:
+    - local_action: shell date +'%F %T'
+      register: ts
+    - debug: msg={{ ts.stdout }}
+  roles:
+    - jenkins
 
-- hosts: qi
-  remote_user: "{{ vm_user }}"
+- hosts: qi-tools
   become: true
   connection: ssh
+  pre_tasks:
+    - debug: msg="QUALIFICATION TOOLS for Performance/Security/Compliance tests goes here"
   tasks:
-    - debug: msg="QI - here goes the QUALIFICATION TOOLS for Performance/Security/Compliance tests"
+    - command: sleep 2
 
-- hosts: sp
-  remote_user: "{{ vm_user }}"
+- hosts: sp-qual
   become: true
   connection: ssh
-#  roles:
-#    - sp
-  tasks:
-    - debug: msg="SP - DO NOTHING"
+  roles:
+    - docker
+    - sp
 
-
-- hosts: ns
-  remote_user: "{{ vm_user }}"
+- hosts: nfvi
   become: true
   connection: ssh
   roles:
     - nginx
-
+    - letsencrypt
