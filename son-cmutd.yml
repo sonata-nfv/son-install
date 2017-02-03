@@ -8,8 +8,10 @@
     - local_action: shell date +'%F %T'
       register: ts
     - debug: msg={{ ts.stdout }}
-
-#- include: "./{{ ops }}/infra.yml"
-#- include: "./{{ ops }}/common.yml"
+  roles:
+    - common
+    - openstackclients
+- include: "./{{ ops }}/infra.yml"
+- include: "./{{ ops }}/common.yml"
 - include: "./{{ ops }}/apps.yml"
 
