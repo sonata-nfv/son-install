@@ -6,7 +6,7 @@ Create the hidden file with credentials for Openstack Tenant authentication
 * ~/.git/openstack/vault.yaml
 
 Create the hidden file with available Openstack clouds to connect [os_client_config](http://docs.openstack.org/developer/os-client-config/) 
-~/.config/openstack/clouds.yaml
+* ~/.config/openstack/clouds.yaml
 
 Clone the Repo
 * git clone https://github.com/sonata-nfv/son-install.git
