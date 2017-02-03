@@ -9,7 +9,7 @@
       register: ts
     - debug: msg={{ ts.stdout }}
 
-- include: "./{{ ops }}/infra.yml"
-- include: "./{{ ops }}/common.yml"
+#- include: "./{{ ops }}/infra.yml"
+#- include: "./{{ ops }}/common.yml"
 - include: "./{{ ops }}/apps.yml"
 

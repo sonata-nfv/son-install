@@ -9,14 +9,29 @@
 - name: start NGINX !!!
   service: name=nginx state=started enabled=yes
 
-# Managing firewall
-
-- include: fw.yml
-
-# upload content
+# Upload content
 
 - name: copy www content
   include: copy-www-content.yml
   notify:
   - restart nginx
+
+# Open FW ports
+
+- name: open NGINX default port (80)
+  firewalld:
+    port: 80/tcp
+    permanent: true
+    state: enabled
+  notify: reload firewall
+  when: ansible_os_family == "RedHat"
+
+- name: open NGINX port at FW
+  ufw:
+    state: enabled
+    rule: allow
+    port: 80
+    proto: tcp
+  notify: reload firewall
+  when: ansible_os_family == "Debian"
 

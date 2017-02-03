@@ -4,7 +4,7 @@
 #- include: common.yml
 
 # deploy Docker container engine
-- include: docker.yml
+#- include: docker.yml
 
 # deploy web server 
 #- include: nginx.yml
@@ -22,7 +22,7 @@
 - include: repos.yml
 
 # deploy RabbitMQ message bus
-#- include: broker.yml
+- include: broker.yml
 
 # deploy Gatekepper module
 - include: gtkall.yml

@@ -1,20 +1,14 @@
+---
+# tasks file for firewall
 
 # CENTOS/REDHAT
 
-- name: installing Firewalld package
+- name: installing FW package
   yum: name=firewalld state=latest update_cache=yes
   when: ansible_os_family == "RedHat"
 
-- name: start 'firewall' service
+- name: start FW service
   service: name=firewalld state=started enabled=yes
-  when: ansible_os_family == "RedHat"
-
-- name: open NGINX default port (80)
-  firewalld:
-    port: 80/tcp
-    permanent: true
-    state: enabled
-  notify: reload firewall
   when: ansible_os_family == "RedHat"
 
 
@@ -27,9 +21,6 @@
 - name: open NGINX port at FW
   ufw:
     state: enabled
-    rule: allow
-    port: 80
-    proto: tcp
-  notify: reload firewall
+    rule: allow # TO FIX
   when: ansible_os_family == "Debian"
-
+#
