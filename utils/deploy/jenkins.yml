@@ -1,8 +1,10 @@
 ---
-- name: "deploy JENKINS CI server to the VM appliance"
+- name: "deploy JENKINS CI server to the target VM appliance"
   hosts: "{{ target }}"
   become: true
+  connection: ssh
   roles:
+  - ntp
   - common
   - jdk
   - nginx
