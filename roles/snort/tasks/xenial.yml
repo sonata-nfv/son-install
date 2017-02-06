@@ -39,7 +39,74 @@
 
 - name: upload shared libraries (otherwise you will get an error when you try to run Snort)
   command: ldconfig
-- command: ln -s /usr/local/bin/snort /usr/sbin/snort
+
+- file:
+    src: /usr/sbin/snort
+    dest: /usr/local/bin/snort
+    owner: root
+    group: root
+    state: link
+
 - command: snort -V
   register: snort_ver
-- debug: msg="{{ snort_ver.output }}"
+- debug: msg={{ snort_ver.output }}
+
+- group:
+    name: snort
+    state: present
+
+- user:
+    name: snort
+    shell: /usr/sbin/nologin
+    groups: snort
+    append: yes
+    comment: "SNORT IDS"
+
+#- file:
+#    path: /etc/snort
+#    state: directory
+#    owner: snort
+#    group: snort
+#    mode: 5775
+
+- file:
+    path: /var/log/snort
+    state: directory
+    owner: snort
+    group: snort
+    mode: 5775
+
+- file:
+    path: /usr/local/lib/snort_dynamicrules
+    state: directory
+    owner: snort
+    group: snort
+    mode: 5775
+
+
+- file:
+    path: {{ item }}
+    state: directory
+    mode: 0755
+  with_items:
+    - /etc/snort/rules/iplists
+    - /etc/snort/rules/iplists
+    - /etc/snort/rules/iplists
+    - /etc/snort/so_rules
+    - /var/log/snort/archived_logs
+
+- file:
+    path: {{ item }}
+    state: touch
+    mode: "u=rw,g=r,o=r"
+  with_items:
+    - /etc/snort/rules/iplists/black_list.rules
+    - /etc/snort/rules/iplists/black_list.rules
+    - /etc/snort/rules/iplists/black_list.rules
+    - /etc/snort/sid-msg.map
+
+- command: cp /tmp/snort/snort-2.9.9.0/etc/*.conf* /etc/snort
+- command: cp /tmp/snort/snort-2.9.9.0/etc/*.map /etc/snort
+- command: cp /tmp/snort/snort-2.9.9.0/etc/*.dtd /etc/snort
+- command: cp /tmp/snort/snort-2.9.9.0/src/dynamic-preprocessors/build/usr/local/lib/snort_dynamicpreprocessor/ /usr/local/lib/snort_dynamicpreprocessor/
+
