@@ -42,9 +42,3 @@
   service: name=squid3 state=started enabled=yes
   when: ansible_distribution_release == "trusty"
 
-- command: squid -v
-  register: squidver
-
-- name: echo SQUID installed version
-  debug: 
-    msg: "{{ squidver }}"

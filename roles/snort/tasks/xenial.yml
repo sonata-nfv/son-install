@@ -1,0 +1,45 @@
+# Pre-requirements
+- name: install Ubuntu 16.04 depedency libraries
+  apt: name={{ item }}
+  with_items:
+    - build-essential
+    - libpcap-dev
+    - libpcre3-dev
+    - libdumbnet-dev
+    - bison
+    - flex
+    - zlib1g-dev
+    - liblzma-dev
+    - openssl
+    - libssl-dev
+
+- file:
+    path: /tmp/snort_src
+    state: directory
+    mode: 0755
+
+
+- name: download DAQ tarball
+  unarchive:
+    src: https://www.snort.org/downloads/snort/daq-2.0.6.tar.gz
+    dest: /tmp/snort_src
+    remote_src: true
+
+- name: install DAQ
+  shell: cd /tmp/snort_src/daq-2.0.6 && ./configure && make && make install
+
+- name: download SNORT tarball
+  unarchive:
+    src: https://www.snort.org/downloads/snort/snort-2.9.9.0.tar.gz
+    dest: /tmp/snort_src
+    remote_src: true
+
+- name: install SNORT
+  shell: cd /tmp/snort_src/snort-2.9.9.0 && ./configure --enable-sourcefire && make && make install
+
+- name: upload shared libraries (otherwise you will get an error when you try to run Snort)
+  command: ldconfig
+- command: ln -s /usr/local/bin/snort /usr/sbin/snort
+- command: snort -V
+  register: snort_ver
+- debug: msg="{{ snort_ver.output }}"

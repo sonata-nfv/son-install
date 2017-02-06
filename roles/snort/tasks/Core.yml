@@ -19,5 +19,5 @@
 
 - name: install SNORT
   yum:
-    name: https://snort.org/downloads/snort/daq-2.0.6-1.centos7.x86_64.rpm
+    name: https://www.snort.org/downloads/snort/snort-2.9.9.0-1.centos7.x86_64.rpm
     state: present
