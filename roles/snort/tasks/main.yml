@@ -1,0 +1,21 @@
+---
+# tasks file for snort
+
+- include: "{{ ansible_distribution_release }}.yml"
+
+- name: Updating Snort Rule using Pulled Pork
+  git: 
+    repo: https://github.com/shirkdog/pulledpork.git
+    dest: /tmp/pulledpork
+
+- name: setup pulled pork
+  command: cp /tmp/pulledpork/pulledpork.pl /usr/local/bin
+
+- command: chmod +x /usr/local/bin/pulledpork.pl
+
+- file:
+    path: /etc/snort
+    state: directory
+    mode: 0755
+
+- command: cp /tmp/pulledpork/etc/*.conf /etc/snort

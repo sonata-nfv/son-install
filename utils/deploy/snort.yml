@@ -1,0 +1,8 @@
+---
+- name: deploy SNORT to the target machine
+  hosts: "{{ target }}"
+  become: true
+  roles:
+  - firewall
+  - snort
+
