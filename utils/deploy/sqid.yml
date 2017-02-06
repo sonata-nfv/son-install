@@ -1,0 +1,10 @@
+---
+- name: deploy SQUID to the target machine
+  hosts: "{{ target }}"
+  become: true
+  vars:
+    svc_port: 3128
+  roles:
+  - firewall
+  - squid
+

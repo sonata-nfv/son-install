@@ -18,7 +18,7 @@
   service: name=ufw state=started
   when: ansible_os_family == "Debian"
 
-- name: open NGINX port at FW
+- name: open SVC port at FW
   ufw:
     state: enabled
     rule: allow # TO FIX

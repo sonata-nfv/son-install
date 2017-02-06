@@ -1,7 +1,9 @@
 ---
-- name: deploy NGINX to the 'target' machine'
+- name: deploy NGINX to the target machine
   hosts: "{{ target }}"
   sudo: yes
+  vars:
+    svc_port: 80
   roles:
   - firewall
   - nginx

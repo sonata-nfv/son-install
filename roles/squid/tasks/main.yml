@@ -1,0 +1,30 @@
+---
+# tasks file for squid
+
+- name: installing SQUID proxy server
+  package:
+    name: squid
+    state: latest
+# include: "{{ ansible_os_family }}.yml"
+
+# preserve original config file
+- fetch: 
+    src: /etc/squid/squid.conf
+    dest: /tmp/squid.conf
+    flat: yes
+- copy:
+    src: /tmp/squid.conf
+    dest: /etc/squid/squid.conf.ORIG
+    owner: root
+    group: squid
+    mode: 0640
+
+- name: start SQUID service
+  service: name=squid state=started enabled=yes
+
+- command: squid -v
+  register: squidver
+
+- name: echo SQUID installed version
+  debug: 
+    msg: "{{ squidver }}"

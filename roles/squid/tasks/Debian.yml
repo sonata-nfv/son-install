@@ -1,0 +1,6 @@
+- name: now, install SQUID on Ubuntu
+  apt: name=squid state=present update_cache=yes
+
+- name: start SQUID service
+  service: name=squid state=start enabled=yes
+

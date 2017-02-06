@@ -18,9 +18,9 @@
 
 # Open FW ports
 
-- name: open NGINX default port (80)
+- name: open NGINX ports
   firewalld:
-    port: 80/tcp
+    port: "{{ svc_port }}"/tcp
     permanent: true
     state: enabled
   notify: reload firewall
@@ -30,7 +30,7 @@
   ufw:
     state: enabled
     rule: allow
-    port: 80
+    port: "{{ svc_port }}"
     proto: tcp
   notify: reload firewall
   when: ansible_os_family == "Debian"

@@ -14,7 +14,7 @@ Clone the Repo
 == Usage
 Just run it
 * cd son-install
-* ansible-playbook son-cmutd.yml -e "ops=CMUTD environ=QUAL/DEMO"
+* ansible-playbook son-cmud.yml -e "ops='CMUD' environ='QUAL'/'DEMO'/'SP'"
 
 
 == What's new
@@ -34,9 +34,7 @@ Deploy the platform from the scratch for a specific environment (eg, Qual/Demo)
 
 == Dependencies
 
-Create the hidden file with credentials for Openstack Tenant connection
-* ~/.git/openstack/vault.yaml
-
+To deploy infrastrucutre resources to an Openstack VIM, the [Openstack command line clients] (Openstack command line clients) must be locally installed (included in the playbook)
 
 == Feedback
 arocha@ptinovacao.pt
