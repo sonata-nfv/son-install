@@ -17,7 +17,7 @@
     src: /tmp/squid.conf
     dest: /etc/squid/squid.conf.ORIG
     owner: root
-    group: squid
+    group: root
     mode: 0640
   when: ansible_distribution_release == "Core" or ansible_distribution_release == "xenial"
 
@@ -30,7 +30,7 @@
     src: /tmp/squid.conf
     dest: /etc/squid3/squid.conf.ORIG
     owner: root
-    group: squid
+    group: root
     mode: 0640
   when: ansible_distribution_release == "trusty"
 
