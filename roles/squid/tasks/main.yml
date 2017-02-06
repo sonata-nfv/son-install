@@ -12,12 +12,27 @@
     src: /etc/squid/squid.conf
     dest: /tmp/squid.conf
     flat: yes
+  when: ansible_distribution_release == "Core" or ansible_distribution_release == "xenial"
 - copy:
     src: /tmp/squid.conf
     dest: /etc/squid/squid.conf.ORIG
     owner: root
     group: squid
     mode: 0640
+  when: ansible_distribution_release == "Core" or ansible_distribution_release == "xenial"
+
+- fetch:
+    src: /etc/squid3/squid.conf
+    dest: /tmp/squid.conf
+    flat: yes
+  when: ansible_distribution_release == "trusty"
+- copy:
+    src: /tmp/squid.conf
+    dest: /etc/squid3/squid.conf.ORIG
+    owner: root
+    group: squid
+    mode: 0640
+  when: ansible_distribution_release == "trusty"
 
 - name: start SQUID service
   service: name=squid state=started enabled=yes
