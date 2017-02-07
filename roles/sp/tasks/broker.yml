@@ -10,7 +10,7 @@
   register: service_status
   when: ansible_os_family == "Debian"
 
-- name: run the "SP Message Bus"
+- name: run the SP Message Bus
   docker_container:
     name: son-broker
     image: rabbitmq
@@ -21,5 +21,5 @@
     privileged: yes
     volumes:
       - /var/log/sonata/son-broker:/var/log/son-broker
-  when: service_status.stdout == "active"
+# when: service_status.stdout == "active"
 

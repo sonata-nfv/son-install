@@ -31,5 +31,5 @@ servers:
     meta:
       hostname: sp
       group: sp
-#    with_sequence: "start=1 end={{ nbofvms }} format=%02x"
+    with_sequence: "start=1 end={{ nbofvms }} format=%02x"
 
