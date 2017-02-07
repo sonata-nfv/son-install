@@ -4,6 +4,11 @@
   hosts: localhost
   become: false
   connection: local
+  pre_tasks:
+    - local_action: shell python -c 'import random; print random.randint(1,99)'
+      register: nb
+    - debug: msg={{ nb.stdout }}
+
   tasks:
 
     - include_vars: ~/.config/{{ cld }}/vault_{{ pop }}_{{ environ }}.yaml

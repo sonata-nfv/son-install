@@ -22,12 +22,12 @@
   - python-glanceclient
   - python-cinderclient
   - python-swiftclient
-  - python-magnumclient
+  #- python-magnumclient
   - python-novaclient
   - python-neutronclient
-  - python-troveclient
+  #- python-troveclient
   - python-designateclient
-  - python-ironicclient
+  #- python-ironicclient
 
 
 # Install 'shade' python module (needed by Ansible Cloud module)
