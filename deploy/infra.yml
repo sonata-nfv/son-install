@@ -40,7 +40,7 @@
         ssh -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} true
       register: result
       until: result|success
-      retries: 20
+      retries: 40
       delay: 10
       with_items: "{{ os_hosts.results }}"
 

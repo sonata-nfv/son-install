@@ -1,7 +1,7 @@
 # DEFAULT VARs
 environ: qual
 cld: openstack
-pop: alb
+pop: alabs
 distro: centos
 ops: deploy
 svc: all
