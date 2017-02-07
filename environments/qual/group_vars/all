@@ -8,7 +8,7 @@ svc: all
 
 # DEFAULT VM CONFIG
 vm_user: centos
-nbofvms: 2
+nbofvms: 1
 image: centos7-cldimg
 flavor: m1.small
 security_groups: qual-secgrp

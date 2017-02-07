@@ -11,6 +11,8 @@ Create the hidden file with available Openstack clouds to connect [os_client_con
 Clone the Repo
 * git clone https://github.com/sonata-nfv/son-install.git
 
+Select the environment you want to deploy in 'ansible.cfg'
+
 == Usage
 Just run it
 * cd son-install
