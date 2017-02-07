@@ -14,7 +14,7 @@ Clone the Repo
 == Usage
 Just run it
 * cd son-install
-* ansible-playbook son-cmud.yml -e "ops='CMUD' environ='QUAL'/'DEMO'/'SP'"
+* ansible-playbook son-cmud.yml -e 'ops=[C/M/U/D] environ=[QUAL/DEMO/SP]'
 
 
 == What's new

@@ -21,7 +21,7 @@
 - name: install Openstack clients
   pip: name={{ item }} state=latest
   with_items: 
-    - python-systemd
+    #- python-systemd
     - requestsexceptions>=1.1.1
     - pbr>=0.11
     - os-client-config>=1.20.0
@@ -39,21 +39,21 @@
     - python-glanceclient>=1.0.0
     - python-cinderclient>=1.3.1
     - python-swiftclient>=2.5.0
-    - python-magnumclient>=2.1.0
+    #- python-magnumclient>=2.1.0
     - python-novaclient>=2.21.0
     - python-neutronclient>=2.3.10
-    - python-troveclient>=1.2.0
+    #- python-troveclient>=1.2.0
     - python-designateclient>=2.1.0
-    - python-ironicclient>=0.10.0
+    #- python-ironicclient>=0.10.0
 
 
 # Install 'shade' python module (needed by Ansible Cloud module)
 - name: Gets 'shade' tarball
   get_url:
     url: "https://pypi.python.org/packages/7e/1f/2409fd66f2574a2dc9daf335b47384e91f1ae52d8c1bb713ec1f840e188d/shade-{{ shade_tarball }}.tar.gz#md5=a09e159e35727bbb68eb3e5779658df4" # 1.14.1
-    dest: "/{{ ansible_user_id }}/"
+    dest: "/tmp"
   register: new_archive
 
 - name: install tarball
-  pip: name='file:///{{ ansible_user_id }}/shade-{{ shade_tarball }}.tar.gz'
+  pip: name='file:///tmp/shade-{{ shade_tarball }}.tar.gz'
   when: new_archive|changed
