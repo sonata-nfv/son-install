@@ -56,6 +56,9 @@
   with_items:
     - /var/lib/haproxy/stats
 
+- name: HAProxy configuration file 
+  copy: src=haproxy.cfg dest=/etc/haproxy/haproxy.cfg owner=haproxy group=haproxy mode=0644
+
 - name: upload shared libraries
   command: ldconfig
 
