@@ -68,9 +68,9 @@
 - name: open NGINX ports
   firewalld:
     port: "{{ svc_port }}/tcp"
-      permanent: true
-      state: enabled
-      notify: reload firewall
+    permanent: true
+    state: enabled
+    notify: reload firewall
 
 # provide feedback on the installed version 
 
