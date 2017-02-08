@@ -1,2 +1,3 @@
 ---
 # defaults file for haproxy
+vc_port: 80

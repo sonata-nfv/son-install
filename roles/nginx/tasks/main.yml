@@ -20,7 +20,7 @@
 
 - name: open NGINX ports
   firewalld:
-    port: "{{ svc_port }}"/tcp
+    port: "{{ svc_port }}/tcp"
     permanent: true
     state: enabled
   notify: reload firewall

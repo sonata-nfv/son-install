@@ -62,6 +62,18 @@
 - name: upload shared libraries
   command: ldconfig
 
+
+# Open FW ports
+
+- name: open NGINX ports
+  firewalld:
+    port: "{{ svc_port }}/tcp"
+      permanent: true
+      state: enabled
+      notify: reload firewall
+
+# provide feedback on the installed version 
+
 - command: haproxy -v
   register: haproxy_ver
 - debug: msg={{ haproxy_ver.stdout }}
