@@ -1,10 +1,10 @@
 ---
 
 # upgrade packages and deploy useful tools
-- include: '../create/common.yml'
+- include: 'common.yml'
 
 # deploy Docker container engine
-- include: '../create/docker.yml'
+- include: 'docker.yml'
 
 # deploy web server 
 #- include: nginx.yml
