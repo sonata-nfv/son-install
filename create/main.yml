@@ -1,4 +1,0 @@
-
-- include: "{{ environ }}/infra.yml"
-- include: "{{ environ }}/common.yml"
-- include: "{{ environ }}/apps.yml"
