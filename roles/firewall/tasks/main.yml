@@ -1,26 +1,5 @@
 ---
 # tasks file for firewall
 
-# CENTOS/REDHAT
-
-- name: installing FW package
-  yum: name=firewalld state=latest update_cache=yes
-  when: ansible_os_family == "RedHat"
-
-- name: start FW service
-  service: name=firewalld state=started enabled=yes
-  when: ansible_os_family == "RedHat"
-
-
-# UBUNTU/DEBIAN
-
-- name: start 'firewall' service
-  service: name=ufw state=started
-  when: ansible_os_family == "Debian"
-
-- name: open SVC port at FW
-  ufw:
-    state: enabled
-    rule: allow # TO FIX
-  when: ansible_os_family == "Debian"
-#
+- name: Installing FIREWALL daemon
+  include: "{{ ansible_os_family }}.yml"

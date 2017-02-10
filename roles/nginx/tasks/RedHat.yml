@@ -21,12 +21,6 @@
 
 # Install NGINX 
 
-#- name: installing NGINX for CentOS 7 from a remote repo
-#  yum:
-#    name: "http://nginx.org/packages/centos/{{ releasever }}/noarch/RPMS/nginx-release-centos-{{ releasever }}-0.el{{ releasever }}.ngx.noarch.rpm"
-#    state: present
-#    update_cache: yes
- 
 - name: install EPEL repository
   yum: name=epel-release state=present
 
@@ -34,4 +28,25 @@
 
 - name: install NGINX 
   yum: name=nginx state=present
+
+# Starting NGINX
+
+- name: start NGINX !!!
+  service: name=nginx state=started enabled=yes
+
+# Upload content
+
+- name: copy www content
+  include: copy-www-content.yml
+  notify:
+    - restart nginx
+
+# Open FW ports
+
+- name: open NGINX ports
+  firewalld:
+    port: "{{ svc_port }}/tcp"
+    permanent: true
+    state: enabled
+  notify: reload firewall
 
