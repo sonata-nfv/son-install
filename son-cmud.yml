@@ -1,6 +1,6 @@
 ---
 
-- name: SONATA CMUTD v2.0
+- name: SONATA CMUD v2.0
   hosts: localhost
   become: false
   connection: local
@@ -11,7 +11,22 @@
   roles:
     - { role: common, become: true }
     - { role: openstackclients, become: true }
+
+# Create
 - include: "./{{ ops }}/infra.yml"
+  when: ops == "create" or ops == "C"
 - include: "./{{ ops }}/common.yml"
+  when: ops == "create" or ops == "C"
 - include: "./{{ ops }}/apps.yml"
+  when: ops == "create" or ops == "C"
+
+# Manage
+- include: "./{{ ops }}/{{ svc }}/all.yml"
+  when: ops == "manage" or ops == "M"
+
+
+# Upgrade
+
+
+# Destroy
 
