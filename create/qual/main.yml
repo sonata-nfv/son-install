@@ -1,5 +1,8 @@
 ---
 
+- include: ../infra.yml
+- include: ../common.yml
+
 - hosts: cijks
   become: true
   connection: ssh
