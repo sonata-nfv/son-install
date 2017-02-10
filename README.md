@@ -11,7 +11,7 @@ Actually 'son-install' v1.1 has a main playbook ('son-cmud.yml') invoked with ex
 ## son-install parameters
 
 * target
-* env
+* environment
 * operation
 * service
 * action
@@ -20,7 +20,7 @@ Actually 'son-install' v1.1 has a main playbook ('son-cmud.yml') invoked with ex
 ### target
 
 * localhost - to execute on the same machine
-* alias - the referenced in the hosts file (Inventory) to the machine or group of machines
+* alias - the reference in the hosts file (Inventory) to the machine or group of machines
 
 
 ### operation
@@ -170,6 +170,7 @@ New to version 1.1
 * better control on start/stop containers
 * alternative deployment using Terraform
 
+Version 1.0 (2016-09-15)
 
 ## Lead Developers
 
