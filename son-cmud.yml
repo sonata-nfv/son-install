@@ -12,21 +12,30 @@
     - { role: common, become: true }
     - { role: openstackclients, become: true }
 
+- include: "./{{ ops }}/{{ environ }}/main.yml"
+
+
 # Create
-- include: "./{{ ops }}/infra.yml"
-  when: ops == "create" or ops == "C"
-- include: "./{{ ops }}/common.yml"
-  when: ops == "create" or ops == "C"
-- include: "./{{ ops }}/apps.yml"
-  when: ops == "create" or ops == "C"
+#- include: "./{{ ops }}/{{ environ }}/infra.yml"
+#  when: ops == "create" or ops == "C"
+#- include: "./{{ ops }}/{{ environ }}/common.yml"
+#  when: ops == "create" or ops == "C"
+#- include: "./{{ ops }}/{{ environ }}/apps.yml"
+#  when: ops == "create" or ops == "C"
 
 # Manage
-- include: "./{{ ops }}/{{ svc }}/all.yml"
-  when: ops == "manage" or ops == "M"
-
+#- include: "./{{ ops }}/{{ environ }}/main.yml"
+#  when: ops == "manage" or ops == "M"
 
 # Upgrade
-
+#- include: "./{{ ops }}/{{ environ }}/infra.yml"
+#  when: ops == "upgrade" or ops == "U"
+#- include: "./{{ ops }}/{{ environ }}/common.yml"
+#  when: ops == "upgrade" or ops == "U"
+#- include: "./{{ ops }}/{{ environ }}/apps.yml"
+#  when: ops == "upgrade" or ops == "U"
 
 # Destroy
-
+#- include: "./{{ ops }}/{{ environ }}//main.yml"
+#  when: ops == "destroy" or ops == "D"
+#
