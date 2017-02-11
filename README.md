@@ -48,31 +48,34 @@ Select the environment you want to deploy in 'ansible.cfg':<br>
 * inventory = environments/'ENV'
 
 
-### Example to deploy a new platform from the scratch
+### Example to CREATE a new platform from the scratch
 
-To create a new SONATA Service Platform (SP)
+To deploy a new Service Platform (SP)
 * ansible-playbook son-cmud.yml -e 'ops=create environ=sp'
 
-To create a new SONATA QUALIFICATION platform
+To create a new QUALIFICATION platform
 * ansible-playbook son-cmud.yml -e 'ops=create environ=qual'
 
 
-### Example to manage the life-cycle of a platform
+### Example to MANAGE the life-cycle of a platform
+
+To stop ALL the services at the SP platform
+* ansible-playbook son-cmud.yml -e 'ops=manage environ=sp action=stop svc=all'
 
 To ask for the status of all the SP services
 * ansible-playbook son-cmud.yml -e 'ops=manage environ=sp action=status svc=all'
 
 
-### Example to upgrade a platform (to be enhanced on future release)
+### Example to UPGRADE a platform (to be enhanced on future release)
 
 To upgrade a DEMO platform
-* ansible-playbook son-cmud.yml -e 'ops=upgrade environ=demo'
+* ansible-playbook son-cmud.yml -e 'ops=upgrade environ=demo svc=all'
 
 
-### Example to terminate a platform
+### Example to DESTROY a platform
 
-To remove a SP platform
-* ansible-playbook on-cmud.yml -e 'ops=destroy environ=sp'
+To terminate a SP platform
+* ansible-playbook on-cmud.yml -e 'ops=destroy environ=sp svc=all'
 
 
 ### Dependencies
