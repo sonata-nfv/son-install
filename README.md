@@ -47,32 +47,31 @@ Create the hidden file with available Openstack clouds to connect [os_client_con
 Select the environment you want to deploy in 'ansible.cfg':<br>
  inventory = environments/'ENV'
 
-### Examples
 
-To deploy a new platform from the scratch
+### Example to deploy a new platform from the scratch
 
-* to create a new SONATA Service Platform (SP)
+To create a new SONATA Service Platform (SP)
 * ansible-playbook son-cmud.yml -e 'ops=create environ=sp'
 
-* to create a new SONATA QUALIFICATION platform
+To create a new SONATA QUALIFICATION platform
 * ansible-playbook son-cmud.yml -e 'ops=create environ=qual'
 
 
-Life-cycle management of a platform
+### Example to manage the life-cycle of a platform
 
-* to ask for the status of all the SP services
+To ask for the status of all the SP services
 * ansible-playbook son-cmud.yml -e 'ops=manage environ=sp action=status svc=all'
 
 
-To upgrade a platform (to be enhanced on future release)
+### Example to upgrade a platform (to be enhanced on future release)
 
-* to upgrade a DEMO platform
+To upgrade a DEMO platform
 * ansible-playbook son-cmud.yml -e 'ops=upgrade environ=demo'
 
 
-To destroy a platform
+### Example to terminate a platform
 
-* to remove a SP platform
+To remove a SP platform
 * ansible-playbook on-cmud.yml -e 'ops=destroy environ=sp'
 
 
