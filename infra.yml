@@ -11,7 +11,7 @@
 
   tasks:
 
-    - include_vars: ~/.config/{{ cld }}/vault_{{ pop }}_{{ environ }}.yaml
+    - include_vars: ~/.config/openstack/vault_{{ pop }}_{{ environ }}.yaml
 
     - name: launch 'N' instances
       os_server:

@@ -1,21 +1,9 @@
 ---
 
-# upgrade packages and deploy useful tools
-#- include: common.yml
-
-# deploy Docker container engine
-#- include: docker.yml
-
-# deploy web server 
-#- include: nginx.yml
-
-# deploy MySQL database engine
-#- include: mysql.yml
-
 # deploy postgreSQL database engine
 - include: pgsql.yml
 
-# deploy MongoDB database engine
+# deploy MongoDB (NoSQL) database engine
 - include: mongo.yml
 
 # deploy Repositories

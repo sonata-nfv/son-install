@@ -1,0 +1,35 @@
+
+- name: add Docker common release to YUM list of repositories
+  copy: src=virt7-docker-common-release.repo dest=/etc/yum.repos.d/virt7-docker-common-release.repo owner=root group=root mode=0644
+
+- name: Install Kubernetes, etcd and flannel
+  yum: name={{ item }} state=present update_cache=yes enablerepo=virt7-docker-common-release
+  with_items:
+  - kubernetes
+  - etcd
+  - flannel
+
+- name: set Kube Nodes configuration
+  copy: src=kube.conf dest=/etc/kubernetes/config owner=root group=root mode=0644
+
+- command: setenforce 0
+- command: systemctl disable iptables-services firewalld
+- command: systemctl stop iptables-services firewalld
+
+- name: set Kubelet configuration
+  copy: src=kubelet dest=/etc/kubernetes/kubelet owner=root group=root mode=0644
+
+- name: set Kube FLANNELD configuration
+  copy: src=flanneld dest=/etc/sysconfig/flanneld owner=root group=root mode=0644
+
+- name: starting Kube Master services
+  service: name={{ item }} state=started enabled=true
+  with_items:
+  - kube-proxy
+  - kubelet
+  - flanneld
+  - docker
+
+- command: kubectl config set-cluster default-cluster --server=http://centos-master:8080
+- command: kubectl config set-context default-context --cluster=default-cluster --user=default-admin
+- command: kubectl config use-context default-context

@@ -1,0 +1,12 @@
+- hosts: kubemaster
+  become: true
+  connection: ssh
+  roles:
+    - kubemaster
+
+- hosts: kubnodes
+  become: true
+  connection: ssh
+  roles:
+    - kubenode
+
