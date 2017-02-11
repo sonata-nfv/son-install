@@ -1,6 +1,6 @@
 ---
-- name: remove MySQL container for MONITORY from the 'target' machine
-  hosts: "{{ target }}"
+- name: remove MySQL container for MONITORY from the 'environ' machine
+  hosts: "{{ environ }}"
   become: true
   tasks:
   - name: destroy mysql container

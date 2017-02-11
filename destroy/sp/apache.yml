@@ -1,20 +1,20 @@
 ---
 
 - name: UNINSTALLING APACHE
-  hosts: "{{ target }}"
+  hosts: "{{ environ }}"
   become: true
   tasks:
 
   # DEBIAN/UBUNTU
-  - name: check if the Apache service exists
+  - name: check if the Apache svc exists
     stat: path=/etc/init.d/apache2
-    register: service_status
+    register: svc_status
     when: ansible_os_family == "Debian"
 
-  - name: stop Apache service
-    service: name=apache2 state=stopped enabled=no
-    when: service_status.stat.exists and ansible_os_family == "Debian"
-    register: service_stopped
+  - name: stop Apache svc
+    svc: name=apache2 state=stopped enabled=no
+    when: svc_status.stat.exists and ansible_os_family == "Debian"
+    register: svc_stopped
 
   - name: remove Apache from system
     apt: name={{ item }} state=absent 
@@ -25,15 +25,15 @@
     when: ansible_os_family == "Debian"
 
   # REDHAT/CENTOS
-  - name: check if the Apache service exists
+  - name: check if the Apache svc exists
     stat: path=/etc/init.d/httpd
-    register: service_status
+    register: svc_status
     when: ansible_os_family == "RedHat"
 
-  - name: stop Apache service
-    service: name=httpd state=stopped enabled=no
-    when: service_status.stat.exists and ansible_os_family == "RedHat"
-    register: service_stopped
+  - name: stop Apache svc
+    svc: name=httpd state=stopped enabled=no
+    when: svc_status.stat.exists and ansible_os_family == "RedHat"
+    register: svc_stopped
 
   - name: remove Apache from system
     apt: name={{ item }} state=absent

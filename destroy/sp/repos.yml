@@ -1,6 +1,6 @@
 ---
 - name: remove Docker containers REPOSITORIES from the SP VM appliance
-  hosts: "{{ target }}"
+  hosts: "{{ environ }}"
   become: true
   tasks:
 

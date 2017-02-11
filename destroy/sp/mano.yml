@@ -1,6 +1,6 @@
 ---
 - name: remove MANO FRAMEWORK Docker containers from the SP VM appliance
-  hosts: "{{ target }}"
+  hosts: "{{ environ }}"
   become: true
   tasks:
 
@@ -21,7 +21,7 @@
 
   - name: MANO Service Life-cycle Management (SLM) - removing Docker containers
     docker_container:
-      name: servicelifecyclemanagement
+      name: svclifecyclemanagement
       state: absent
 
 #  - name: MANO Function Life-cycle Management (FML) - removing Docker containers

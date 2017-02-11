@@ -45,7 +45,7 @@ Create the hidden file with available Openstack clouds to connect [os_client_con
 * ~/.config/openstack/clouds.yaml
 
 Select the environment you want to deploy in 'ansible.cfg':<br>
- inventory = environments/'ENV'
+* inventory = environments/'ENV'
 
 
 ### Example to deploy a new platform from the scratch
