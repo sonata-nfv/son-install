@@ -1,6 +1,7 @@
 son-install v2.0
 
-== Pre-configuration
+Pre-configuration
+-----------------
 
 Create the hidden file with credentials for Openstack Tenant authentication
 * ~/.config/openstack/vault.yaml
@@ -16,11 +17,13 @@ Select the environment you want to deploy in 'ansible.cfg' - example:
  inventory = ./environments/sp
 
 
-== Usage
+Usage
+-----
 * cd son-install
 * ansible-playbook son-cmud.yml -e 'ops=[CREATE/MANAGE/UPGRADE/DESTROY] environ=[QUAL/DEMO/SP] action=[START/STOP/STATUS/TEST] svc=[ALL/GTK/MANO/IFTA]'
 
-=== Examples
+Examples
+========
 
 To deploy a new platform from the scratch
 
@@ -49,7 +52,7 @@ To destroy a platform
   ansible-playbook son-cmud.yml -e 'ops=destroy environ=sp'
 
 
-== What's new
+What's new
 
 Deploy the platform from the scratch for a specific environment (eg, Qual/Demo)
 * step 1: infrastrucutre provision
