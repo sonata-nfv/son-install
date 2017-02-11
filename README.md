@@ -24,7 +24,7 @@ Deploy the platform from the scratch for a specific environment (eg, Qual/Demo)
 ##  Characteristics
 
 * Multi-Stage: deploy the Qualification and Demonstration environments
-* Multi-PoP: deploy to NCSRD and ALabs sites
+* Multi-PoP: deploy to multiple sites (set the right credential variables)
 * Multi-VIM: Openstack (AWS under evaluation, OSM under evaluation)
 * Multi-Distro: Ubuntu 14.04, Ubuntu 16.04, CentOS 7
 * Multi-Operations: Create, Manage, Upgrade, Destroy
@@ -44,37 +44,36 @@ Create the hidden file with credentials for Openstack Tenant authentication
 Create the hidden file with available Openstack clouds to connect [os_client_config](http://docs.openstack.org/developer/os-client-config/)
 * ~/.config/openstack/clouds.yaml
 
-Select the environment you want to deploy in 'ansible.cfg' - example:
- [defaults]
- inventory = ./environments/sp
+Select the environment you want to deploy in 'ansible.cfg':<br>
+ inventory = environments/'ENV'
 
 ### Examples
 
 To deploy a new platform from the scratch
 
 * to create a new SONATA Service Platform (SP)
-  ansible-playbook son-cmud.yml -e 'ops=create environ=sp'
+* ansible-playbook son-cmud.yml -e 'ops=create environ=sp'
 
 * to create a new SONATA QUALIFICATION platform
-  ansible-playbook son-cmud.yml -e 'ops=create environ=qual'
+* ansible-playbook son-cmud.yml -e 'ops=create environ=qual'
 
 
 Life-cycle management of a platform
 
 * to ask for the status of all the SP services
-  ansible-playbook son-cmud.yml -e 'ops=manage environ=sp action=status svc=all'
+* ansible-playbook son-cmud.yml -e 'ops=manage environ=sp action=status svc=all'
 
 
 To upgrade a platform (to be enhanced on future release)
 
 * to upgrade a DEMO platform
-  ansible-playbook son-cmud.yml -e 'ops=upgrade environ=demo'
+* ansible-playbook son-cmud.yml -e 'ops=upgrade environ=demo'
 
 
 To destroy a platform
 
 * to remove a SP platform
-  ansible-playbook on-cmud.yml -e 'ops=destroy environ=sp'
+* ansible-playbook on-cmud.yml -e 'ops=destroy environ=sp'
 
 
 ### Dependencies
