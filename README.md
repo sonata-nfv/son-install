@@ -2,9 +2,12 @@
 
 'son-install' provides a simple way to create, manage, upgrade and destroy (CMUD) the SONATA Service Plataform (SP) as a standalone environment but also the specialized Integration, Qualification and Demonstration environments as well.
 
-'son-install' is built of a set of Ansible playbooks to automate the deployment of infrastructure and applications. 
+'son-install' is built of a set of Ansible playbooks to:
+* automate the deployment (and termination) of infrastructure and applications. 
+* manage the SONATA services and applications lifecycle
+* zero downtime roll up upgrades
 
-So, all you need is a 'bash' shell with Ansible installed: actually, 'son-cmud.yml' is the main playbook to invoke all the SONATA CMUD operations.
+All you need is a 'bash' shell with Ansible installed: actually, 'son-cmud.yml' is the main playbook to invoke all the SONATA CMUD operations.
 
 
 [![asciicast](https://asciinema.org/a/a1q347o8bvxafr84xpo4q59d8.png)](https://asciinema.org/a/a1q347o8bvxafr84xpo4q59d8?autoplay=1)
