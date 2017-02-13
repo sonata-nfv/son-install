@@ -34,3 +34,9 @@
     dest: /etc/snort
   with_fileglob:
     - /tmp/pulledpork/etc/*.conf
+
+# provide feedback on the installed version
+- command: sudo snort -V
+  register: snort_ver
+  - debug: msg={{ snort_ver.stdout }}
+#
