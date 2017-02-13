@@ -11,13 +11,26 @@
     dest: /tmp/pulledpork
 
 - name: setup pulled pork
-  command: cp /tmp/pulledpork/pulledpork.pl /usr/local/bin
+  copy:
+    remote_src: true
+    src: /tmp/pulledpork/pulledpork.pl
+    dest: /usr/local/bin
 
-- command: chmod +x /usr/local/bin/pulledpork.pl
+- file:
+    path: /usr/local/bin/pulledpork.pl
+    owner: root
+    group: root
+    mode: 0755
 
 - file:
     path: /etc/snort
     state: directory
     mode: 0755
 
-- command: cp /tmp/pulledpork/etc/*.conf /etc/snort
+- name: setup pulled pork
+  copy:
+    remote_src: true
+    src: "{{ item }}"
+    dest: /etc/snort
+  with_fileglob:
+    - /tmp/pulledpork/etc/*.conf
