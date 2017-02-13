@@ -9,9 +9,9 @@
       register: ts
     - debug: msg={{ ts.stdout }}
 
-#  roles:
-#    - { role: common, become: true, when: ops == "create" or ops == "upgrade" }
-#    - { role: openstackclients, become: true, when: ops == "create" or ops == "upgrade" }
+  roles:
+    - { role: common, become: true, when: ops == "create" or ops == "upgrade" }
+    - { role: openstackclients, become: true, when: ops == "create" or ops == "upgrade" }
 
 - include: "./{{ ops }}/{{ environ }}/main.yml"
 

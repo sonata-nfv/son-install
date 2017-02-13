@@ -1,23 +1,39 @@
+# Disable iptables on each node to avoid conflicts with Docker iptables rules 
+- name: disable firewall (necessary to avoid Docker troubles)
+  selinux:
+    state: disabled
+- name: check if service exists
+  shell: "if systemctl list-unit-files | grep -q iptables-services;   then echo true;   else echo false; fi;"
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+  register: service_exists
+- service: name=iptables-services state=stopped enabled=false
+  when: service_exists.rc != 0
+- name: check if service exists
+  shell: "if systemctl list-unit-files | grep -q firewalld;   then echo true;   else echo false; fi;"
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+  register: service_exists
+- service: name=firewalld state=stopped enabled=false
+  when: service_exists.rc != 0
 
+# Install NTP to assure time sync between Nodes and Master
+- yum: name=ntp state=present
+- service: name=ntpd state=started enabled=yes
+
+# Install Kuberbetes and Flannel daemon
 - name: add Docker common release to YUM list of repositories
   copy: src=virt7-docker-common-release.repo dest=/etc/yum.repos.d/virt7-docker-common-release.repo owner=root group=root mode=0644
 
-- name: Install Kubernetes, etcd and flannel
+- name: Install Kubernetes and flannel
   yum: name={{ item }} state=present update_cache=yes enablerepo=virt7-docker-common-release
   with_items:
-  - kubernetes
-  - etcd
   - flannel
+  - kubernetes
 
 - name: set Kube Nodes configuration
   copy: src=kube.conf dest=/etc/kubernetes/config owner=root group=root mode=0644
 
-- command: setenforce 0
-- command: systemctl disable iptables-services firewalld
-- command: systemctl stop iptables-services firewalld
-
 - name: set Kubelet configuration
-  copy: src=kubelet dest=/etc/kubernetes/kubelet owner=root group=root mode=0644
+  copy: src=kubelet.j2 dest=/etc/kubernetes/kubelet owner=root group=root mode=0644
 
 - name: set Kube FLANNELD configuration
   copy: src=flanneld dest=/etc/sysconfig/flanneld owner=root group=root mode=0644
@@ -30,6 +46,6 @@
   - flanneld
   - docker
 
-- command: kubectl config set-cluster default-cluster --server=http://centos-master:8080
+- command: kubectl config set-cluster default-cluster --server=http://kube-master:8080
 - command: kubectl config set-context default-context --cluster=default-cluster --user=default-admin
 - command: kubectl config use-context default-context

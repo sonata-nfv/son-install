@@ -42,7 +42,7 @@
     - restart nginx
 
 # Open FW ports
-
+- yum: name=python-firewall state=present
 - name: open NGINX ports
   firewalld:
     port: "{{ svc_port }}/tcp"

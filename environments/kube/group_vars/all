@@ -1,15 +1,16 @@
 ---
 # DEFAULT VARs
-environ: qual
+#environ: kube
 cld: openstack
 pop: alabs
-distro: centos
-ops: deploy
-svc: all
+#distro: centos
+#ops: create
+#svc: all
 
 # DEFAULT VM CONFIG
 vm_user: centos
-nbofvms: 1
+nbofmst: 1
+nbofnod: 3
 image: centos7-cldimg
 flavor: m1.small
 security_groups: qual-secgrp
@@ -21,7 +22,7 @@ int_net_id: "3ef0b481-8c8c-49c7-88f5-10e4d8c5612f"
 # LIST OF VMs TO INSTANTIATE
 servers:
 
-  - name: jk
+  - name: "k-mst00"
     image: "{{ image }}"
     flavor: "{{ flavor }}"
     key: "{{ key_name }}"
@@ -30,11 +31,11 @@ servers:
     availability_zone: "{{ availability_zone }}"
     userdata: "{{ lookup('file', './userdata/{{ ansible_distribution_release }}.sh') }}"
     meta:
-      hostname: jk
-      group: ci
-    with_sequence: "start=1 end={{ nbofvms }} format=%02x"
+      hostname: "kube-master00"
+      group: kubemaster
+    #with_sequence: "start=1 end={{ nbofmst }} format=%02x"
 
-  - name: qi
+  - name: "k-nod01"
     image: "{{ image }}"
     flavor: "{{ flavor }}"
     key: "{{ key_name }}"
@@ -43,11 +44,11 @@ servers:
     availability_zone: "{{ availability_zone }}"
     userdata: "{{ lookup('file', './userdata/{{ ansible_distribution_release }}.sh') }}"
     meta:
-      hostname: qi
-      group: qi
-    with_sequence: "start=1 end={{ nbofvms }} format=%02x"
-
-  - name: sp
+      hostname: "kube-node01"
+      group: kubenodes
+    #with_sequence: "start=1 end={{ nbofnod }} format=%02x"
+ 
+  - name: "k-nod02"
     image: "{{ image }}"
     flavor: "{{ flavor }}"
     key: "{{ key_name }}"
@@ -56,11 +57,11 @@ servers:
     availability_zone: "{{ availability_zone }}"
     userdata: "{{ lookup('file', './userdata/{{ ansible_distribution_release }}.sh') }}"
     meta:
-      hostname: sp
-      group: sp
-    with_sequence: "start=1 end={{ nbofvms }} format=%02x"
-
-  - name: vnf
+      hostname: "kube-node02"
+      group: kubenodes
+    #with_sequence: "start=1 end={{ nbofnod }} format=%02x"
+ 
+  - name: "k-nod03"
     image: "{{ image }}"
     flavor: "{{ flavor }}"
     key: "{{ key_name }}"
@@ -69,7 +70,7 @@ servers:
     availability_zone: "{{ availability_zone }}"
     userdata: "{{ lookup('file', './userdata/{{ ansible_distribution_release }}.sh') }}"
     meta:
-      hostname: vnf
-      group: ns
-    with_sequence: "start=1 end={{ nbofvms }} format=%02x"
-
+      hostname: "kube-node03"
+      group: kubenodes
+    #with_sequence: "start=1 end={{ nbofnod }} format=%02x"
+ 

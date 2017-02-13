@@ -21,11 +21,17 @@ A list of other roles hosted on Galaxy should go here, plus any details in regar
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+To deploy a Kubertnetes cluster run:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+* ansible-playbook kube.yml
+
+To deploy a Kubertnetes Master run:
+
+* ansible-playbook kube-master.yml
+
+To deploy a Kubertnetes Node run:
+
+* ansible-playbook kube-nodes.yml
 
 License
 -------
@@ -35,4 +41,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Alberto Rocha, Altice Labs: arocha@ptinovacao.pt

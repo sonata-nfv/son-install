@@ -34,3 +34,17 @@
 - name: installing Jenkins package
   apt: name=jenkins state=latest update_cache=yes
 
+- name: starting Jenkins service
+  service: name=jenkins state=started
+
+# Open FW ports
+
+- name: open JENKINS default port (8080) at Ubuntu/Debian machine
+  ufw:
+    state: enabled
+    rule: allow
+    port: 8080
+    proto: tcp
+  notify: reload firewall
+  when: ansible_os_family == "Debian"
+#

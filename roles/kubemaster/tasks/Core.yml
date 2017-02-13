@@ -1,33 +1,42 @@
+#  Disable iptables on each node to avoid conflicts with Docker iptables rules
+- name: disable SELinux
+  selinux:
+    state: disabled
+- name: check if service exists
+  shell: "if systemctl list-unit-files | grep -q iptables-services;   then echo true;   else echo false; fi;"
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+  register: service_exists
+- service: name=iptables-services state=stopped enabled=false
+  when: service_exists.rc != 0
+- name: check if service exists
+  shell: "if systemctl list-unit-files | grep -q firewalld;   then echo true;   else echo false; fi;"
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+  register: service_exists
+- service: name=firewalld state=stopped enabled=false
+  when: service_exists.rc != 0
 
+# Install NTP to assure time sync between Nodes and Master
+- yum: name=ntp state=present
+- service: name=ntpd state=started enabled=yes
+
+# Install Kubernetes and ETCD
 - name: add Docker common release to YUM list of repositories
   copy: src=virt7-docker-common-release.repo dest=/etc/yum.repos.d/virt7-docker-common-release.repo owner=root group=root mode=0644
 
-- name: Install Kubernetes, etcd and flannel
+- name: Install Kubernetes and etcd
   yum: name={{ item }} state=present update_cache=yes enablerepo=virt7-docker-common-release
   with_items:
-  - kubernetes
   - etcd
-  - flannel
+  - kubernetes
 
 - name: set Kube Master configuration
   copy: src=kube.conf dest=/etc/kubernetes/config owner=root group=root mode=0644
-
-- command: setenforce 0
-- command: systemctl disable iptables-services firewalld
-- command: systemctl stop iptables-services firewalld
 
 - name: set Kube ETDC configuration
   copy: src=etcd.conf dest=/etc/etcd/etcd.conf owner=root group=root mode=0644
 
 - name: set Kube API Server configuration
   copy: src=apiserver dest=/etc/kubernetes/apiserver owner=root group=root mode=0644
-
-- command: systemctl start etcd
-- command: etcdctl mkdir /k8s/network
-- command: etcdctl mk /k8s/network/config "{ \"Network\": \"172.30.0.0/16\", \"SubnetLen\": 24, \"Backend\": { \"Type\": \"vxlan\" } }"
-
-- name: set Kube FLANNELD configuration
-  copy: src=flanneld dest=/etc/sysconfig/flanneld owner=root group=root mode=0644
 
 - name: starting Kube Master services
   service: name={{ item }} state=started enabled=true
@@ -36,4 +45,8 @@
   - kube-apiserver
   - kube-controller-manager
   - kube-scheduler
-  - flanneld
+
+# Define flannel network configuration in etcd. This configuration will be pulled by flannel service on minions
+#- command: etcdctl mkdir /kube/network
+#- shell: etcdctl mk /kube/network/config '{ \"Network\": \"172.30.0.0/16\", \"SubnetLen\": 24, \"Backend\": { \"Type\": \"vxlan\" } }'
+#- command: etcdctl mk /kube/network/config '{ Network: "172.30.0.0/16", SubnetLen: "24", Backend: { Type: "vxlan" } }'

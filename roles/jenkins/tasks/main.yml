@@ -4,25 +4,3 @@
 - name: installing JENKINS 
   include: "{{ ansible_distribution_release }}.yml"
 
-- name: starting Jenkins service
-  service: name=jenkins state=started
-
-# Open FW ports
-
-- name: open JENKINS default port (8080) at CentOS/Redhat machine
-  firewalld:
-    port: 8080/tcp
-    permanent: true
-    state: enabled
-    notify: reload firewall
-  when: ansible_os_family == "RedHat"
-
-- name: open JENKINS default port (8080) at Ubuntu/Debian machine
-  ufw:
-    state: enabled
-    rule: allow
-    port: 8080
-    proto: tcp
-  notify: reload firewall
-  when: ansible_os_family == "Debian"
-

@@ -1,4 +1,0 @@
-[kubemaster]
-k-mst01 ansible_user=centos ansible_ssh_private_key_file=~/.ssh/son-ift-ptin.pem ansible_host=172.31.6.64 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
-[kubenodes]
-k-nod03 ansible_user=centos ansible_ssh_private_key_file=~/.ssh/son-ift-ptin.pem ansible_host=172.31.6.72 ansible_ssh_common_args='-o StrictHostKeyChecking=no'

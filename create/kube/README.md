@@ -22,7 +22,7 @@ This playbook provides a K8s cluster in 3 steps:
 
 ## How to use
 
-* ansible-playbook son-cmud.yml -e "ops=create environ=k8s"
+* ansible-playbook son-cmud.yml -e "ops=create environ=kube"
 
 NOTE: this playbook implements the manual install process described [here](https://kubernetes.io/docs/getting-started-guides/centos/centos_manual_config/)
 

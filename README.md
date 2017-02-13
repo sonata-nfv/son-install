@@ -1,10 +1,10 @@
 # son-install
 
-'son-install' provides a simple way to create, manage, upgrade and destroy (CMUD) the SONATA Service Plataform (SP) as a standalone environment but also the specialized Integration, Qualification and Demonstration environments as well.
+'son-install' provides a simple way to create, manage, upgrade and destroy (CMUD) the SONATA Service Plataform (SP) as a standalone environment but also the specialized Integration (CI), Qualification (QI) and Demonstration (DI) environments as well.
 
 'son-install' is built of a set of Ansible playbooks to:
 * automate the deployment (and termination) of infrastructure and applications. 
-* manage the SONATA services and applications lifecycle
+* manage the SP services and applications lifecycle
 * zero downtime roll up upgrades
 
 All you need is a 'bash' shell with Ansible installed: actually, 'son-cmud.yml' is the main playbook to invoke all the SONATA CMUD operations.
@@ -15,7 +15,7 @@ All you need is a 'bash' shell with Ansible installed: actually, 'son-cmud.yml' 
 
 ## What's new
 
-Deploy the platform from the scratch for a specific environment (eg, Qual/Demo)
+Deploy the platform from the scratch for a specific environment (eg, SP/CI/QI/DI)
 * step 1: provision infrastrucutre
 * step 2: standardize configurations
 * step 3: install applications and services
@@ -23,7 +23,7 @@ Deploy the platform from the scratch for a specific environment (eg, Qual/Demo)
 
 ##  Characteristics
 
-* Multi-Stage: deploy the Qualification and Demonstration environments
+* Multi-Stage: deploy the Integration, Qualification and Demonstration environments
 * Multi-PoP: deploy to multiple sites (set the right credential variables)
 * Multi-VIM: Openstack (AWS under evaluation, OSM under evaluation)
 * Multi-Distro: Ubuntu 14.04, Ubuntu 16.04, CentOS 7
@@ -34,11 +34,11 @@ Deploy the platform from the scratch for a specific environment (eg, Qual/Demo)
 
 * git clone -b v2 https://github.com/sonata-nfv/son-install.git
 * cd son-install
-* ansible-playbook son-cmud.yml -e 'ops=[CREATE/MANAGE/UPGRADE/DESTROY] environ=[QUAL/DEMO/SP] action=[START/STOP/STATUS/TEST] svc=[ALL/GTK/MANO/IFTA]'
+* ansible-playbook son-cmud.yml -e 'ops=[CREATE/MANAGE/UPGRADE/DESTROY] environ=[SP/INTGR/QUAL/DEMO] action=[START/STOP/STATUS/TEST] svc=[ALL/GTK/MANO/IFTA]'
 
 ### Pre-configuration
 
-Create the hidden file with credentials for Openstack Tenant authentication
+Create the hidden file with credentials for Openstack tenant authentication
 * ~/.config/openstack/vault.yaml
 
 Create the hidden file with available Openstack clouds to connect [os_client_config](http://docs.openstack.org/developer/os-client-config/)
@@ -46,6 +46,8 @@ Create the hidden file with available Openstack clouds to connect [os_client_con
 
 Select the environment you want to deploy in 'ansible.cfg':<br>
 * inventory = environments/'ENV'
+or set the 'ENV' environmental variable - example:
+* export ENV=SP
 
 
 ### Example to CREATE a new platform from the scratch
@@ -53,8 +55,8 @@ Select the environment you want to deploy in 'ansible.cfg':<br>
 To deploy a new Service Platform (SP)
 * ansible-playbook son-cmud.yml -e 'ops=create environ=sp'
 
-To create a new QUALIFICATION platform
-* ansible-playbook son-cmud.yml -e 'ops=create environ=qual'
+To create a new Demonstration Infrastructure (DI)
+* ansible-playbook son-cmud.yml -e 'ops=create environ=di'
 
 
 ### Example to MANAGE the life-cycle of a platform
@@ -68,14 +70,17 @@ To ask for the status of all the SP services
 
 ### Example to UPGRADE a platform (to be enhanced on future release)
 
-To upgrade a DEMO platform
-* ansible-playbook son-cmud.yml -e 'ops=upgrade environ=demo svc=all'
+To upgrade a Qualification Infrastructure (QI)
+* ansible-playbook son-cmud.yml -e 'ops=upgrade environ=qi'
+
+To upgrade the Continuous Integration Infrastructure (CI)
+* ansible-playbook son-cmud.yml -e 'ops=upgrade environ=ci'
 
 
 ### Example to DESTROY a platform
 
 To terminate a SP platform
-* ansible-playbook on-cmud.yml -e 'ops=destroy environ=sp svc=all'
+* ansible-playbook on-cmud.yml -e 'ops=destroy environ=sp'
 
 
 ### Dependencies

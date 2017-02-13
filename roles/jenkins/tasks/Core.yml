@@ -12,3 +12,16 @@
 - name: installing Jenkins package
   yum: name=jenkins state=latest update_cache=yes
 
+- name: starting Jenkins service
+  service: name=jenkins state=started
+
+# Open FW ports
+
+- name: open JENKINS default port (8080) at CentOS/Redhat machine
+  firewalld:
+    port: 8080/tcp
+    permanent: true
+    state: enabled
+  notify: reload firewall
+  when: ansible_os_family == "RedHat"
+

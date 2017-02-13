@@ -5,7 +5,7 @@ FLANNEL_ETCD_ENDPOINTS="http://kube-master:2379"
 
 # etcd config key.  This is the configuration key that flannel queries
 # For address range assignment
-FLANNEL_ETCD_PREFIX="/k8s/network"
+FLANNEL_ETCD_PREFIX="/kube/network"
 
 # Any additional options that you want to pass
 #FLANNEL_OPTIONS=""
