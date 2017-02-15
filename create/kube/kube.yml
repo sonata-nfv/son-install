@@ -1,12 +1,23 @@
-- hosts: kubemaster
-  become: true
-  connection: ssh
-  roles:
-    - kubemaster
+#- name: installing Kube Master
+#  hosts: kubemaster
+#  become: true
+#  connection: ssh
+#  roles:
+#    - kubemaster
+#  tasks:
+#    - debug: msg="Kubernetes Master is now UP & RUNNING"
 
-- hosts: kubnodes
+- name: installing Kube Nodes
+  hosts: kubnodes
   become: true
   connection: ssh
   roles:
     - kubenode
+  tasks:
+    - debug: msg="Kubernetes Nodes is now UP & RUNNING"
+
+  post_tasks:
+    - local_action: shell date +'%F %T'
+      register: tsout
+    - debug: msg={{ tsout.stdout }}
 

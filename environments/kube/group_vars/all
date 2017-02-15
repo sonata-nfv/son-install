@@ -1,7 +1,7 @@
 ---
 # DEFAULT VARs
 #environ: kube
-cld: openstack
+#cld: openstack
 pop: alabs
 #distro: centos
 #ops: create
@@ -13,7 +13,7 @@ nbofmst: 1
 nbofnod: 3
 image: centos7-cldimg
 flavor: m1.small
-security_groups: qual-secgrp
+security_groups: kube-all
 availability_zone: nova
 region_name: RegionOne
 key_name: son-ift-ptin

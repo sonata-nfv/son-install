@@ -15,3 +15,9 @@
 
   tasks:
     - debug: msg=" T O    B E    I M P L M E N T E D    I N    T H E    N E A R     F U T U R E"
+
+  post_tasks:
+    - local_action: shell date +'%F %T'
+      register: tsout
+    - debug: msg={{ tsout.stdout }}
+

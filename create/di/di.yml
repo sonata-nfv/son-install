@@ -14,3 +14,9 @@
     #- pfsense
     - squid
     - snort
+
+  post_tasks:
+    - local_action: shell date +'%F %T'
+      register: tsout
+    - debug: msg={{ tsout.stdout }}
+
