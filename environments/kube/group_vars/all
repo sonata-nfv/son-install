@@ -22,55 +22,55 @@ int_net_id: "3ef0b481-8c8c-49c7-88f5-10e4d8c5612f"
 # LIST OF VMs TO INSTANTIATE
 servers:
 
-  - name: "k-mst00"
+  - name: "kube-master"
     image: "{{ image }}"
     flavor: "{{ flavor }}"
     key: "{{ key_name }}"
     nics:
      - net-id: "{{ int_net_id }}"
     availability_zone: "{{ availability_zone }}"
-    userdata: "{{ lookup('file', './userdata/{{ ansible_distribution_release }}.sh') }}"
+    userdata: "{{ lookup('file', 'userdata/{{ ansible_distribution_release }}.sh') }}"
     meta:
-      hostname: "kube-master00"
+      hostname: "kube-master"
       group: kubemaster
     #with_sequence: "start=1 end={{ nbofmst }} format=%02x"
 
-  - name: "k-nod01"
+  - name: "kube-node1"
     image: "{{ image }}"
     flavor: "{{ flavor }}"
     key: "{{ key_name }}"
     nics:
      - net-id: "{{ int_net_id }}"
     availability_zone: "{{ availability_zone }}"
-    userdata: "{{ lookup('file', './userdata/{{ ansible_distribution_release }}.sh') }}"
+    userdata: "{{ lookup('file', 'userdata/{{ ansible_distribution_release }}.sh') }}"
     meta:
-      hostname: "kube-node01"
+      hostname: "kube-node1"
       group: kubenodes
     #with_sequence: "start=1 end={{ nbofnod }} format=%02x"
  
-  - name: "k-nod02"
+  - name: "kube-node2"
     image: "{{ image }}"
     flavor: "{{ flavor }}"
     key: "{{ key_name }}"
     nics:
      - net-id: "{{ int_net_id }}"
     availability_zone: "{{ availability_zone }}"
-    userdata: "{{ lookup('file', './userdata/{{ ansible_distribution_release }}.sh') }}"
+    userdata: "{{ lookup('file', 'userdata/{{ ansible_distribution_release }}.sh') }}"
     meta:
-      hostname: "kube-node02"
+      hostname: "kube-node2"
       group: kubenodes
     #with_sequence: "start=1 end={{ nbofnod }} format=%02x"
  
-  - name: "k-nod03"
+  - name: "kube-node3"
     image: "{{ image }}"
     flavor: "{{ flavor }}"
     key: "{{ key_name }}"
     nics:
      - net-id: "{{ int_net_id }}"
     availability_zone: "{{ availability_zone }}"
-    userdata: "{{ lookup('file', './userdata/{{ ansible_distribution_release }}.sh') }}"
+    userdata: "{{ lookup('file', 'userdata/{{ ansible_distribution_release }}.sh') }}"
     meta:
-      hostname: "kube-node03"
+      hostname: "kube-node3"
       group: kubenodes
     #with_sequence: "start=1 end={{ nbofnod }} format=%02x"
  

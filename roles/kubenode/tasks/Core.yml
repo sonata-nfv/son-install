@@ -15,13 +15,17 @@
 - service: name=firewalld state=stopped enabled=false
   when: service_exists.rc != 0
 
-# Install NTP to assure time sync between Nodes and Master
-- yum: name=ntp state=present
+- name: install NTP to assure time sync between Nodes and Master
+  yum: name=ntp state=present
+
 - service: name=ntpd state=started enabled=yes
 
 # Install Kuberbetes and Flannel daemon
-- name: add Docker common release to YUM list of repositories
-  copy: src=virt7-docker-common-release.repo dest=/etc/yum.repos.d/virt7-docker-common-release.repo owner=root group=root mode=0644
+- name: add Docker common release to the YUM list of repositories
+  yum_repository:
+    name: virt7-docker-common-release
+    description: virt7 Docker common release
+    baseurl: http://cbs.centos.org/repos/virt7-docker-common-release/x86_64/os/
 
 - name: Install Kubernetes and flannel
   yum: name={{ item }} state=present update_cache=yes enablerepo=virt7-docker-common-release
@@ -33,7 +37,13 @@
   copy: src=kube.conf dest=/etc/kubernetes/config owner=root group=root mode=0644
 
 - name: set Kubelet configuration
-  copy: src=kubelet.j2 dest=/etc/kubernetes/kubelet owner=root group=root mode=0644
+  #copy: src=roles/kubenode/templates/kubelet.j2 dest=/etc/kubernetes/kubelet owner=root group=root mode=0644
+  template:
+    src: kubelet.j2
+    dest: /etc/kubernetes/kubelet
+    owner: root
+    group: root
+    mode: 0644
 
 - name: set Kube FLANNELD configuration
   copy: src=flanneld dest=/etc/sysconfig/flanneld owner=root group=root mode=0644

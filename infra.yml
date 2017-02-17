@@ -11,7 +11,7 @@
 
   tasks:
 
-    - include_vars: ~/.config/openstack/vault_{{ pop }}_{{ environ }}.yaml
+    - include_vars: "~/.config/openstack/vault_{{ pop }}_{{ environ }}.yaml"
 
     - name: launch 'N' instances
       os_server:
@@ -28,16 +28,16 @@
       with_items: "{{ servers }}"
       register: "os_hosts"
 
-    - name: create in-memory Inventory # temporary in-memory group of hosts that only persists until the end of the playbook
+    - name: create IN-MEMORY Inventory # temporary in-memory group of hosts that only persists until the end of the playbook
       add_host:
         name: "{{ item.openstack.name }}"
         groups: "{{ item.item.meta.group }}"
         ansible_host: "{{ item.openstack.accessIPv4 }}"
       with_items: "{{ os_hosts.results }}"
 
-    - name: create static Inventory based on a provided Template ['jinja2'](http://docs.ansible.com/ansible/template_module.html)
+    - name: create STATIC Inventory based on a provided Template ['jinja2'](http://docs.ansible.com/ansible/template_module.html)
       template: 
-        src: inventory_template.j2
+        src: ansible_inventory.j2
         dest: "~/son-install/environments/{{ environ }}/hosts"
 
     - name: 1st Wait for SSH on the Instance
@@ -49,4 +49,12 @@
       delay: 10
       with_items: "{{ os_hosts.results }}"
 
+    - name: Generate /etc/hosts file
+      become: true
+      template:
+        src: etc_hosts.j2
+        dest: /etc/hosts
+        owner: root
+        group: root
+        mode: 0644
 

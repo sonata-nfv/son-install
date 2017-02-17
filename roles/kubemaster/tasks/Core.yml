@@ -15,13 +15,18 @@
 - service: name=firewalld state=stopped enabled=false
   when: service_exists.rc != 0
 
-# Install NTP to assure time sync between Nodes and Master
-- yum: name=ntp state=present
+- name: install NTP to assure time sync between Nodes and Master
+  yum: name=ntp state=present
+
 - service: name=ntpd state=started enabled=yes
 
 # Install Kubernetes and ETCD
-- name: add Docker common release to YUM list of repositories
-  copy: src=virt7-docker-common-release.repo dest=/etc/yum.repos.d/virt7-docker-common-release.repo owner=root group=root mode=0644
+- name: add Docker common release to the YUM list of repositories
+  yum_repository:
+    name: virt7-docker-common-release
+    description: virt7 Docker common release
+    baseurl: http://cbs.centos.org/repos/virt7-docker-common-release/x86_64/os/
+# copy: src=virt7-docker-common-release.repo dest=/etc/yum.repos.d/virt7-docker-common-release.repo owner=root group=root mode=0644
 
 - name: Install Kubernetes and etcd
   yum: name={{ item }} state=present update_cache=yes enablerepo=virt7-docker-common-release
@@ -47,6 +52,12 @@
   - kube-scheduler
 
 # Define flannel network configuration in etcd. This configuration will be pulled by flannel service on minions
-#- command: etcdctl mkdir /kube/network
+- command: etcdctl mkdir /kube/network
 #- shell: etcdctl mk /kube/network/config '{ \"Network\": \"172.30.0.0/16\", \"SubnetLen\": 24, \"Backend\": { \"Type\": \"vxlan\" } }'
 #- command: etcdctl mk /kube/network/config '{ Network: "172.30.0.0/16", SubnetLen: "24", Backend: { Type: "vxlan" } }'
+
+- name: install Kube client
+  get_url:
+    url: http://storage.googleapis.com/kubernetes-release/release/v1.4.9/bin/linux/amd64/kubectl
+    dest: /usr/local/bin
+    mode: 0755

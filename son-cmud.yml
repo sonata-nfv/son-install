@@ -4,6 +4,9 @@
   hosts: localhost
   become: false
   connection: local
+#  vars:
+#    ops: "{{ lookup('env','OPS') }}"
+#    environ: "{{ lookup('env','ENV') }}"
   pre_tasks:
     - local_action: shell date +'%F %T'
       register: ts
@@ -13,5 +16,10 @@
     - { role: common, become: true, when: ops == "create" or ops == "upgrade" }
     - { role: openstackclients, become: true, when: ops == "create" or ops == "upgrade" }
 
-- include: "./{{ ops }}/{{ environ }}/main.yml"
+  post_tasks:
+    - debug: msg="HOME  {{ lookup('env','HOME') }} is an environment variable"
+    - debug: msg="OPS  {{ lookup('env','OPS') }} is an environment variable"
+    - debug: msg="ENV  {{ lookup('env','ENV') }} is an environment variable"
+
+- include: "{{ ops }}/{{ environ }}/main.yml"
 

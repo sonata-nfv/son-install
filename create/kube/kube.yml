@@ -1,20 +1,16 @@
-#- name: installing Kube Master
-#  hosts: kubemaster
-#  become: true
-#  connection: ssh
-#  roles:
-#    - kubemaster
-#  tasks:
-#    - debug: msg="Kubernetes Master is now UP & RUNNING"
+- name: installing Kube Master
+  hosts: kubemaster
+  become: true
+  connection: ssh
+  roles:
+    - kubemaster
 
 - name: installing Kube Nodes
-  hosts: kubnodes
+  hosts: kubenodes
   become: true
   connection: ssh
   roles:
     - kubenode
-  tasks:
-    - debug: msg="Kubernetes Nodes is now UP & RUNNING"
 
   post_tasks:
     - local_action: shell date +'%F %T'

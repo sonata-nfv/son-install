@@ -88,10 +88,24 @@
   service: name=docker state=restarted enabled=yes
 
 - name: configure RSYSLOG
-  copy: src=roles/docker/templates/rsyslog.j2 dest=/etc/rsyslog.d/30-docker.conf
+  #copy: src=roles/docker/templates/rsyslog.j2 dest=/etc/rsyslog.d/30-docker.conf
+  template:
+    src: rsyslog.j2
+    dest: /etc/rsyslog.d/30-docker.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+  - restart rsyslog
 
 - name: configure LOGROTATE
-  copy: src=roles/docker/templates/logrotate.j2 dest=/etc/logrotate.d/docker
+  #copy: src=roles/docker/templates/logrotate.j2 dest=/etc/logrotate.d/docker
+  template:
+    src: logrotate.j2
+    dest: /etc/logrotate.d/docker
+    owner: root
+    group: root
+    mode: 0644
   notify:
   - restart rsyslog
 
