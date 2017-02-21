@@ -1,5 +1,11 @@
 ---
 
+#- name: install RDO repos (provides RPM packages of Python Openstack command line clients)
+#  yum: name=https://www.rdoproject.org/repos/rdo-release.rpm state=present
+
+- name:  upgrade all packages to the latest version
+  yum: name='*' state=latest update_cache=yes
+
 - name: DevTools group install
   yum: name="@Development tools" state=present
 
@@ -10,10 +16,6 @@
     - python-pip
     - openssl-devel
     - libffi-devel
-
-- name: install Openstack command line clients
-  yum: name={{ item }} state=latest
-  with_items:
     - python-openstackclient
     - python-keystoneclient
     - python-heatclient
@@ -23,6 +25,19 @@
     - python-novaclient
     - python-neutronclient
     - python-designateclient
+
+#- name: install Openstack command line clients
+#  yum: name={{ item }} state=latest
+#  with_items:
+#    - python-openstackclient
+#    - python-keystoneclient
+#    - python-heatclient
+#    - python-glanceclient
+#    - python-cinderclient
+#    - python-swiftclient
+#    - python-novaclient
+#    - python-neutronclient
+#    - python-designateclient
     #- python-ironicclient
     #- python-troveclient
     #- python-magnumclient
@@ -41,12 +56,6 @@
     - ipaddress
     - dogpile.cache>=0.5.3
     - six
-
-- name: install RDO repos (provides RPM packages of Python Openstack command line clients)
-  yum: name=https://www.rdoproject.org/repos/rdo-release.rpm state=present
-
-- name:  upgrade all packages to the latest version
-  yum: name='*' state=latest update_cache=yes
 
 - name: install 'shade' python module (needed by Ansible Cloud module)
   get_url:
