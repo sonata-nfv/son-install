@@ -6,6 +6,7 @@ pop: alabs
 distro: centos
 ops: deploy
 svc: all
+openstack_release: mitaka
 
 # DEFAULT VM CONFIG
 vm_user: centos

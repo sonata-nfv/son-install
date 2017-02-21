@@ -1,7 +1,7 @@
 ---
 
-#- name: install RDO repos (provides RPM packages of Python Openstack command line clients)
-#  yum: name=https://www.rdoproject.org/repos/rdo-release.rpm state=present
+- name: install RDO repos (provides RPM packages of Python Openstack command line clients)
+  yum: name=centos-release-openstack-{{ openstack_release }} state=present 
 
 - name:  upgrade all packages to the latest version
   yum: name='*' state=latest update_cache=yes
@@ -16,6 +16,10 @@
     - python-pip
     - openssl-devel
     - libffi-devel
+
+- name: install Openstack command line clients
+  yum: name={{ item }} state=latest
+  with_items:
     - python-openstackclient
     - python-keystoneclient
     - python-heatclient
@@ -25,19 +29,6 @@
     - python-novaclient
     - python-neutronclient
     - python-designateclient
-
-#- name: install Openstack command line clients
-#  yum: name={{ item }} state=latest
-#  with_items:
-#    - python-openstackclient
-#    - python-keystoneclient
-#    - python-heatclient
-#    - python-glanceclient
-#    - python-cinderclient
-#    - python-swiftclient
-#    - python-novaclient
-#    - python-neutronclient
-#    - python-designateclient
     #- python-ironicclient
     #- python-troveclient
     #- python-magnumclient

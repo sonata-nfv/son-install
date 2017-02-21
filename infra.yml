@@ -41,12 +41,14 @@
       template: 
         src: etc_hosts.j2
         dest: roles/kubemaster/files/etc_hosts
+      when: environ == "kube"
 
     - name: Add STATIC mappings to /etc/hosts
       become: true
       template:
         src: etc_hosts.j2
         dest: roles/kubenode/files/etc_hosts
+      when: environ == "kube"
 
     - name: 1st Wait for SSH on the Instance
       command: >
