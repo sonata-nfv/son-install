@@ -20,19 +20,22 @@
 
 - service: name=ntpd state=started enabled=yes
 
+- name: set Kube Master configuration
+  copy: src=etc_hosts dest=/etc/hosts owner=root group=root mode=0644
+
 # Install Kubernetes and ETCD
 - name: add Docker common release to the YUM list of repositories
   yum_repository:
     name: virt7-docker-common-release
     description: virt7 Docker common release
     baseurl: http://cbs.centos.org/repos/virt7-docker-common-release/x86_64/os/
-# copy: src=virt7-docker-common-release.repo dest=/etc/yum.repos.d/virt7-docker-common-release.repo owner=root group=root mode=0644
 
 - name: Install Kubernetes and etcd
   yum: name={{ item }} state=present update_cache=yes enablerepo=virt7-docker-common-release
   with_items:
-  - etcd
   - kubernetes
+  - etcd
+  - flannel
 
 - name: set Kube Master configuration
   copy: src=kube.conf dest=/etc/kubernetes/config owner=root group=root mode=0644
@@ -47,17 +50,41 @@
   service: name={{ item }} state=started enabled=true
   with_items:
   - etcd
-  - kube-apiserver
-  - kube-controller-manager
-  - kube-scheduler
 
 # Define flannel network configuration in etcd. This configuration will be pulled by flannel service on minions
 - command: etcdctl mkdir /kube/network
-#- shell: etcdctl mk /kube/network/config '{ \"Network\": \"172.30.0.0/16\", \"SubnetLen\": 24, \"Backend\": { \"Type\": \"vxlan\" } }'
-#- command: etcdctl mk /kube/network/config '{ Network: "172.30.0.0/16", SubnetLen: "24", Backend: { Type: "vxlan" } }'
+- shell: 'etcdctl mk /kube/network/config "{ \"Network\": \"172.30.0.0/16\", \"SubnetLen\": 24, \"Backend\": { \"Type\": \"vxlan\" } }"'
+  notify:
+    restart etcd
+
+- name: configure flannel to overlay Docker network
+  copy: src=flanneld dest=/etc/sysconfig/flanneld owner=root group=root mode=0644
+
+
+- name: starting Kube Master services
+  service: name={{ item }} state=started enabled=true
+  with_items:
+# - etcd
+  - kube-apiserver
+  - kube-controller-manager
+  - kube-scheduler
+  - flanneld
 
 - name: install Kube client
   get_url:
     url: http://storage.googleapis.com/kubernetes-release/release/v1.4.9/bin/linux/amd64/kubectl
     dest: /usr/local/bin
     mode: 0755
+
+- name: install Cockpit and Cockpit-Kubernetes
+  yum: name={{ item }} state=present 
+  with_items:
+  - cockpit
+  - cockpit-kubernetes
+
+#- name: open FW port 9090 
+#  shell: firewall-cmd --permanent --zone=public --add-port=9090/tcp && firewall-cmd --reload
+
+- name: start cockpit web application
+  service: name=cockpit.socket state=started enabled=yes
+

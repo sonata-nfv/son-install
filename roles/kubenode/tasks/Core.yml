@@ -20,7 +20,9 @@
 
 - service: name=ntpd state=started enabled=yes
 
-# Install Kuberbetes and Flannel daemon
+- name: set hosts file
+  copy: src=etc_hosts dest=/etc/hosts owner=root group=root mode=0644
+
 - name: add Docker common release to the YUM list of repositories
   yum_repository:
     name: virt7-docker-common-release
@@ -37,7 +39,6 @@
   copy: src=kube.conf dest=/etc/kubernetes/config owner=root group=root mode=0644
 
 - name: set Kubelet configuration
-  #copy: src=roles/kubenode/templates/kubelet.j2 dest=/etc/kubernetes/kubelet owner=root group=root mode=0644
   template:
     src: kubelet.j2
     dest: /etc/kubernetes/kubelet

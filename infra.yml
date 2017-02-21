@@ -4,10 +4,6 @@
   hosts: localhost
   become: false
   connection: local
-#  pre_tasks:
-#    - local_action: shell python -c 'import random; print random.randint(1,99)'
-#      register: nb
-#    - debug: msg={{ nb.stdout }}
 
   tasks:
 
@@ -40,6 +36,18 @@
         src: ansible_inventory.j2
         dest: "~/son-install/environments/{{ environ }}/hosts"
 
+    - name: Add STATIC mappings to /etc/hosts
+      become: true
+      template: 
+        src: etc_hosts.j2
+        dest: roles/kubemaster/files/etc_hosts
+
+    - name: Add STATIC mappings to /etc/hosts
+      become: true
+      template:
+        src: etc_hosts.j2
+        dest: roles/kubenode/files/etc_hosts
+
     - name: 1st Wait for SSH on the Instance
       command: >
         ssh -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} true
@@ -48,13 +56,4 @@
       retries: 40
       delay: 10
       with_items: "{{ os_hosts.results }}"
-
-    - name: Generate /etc/hosts file
-      become: true
-      template:
-        src: etc_hosts.j2
-        dest: /etc/hosts
-        owner: root
-        group: root
-        mode: 0644
 
