@@ -34,7 +34,12 @@ Deploy the platform from the scratch for a specific environment (eg, SP/CI/QI/DI
 
 * git clone -b v2 https://github.com/sonata-nfv/son-install.git
 * cd son-install
-* ansible-playbook son-cmud.yml -e 'ops=[CREATE/MANAGE/UPGRADE/DESTROY] environ=[SP/INTGR/QUAL/DEMO] action=[START/STOP/STATUS/TEST] svc=[ALL/GTK/MANO/IFTA]'
+* ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] environ=[SP/INTGR/QUAL/DEMO] action=[START/STOP/STATUS/TEST] svc=[ALL/GTK/MANO/IFTA]"
+
+NOTE: if the infrastructure deployment is not quick enough, then a timeout will expire, stoping the playbook run. As a workaround, repeat the run - eg:
+* ansible-playbook son-cmud.yml -e "ops=create environ=sp" --limit @/home/ubuntu/son-install/son-cmud.retry
+
+NOTE2: depending on the performance of your infrastructure deployment and the download time to get package updates, this run could spent from 30 to 60 minutes. 
 
 ### Pre-configuration
 

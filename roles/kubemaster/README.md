@@ -1,27 +1,40 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+This playbook deploys a Kubernetes Master. It installs:
+* etcd
+* kube-apiserver
+* kube-controller-manager
+* kube-scheduler
+* flannel
+
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+To use Ansible Cloud module Openstack you will need the following pre-requisites:
+* [Openstack command line clients](https://docs.openstack.org/user-guide/common/cli-install-openstack-command-line-clients.html)
+* [Shade library](https://pypi.python.org/pypi/shade)
+
+Guides
+------
+This role was created according to the manual install procces described on the following sources:
+
+* [Kubernetes, User Guide, Creating a Cluster, Running Kubernetes on Custom Solutions, Bare Metal, CentOS](https://kubernetes.io/docs/getting-started-guides/centos/centos_manual_config/)
+* [Installing Kubernetes Cluster with 3 minions on CentOS 7 to manage pods and services](https://severalnines.com/blog/installing-kubernetes-cluster-minions-centos7-manage-pods-services)
 
 Example Playbook
 ----------------
 
-To deploy a Kubertnetes cluster run:
+To deploy a Kubernetes cluster run:
 
 * ansible-playbook kube.yml
 
@@ -32,6 +45,8 @@ To deploy a Kubertnetes Master run:
 To deploy a Kubertnetes Node run:
 
 * ansible-playbook kube-nodes.yml
+
+[ASCIINEMA](http://asciinema.org/a/57pdyw66gua5owa8v27vizzbm)
 
 License
 -------
