@@ -41,6 +41,9 @@
       template: 
         src: etc_hosts.j2
         dest: roles/kubemaster/files/etc_hosts
+        owner: "{{ vm_user }}"
+        group: "{{ vm_user }}"
+        mode: 0644
       when: environ == "kube"
 
     - name: Add STATIC mappings to /etc/hosts
@@ -48,6 +51,9 @@
       template:
         src: etc_hosts.j2
         dest: roles/kubenode/files/etc_hosts
+        owner: "{{ vm_user }}"
+        group: "{{ vm_user }}"
+        mode: 0644
       when: environ == "kube"
 
     - name: 1st Wait for SSH on the Instance
