@@ -1,0 +1,5 @@
+---
+
+- include: ifta/vim-adaptor.yml
+- include: ifta/wim-adaptor.yml
+

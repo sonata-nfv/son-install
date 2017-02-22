@@ -1,0 +1,18 @@
+---
+
+- name: Infrastructure Abstractor VIM Adaptor running Docker containers
+  docker_container:
+    name: son-sp-infrabstract
+    image: sonatanfv/son-sp-infrabstract
+    state: started
+    env:
+      broker_host: "{{ ansible_default_ipv4.address }}"
+      broker_uri: "amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F"
+      repo_host: "{{ ansible_default_ipv4.address }}"
+      repo_port: "5432"
+      repo_user: "sonatatest"
+      repo_pass: "sonata"
+    volumes:
+      - /var/log/sonata:/var/log/ifta-vim
+    log_driver: syslog # gelf
+

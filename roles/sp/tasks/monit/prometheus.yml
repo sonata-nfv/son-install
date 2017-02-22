@@ -1,0 +1,18 @@
+  - name: MONIT PROMETHEUS - running Docker containers
+    docker_container:
+      name: son-monitor-prometheus
+      image: sonatanfv/son-monitor-prometheus
+      state: started
+      env:
+        RABBIT_URL: "{{ ansible_default_ipv4.address }}:5672"
+        EMAIL_PASS: "czBuQHRAX21vbl9zeXNfMTY="
+      ports:
+      - 9090:9090
+      - 9089:9089
+      etc_hosts:
+        influx: "{{ ansible_default_ipv4.address }}"
+        pushgateway: "{{ ansible_default_ipv4.address }}"
+      volumes:
+        - /var/log/sonata:/var/log/monitor-prometheus
+      log_driver: syslog # gelf
+

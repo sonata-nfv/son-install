@@ -1,0 +1,13 @@
+  - name: MONIT InfluxDB  - running Docker containers
+    docker_container:
+      name: son-monitor-influxdb
+      image: sonatanfv/son-monitor-influxdb
+      state: started
+      ports: 8086:8086
+      volumes:
+        - /var/log/sonata:/var/log/monitor-influxdb
+      log_driver: syslog
+      #log_options: gelf-address=udp://10.31.11.37:12900
+
+  - wait_for: host=0.0.0.0 port=8086 timeout=30 delay=10 state=started
+

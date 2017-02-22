@@ -13,13 +13,13 @@
 - include: broker.yml
 
 # deploy Gatekepper module
-- include: gtkall.yml
+- include: gtk-all.yml
 
 # deploy MANO framework
-- include: mano.yml
+- include: mano-all.yml
 
 # deploy Infastructure Adaptor
-- include: ifta.yml
+- include: ifta-all.yml
 
 # deploy Monitoring
-- include: monit.yml
+- include: monit-all.yml

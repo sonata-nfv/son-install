@@ -1,0 +1,15 @@
+  - name: MONIT VM Probe
+    docker_container:
+      name: son-mon-vmprobe
+      image: sonatanfv/son-monitor-vmprobe
+      state: started
+      network_mode: host
+      privileged: yes
+      env:
+       NODE_NAME: "{{ ansible_hostname }}" # TEST VNF
+       PROM_SRV: "http://{{ ansible_default_ipv4.address }}:9091/metrics"
+      volumes:
+      - "/:/rootfs:ro"
+      - "/proc:/myhost/proc"
+      - /var/log/sonata:/var/log/mon-vmprobe
+

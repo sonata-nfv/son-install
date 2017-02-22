@@ -1,0 +1,24 @@
+---
+
+  - name: GATEKEEPER LICENSE MANAGER (GTKLIC)
+    docker_container:
+      name: son-gtklic
+      image: sonatanfv/son-gtklic
+      env:
+        DATABASE_HOST: "{{ public_ip }}"
+        DATABASE_PORT: 5432
+        POSTGRES_PASSWORD: sonata
+        POSTGRES_USER: sonatatest
+        POSTGRES_DB: gatekeeper
+      state: started
+      restart_policy: "unless-stopped"
+      exposed_ports: 5900
+      ports: "5900:5900"
+      volumes:
+        - /var/log/sonata/son-gtklic:/var/log/son-gtklic
+      log_driver: syslog # gelf
+
+  - wait_for: host=0.0.0.0 port=5900 timeout=300 delay=10 state=started
+
+#- shell: '/usr/bin/docker exec -d son-gtklic /bin/bash -c "cd /opt/sonata/son-gtklic" && "python manage.py db upgrade"'
+

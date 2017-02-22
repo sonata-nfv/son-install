@@ -1,7 +1,8 @@
 ---
-# Running the Sonata GK VIM Docker Image
 
-- name: GATEKEEPER VIM - running Docker containers
+# Start GTK VIM Docker Image
+
+- name: GATEKEEPER VIM
   docker_container:
     name: son-gtkvim
     image: sonatanfv/son-gtkvim
@@ -25,10 +26,11 @@
 
 - wait_for: host=0.0.0.0 port=5700 timeout=30 delay=10 state=started
 
-- name: create data model and populate db
-  command: /usr/bin/docker exec -d son-gtkvim /bin/bash -c "cd /opt/sonata/son-gtkvim" && "bundle install" && "bundle exec rake db:migrate"
-
 #  - name: wait for Container to finish
 #    shell: >
 #      docker wait son-gtkvim
+
+# Populate pgSQL database
+#- name: create data model and populate db
+#  command: /usr/bin/docker exec -d son-gtkvim /bin/bash -c "cd /opt/sonata/son-gtkvim" && "bundle install" && "bundle exec rake db:migrate"
 
