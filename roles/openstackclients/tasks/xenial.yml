@@ -14,6 +14,7 @@
   - python-pip
   - libssl-dev
   - libffi-dev
+  - nova-common
   - python-shade
 
 #- name: "Install dependency libraries on the remote server"

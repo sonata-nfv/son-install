@@ -22,7 +22,7 @@ int_net_id: "3ef0b481-8c8c-49c7-88f5-10e4d8c5612f"
 # LIST OF VMs TO INSTANTIATE
 servers:
 
-  - name: "{{ environ }}"
+  - name: "{{ environ }}-{{ ansible_distribution_release }}"
     image: "{{ image }}"
     flavor: "{{ flavor }}"
     key: "{{ key_name }}"
@@ -31,7 +31,7 @@ servers:
     availability_zone: "{{ availability_zone }}"
     userdata: "{{ lookup('file', 'userdata/{{ ansible_distribution_release }}.sh') }}"
     meta:
-      hostname: qi
+      hostname: "{{ environ }}-{{ ansible_distribution_release }}"
       group: qi
     with_sequence: "start=1 end={{ nbofvms }} format=%02x"
 

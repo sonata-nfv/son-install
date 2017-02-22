@@ -20,6 +20,7 @@
 - name: install Openstack command line clients
   yum: name={{ item }} state=latest
   with_items:
+    - openstack-nova-common
     - python-openstackclient
     - python-keystoneclient
     - python-heatclient
@@ -33,7 +34,7 @@
     #- python-troveclient
     #- python-magnumclient
 
-- name: install Openstack clients (https://pypi.python.org/pypi/shade/1.14.1)
+- name: install required libraries for Shade (https://pypi.python.org/pypi/shade/1.14.1)
   pip: name={{ item }} state=latest
   with_items: 
     - requestsexceptions>=1.1.1

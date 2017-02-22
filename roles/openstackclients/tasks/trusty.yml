@@ -16,6 +16,7 @@
   - openssl
   - libssl-dev
   - libffi-dev
+  - nova-common
   - python-openstackclient
   - python-keystoneclient
   - python-heatclient

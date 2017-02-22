@@ -87,6 +87,12 @@
 - name: start Docker daemon
   service: name=docker state=restarted enabled=yes
 
+# RSYSLOG
+
+- apt: name=rsyslog state=latest
+
+- service: name=rsyslog state=restarted enabled=yes
+
 - name: configure RSYSLOG
   #copy: src=roles/docker/templates/rsyslog.j2 dest=/etc/rsyslog.d/30-docker.conf
   template:

@@ -22,7 +22,7 @@ int_net_id: "3ef0b481-8c8c-49c7-88f5-10e4d8c5612f"
 # LIST OF VMs TO INSTANTIATE
 servers:
 
-  - name: "{{ environ }}"
+  - name: "{{ environ }}-{{ ansible_distribution_release }}"
     image: "{{ image }}"
     flavor: "{{ flavor }}"
     key: "{{ key_name }}"
