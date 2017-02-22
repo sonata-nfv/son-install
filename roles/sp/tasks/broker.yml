@@ -21,5 +21,6 @@
     privileged: yes
     volumes:
       - /var/log/sonata/son-broker:/var/log/son-broker
+    log_driver: syslog # gelf
 # when: service_status.stdout == "active"
 
