@@ -40,7 +40,7 @@
 #  - python-designateclient>=2.1.0
 #  - python-ironicclient>=0.10.0
 #  - pbr>=0.11,<2.0
-#  - os-client-config>=1.20.0
+#  - os-client-config>=1.22.0
 #  - netifaces>=0.10.4
 #  - munch
 #  - keystoneauth1>=2.11.0

@@ -9,6 +9,12 @@
 - name: DevTools group install
   yum: name="@Development tools" state=present
 
+#- yum: name={{ item }} state=absent
+#  with_items:
+#  - python-requests
+#  - python-boto
+#  - cloud-init
+
 - name: install required libraries and tools for PIP
   yum: name={{ item }} state=latest
   with_items:
@@ -16,6 +22,7 @@
     - python-pip
     - openssl-devel
     - libffi-devel
+    - cloud-init
 
 - name: install Openstack command line clients
   yum: name={{ item }} state=latest
@@ -39,7 +46,7 @@
   with_items: 
     - requestsexceptions>=1.1.1
     - pbr>=0.11
-    - os-client-config>=1.20.0
+    - os-client-config>=1.22.0
     - netifaces>=0.10.4
     - munch
     - keystoneauth1>=2.11.0
@@ -48,6 +55,8 @@
     - ipaddress
     - dogpile.cache>=0.5.3
     - six
+
+- command: pip install --upgrade pip
 
 - name: install 'shade' python module (needed by Ansible Cloud module)
   get_url:
