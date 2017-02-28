@@ -1,6 +1,6 @@
 ---
 
-- name: Deploy Infrastructure resources for SONATA specific environments
+- name: Deploy Infrastructure resources for specific environments
   hosts: localhost
   become: false
   connection: local
@@ -40,21 +40,10 @@
       become: true
       template: 
         src: etc_hosts.j2
-        dest: roles/kubemaster/files/etc_hosts
-        owner: "{{ vm_user }}"
-        group: "{{ vm_user }}"
+        dest: /etc/hosts
+        owner: "{{ lookup('env','USER') }}"
+        group: "{{ lookup('env','USER') }}"
         mode: 0644
-      when: environ == "kube"
-
-    - name: Add STATIC mappings to /etc/hosts
-      become: true
-      template:
-        src: etc_hosts.j2
-        dest: roles/kubenode/files/etc_hosts
-        owner: "{{ vm_user }}"
-        group: "{{ vm_user }}"
-        mode: 0644
-      when: environ == "kube"
 
     - name: 1st Wait for SSH on the Instance
       command: >

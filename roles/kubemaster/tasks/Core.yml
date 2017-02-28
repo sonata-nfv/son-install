@@ -1,3 +1,8 @@
+#
+# This playbook follows the manual install guide for CentOS 7 referenced [here:]
+# (https://kubernetes.io/docs/getting-started-guides/centos/centos_manual_config/)
+#
+
 #  Disable iptables on each node to avoid conflicts with Docker iptables rules
 - name: disable SELinux
   selinux:
@@ -21,7 +26,7 @@
 - service: name=ntpd state=started enabled=yes
 
 - name: set Kube Master configuration
-  copy: src=etc_hosts dest=/etc/hosts owner=root group=root mode=0644
+  copy: src=/etc/hosts dest=/etc/hosts owner=root group=root mode=0644
 
 # Install Kubernetes and ETCD
 - name: add Docker common release to the YUM list of repositories
@@ -29,6 +34,10 @@
     name: virt7-docker-common-release
     description: virt7 Docker common release
     baseurl: http://cbs.centos.org/repos/virt7-docker-common-release/x86_64/os/
+
+- name:  upgrade all packages to the latest version
+  become: true
+  yum: name='*' state=latest update_cache=yes
 
 - name: Install Kubernetes and etcd
   yum: name={{ item }} state=present update_cache=yes enablerepo=virt7-docker-common-release

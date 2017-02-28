@@ -21,7 +21,7 @@
 - service: name=ntpd state=started enabled=yes
 
 - name: set hosts file
-  copy: src=etc_hosts dest=/etc/hosts owner=root group=root mode=0644
+  copy: src=/etc/hosts dest=/etc/hosts owner=root group=root mode=0644
 
 - name: add Docker common release to the YUM list of repositories
   yum_repository:

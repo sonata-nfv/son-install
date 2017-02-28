@@ -1,19 +1,29 @@
 ---
 
-- name: install RDO repos (provides RPM packages of Python Openstack command line clients)
-  yum: name=centos-release-openstack-{{ openstack_release }} state=present 
+- command: pip install --upgrade pip
+
+- name: install required libraries for Shade (https://pypi.python.org/pypi/shade/1.14.1)
+  pip: name={{ item }} state=latest
+  with_items:
+    - requestsexceptions>=1.1.1
+    - pbr>=0.11
+    - netifaces>=0.10.4
+    - munch
+    - keystoneauth1>=2.11.0
+    - jsonpatch
+    - jmespath
+    - ipaddress
+    - dogpile.cache>=0.5.3
+    - six
+
+#- name: install RDO repos (provides RPM packages of Python Openstack command line clients)
+#  yum: name=centos-release-openstack-{{ openstack_release }} state=present 
 
 - name:  upgrade all packages to the latest version
   yum: name='*' state=latest update_cache=yes
 
 - name: DevTools group install
   yum: name="@Development tools" state=present
-
-#- yum: name={{ item }} state=absent
-#  with_items:
-#  - python-requests
-#  - python-boto
-#  - cloud-init
 
 - name: install required libraries and tools for PIP
   yum: name={{ item }} state=latest
@@ -22,12 +32,12 @@
     - python-pip
     - openssl-devel
     - libffi-devel
-    - cloud-init
+    - os-client-config
 
 - name: install Openstack command line clients
-  yum: name={{ item }} state=latest
+  pip: name={{ item }} state=latest
   with_items:
-    - openstack-nova-common
+#    - openstack-nova-common
     - python-openstackclient
     - python-keystoneclient
     - python-heatclient
@@ -41,30 +51,21 @@
     #- python-troveclient
     #- python-magnumclient
 
-- name: install required libraries for Shade (https://pypi.python.org/pypi/shade/1.14.1)
-  pip: name={{ item }} state=latest
-  with_items: 
-    - requestsexceptions>=1.1.1
-    - pbr>=0.11
-    - os-client-config>=1.22.0
-    - netifaces>=0.10.4
-    - munch
-    - keystoneauth1>=2.11.0
-    - jsonpatch
-    - jmespath
-    - ipaddress
-    - dogpile.cache>=0.5.3
-    - six
-
-- command: pip install --upgrade pip
+#- name: update OpenStack Client Configuation Library 
+#  yum:
+#    name: ftp://mirror.switch.ch/pool/4/mirror/centos/7.3.1611/cloud/x86_64/openstack-ocata/python2-os-client-config-1.26.0-1.el7.noarch.rpm
+#    state: present
 
 - name: install 'shade' python module (needed by Ansible Cloud module)
   get_url:
-    url: "https://pypi.python.org/packages/7e/1f/2409fd66f2574a2dc9daf335b47384e91f1ae52d8c1bb713ec1f840e188d/shade-{{ shade_tarball }}.tar.gz#md5=a09e159e35727bbb68eb3e5779658df4" # 1.14.1
+    url: https://pypi.python.org/packages/a2/ed/94bf2913796667fbda01d622ee9e8dd302f05ae696639025b504f0b04318/shade-1.6.2.tar.gz#md5=3862a2e98623b09051ccf9137fd3ae22
+#    url: "https://pypi.python.org/packages/7e/1f/2409fd66f2574a2dc9daf335b47384e91f1ae52d8c1bb713ec1f840e188d/shade-{{ shade_tarball }}.tar.gz#md5=a09e159e35727bbb68eb3e5779658df4" # 1.14.1
+#    url: 'https://pypi.python.org/packages/8a/23/82202df7efe5bc0112f29700fa6907fc008f7fe0af8ac2e70860e31d7e51/shade-1.16.0.tar.gz#md5=a876208efd25dff182e534b261dfcd0a'
     dest: "/tmp"
 #  register: new_archive
 
 - name: install Shade tarball
-  pip: name='file:///tmp/shade-{{ shade_tarball }}.tar.gz'
+#  pip: name='file:///tmp/shade-{{ shade_tarball }}.tar.gz'
+  pip: name='file:///tmp/shade-1.6.2.tar.gz'
 #  when: new_archive|changed
 
