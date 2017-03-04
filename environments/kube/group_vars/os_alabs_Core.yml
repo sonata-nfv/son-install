@@ -1,0 +1,22 @@
+---
+# DEFAULT VARs
+environ: kube
+cld: openstack
+pop: alabs
+distro: Core
+ops: create
+svc: all
+openstack_release: mitaka
+
+# DEFAULT VM CONFIG
+vm_user: centos
+nbofmst: 1
+nbofnod: 3
+image: centos7-cldimg
+flavor: m1.small
+security_groups: kube-all
+availability_zone: nova
+region_name: RegionOne
+key_name: son-ift-ptin
+int_net_id: "3ef0b481-8c8c-49c7-88f5-10e4d8c5612f" # QUAL
+

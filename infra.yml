@@ -9,9 +9,12 @@
 
     - include_vars: "~/.config/openstack/vault_{{ pop }}_{{ environ }}.yaml"
 
+    - include_vars: "environments/{{ environ }}/group_vars/os_{{ pop }}_{{ distro }}.yml"
+
     - name: launch 'N' instances
       os_server:
-        cloud: os_alb # http://docs.openstack.org/developer/os-client-config/
+        # http://docs.openstack.org/developer/os-client-config/
+        cloud: os_alabs
         name: "{{ item.name }}"
         state: present
         key_name: "{{ item.key }}"

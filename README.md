@@ -34,7 +34,7 @@ Deploy the platform from the scratch for a specific environment (eg, SP/CI/QI/DI
 
 * git clone -b v2 https://github.com/sonata-nfv/son-install.git
 * cd son-install
-* ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] environ=[SP/INTGR/QUAL/DEMO] action=[START/STOP/STATUS/TEST] svc=[ALL/GTK/MANO/IFTA]"
+* ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] environ=[SP/INTGR/QUAL/DEMO] pop=[NCSRD|ALABS] distro=[trusty|xenial|Core] action=[START/STOP/STATUS/TEST] svc=[ALL/GTK/MANO/IFTA]"
 
 NOTE: if the infrastructure deployment is not quick enough, then a timeout will expire, stoping the playbook run. As a workaround, repeat the run - eg:
 * ansible-playbook son-cmud.yml -e "ops=create environ=sp" --limit @/home/ubuntu/son-install/son-cmud.retry
@@ -44,7 +44,7 @@ NOTE2: depending on the performance of your infrastructure deployment and the do
 ### Pre-configuration
 
 Create the hidden file with credentials for Openstack tenant authentication
-* ~/.config/openstack/vault.yaml
+* ~/.config/openstack/vault_[POP]_[ENV].yaml
 
 Create the hidden file with available Openstack clouds to connect [os_client_config](http://docs.openstack.org/developer/os-client-config/)
 * ~/.config/openstack/clouds.yaml
@@ -57,35 +57,35 @@ or set the 'ENV' environmental variable - example:
 
 ### Example to CREATE a new platform from the scratch
 
-To deploy a new Service Platform (SP)
-* ansible-playbook son-cmud.yml -e 'ops=create environ=sp'
+To deploy a new Service Platform (SP) to the Openstack VIM at Altice Labs on top of CentOS 7:
+* ansible-playbook son-cmud.yml -e 'ops=create environ=sp pop=alabs distro=Core'
 
-To create a new Demonstration Infrastructure (DI)
-* ansible-playbook son-cmud.yml -e 'ops=create environ=di'
+To create a new Demonstration Infrastructure (DI) on the NCSRD' Openstack running on top of Ubuntu 16.04: 
+* ansible-playbook son-cmud.yml -e 'ops=create environ=di pop=ncsrd distro=xenial'
 
 
 ### Example to MANAGE the life-cycle of a platform
 
 To stop ALL the services at the SP platform
-* ansible-playbook son-cmud.yml -e 'ops=manage environ=sp action=stop svc=all'
+* ansible-playbook son-cmud.yml -e 'ops=manage environ=sp pop=ncsrd distro=xenial action=stop svc=all'
 
 To ask for the status of all the SP services
-* ansible-playbook son-cmud.yml -e 'ops=manage environ=sp action=status svc=all'
+* ansible-playbook son-cmud.yml -e 'ops=manage environ=sp pop=ncsrd distro=xenial action=status svc=all'
 
 
 ### Example to UPGRADE a platform (to be enhanced on future release)
 
-To upgrade a Qualification Infrastructure (QI)
-* ansible-playbook son-cmud.yml -e 'ops=upgrade environ=qi'
+To upgrade a Qualification Infrastructure (QI) - this implementation is on the roadmap
+* ansible-playbook son-cmud.yml -e 'ops=upgrade environ=qi pop=alabs'
 
 To upgrade the Continuous Integration Infrastructure (CI)
-* ansible-playbook son-cmud.yml -e 'ops=upgrade environ=ci'
+* ansible-playbook son-cmud.yml -e 'ops=upgrade environ=ci pop=ncsrd'
 
 
 ### Example to DESTROY a platform
 
 To terminate a SP platform
-* ansible-playbook on-cmud.yml -e 'ops=destroy environ=sp'
+* ansible-playbook on-cmud.yml -e 'ops=destroy environ=sp pop=alabs'
 
 
 ### Dependencies

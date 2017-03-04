@@ -1,8 +1,0 @@
-# Ansible managed
-127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
-::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
-
-172.31.6.20 kube-master
-172.31.6.64 kube-node1
-172.31.6.72 kube-node2
-172.31.6.65 kube-node3
