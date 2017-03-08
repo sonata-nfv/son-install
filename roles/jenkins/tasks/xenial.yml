@@ -46,5 +46,4 @@
     port: 8080
     proto: tcp
   notify: reload firewall
-  when: ansible_os_family == "Debian"
 

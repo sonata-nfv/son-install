@@ -3,8 +3,9 @@
   hosts: "{{ target }}"
   become: true
   vars:
-    tarball_version: "2.3.0.Final"
+    tarball_version: "2.5.4.Final"
   roles:
-#  - common
+  - common
   - jdk
+  - firewall
   - keycloak

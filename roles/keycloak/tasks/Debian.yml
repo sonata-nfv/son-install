@@ -1,4 +1,11 @@
 ---
-- name: install 'firewalld' to manage arbitrary ports/services
-  apt: name=firewalld state=latest
+
+- name: open KEYCLOAK default port (8080) at Ubuntu/Debian machine
+  ufw:
+    state: enabled
+    rule: allow
+    port: 8080
+    proto: tcp
+  notify: reload firewall
+  when: ansible_os_family == "Debian"
 
