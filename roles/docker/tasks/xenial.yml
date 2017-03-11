@@ -26,7 +26,7 @@
 - name: "Install docker-py library on the remote server"
   pip: name={{ item }}  state=present
   with_items:
-  - paramiko
+#  - paramiko
   - jinja2
   - PyYAML
   - setuptools
@@ -87,25 +87,22 @@
 - name: start Docker daemon
   service: name=docker state=restarted enabled=yes
 
-- name: configure RSYSLOG
-  #copy: src=roles/docker/templates/rsyslog.j2 dest=/etc/rsyslog.d/30-docker.conf
-  template:
-    src: rsyslog.j2
-    dest: /etc/rsyslog.d/30-docker.conf
-    owner: root
-    group: root
-    mode: 0644
-  notify:
-  - restart rsyslog
+#- name: configure RSYSLOG
+#  template:
+#    src: rsyslog.j2
+#    dest: /etc/rsyslog.d/30-docker.conf
+#    owner: root
+#    group: root
+#    mode: 0644
+#  notify:
+#  - restart rsyslog
 
-- name: configure LOGROTATE
-  #copy: src=roles/docker/templates/logrotate.j2 dest=/etc/logrotate.d/docker
-  template:
-    src: logrotate.j2
-    dest: /etc/logrotate.d/docker
-    owner: root
-    group: root
-    mode: 0644
-  notify:
-  - restart rsyslog
-
+#- name: configure LOGROTATE
+#  template:
+#    src: logrotate.j2
+#    dest: /etc/logrotate.d/docker
+#    owner: root
+#    group: root
+#    mode: 0644
+#  notify:
+#  - restart rsyslog

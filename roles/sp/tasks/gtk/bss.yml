@@ -1,7 +1,7 @@
 ---
 # Running the Sonata GK BSS Docker Image
 
-- name: GATEKEEPER BSS - running Docker containers
+- name: deploying GATEKEEPER BSS (Docker containers)
   docker_container:
     name: son-bss
     image: sonatanfv/son-yo-gen-bss

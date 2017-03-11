@@ -1,5 +1,5 @@
 ---
-# Running the Sonata GK RECORDs Docker Image
+# Running the Sonata GK RECORDs (Docker container)
 
 - name: GATEKEEPER RECORDS - running Docker containers
   docker_container:

@@ -1,6 +1,6 @@
 ---
 
-- name: Infrastructure Abstractor VIM Adaptor running Docker containers
+- name: deployng Infrastructure Abstractor VIM Adaptor (Docker container)
   docker_container:
     name: son-sp-infrabstract
     image: sonatanfv/son-sp-infrabstract

@@ -1,5 +1,5 @@
 ---
-# Running the Sonata GK PACKAGES Docker Image
+# Running the Sonata GK PACKAGES (Docker container)
 
 - name: GATEKEEPER PACKAGES - running Docker containers
   docker_container:

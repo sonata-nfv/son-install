@@ -1,5 +1,5 @@
 ---
-# Running the Sonata GK GUI Docker Image
+# Running the Sonata GK GUI (Docker container)
 
 - name: GATEKEEPER GUI - running Docker containers
   docker_container:

@@ -1,5 +1,5 @@
 ---
-# Running the Sonata GK FUNCTIONS Docker Image
+# Running the Sonata GK FUNCTIONS (Docker container)
 
 - name: GATEKEEPER FUNCTIONS - running Docker containers
   docker_container:

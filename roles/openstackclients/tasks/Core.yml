@@ -64,8 +64,7 @@
     dest: "/tmp"
 #  register: new_archive
 
-- name: install Shade tarball
-#  pip: name='file:///tmp/shade-{{ shade_tarball }}.tar.gz'
-  pip: name='file:///tmp/shade-1.6.2.tar.gz'
+- name: install Shade tarball - 1.6.2
+  pip: name='file:///tmp/shade-1.6.2.tar.gz' state=present
 #  when: new_archive|changed
 

@@ -1,6 +1,6 @@
 ---
 
-# Start GTK VIM Docker Image
+# Start GTK VIM (Docker container)
 
 - name: GATEKEEPER VIM
   docker_container:

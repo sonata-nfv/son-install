@@ -1,6 +1,6 @@
 ---
 
-  - name: GATEKEEPER LICENSE MANAGER (GTKLIC)
+  - name: GATEKEEPER LICENSE MANAGER (GTKLIC) (Docker container)
     docker_container:
       name: son-gtklic
       image: sonatanfv/son-gtklic
