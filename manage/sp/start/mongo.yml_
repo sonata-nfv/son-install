@@ -5,8 +5,5 @@
   become: true
   tasks:
 
-  - name: starting MongoDB
-    docker_container:
-      name: son-mongo
-      state: started
-
+  - name: start MongoDB services
+    service: name=mongod state=started 
