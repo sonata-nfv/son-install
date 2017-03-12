@@ -1,7 +1,7 @@
 ---
 
 - name: stop Docker engine
-  hosts: "{{ target }}"
+  hosts: "{{ environ }}"
   become: true
   tasks:
 

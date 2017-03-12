@@ -1,6 +1,6 @@
 ---
 - name: stop IFT ABSTRACTOR
-  hosts: "{{ target }}"
+  hosts: "{{ environ }}"
   become: true
   tasks:
 

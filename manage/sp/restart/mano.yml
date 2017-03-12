@@ -1,6 +1,6 @@
 ---
 - name: starting MANO FRAMEWORK Docker containers at SP VM appliance
-  hosts: "{{ target }}"
+  hosts: "{{ environ }}"
   become: true
   tasks:
 

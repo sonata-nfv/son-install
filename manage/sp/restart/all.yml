@@ -16,7 +16,7 @@
 - include: repos.yml
 
 # deploy Gatekepper module
-- include: gtkall.yml
+- include: gtk-all.yml
 
 # deploy MANO framework
 - include: mano.yml

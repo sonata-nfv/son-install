@@ -1,6 +1,6 @@
 ---
 - name: stopping SP GATEKEEPER 
-  hosts: "{{ target }}"
+  hosts: "{{ environ }}"
   become: true
   tasks:
 

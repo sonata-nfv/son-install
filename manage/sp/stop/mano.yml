@@ -1,6 +1,6 @@
 ---
 - name: stopping MANO FRAMEWORK Docker containers
-  hosts: "{{ target }}"
+  hosts: "{{ environ }}"
   become: true
   tasks:
 

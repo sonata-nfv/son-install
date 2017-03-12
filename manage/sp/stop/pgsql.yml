@@ -1,7 +1,7 @@
 ---
 
 - name: stopping pgSQL database engine
-  hosts: "{{ target }}"
+  hosts: "{{ environ }}"
   become: true
   tasks:
 

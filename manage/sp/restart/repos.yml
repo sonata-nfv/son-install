@@ -1,6 +1,6 @@
 ---
 - name: starting REPOSITORIES Docker containers at SP VM appliance
-  hosts: "{{ target }}"
+  hosts: "{{ environ }}"
   become: true
   tasks:
 

@@ -1,6 +1,6 @@
 ---
 - name: check service status
-  hosts: "{{ target }}"
+  hosts: "{{ environ }}"
   #hosts: localhost
   #connection: local
   become: true
