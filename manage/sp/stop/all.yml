@@ -23,9 +23,6 @@
 # destroy MySQL database engine
 - include: pgsql.yml
 
-# destroy MySQL database engine
-#- include: mysql.yml
-
 # destroy Docker engine
-#- include: docker.yml
+- include: docker.yml
 

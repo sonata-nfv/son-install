@@ -1,5 +1,20 @@
 ---
 
+# deploy Docker engine
+- include: docker.yml
+
+# deploy RabbitMQ message bus
+- include: broker.yml
+
+# deploy MySQL database engine
+- include: pgsql.yml
+
+# deploy MongoDB engine
+- include: mongo.yml
+
+# deploy Repositories
+- include: repos.yml
+
 # deploy Gatekepper module
 - include: gtkall.yml
 
@@ -11,19 +26,4 @@
 
 # deploy Monitoring
 - include: monit.yml
-
-# deploy Repositories
-- include: repos.yml
-
-# deploy RabbitMQ message bus
-- include: broker.yml
-
-# deploy MySQL database engine
-- include: pgsql.yml
-
-# deploy MongoDB engine
-- include: mongo.yml
-
-# deploy Docker engine
-#- include: docker.yml
 
