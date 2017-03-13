@@ -60,3 +60,10 @@
       state: stopped
   - wait_for: host=0.0.0.0 port=5900 timeout=30 delay=10 state=drained
 
+  - name: GATEKEEPER KPI - stopping
+    docker_container:
+      name: son-gtkkpi
+      state: started
+
+  - wait_for: host=0.0.0.0 port=5400 timeout=30 delay=10 state=drained
+

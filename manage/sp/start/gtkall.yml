@@ -1,6 +1,6 @@
 ---
 - name: starting GATEKEEPER Docker containers at SP VM appliance
-  hosts: "{{ target }}"
+  hosts: "{{ environ }}"
   become: true
   tasks:
 
@@ -49,5 +49,10 @@
   - name: GATEKEEPER LIC - starting
     docker_container:
       name: son-gtkapi
+      state: started
+
+  - name: GATEKEEPER KPI - starting
+    docker_container:
+      name: son-gtkkpi
       state: started
 

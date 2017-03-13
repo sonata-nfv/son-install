@@ -1,5 +1,5 @@
 ---
-- name: remove Infrastructure Abstraction Docker containers from the SP VM appliance
+- name: removing Infrastructure Abstraction (Docker container) from the VM
   hosts: "{{ environ }}"
   become: true
   tasks:

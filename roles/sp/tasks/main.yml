@@ -1,5 +1,8 @@
 ---
 
+# deploy RabbitMQ message bus
+- include: broker.yml
+
 # deploy postgreSQL database engine
 - include: pgsql.yml
 
@@ -8,9 +11,6 @@
 
 # deploy Repositories
 - include: repos.yml
-
-# deploy RabbitMQ message bus
-- include: broker.yml
 
 # deploy Gatekepper module
 - include: gtk-all.yml

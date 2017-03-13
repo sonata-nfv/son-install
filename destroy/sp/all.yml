@@ -1,8 +1,5 @@
 ---
 
-#- include: stop-containers.yml
-#  when: svc == "all"
-
 - include: monit.yml
   when: svc == "all" or svc == "monit"
 
@@ -21,12 +18,12 @@
 - include: repos.yml
   when: svc == "all" or svc == "repos"
 
-#- include: mysql.yml
-#  when: svc == "all" or svc == "mysql"
-
 - include: mongo.yml
   when: svc == "all" or svc == "mongo"
 
 - include: pgsql.yml
   when: svc == "all" or svc == "pgsql"
+
+- include: stop-and-destroy.yml
+  when: svc == "all"
 

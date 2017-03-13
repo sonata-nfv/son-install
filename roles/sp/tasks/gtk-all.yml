@@ -11,5 +11,5 @@
 - include: gtk/vim.yml
 - include: gtk/api.yml
 - include: gtk/lic.yml
-#- include: gtk/pki.yml
+- include: gtk/pki.yml
 
