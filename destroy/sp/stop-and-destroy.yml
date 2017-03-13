@@ -16,24 +16,23 @@
 
   # DEBIAN/UBUNTU
 
-  - name: remove Docker package
-    apt: name={{ item }} state=absent
-    with_items:
-      - docker
-      - docker-engine
-    when: ansible_os_family == "Debian"
+#  - name: remove Docker package
+#    apt: name={{ item }} state=absent
+#    with_items:
+#      - docker
+#      - docker-engine
+#    when: ansible_os_family == "Debian"
 
 
   # REDHAT/CENTOS
-  - name: remove Docker package
-    apt: name={{ item }} state=absent
-    with_items:
-#      - docker-common
-#      - container-selinux
-      - docker-engine-selinux
-      - docker-engine
-    when: ansible_os_family == "RedHat"
 
-  - name: remove Docker cache
-    command: rm -rf /var/lib/docker
+#  - name: remove Docker package
+#    apt: name={{ item }} state=absent
+#    with_items:
+#      - docker-engine-selinux
+#      - docker-engine
+#    when: ansible_os_family == "RedHat"
+
+#  - name: remove Docker cache
+#    command: rm -rf /var/lib/docker
 
