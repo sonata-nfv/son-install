@@ -4,12 +4,9 @@
   become: true
   tasks:
 
-  - name: check if the DOCKER service exists
-    stat: path=/etc/init.d/docker
-    register: service_status
-
-  - debug:
-      msg: "{{ service_status }}"
+  #- name: check if the DOCKER service exists
+  #  stat: path=/etc/init.d/docker
+  #  register: service_status
 
   - name: starting the SP Message Bus
     docker_container: 
@@ -21,6 +18,3 @@
       ports: "5672:5672, 8080:15672"
       privileged: yes
     #when: service_status.stat.exists
-
-  - debug:
-      msg: "{{ service_status.stat.exists }}"
