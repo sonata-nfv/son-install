@@ -1,5 +1,5 @@
 ---
-- name: starting RabbitMQ Docker containers SON-SP VM appliance
+- name: BROKER - starting RabbitMQ Docker container on the SONATA SP VM appliance
   hosts: "{{ environ }}"
   become: true
   tasks:
@@ -8,7 +8,10 @@
     stat: path=/etc/init.d/docker
     register: service_status
 
-  - name: run the "SP Message Bus"
+  - debug:
+      msg: "{{ service_status }}"
+
+  - name: starting the SP Message Bus
     docker_container: 
       name: son-broker
       image: rabbitmq
@@ -17,5 +20,7 @@
       state: started
       ports: "5672:5672, 8080:15672"
       privileged: yes
-    when: service_status.stat.exists
+    #when: service_status.stat.exists
 
+  - debug:
+      msg: "{{ service_status.stat.exists }}"

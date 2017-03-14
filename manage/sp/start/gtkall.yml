@@ -48,7 +48,7 @@
 
   - name: GATEKEEPER LIC - starting
     docker_container:
-      name: son-gtkapi
+      name: son-gtklic
       state: started
 
   - name: GATEKEEPER KPI - starting
