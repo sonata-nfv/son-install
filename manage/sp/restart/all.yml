@@ -1,7 +1,7 @@
 ---
 
 # deploy Docker engine
-- include: docker.yml
+#- include: docker.yml
 
 # deploy RabbitMQ message bus
 - include: broker.yml

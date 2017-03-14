@@ -9,4 +9,6 @@
     docker_container:
       name: son-postgres
       state: started
+      restart: yes
+      restart_policy: unless-stopped
 

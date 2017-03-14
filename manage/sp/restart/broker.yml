@@ -13,7 +13,7 @@
       name: son-broker
       image: rabbitmq
       state: started
-      restarted: yes
+      restart: yes
       restart_policy: unless-stopped
       env:
         RABBITMQ_CONSOLE_LOG: new

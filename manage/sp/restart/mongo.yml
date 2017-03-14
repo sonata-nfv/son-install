@@ -1,12 +1,14 @@
 ---
 
-- name: starting MongoDB database services
+- name: re-starting MongoDB database services
   hosts: "{{ environ }}"
   become: true
   tasks:
 
-  - name: starting MongoDB
+  - name: re-starting MongoDB
     docker_container:
       name: son-mongo
       state: started
+      restart: yes
+      restart_policy: unless-stopped
 

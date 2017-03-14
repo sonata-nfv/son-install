@@ -10,4 +10,6 @@
     docker_container:
       name: son-catalogue-repos
       state: started
+      restart: yes
+      restart_policy: unless-stopped
 
