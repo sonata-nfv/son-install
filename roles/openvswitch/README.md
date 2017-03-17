@@ -1,17 +1,25 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Openvswitch deployment to Ubuntu 16.04 and CentOS 7 machines
+
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+* Xenial deployment makes use of repo packages (2.5.0)
+* Centos 7 deployment makes use of 'tar.gz' tarball and builds the RPM (current LTS version: 2.5.2)
+
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+* to deploy to localhost: pass external variable "target=localhost"
+* to deploy to a target machine: create a hosts file like this "target=ovs"
+
+[ovs]
+my-ovs ansible_user=centos ansible_ssh_private_key_file=~/.ssh/mykey.pem ansible_host=ipaddr ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
 
 Dependencies
 ------------
@@ -21,18 +29,19 @@ A list of other roles hosted on Galaxy should go here, plus any details in regar
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Example of how to deploy to localhost:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+$ cd son-install
+$ ansible-playbook utils/deploy/ovs.yml -e "target=localhost"
+
 
 License
 -------
 
-BSD
+Apache 2.0
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Alberto Rocha, Altice Labs
+arocha@ptinovacao.pt
