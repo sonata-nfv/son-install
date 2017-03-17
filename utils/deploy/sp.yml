@@ -1,6 +1,6 @@
 ---
 
-- hosts: localhost
+- hosts: "{{ target }}"
   become: true
   connection: ssh
 

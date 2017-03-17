@@ -7,8 +7,6 @@
 
   tasks:
 
-    - include_vars: "~/.config/openstack/vault_{{ pop }}_{{ environ }}.yaml"
-
     - include_vars: "environments/{{ environ }}/group_vars/os_{{ pop }}_{{ distro }}.yml"
 
     - name: launch 'N' instances
