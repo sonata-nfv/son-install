@@ -1,0 +1,7 @@
+---
+- name: deploy OVS to the target machine
+  hosts: "{{ target }}"
+  become: true
+  roles:
+  - openvswitch
+
