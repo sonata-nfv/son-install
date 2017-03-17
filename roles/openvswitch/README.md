@@ -24,15 +24,17 @@ my-ovs ansible_user=centos ansible_ssh_private_key_file=~/.ssh/mykey.pem ansible
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Dependencies are handled by the role. Eg, for CentOS 7 the following packages are previously installed:
+* libffi-devel,  libtool, graphviz, Cython, iproute, kernel-devel, kernel-debug-devel, autoconf, automake, rpm-build, redhat-rpm-config, python-twisted-core, python-zope-interface, PyQt4, desktop-file-utils, libcap-ng-devel, groff, selinux-policy-devel
+
 
 Example Playbook
 ----------------
 
 Example of how to deploy to localhost:
 
-$ cd son-install
-$ ansible-playbook utils/deploy/ovs.yml -e "target=localhost"
+* cd son-install
+* ansible-playbook utils/deploy/ovs.yml -e "target=localhost"
 
 
 License
