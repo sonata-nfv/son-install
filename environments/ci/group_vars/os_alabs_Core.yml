@@ -12,7 +12,7 @@ vm_user: centos
 nbofvms: 1
 image: centos7-cldimg
 flavor: m1.small
-security_groups: qual-secgrp
+security_groups: "{{ environ }}-secgrp"
 availability_zone: nova
 region_name: RegionOne
 key_name: son-ift-ptin

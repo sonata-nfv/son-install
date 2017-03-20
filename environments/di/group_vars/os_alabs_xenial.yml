@@ -12,7 +12,7 @@ vm_user: ubuntu
 nbofvms: 1
 image: xenial-cldimg
 flavor: m1.small
-security_groups: qual-secgrp
+security_groups: "{{ environ }}-secgrp"
 availability_zone: nova
 region_name: RegionOne
 key_name: son-ift-ptin
