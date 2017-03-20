@@ -21,10 +21,9 @@
 - name: setting your specific configuration
   copy:
     remote_src: true
-    src: squid.conf
+    src: "{{ role_path }}/files/squid.conf"
     dest: /etc/squid/squid.conf
 
 - name: start SQUID service
-  service: name=squid state=start enabled=yes
-
+  service: name=squid state=started enabled=yes
 

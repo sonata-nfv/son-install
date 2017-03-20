@@ -1,7 +1,7 @@
 Role Name
 =========
 
-'squid' role deploys Squid proxy service to a target CentOS 7, Ubuntu 14.04 and Ubunti 16.04 guest machines
+A role ito deploy Squid proxy service to a target CentOS 7, Ubuntu 14.04 and Ubunti 16.04 guest machines
 
 
 Requirements
@@ -13,11 +13,11 @@ NO specific requirtements.
 Role Variables
 --------------
 
-To set a particular configuration that fits your needs, just change the 'roles/squid/files/squid.conf' configuration file - example:
-* proxy service port
-  http_port 3128
-* local address space
-  acl localnet 10.112.0.0/16
+To set a particular configuration that fits your needs, just change the 'roles/squid/files/squid.conf' configuration file - example: <br>
+proxy service port
+* http_port 3128
+local address space
+* acl localnet 10.112.0.0/16
 
 
 Dependencies
