@@ -3,15 +3,13 @@
 'son-install' provides a simple way to create, manage, upgrade and destroy (CMUD) the SONATA Service Plataform (SP) as a standalone environment but also the specialized Integration (CI), Qualification (QI) and Demonstration (DI) environments as well.
 
 'son-install' is built of a set of Ansible playbooks to:
-* automate the deployment (and termination) of infrastructure and applications. 
+* automate the deployment (and termination) of infrastructure and applications.
 * manage the SP services and applications lifecycle
 * zero downtime roll up upgrades
 
 All you need is a 'bash' shell with Ansible installed: actually, 'son-cmud.yml' is the main playbook to invoke all the SONATA CMUD operations.
 
-
 [![asciicast](https://asciinema.org/a/a1q347o8bvxafr84xpo4q59d8.png)](https://asciinema.org/a/a1q347o8bvxafr84xpo4q59d8?autoplay=1)
-
 
 ## What's new
 
@@ -32,6 +30,25 @@ Deploy the platform from the scratch for a specific environment (eg, SP/CI/QI/DI
 
 ## Usage
 
+The structure of 'son-install' is flexible enough to:
+* deploy and manage a single service or application - designated by 'method 1'
+* deploy, manage, upgrade, destroy a complex, distributed platform - designated by 'method 2'
+
+
+### Method 1
+
+A quick way to deploy SONATA 5G NFV SP to an existing VM is:
+
+* git clone -b v2 https://github.com/sonata-nfv/son-install.git
+* cd son-install
+* ansible-playbook utils/deploy/sp.yml -e target=localhost
+
+NOTE: change 'inventory' parameter at 'ansible.cfg' to deploy another environment other than the SP (default: "inventory = environments/sp")
+
+### Method 2
+
+A full way to deploy SONATA 5G NFV SP from the scratch, ie, provisioning first the infrastructure resources and then deploying the software
+
 * git clone -b v2 https://github.com/sonata-nfv/son-install.git
 * cd son-install
 * ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] environ=[SP/INTGR/QUAL/DEMO] pop=[NCSRD|ALABS] distro=[trusty|xenial|Core] action=[START/STOP/STATUS/TEST] svc=[ALL/GTK/MANO/IFTA]"
@@ -39,7 +56,7 @@ Deploy the platform from the scratch for a specific environment (eg, SP/CI/QI/DI
 NOTE: if the infrastructure deployment is not quick enough, then a timeout will expire, stoping the playbook run. As a workaround, repeat the run - eg:
 * ansible-playbook son-cmud.yml -e "ops=create environ=sp" --limit @/home/ubuntu/son-install/son-cmud.retry
 
-NOTE2: depending on the performance of your infrastructure deployment and the download time to get package updates, this run could spent from 30 to 60 minutes. 
+NOTE2: depending on the performance of your infrastructure deployment and the download time to get package updates, this run could spent from 30 to 60 minutes.
 
 ### Pre-configuration
 
@@ -60,7 +77,7 @@ or set the 'ENV' environmental variable - example:
 To deploy a new Service Platform (SP) to the Openstack VIM at Altice Labs on top of CentOS 7:
 * ansible-playbook son-cmud.yml -e 'ops=create environ=sp pop=alabs distro=Core'
 
-To create a new Demonstration Infrastructure (DI) on the NCSRD' Openstack running on top of Ubuntu 16.04: 
+To create a new Demonstration Infrastructure (DI) on the NCSRD' Openstack running on top of Ubuntu 16.04:
 * ansible-playbook son-cmud.yml -e 'ops=create environ=di pop=ncsrd distro=xenial'
 
 
@@ -95,7 +112,7 @@ To deploy infrastrucutre resources to an Openstack VIM, the [Openstack command l
 
 ## Lead Developers
 
-The following developers are responsible for this repository and have admin rights. 
+The following developers are responsible for this repository and have admin rights.
 
 * Alberto Rocha (arocha7)
 * Navdeep Unyial (navdeepuniyal)
@@ -110,5 +127,3 @@ To contribute to the development of the SONATA gui you have to fork the reposito
 ## License
 
 'son-install' is published under Apache 2.0 license. Please see the LICENSE file for more details.
-
-
