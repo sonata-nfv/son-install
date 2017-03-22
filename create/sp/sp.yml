@@ -4,10 +4,11 @@
   pre_tasks:
 
     - local_action: shell date +'%F %T'
-
       register: timestamp
 
-    - debug: msg="{{ timestamp.stdout }}"
+    - debug:
+      msg: "{{ timestamp.stdout }}"
+
   roles:
     - docker
     - sp
