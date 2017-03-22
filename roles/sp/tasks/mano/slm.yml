@@ -9,8 +9,10 @@
       url_vnfr_repository: http://{{ ansible_default_ipv4.address }}:4002/records/vnfr/
       url_monitoring_server: http://{{ ansible_default_ipv4.address }}:8000/api/v1/
       broker_host: amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F
+    links:
+      - son-broker
     state: started
     volumes:
-      - /var/log/sonata:/var/log/mano-slm
+      - /var/log/sonata/slm:/var/log/mano-slm
     log_driver: syslog # gelf
 

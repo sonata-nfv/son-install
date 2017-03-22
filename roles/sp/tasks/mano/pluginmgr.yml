@@ -7,10 +7,13 @@
     env:
       mongo_host: "{{ ansible_default_ipv4.address }}"
       broker_host: amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F
+    links:
+      - son-broker
+      - son-mongo
     state: started
     ports: 8001:8001
     volumes:
-      - /var/log/sonata:/var/log/mano-pluginmanager
+      - /var/log/sonata/pluginmgr:/var/log/mano-pluginmanager
     log_driver: syslog # gelf
 
 - wait_for: host=0.0.0.0 port=8001 timeout=30 delay=10 state=started
