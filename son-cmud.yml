@@ -8,7 +8,7 @@
     - local_action: shell date +'%F %T'
       register: ts
     - debug:
-      msg: "{{ ts.stdout }}"
+        msg: "{{ ts.stdout }}"
     - file:
         path: /var/log/ansible.log
         state: touch
