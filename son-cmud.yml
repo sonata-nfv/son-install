@@ -4,17 +4,18 @@
   hosts: localhost
   become: false
   connection: local
-  pre_tasks:
-    - local_action: shell date +'%F %T'
-      register: ts
-    - debug: msg="{{ ts.stdout }}"
-    - file:
-        path: /var/log/ansible.log
-        state: touch
-        owner: "{{ lookup('env','USER') }}"
-        group: "{{ lookup('env','USER') }}"
-        mode: "u=rw,g=r,o=r"
-      become: true
+#  pre_tasks:
+#    - local_action: shell date +'%F %T'
+#      register: ts
+#    - debug:
+#      msg: "{{ ts.stdout }}"
+#    - file:
+#        path: /var/log/ansible.log
+#        state: touch
+#        owner: "{{ lookup('env','USER') }}"
+#        group: "{{ lookup('env','USER') }}"
+#        mode: "u=rw,g=r,o=r"
+#      become: true
 
   roles:
     - { role: common, become: true, when: ops == "create" or ops == "upgrade" }
