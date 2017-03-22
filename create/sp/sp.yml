@@ -7,7 +7,7 @@
       register: timestamp
 
     - debug:
-      msg: "{{ timestamp.stdout }}"
+        msg: "{{ timestamp.stdout }}"
 
   roles:
     - docker
