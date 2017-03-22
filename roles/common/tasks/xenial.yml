@@ -1,15 +1,13 @@
 ---
 
-- name: install Python 2.7
-  apt-get: name=python state=present
-
-- apt-get: name=python-apt state=present
+- name: upgrade all packages to the latest version
+  apt: upgrade=yes update_cache=yes
 
 - name: previous install APTitude
   apt: name=aptitude state=latest
 
-- name: upgrade all packages to the latest version
-  apt: upgrade=yes update_cache=yes
+- name: install Python 2.7
+  apt: name=python state=present
 
 - name: install useful operating system tools
   apt: name={{ item }} state=latest
