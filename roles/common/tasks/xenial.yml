@@ -1,9 +1,9 @@
 ---
 
 - name: install Python 2.7
-  apt: name=python state=present
+  apt-get: name=python state=present
 
-- apt: name=python-apt state=present
+- apt-get: name=python-apt state=present
 
 - name: previous install APTitude
   apt: name=aptitude state=latest
