@@ -16,5 +16,4 @@ security_groups: "{{ environ }}-secgrp"
 availability_zone: nova
 region_name: RegionOne
 key_name: son-install
-int_net_id: "fdca8a94-e34f-42b3-aba1-75a169985ddd" # sonata.qual-net
-
+int_net_id: "fdca8a94-e34f-42b3-aba1-75a169985ddd"
