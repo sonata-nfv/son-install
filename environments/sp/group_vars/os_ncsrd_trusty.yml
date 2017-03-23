@@ -1,0 +1,20 @@
+# DEFAULT VARs
+environ: sp
+cld: openstack
+pop: ncsrd
+distro: trusty
+ops: create
+svc: all
+openstack_release: mitaka
+
+# DEFAULT VM CONFIG
+vm_user: ubuntu
+nbofvms: 1
+image: trusty-cldimg
+flavor: m1.small
+security_groups: "{{ environ }}-secgrp"
+availability_zone: nova
+region_name: RegionOne
+key_name: son-ift-ptin
+int_net_id: "fdca8a94-e34f-42b3-aba1-75a169985ddd" # sonata.qual-net
+
