@@ -35,7 +35,7 @@
     - name: create STATIC Inventory based on a provided Template ['jinja2'](http://docs.ansible.com/ansible/template_module.html)
       template: 
         src: ansible_inventory.j2
-        dest: "~/son-install/environments/{{ environ }}/hosts"
+        dest: "environments/{{ environ }}/hosts"
 
     - name: Add STATIC mappings to /etc/hosts
       become: true
