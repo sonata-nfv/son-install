@@ -37,13 +37,23 @@ The structure of 'son-install' is flexible enough to:
 
 ### Method 1
 
-A quick way to deploy SONATA 5G NFV SP to an existing VM is:
+A quick way to deploy SONATA 5G NFV SP to the local VM is:
 
 * git clone -b v2 https://github.com/sonata-nfv/son-install.git
 * cd son-install
 * ansible-playbook utils/deploy/sp.yml -e target=localhost
+Alternative:
+* ansible-playbook utils.yml -e "target=localhost app=sp"
 
-NOTE: change 'inventory' parameter at 'ansible.cfg' to deploy another environment other than the SP (default: "inventory = environments/sp")
+A quick way to deploy other application services to the local VM is (example for Docker engine):
+* ansible-playbook utils/deploy/docker.yml -e target=localhost
+Alternative:
+* ansible-playbook utils.yml -e "target=localhost app=docker"
+
+Actualy, the following services and applications are available for deployment to the localhost or to a target machine (with authorized keys):
+* apache.yml  haproxy.yml  keycloak.yml    letsencrypt.yml  nginx.yml  openstackclients.yml  ovs.yml    snort.yml  squid.yml
+docker.yml  jenkins.yml  kubernetes.yml  mysql.yml        odoo.yml   otrs5.yml             pgsql.yml  sp.yml     terraform.yml
+
 
 ### Method 2
 
@@ -53,26 +63,24 @@ A full way to deploy SONATA 5G NFV SP from the scratch, ie, provisioning first t
 * cd son-install
 * ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] environ=[SP/INTGR/QUAL/DEMO] pop=[NCSRD|ALABS] distro=[trusty|xenial|Core] action=[START/STOP/STATUS/TEST] svc=[ALL/GTK/MANO/IFTA]"
 
-NOTE: if the infrastructure deployment is not quick enough, then a timeout will expire, stoping the playbook run. As a workaround, repeat the run - eg:
+NOTE1: if the infrastructure deployment is not quick enough, then a timeout will expire, stoping the playbook run. As a workaround, just repeat the run - eg:
 * ansible-playbook son-cmud.yml -e "ops=create environ=sp" --limit @/home/ubuntu/son-install/son-cmud.retry
 
 NOTE2: depending on the performance of your infrastructure deployment and the download time to get package updates, this run could spent from 30 to 60 minutes.
 
-### Pre-configuration
 
-Create the hidden file with credentials for Openstack tenant authentication
-* ~/.config/openstack/vault_[POP]_[ENV].yaml
+#### Pre-configuration
 
 Create the hidden file with available Openstack clouds to connect [os_client_config](http://docs.openstack.org/developer/os-client-config/)
 * ~/.config/openstack/clouds.yaml
 
-Select the environment you want to deploy in 'ansible.cfg':<br>
+Select the environment you want to deploy in 'ansible.cfg' (default: "inventory = environments/sp"):<br>
 * inventory = environments/'ENV'
 or set the 'ENV' environmental variable - example:
-* export ENV=SP
+* export environ=SP
 
 
-### Example to CREATE a new platform from the scratch
+#### Example to CREATE a new platform from the scratch
 
 To deploy a new Service Platform (SP) to the Openstack VIM at Altice Labs on top of CentOS 7:
 * ansible-playbook son-cmud.yml -e 'ops=create environ=sp pop=alabs distro=Core'
