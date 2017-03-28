@@ -2,5 +2,7 @@
 # tasks file for vsa
 
 - include: haproxy.yml
+- include: ldap.yml
 - include: squid.yml
 - include: snort.yml
+#- include: openvpn.yml
