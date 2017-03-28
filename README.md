@@ -35,7 +35,7 @@ The structure of 'son-install' is flexible enough to:
 * deploy, manage, upgrade, destroy a complex, distributed platform - designated by 'method 2'
 
 
-### Method 1
+### Method 1 - deploying to the local host
 
 A quick way to deploy SONATA 5G NFV SP to the local VM is:
 
@@ -45,7 +45,8 @@ A quick way to deploy SONATA 5G NFV SP to the local VM is:
 Alternative:
 * ansible-playbook utils.yml -e "target=localhost app=sp"
 
-A quick way to deploy other application services to the local VM is (example for Docker engine):
+A quick way to deploy other application services to the local VM is - example for Docker engine deployment:
+
 * ansible-playbook utils/deploy/docker.yml -e target=localhost
 Alternative:
 * ansible-playbook utils.yml -e "target=localhost app=docker"
@@ -55,7 +56,7 @@ Actualy, the following services and applications are available for deployment to
 docker.yml  jenkins.yml  kubernetes.yml  mysql.yml        odoo.yml   otrs5.yml             pgsql.yml  sp.yml     terraform.yml
 
 
-### Method 2
+### Method 2 - provisioning infrastructure and deploying software
 
 A full way to deploy SONATA 5G NFV SP from the scratch, ie, provisioning first the infrastructure resources and then deploying the software
 
@@ -63,30 +64,32 @@ A full way to deploy SONATA 5G NFV SP from the scratch, ie, provisioning first t
 * cd son-install
 * ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] environ=[SP/INTGR/QUAL/DEMO] pop=[NCSRD|ALABS] distro=[trusty|xenial|Core] action=[START/STOP/STATUS/TEST] svc=[ALL/GTK/MANO/IFTA]"
 
-NOTE1: if the infrastructure deployment is not quick enough, then a timeout will expire, stoping the playbook run. As a workaround, just repeat the run - eg:
-* ansible-playbook son-cmud.yml -e "ops=create environ=sp" --limit @/home/ubuntu/son-install/son-cmud.retry
-
-NOTE2: depending on the performance of your infrastructure deployment and the download time to get package updates, this run could spent from 30 to 60 minutes.
+NOTE: depending on the performance of your infrastructure deployment and the download time to get package updates, this run could spent from 30 to 60 minutes.
 
 
 #### Pre-configuration
 
-Create the hidden file with available Openstack clouds to connect [os_client_config](http://docs.openstack.org/developer/os-client-config/)
+1. Create the hidden file that contains the available Openstack clouds you can connect [os_client_config](http://docs.openstack.org/developer/os-client-config/)
 * ~/.config/openstack/clouds.yaml
 
-Select the environment you want to deploy in 'ansible.cfg' (default: "inventory = environments/sp"):<br>
+2. Select the environment you want to deploy in 'ansible.cfg' (default: "inventory = environments/sp"):<br>
 * inventory = environments/'ENV'
 or set the 'ENV' environmental variable - example:
 * export environ=SP
 
+3. To avoid setting password credentials, use the private key pair (eg, "~/.ssh/your-key.pem") of the public key you have used to create the VM
 
-#### Example to CREATE a new platform from the scratch
 
-To deploy a new Service Platform (SP) to the Openstack VIM at Altice Labs on top of CentOS 7:
+#### Example to CREATE a new SONATA Service Platform from the scratch
+
+To deploy a new SP to the Openstack VIM at Altice Labs running on top of CentOS 7:
 * ansible-playbook son-cmud.yml -e 'ops=create environ=sp pop=alabs distro=Core'
 
 To create a new Demonstration Infrastructure (DI) on the NCSRD' Openstack running on top of Ubuntu 16.04:
 * ansible-playbook son-cmud.yml -e 'ops=create environ=di pop=ncsrd distro=xenial'
+
+To create a new vSA at NCSRD Openstack on top of Ubuntu 16.04:
+* ansible-playbook son-cmud.yml -e 'ops=create environ=vsa pop=ncsrd distro=xenial'
 
 
 ### Example to MANAGE the life-cycle of a platform
