@@ -1,0 +1,14 @@
+- name: start 2 proxy containers
+  docker_container:
+    name: "squid{{ item }}"
+    recreate: yes
+    image:  squid
+    command: sleep 1d
+    volumes:
+      - /var/log/sonata/squid:/var/log/squid
+    log_driver: syslog # gelf
+    #log_options:
+    #  syslog-address: tcp://my-syslog-server:514
+    #  syslog-facility: daemon
+  with_sequence: count=2
+

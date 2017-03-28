@@ -1,0 +1,6 @@
+---
+# tasks file for vsa
+
+- include: haproxy.yml
+- include: squid.yml
+- include: snort.yml
