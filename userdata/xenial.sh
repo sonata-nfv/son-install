@@ -1,10 +1,10 @@
 #!/bin/bash
-sudo apt-get update -y
-sudo apt-get install python -y
-sudo apt-get install software-properties-common -y
-sudo apt-add-repository ppa:ansible/ansible
-sudo apt-get update -y
-sudo apt-get install ansible -y
-sudo apt-get install git -y
-sudo apt-get install htop nmap tree sysstat -y
+apt-get update -y
+apt-get install python -y
+apt-get install software-properties-common -y
+apt-add-repository ppa:ansible/ansible
+apt-get update -y
+apt-get install ansible -y
+apt-get install git -y
+apt-get install htop nmap tree sysstat -y
 
