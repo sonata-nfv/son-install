@@ -1,0 +1,34 @@
+---
+# tasks file for os-instance
+
+- name: launch instances
+  os_server:
+    cloud: os_alabs
+    name: "{{ prefix }}-{{ item.name }}"
+    state: present
+    key_name: "{{ item.key }}"
+    availability_zone: "{{ item.availability_zone }}"
+    security_groups: "{{ item.security_groups }}"
+    nics: "{{ item.nics }}"
+    image: "{{ item.image }}"
+    flavor: "{{ item.flavor }}"
+    wait: yes
+  with_items: "{{ servers }}"
+  register: "os_hosts"
+
+- name: add hosts to dynamic inventory
+  add_host:
+    name: "{{ item['openstack']['human_id'] }}"
+    groups: "{{ item['item']['meta']['group'] }}"
+    ansible_host: "{{ item.openstack.accessIPv4 }}"
+  with_items: "{{ os_hosts.results }}"
+
+- name: 1st Wait for SSH on the Instance
+  command: >
+    ssh -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} true
+  register: result
+  until: result|success
+  retries: 30
+  delay: 10
+  with_items: "{{ os_hosts.results }}"
+
