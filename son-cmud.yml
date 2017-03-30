@@ -4,8 +4,6 @@
   hosts: localhost
   become: false
   connection: local
-  vars:
-    localhome: "{{ lookup('env','PWD') }}"
   pre_tasks:
     - local_action: shell date +'%F %T'
       register: ts

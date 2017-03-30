@@ -4,6 +4,8 @@
   hosts: localhost
   become: false
   connection: local
+  vars:
+    localhome: "{{ lookup('env','PWD') }}"
 
   tasks:
 
