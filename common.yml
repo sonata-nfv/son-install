@@ -1,6 +1,6 @@
 ---
 
-- name: deploy COMMON to ALL nodes
+- name: deploy COMMON to ALL nodes (install latest operating system packages)
   hosts: all
   become: true
   connection: ssh
@@ -21,7 +21,7 @@
       poll: 0
       ignore_errors: true
 
-    - name: waiting for server to come back
+    - name: WAITING for server to come back
       local_action: wait_for host={{ ansible_host | default(inventory_hostname) }} port=22 state=started delay=10 timeout=400
       become: false
 
