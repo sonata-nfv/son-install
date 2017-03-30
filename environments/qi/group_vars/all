@@ -10,7 +10,7 @@ servers:
     nics:
      - net-id: "{{ int_net_id }}"
     availability_zone: "{{ availability_zone }}"
-    userdata: "{{ lookup('file', 'userdata/{{ ansible_distribution_release }}.sh') }}"
+    userdata: "{{ lookup('file', '{{ localhome }}/userdata/{{ ansible_distribution_release }}.sh') }}"
     meta:
       hostname: "{{ environ }}-{{ pop }}-{{ distro }}"
       group: qi
