@@ -1,11 +1,11 @@
 # DEFAULT VARs
-environ: sp
-cld: openstack
-pop: alabs
-distro: Core
-ops: create
-svc: all
-openstack_release: mitaka
+#environ: sp
+#cld: openstack
+#pop: alabs
+#distro: Core
+#ops: create
+#svc: all
+#openstack_release: mitaka
 
 # DEFAULT VM CONFIG
 vm_user: centos
