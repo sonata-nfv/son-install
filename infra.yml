@@ -23,6 +23,7 @@
         nics: "{{ item.nics }}"
         image: "{{ item.image }}"
         flavor: "{{ item.flavor }}"
+        timeout: 360
         wait: yes
       with_items: "{{ servers }}"
       register: "os_hosts"
@@ -51,7 +52,7 @@
         group: "{{ lookup('env','USER') }}"
         mode: 0644
 
-    - name: 1st Wait for SSH on the Instance
+    - name: WAIT the SSH port listening at the new deployed instance
       command: >
         ssh -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} true
       register: result
@@ -59,4 +60,10 @@
       retries: 40
       delay: 10
       with_items: "{{ os_hosts.results }}"
+
+    - name: Assure that Python 2.7 is installed at Xenial VM
+      shell: >
+        ssh -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} 'sudo apt-get install python -y'
+      with_items: "{{ os_hosts.results }}"
+      when: ansible_distribution_release == "xenial"
 
