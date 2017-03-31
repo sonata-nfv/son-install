@@ -3,7 +3,7 @@
 
 servers:
 
-  - name: "{{ environ }}-{{ pop }}-{{ distro }}"
+  - name: "{{ environ }}-{{ pop }}-{{ distro }}-{{ ansible_date_time.epoch }}"
     image: "{{ image }}"
     flavor: "{{ flavor }}"
     key: "{{ key_name }}"
