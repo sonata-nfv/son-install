@@ -16,7 +16,6 @@
   - openssl
   - libssl-dev
   - libffi-dev
-  - wget
 
 - name: "Install PIP"
   easy_install: name=pip
@@ -68,12 +67,12 @@
 #  sudo: yes
 #  sudo_user: "{{ deploy_user }}"
   get_url:
-    #url="https://pypi.python.org/packages/cc/6a/51fdde55a5ab2bb74ab123e5b8003587bd883ee417b51e389b7986d0f545/shade-{{ tarball_version }}.tar.gz#md5=7a49274c19fef9a17dda8465db6b37eb"
-    url="https://pypi.python.org/packages/7e/1f/2409fd66f2574a2dc9daf335b47384e91f1ae52d8c1bb713ec1f840e188d/shade-{{ tarball_version }}.tar.gz#md5=a09e159e35727bbb68eb3e5779658df4"
+    #url="https://pypi.python.org/packages/cc/6a/51fdde55a5ab2bb74ab123e5b8003587bd883ee417b51e389b7986d0f545/shade-{{ shade_tarball }}.tar.gz#md5=7a49274c19fef9a17dda8465db6b37eb"
+    url="https://pypi.python.org/packages/7e/1f/2409fd66f2574a2dc9daf335b47384e91f1ae52d8c1bb713ec1f840e188d/shade-{{ shade_tarball }}.tar.gz#md5=a09e159e35727bbb68eb3e5779658df4"
     dest="/{{ ansible_user_id }}/"
   register: new_archive
 
 - name: install tarball
-  pip: name='file:///{{ ansible_user_id }}/shade-{{ tarball_version }}.tar.gz'
+  pip: name='file:///{{ ansible_user_id }}/shade-{{ shade_tarball }}.tar.gz'
   when: new_archive|changed
 

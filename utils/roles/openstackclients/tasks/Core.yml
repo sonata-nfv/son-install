@@ -5,22 +5,32 @@
 - name:  upgrade all packages to the latest version
   yum: name='*' state=latest update_cache=yes
 
+- yum: name="@Development tools" state=present
+
 - name: install required libraries and tools for PIP
   yum: name={{ item }} state=latest
   with_items:
-    - "@Development tools"
     - python-devel
     - python-pip
     - openssl-devel
     - libffi-devel
-    - wget
 
 # https://pypi.python.org/pypi/shade/1.14.1
 - name: install Openstack clients
   pip: name={{ item }} state=latest
   with_items: 
-  - six
+  - python-systemd
   - requestsexceptions>=1.1.1
+  - pbr>=0.11
+  - os-client-config>=1.20.0
+  - netifaces>=0.10.4
+  - munch
+  - keystoneauth1>=2.11.0
+  - jsonpatch
+  - jmespath
+  - ipaddress
+  - dogpile.cache>=0.5.3
+  - six
   - python-openstackclient
   - python-keystoneclient>=0.11.0
   - python-heatclient>=1.0.0
@@ -33,27 +43,16 @@
   - python-troveclient>=1.2.0
   - python-designateclient>=2.1.0
   - python-ironicclient>=0.10.0
-  - pbr>=0.11
-  - os-client-config>=1.20.0
-  - netifaces>=0.10.4
-  - munch
-  - keystoneauth1>=2.11.0
-  - jsonpatch
-  - jmespath
-  - ipaddress
-  - dogpile.cache>=0.5.3
-  - decorator
-  - python-systemd
+
 
 # Install 'shade' python module (needed by Ansible Cloud module)
 - name: Gets 'shade' tarball
   get_url:
-    #url="https://pypi.python.org/packages/cc/6a/51fdde55a5ab2bb74ab123e5b8003587bd883ee417b51e389b7986d0f545/shade-{{ tarball_version }}.tar.gz#md5=7a49274c19fef9a17dda8465db6b37eb" # 1.12.1
-    url: "https://pypi.python.org/packages/7e/1f/2409fd66f2574a2dc9daf335b47384e91f1ae52d8c1bb713ec1f840e188d/shade-{{ tarball_version }}.tar.gz#md5=a09e159e35727bbb68eb3e5779658df4" # 1.14.1
+    url: "https://pypi.python.org/packages/7e/1f/2409fd66f2574a2dc9daf335b47384e91f1ae52d8c1bb713ec1f840e188d/shade-{{ shade_tarball }}.tar.gz#md5=a09e159e35727bbb68eb3e5779658df4" # 1.14.1
     dest: "/{{ ansible_user_id }}/"
   register: new_archive
 
 - name: install tarball
-  pip: name='file:///{{ ansible_user_id }}/shade-{{ tarball_version }}.tar.gz'
+  pip: name='file:///{{ ansible_user_id }}/shade-{{ shade_tarball }}.tar.gz'
   when: new_archive|changed
 
