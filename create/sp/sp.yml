@@ -1,6 +1,11 @@
 - hosts: sp
   become: true
+  vars_files:
+    - "environments/{{ environ }}/group_vars/os{{ pop }}{{ distro }}.yml"
+  remote_user: "{{ vm_user }}"
+
   connection: ssh
+
   pre_tasks:
 
     - local_action: shell date +'%F %T'
