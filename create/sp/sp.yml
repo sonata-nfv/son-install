@@ -1,6 +1,5 @@
 - hosts: sp
   become: true
-  remote_user: "{{ vm_user }}"
 
   connection: ssh
 
