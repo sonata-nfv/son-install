@@ -20,7 +20,7 @@
     restart_policy: "unless-stopped"
     ports: "5300:5300"
     volumes: 
-      - /home/{{ ansible_user_id }}/son-gkeeper/son-gtksrv/:/opt/sonata/son-gktsrv
+      - /home/{{ vm_user }}/son-gkeeper/son-gtksrv/:/opt/sonata/son-gktsrv
       - /var/log/sonata:/var/log/son-gtksrv
     log_driver: syslog
 

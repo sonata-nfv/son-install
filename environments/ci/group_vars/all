@@ -3,7 +3,7 @@
 
 servers:
 
-  - name: "{{ environ }}-{{ pop }}-{{ distro }}-jks"
+  - name: "{{ environ }}-{{ pop }}-{{ distro }}-{{ ansible_date_time.epoch }}"
     image: "{{ image }}"
     flavor: "{{ flavor }}"
     key: "{{ key_name }}"
@@ -16,7 +16,7 @@ servers:
       group: ci
     with_sequence: "start=1 end={{ nbofvms }} format=%02x"
 
-  - name: "{{ environ }}-{{ pop }}-{{ distro }}-intsrv00"
+  - name: "{{ environ }}-{{ pop }}-{{ distro }}-{{ ansible_date_time.epoch }}"
     image: "{{ image }}"
     flavor: "{{ flavor }}"
     key: "{{ key_name }}"
