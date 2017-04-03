@@ -53,7 +53,7 @@
 
     - name: WAIT the SSH port listening at the new deployed instance
       command: >
-        ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i {{ localhome }}/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} true
+        ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} true
       register: result
       until: result|success
       retries: 40
@@ -62,7 +62,7 @@
 
     - name: Assure that Python 2.7 is installed at Xenial VM
       shell: >
-        ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i {{ localhome }}/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} 'sudo apt-get install python -y'
+        ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} 'sudo apt-get install python -y'
       with_items: "{{ os_hosts.results }}"
       when: ansible_distribution_release == "xenial"
 
