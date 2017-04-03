@@ -1,7 +1,7 @@
 - hosts: sp
   become: true
   vars_files:
-    - "environments/{{ environ }}/group_vars/os{{ pop }}{{ distro }}.yml"
+    - "../../environments/{{ environ }}/group_vars/os{{ pop }}{{ distro }}.yml"
   remote_user: "{{ vm_user }}"
 
   connection: ssh
