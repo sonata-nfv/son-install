@@ -1,4 +1,7 @@
-- hosts: sp
+---
+
+- name: Deploy the Service Platform
+  hosts: "{{ environ }}"
   become: true
   vars_files:
     - "../../environments/{{ environ }}/group_vars/os{{ pop }}{{ distro }}.yml"
