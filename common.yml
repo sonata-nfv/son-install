@@ -6,6 +6,7 @@
   vars_files:
     - "environments/{{ environ }}/group_vars/os_{{ pop }}_{{ distro }}.yml"
   remote_user: "{{ vm_user }}"
+  private_key_file: "~/.ssh/{{ host.item.key }}.pem"
 
   connection: ssh
 
