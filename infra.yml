@@ -6,10 +6,9 @@
   connection: local
   vars:
     localhome: "{{ lookup('env','PWD') }}"
-
   tasks:
 
-    - include_vars: "environments/{{ environ }}/group_vars/os_{{ pop }}_{{ distro }}.yml"
+    - include_vars: "{{ localhome }}/environments/{{ environ }}/group_vars/os_{{ pop }}_{{ distro }}.yml"
 
     - name: launch 'N' instances
       os_server:
