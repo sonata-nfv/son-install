@@ -1,10 +1,5 @@
----
-
-- name: Deploy the Service Platform
-  hosts: "{{ environ }}"
+- hosts: sp
   become: true
-  vars_files:
-    - "../../environments/{{ environ }}/group_vars/os{{ pop }}{{ distro }}.yml"
   remote_user: "{{ vm_user }}"
 
   connection: ssh
