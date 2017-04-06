@@ -1,0 +1,8 @@
+---
+- name: deploy ODL to the target machine
+  hosts: "{{ target }}"
+  become: true
+  roles:
+  - jdk
+  - opendaylight
+
