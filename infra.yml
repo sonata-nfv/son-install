@@ -59,9 +59,17 @@
       retries: 40
       delay: 10
       with_items: "{{ os_hosts.results }}"
+#
+#
+#
 
-    - name: Assure that Python 2.7 is installed at Xenial VM
+    - name: Assure that Python 2.7 is installed when target is Xenial VM
       shell: >
         ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} 'sudo apt-get install python -y'
       with_items: "{{ os_hosts.results }}"
       when: ansible_distribution_release == "xenial"
+
+    - name: Assure that NO RequiredTTY is needed when target is CentOS 7 VM
+      shell: sudo sed -i -- 's/Defaults    requiretty/Defaults    !requiretty/g' /etc/sudoers
+      when: ansible_distribution_release == "Core"
+
