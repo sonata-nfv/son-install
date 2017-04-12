@@ -56,7 +56,7 @@
         ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} true
       register: result
       until: result|success
-      retries: 40
+      retries: 20
       delay: 10
       with_items: "{{ os_hosts.results }}"
 #
@@ -69,8 +69,11 @@
       with_items: "{{ os_hosts.results }}"
       when: ansible_distribution_release == "xenial"
 
+    - command: sleep 30s
+
     - name: Assure that NO RequiredTTY is needed when target is CentOS 7 VM
       shell: >
         ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} "sudo sed -i -- 's/Defaults    requiretty/Defaults    !requiretty/g' /etc/sudoerssudo sed -i -- 's/Defaults    requiretty/Defaults    !requiretty/g' /etc/sudoers"
+      with_items: "{{ os_hosts.results }}"
       when: ansible_distribution_release == "Core"
 
