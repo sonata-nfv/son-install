@@ -7,7 +7,7 @@
     localhome: "{{ lookup('env','PWD') }}"
   vars_files:
     - "{{ localhome }}/environments/{{ environ }}/group_vars/os_{{ pop }}_{{ distro }}.yml"
-  remote_user: "{{ vm_user }}"
+# remote_user: "{{ vm_user }}"
 
   connection: ssh
 
