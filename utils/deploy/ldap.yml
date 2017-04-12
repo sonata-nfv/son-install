@@ -7,7 +7,7 @@
     - local_action: shell date +'%F %T'
       register: ts
     - debug:
-        msg: "ODL deployment started @ {{ ts.stdout }}"
+        msg: "OpenLDAP deployment started @ {{ ts.stdout }}"
     - file:
         path: /var/log/ansible.log
         state: touch
