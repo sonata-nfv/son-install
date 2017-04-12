@@ -59,24 +59,22 @@
       retries: 20
       delay: 10
       with_items: "{{ os_hosts.results }}"
-#
-#
-#
-    - name: 1st SLEEP for a MINUTE
-      command: sleep 30s
 
-    - name: Assure that Python 2.7 is installed when target is Xenial VM
-      shell: >
-        ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} 'sudo apt-get install python -y'
-      with_items: "{{ os_hosts.results }}"
-      when: ansible_distribution_release == "xenial"
+#    - name: 1st SLEEP for a MINUTE
+#      command: sleep 30s
 
-    - name: 2nd SLEEP for a MINUTE
-      command: sleep 30s
+#    - name: Assure that Python 2.7 is installed when target is Xenial VM
+#      shell: >
+#        ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} 'sudo apt-get install python -y'
+#      with_items: "{{ os_hosts.results }}"
+#      when: ansible_distribution_release == "xenial"
 
-    - name: Assure that NO RequiredTTY is needed when target is CentOS 7 VM
-      shell: >
-        ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} "sudo sed -i -- 's/Defaults    requiretty/Defaults    !requiretty/g' /etc/sudoers"
-      with_items: "{{ os_hosts.results }}"
-      when: ansible_distribution_release == "Core"
+#    - name: 2nd SLEEP for a MINUTE
+#      command: sleep 30s
+
+#    - name: Assure that NO RequiredTTY is needed when target is CentOS 7 VM
+#      shell: >
+#        ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} "sudo sed -i -- 's/Defaults    requiretty/Defaults    !requiretty/g' /etc/sudoers"
+#      with_items: "{{ os_hosts.results }}"
+#      when: ansible_distribution_release == "Core"
 
