@@ -16,6 +16,7 @@
     - local_action: shell date +'%F %T'
       register: ts
     - debug: msg={{ ts.stdout }}
+    - command: sleep 30s
 
   roles:
     - common
