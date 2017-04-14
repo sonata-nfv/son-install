@@ -67,7 +67,7 @@
       shell: >
         ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} 'sudo apt-get install python -y'
       with_items: "{{ os_hosts.results }}"
-      when: ansible_distribution_release == "xenial"
+      when: "{{ vm_user }} == ubuntu"
 
     - name: 2nd SLEEP for a MINUTE
       command: sleep 30s
