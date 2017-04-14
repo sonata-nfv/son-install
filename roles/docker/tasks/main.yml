@@ -14,7 +14,7 @@
   copy: src=group_vars.all dest=/etc/ansible/group_vars/all owner=root group=root mode=0644
 
 - name: create a directory for Docker logging
-  file: path=/var/log/docker state=directory owner="{{ lookup('env','USER') }}" group=docker mode=0775
+  file: path=/var/log/docker state=directory owner="{{ vm_user }}" group=docker mode=0775
 
 - include: "{{ ansible_distribution_release }}.yml"
 
