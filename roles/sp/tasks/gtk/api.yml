@@ -19,7 +19,7 @@
       - son-gtksrv
       - son-gtkvim
     state: started
-    ports: "32001:5000"
+    published_ports: "32001:5000"
     restart_policy: "unless-stopped"
     volumes:
       - /var/log/sonata:/var/log/son-gtkapi

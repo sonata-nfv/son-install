@@ -11,7 +11,7 @@
       LOGS_URL: "{{ public_ip }}:12900"
     state: started
     exposed_ports: 80
-    ports: "80:80"
+    published_ports: "80:80"
     restart_policy: "unless-stopped"
     volumes:
       - /var/log/sonata:/var/log/son-gui

@@ -18,7 +18,7 @@
       - son-postgres
     state: started
     restart_policy: "unless-stopped"
-    ports: "5300:5300"
+    published_ports: "5300:5300"
     volumes: 
       - /home/{{ vm_user }}/son-gkeeper/son-gtksrv/:/opt/sonata/son-gktsrv
       - /var/log/sonata:/var/log/son-gtksrv

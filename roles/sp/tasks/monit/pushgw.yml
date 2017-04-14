@@ -3,7 +3,7 @@
       name: son-monitor-pushgateway
       image: sonatanfv/son-monitor-pushgateway
       state: started
-      ports: 9091:9091
+      published_ports: 9091:9091
       volumes:
         - /var/log/sonata:/var/log/monitor-pushgateway
       log_driver: syslog # gelf

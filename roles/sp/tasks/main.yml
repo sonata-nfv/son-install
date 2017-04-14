@@ -23,3 +23,9 @@
 
 # deploy Monitoring
 - include: monit-all.yml
+
+# deploy Google cAdvisor
+- include: cadvisor.yml
+
+# deploy Grafana
+- include: grafana.yml

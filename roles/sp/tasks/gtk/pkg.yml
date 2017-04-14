@@ -9,7 +9,7 @@
       CATALOGUES_URL: http://{{ public_ip }}:4002/catalogues
       RACK_ENV: integration
     state: started
-    ports: "5100:5100"
+    published_ports: "5100:5100"
     restart_policy: "unless-stopped"
     volumes:
       - /var/log/sonata:/var/log/son-gtkpkg

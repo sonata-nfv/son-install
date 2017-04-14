@@ -7,7 +7,7 @@
     image: sonatanfv/son-yo-gen-bss
     command: grunt serve:integration --gkApiUrl=http://{{ public_ip }}:32001
     state: started
-    ports: "25001:1337"
+    published_ports: "25001:1337"
     restart_policy: "unless-stopped"
     volumes:
       - /var/log/sonata:/var/log/son-bss

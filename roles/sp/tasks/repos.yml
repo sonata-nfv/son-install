@@ -4,8 +4,8 @@
     name: son-catalogue-repos
     image: sonatanfv/son-catalogue-repos
     state: started
-    expose: 4011
-    ports: 4002:4011
+    exposed_ports: 4011
+    published_ports: 4002:4011
     etc_hosts:
       mongo: "{{ ansible_default_ipv4.address }}"
       #mongo: "{{ ansible_docker0['ipv4']['address']}}"

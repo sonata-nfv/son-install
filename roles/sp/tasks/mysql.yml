@@ -20,7 +20,7 @@
 
     state: started
 
-    ports: 3306:3306
+    published_ports: 3306:3306
 
     volumes:
 

@@ -3,7 +3,7 @@
       name: son-monitor-influxdb
       image: sonatanfv/son-monitor-influxdb
       state: started
-      ports: 8086:8086
+      published_ports: 8086:8086
       volumes:
         - /var/log/sonata:/var/log/monitor-influxdb
       log_driver: syslog

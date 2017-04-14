@@ -10,7 +10,7 @@
         PUSHGATEWAY_HOST: prometheus
         PUSHGATEWAY_PORT: 9091
       exposed_ports: 5400
-      ports: "5400:5400"
+      published_ports: "5400:5400"
       volumes:
         - /var/log/sonata/son-gtkkpi:/var/log/son-gtkkpi
       log_driver: syslog # gelf

@@ -11,7 +11,7 @@
       - son-broker
       - son-mongo
     state: started
-    ports: 8001:8001
+    published_ports: 8001:8001
     volumes:
       - /var/log/sonata/pluginmgr:/var/log/mano-pluginmanager
     log_driver: syslog # gelf
