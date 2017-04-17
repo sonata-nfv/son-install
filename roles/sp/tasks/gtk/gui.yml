@@ -7,7 +7,7 @@
     image: sonatanfv/son-gui
     env:
       MON_URL: "{{ public_ip }}:8000"
-      GK_URL: "{{ public_ip }}:32001"
+      GK_URL: "{{ public_ip }}:32001/api/v2"
       LOGS_URL: "{{ public_ip }}:12900"
     state: started
     exposed_ports: 80
