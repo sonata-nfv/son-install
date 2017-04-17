@@ -14,6 +14,6 @@
         - "/var/run/docker.sock:/var/run/docker.sock"
         - "/:/rootfs:ro"
         - "/proc:/myhost/proc"
-        - /var/log/sonata:/var/log/monitor-probe
+        - /var/log/sonata/monitor-probe:/var/log/monitor-probe
       log_driver: syslog # gelf
 

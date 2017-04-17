@@ -11,5 +11,5 @@
       volumes:
       - "/:/rootfs:ro"
       - "/proc:/myhost/proc"
-      - /var/log/sonata:/var/log/mon-vmprobe
+      - /var/log/sonata/mon-vmprobe:/var/log/mon-vmprobe
 

@@ -10,6 +10,6 @@
     state: started
     published_ports: 5432:5432
     volumes:
-      - /var/log/sonata:/var/log/son-postgres
+      - /var/log/sonata/son-postgres:/var/log/son-postgres
 
 - wait_for: host=0.0.0.0 port=5432 timeout=30 delay=10 state=started

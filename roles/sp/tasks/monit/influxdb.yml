@@ -5,7 +5,7 @@
       state: started
       published_ports: 8086:8086
       volumes:
-        - /var/log/sonata:/var/log/monitor-influxdb
+        - /var/log/sonata/monitor-influxdb:/var/log/monitor-influxdb
       log_driver: syslog
       #log_options: gelf-address=udp://10.31.11.37:12900
 

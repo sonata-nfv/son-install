@@ -21,7 +21,7 @@
     published_ports: "5700:5700"
     volumes:
       - /home/{{ vm_user }}/son-gkeeper/son-gtkvim/:/opt/sonata/son-gktvim
-      - /var/log/sonata:/var/log/son-gtkvim
+      - /var/log/sonata/son-gtkvim:/var/log/son-gtkvim
     log_driver: syslog
 
 - wait_for: host=0.0.0.0 port=5700 timeout=30 delay=10 state=started

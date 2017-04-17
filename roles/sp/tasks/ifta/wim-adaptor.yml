@@ -13,6 +13,6 @@
       repo_user: "sonatatest"
       repo_pass: "sonata"
     volumes:
-      - /var/log/sonata:/var/ifta-wim
+      - /var/log/sonata/ifta-wim:/var/log/ifta-wim
     log_driver: syslog # gelf
 
