@@ -11,20 +11,20 @@
     when: ansible_os_family == "Debian"
 
   - name: check if the NTP svc exists on Redhat systems
-    stat: path=/etc/init.d/ntpd
+    stat: path=/usr/lib/systemd/system/ntpd.service
     register: svc_status
     when: ansible_os_family == "RedHat"
 
   - name: stop NTP svc
-    svc: name=ntp state=stopped enabled=no
+    service: name=ntp state=stopped enabled=no
     when: svc_status.stat.exists
-    register: svc_stopped
+    #register: svc_stopped
     when: ansible_os_family == "Debian"
 
   - name: stop NTP svc
-    svc: name=ntpd state=stopped enabled=no
+    service: name=ntpd state=stopped enabled=no
     when: svc_status.stat.exists
-    register: svc_stopped
+    #register: svc_stopped
     when: ansible_os_family == "RedHat"
 
   - name: finally, remove NTP from system
