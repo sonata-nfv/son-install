@@ -22,7 +22,7 @@
     restart_policy: "unless-stopped"
     published_ports: "5700:5700"
     volumes:
-      - /home/{{ vm_user }}/son-gkeeper/son-gtkvim/:/opt/sonata/son-gktvim
+      #- /home/{{ vm_user }}/son-gkeeper/son-gtkvim/:/opt/sonata/son-gktvim
       - /var/log/sonata/son-gtkvim:/var/log/son-gtkvim
     log_driver: syslog
 
