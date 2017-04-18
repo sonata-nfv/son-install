@@ -12,6 +12,8 @@
       repo_port: "5432"
       repo_user: "sonatatest"
       repo_pass: "sonata"
+    networks:
+      - name: bridge
     volumes:
       - /var/log/sonata/ifta-vim:/var/log/ifta-vim
     log_driver: syslog # gelf

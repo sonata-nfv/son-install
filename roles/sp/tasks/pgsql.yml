@@ -8,6 +8,8 @@
       POSTGRES_USER=sonatatest
       POSTGRES_PASSWORD=sonata
     state: started
+    networks:
+      - name: bridge
     published_ports: 5432:5432
     volumes:
       - /var/log/sonata/son-postgres:/var/log/son-postgres

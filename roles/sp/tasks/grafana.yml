@@ -5,6 +5,8 @@
     name: grafana
     image: grafana/grafana
     state: started
+    networks:
+      - name: bridge
     published_ports: 3000:3000
     exposed_ports: 3000
     etc_hosts:

@@ -5,6 +5,8 @@
     name: cadvisor
     image: google/cadvisor
     state: started
+    networks:
+      - name: bridge
     published_ports: 8079:8080
     etc_hosts:
       prometheus: "{{ ansible_default_ipv4.address }}"

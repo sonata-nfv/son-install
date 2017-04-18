@@ -5,8 +5,10 @@
     env:
       broker_host: amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F
       broker_name: son-broker,broker
-    links:
-      - son-broker
+    networks:
+      - name: bridge # "{{ son-docker_netw }}"
+        links:
+          - son-broker
     state: started
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"

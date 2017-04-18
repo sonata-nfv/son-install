@@ -5,6 +5,8 @@
     image: sonatanfv/son-mongo
     #env:
     state: started
+    networks:
+      - name: bridge
     published_ports: 27017:27017
     volumes:
       - /var/log/sonata/mongo:/var/log/mongo

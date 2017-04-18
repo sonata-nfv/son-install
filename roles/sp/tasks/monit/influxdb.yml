@@ -3,6 +3,8 @@
       name: son-monitor-influxdb
       image: sonatanfv/son-monitor-influxdb
       state: started
+      networks:
+        - name: bridge
       published_ports: 8086:8086
       volumes:
         - /var/log/sonata/monitor-influxdb:/var/log/monitor-influxdb

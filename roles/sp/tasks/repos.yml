@@ -4,6 +4,8 @@
     name: son-catalogue-repos
     image: sonatanfv/son-catalogue-repos
     state: started
+    networks:
+      - name: bridge
     exposed_ports: 4011
     published_ports: 4002:4011
     etc_hosts:

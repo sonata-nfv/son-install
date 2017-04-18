@@ -17,6 +17,8 @@
     env:
       RABBITMQ_CONSOLE_LOG: new
     state: started
+    networks:
+      - name: bridge
     published_ports: "5672:5672, 8080:15672"
     privileged: yes
     volumes:

@@ -7,9 +7,11 @@
     env:
       mongo_host: "{{ ansible_default_ipv4.address }}"
       broker_host: amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F
-    links:
-      - son-broker
-      - son-mongo
+    networks:
+      - name: bridge # "{{ son-docker_netw }}"
+        links:
+          - son-broker
+          - son-mongo
     state: started
     published_ports: 8001:8001
     volumes:

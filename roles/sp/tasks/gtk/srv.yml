@@ -13,9 +13,11 @@
       DATABASE_PORT: 5432
       POSTGRES_PASSWORD: sonata
       POSTGRES_USER: sonatatest
-    links:
-      - son-broker
-      - son-postgres
+    networks:
+      - name: bridge # "{{ son-docker_netw }}"
+        links:
+          - son-broker
+          - son-postgres
     state: started
     restart_policy: "unless-stopped"
     published_ports: "5300:5300"

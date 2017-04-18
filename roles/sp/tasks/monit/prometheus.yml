@@ -6,9 +6,11 @@
       env:
         RABBIT_URL: "{{ ansible_default_ipv4.address }}:5672"
         EMAIL_PASS: "czBuQHRAX21vbl9zeXNfMTY="
+      networks:
+        - name: bridge
       published_ports:
-      - 9090:9090
-      - 9089:9089
+        - 9090:9090
+        - 9089:9089
       etc_hosts:
         influx: "{{ ansible_default_ipv4.address }}"
         pushgateway: "{{ ansible_default_ipv4.address }}"
