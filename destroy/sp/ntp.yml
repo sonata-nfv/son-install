@@ -17,15 +17,11 @@
 
   - name: stop NTP svc
     service: name=ntp state=stopped enabled=no
-    when: svc_status.stat.exists
-    #register: svc_stopped
-    when: ansible_os_family == "Debian"
+    when: svc_status.stat.exists and ansible_os_family == "Debian"
 
   - name: stop NTP svc
     service: name=ntpd state=stopped enabled=no
-    when: svc_status.stat.exists
-    #register: svc_stopped
-    when: ansible_os_family == "RedHat"
+    when: svc_status.stat.exists and ansible_os_family == "RedHat"
 
   - name: finally, remove NTP from system
     apt: name=ntp state=absent 

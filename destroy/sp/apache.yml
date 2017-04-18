@@ -12,9 +12,9 @@
     when: ansible_os_family == "Debian"
 
   - name: stop Apache svc
-    svc: name=apache2 state=stopped enabled=no
+    service: name=apache2 state=stopped enabled=no
     when: svc_status.stat.exists and ansible_os_family == "Debian"
-    register: svc_stopped
+    #register: svc_stopped
 
   - name: remove Apache from system
     apt: name={{ item }} state=absent 
@@ -31,9 +31,9 @@
     when: ansible_os_family == "RedHat"
 
   - name: stop Apache svc
-    svc: name=httpd state=stopped enabled=no
+    service: name=httpd state=stopped enabled=no
     when: svc_status.stat.exists and ansible_os_family == "RedHat"
-    register: svc_stopped
+    #register: svc_stopped
 
   - name: remove Apache from system
     apt: name={{ item }} state=absent
