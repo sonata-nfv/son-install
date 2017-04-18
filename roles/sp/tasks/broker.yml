@@ -20,7 +20,7 @@
     published_ports: "5672:5672, 8080:15672"
     privileged: yes
     volumes:
-      - /var/log/sonata/son-broker:/var/log/son-broker
+      - /var/log/sonata/son-broker:/var/log/rabbitmq
     log_driver: syslog # gelf
 # when: service_status.stdout == "active"
 

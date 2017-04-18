@@ -20,7 +20,6 @@
     restart_policy: "unless-stopped"
     published_ports: "5300:5300"
     volumes: 
-      - /home/{{ vm_user }}/son-gkeeper/son-gtksrv/:/opt/sonata/son-gktsrv
       - /var/log/sonata/son-gtksrv:/var/log/son-gtksrv
     log_driver: syslog
 
