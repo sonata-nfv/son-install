@@ -12,6 +12,7 @@
         - 9090:9090
         - 9089:9089
       etc_hosts:
+        cadvisor: "{{ ansible_default_ipv4.address }}"
         influx: "{{ ansible_default_ipv4.address }}"
         pushgateway: "{{ ansible_default_ipv4.address }}"
       volumes:
