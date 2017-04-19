@@ -9,10 +9,10 @@
       env:
         PUSHGATEWAY_HOST: prometheus
         PUSHGATEWAY_PORT: 9091
-    networks:
-      - name: bridge
-        aliases:
-          - son-gtkkpi
+      networks:
+        - name: bridge
+          aliases:
+            - son-gtkkpi
       exposed_ports: 5400
       published_ports: "5400:5400"
       volumes:
