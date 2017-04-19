@@ -8,8 +8,9 @@
       POSTGRES_USER=sonatatest
       POSTGRES_PASSWORD=sonata
     state: started
+    network_mode: bridge
     networks:
-      - name: bridge
+      - name: "{{ docker_network_name }}"
         aliases:
           - son-postgres
     published_ports: 5432:5432

@@ -1,4 +1,8 @@
 ---
+- name: Docker User Defined Network 
+  shell: 'docker network create --driver=bridge \
+--subnet=172.20.1.0/24 --gateway=172.20.1.1 \
+--ip-range=172.20.1.128/25 "{{ docker_network_name }}"'
 
 # deploy RabbitMQ message bus
 - include: broker.yml

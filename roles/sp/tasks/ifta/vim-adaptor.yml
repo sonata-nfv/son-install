@@ -12,11 +12,12 @@
       repo_port: "5432"
       repo_user: "sonatatest"
       repo_pass: "sonata"
-    networks:
-      - name: bridge
-        aliases:
-          - ia-vim
+      network_mode: bridge
+      networks:
+        - name: "{{ docker_network_name }}"
+          aliases:
+            - son-sp-infrabstract
     volumes:
-      - /var/log/sonata/ifta-vim:/var/log/ifta-vim
+      - /var/log/sonata/ifta-vim:/var/log/son-sp-infrabstract
     log_driver: syslog # gelf
 

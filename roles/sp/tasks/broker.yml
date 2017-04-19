@@ -17,11 +17,14 @@
     env:
       RABBITMQ_CONSOLE_LOG: new
     state: started
+    network_mode: bridge
     networks:
-      - name: bridge
+      - name: "{{ docker_network_name }}"
         aliases:
           - son-broker
-    published_ports: "5672:5672, 8080:15672"
+    published_ports:
+      - "5672:5672"
+      - "8080:15672"
     privileged: yes
     volumes:
       - /var/log/sonata/son-broker:/var/log/rabbitmq

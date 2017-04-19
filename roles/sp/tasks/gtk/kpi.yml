@@ -9,8 +9,9 @@
       env:
         PUSHGATEWAY_HOST: prometheus
         PUSHGATEWAY_PORT: 9091
+      network_mode: bridge
       networks:
-        - name: bridge
+        - name: "{{ docker_network_name }}"
           aliases:
             - son-gtkkpi
       exposed_ports: 5400

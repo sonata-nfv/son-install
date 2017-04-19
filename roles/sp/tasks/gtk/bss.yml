@@ -7,8 +7,9 @@
     image: sonatanfv/son-yo-gen-bss
     command: grunt serve:integration --gkApiUrl=https://{{ public_ip }}/api/v2 --userManagementEnabled=false --licenseManagementEnabled=false
     state: started
+    network_mode: bridge
     networks:
-      - name: bridge
+      - name: "{{ docker_network_name }}"
         aliases:
           - son-bss
     published_ports: "25001:1337"

@@ -5,8 +5,9 @@
     name: grafana
     image: grafana/grafana
     state: started
+    network_mode: bridge
     networks:
-      - name: bridge
+      - name: "{{ docker_network_name }}"
         aliases:
           - grafana
     published_ports: 3000:3000

@@ -7,8 +7,9 @@
     env:
       mongo_host: "{{ ansible_default_ipv4.address }}"
       broker_host: amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F
+    network_mode: bridge
     networks:
-      - name: bridge
+      - name: "{{ docker_network_name }}"
         aliases:
           - pluginmanager
         links:

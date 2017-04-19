@@ -5,15 +5,16 @@
     name: cadvisor
     image: google/cadvisor
     state: started
+    network_mode: bridge
     networks:
-      - name: bridge
+      - name: "{{ docker_network_name }}"
         aliases:
           - cadvisor
     published_ports: 8079:8080
     etc_hosts:
       prometheus: "{{ ansible_default_ipv4.address }}"
       #mongo: "{{ ansible_docker0['ipv4']['address']}}"
-    restart_policy: "unless-stopped"
+    restart_policy: unless-stopped
     volumes:
       - /var/log/sonata/cadvisor:/var/log/cadvisor
     log_driver: syslog

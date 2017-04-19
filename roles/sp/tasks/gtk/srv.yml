@@ -13,8 +13,9 @@
       DATABASE_PORT: 5432
       POSTGRES_PASSWORD: sonata
       POSTGRES_USER: sonatatest
+    network_mode: bridge
     networks:
-      - name: bridge
+      - name: "{{ docker_network_name }}"
         aliases:
           - son-gtksrv
         links:

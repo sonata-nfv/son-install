@@ -12,11 +12,12 @@
       repo_port: "5432"
       repo_user: "sonatatest"
       repo_pass: "sonata"
-    networks:
-      - name: bridge
+      network_mode: bridge
+      networks:
+        - name: "{{ docker_network_name }}"
         aliases:
-          - ia-wim
+          - wim-adaptor
     volumes:
-      - /var/log/sonata/ifta-wim:/var/log/ifta-wim
+      - /var/log/sonata/wim-adaptor:/var/log/wim-adaptor
     log_driver: syslog # gelf
 

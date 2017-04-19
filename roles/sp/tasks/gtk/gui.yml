@@ -10,8 +10,9 @@
       GK_URL: "{{ public_ip }}:32001/api/v2"
       LOGS_URL: "{{ graylog_ip }}:12900"
     state: started
+    network_mode: bridge
     networks:
-      - name: bridge
+      - name: "{{ docker_network_name }}"
         aliases:
           - son-gui
     exposed_ports: 80

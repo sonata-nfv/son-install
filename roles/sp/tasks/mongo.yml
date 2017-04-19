@@ -5,8 +5,9 @@
     image: sonatanfv/son-mongo
     #env:
     state: started
+    network_mode: bridge
     networks:
-      - name: bridge
+      - name: "{{ docker_network_name }}"
         aliases:
           - son-mongo
     published_ports: 27017:27017
