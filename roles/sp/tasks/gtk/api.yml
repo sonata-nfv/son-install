@@ -13,7 +13,9 @@
       VIM_MANAGEMENT_URL: http://{{ public_ip }}:5700 
       RECORD_MANAGEMENT_URL: http://{{ public_ip }}:5800
     networks:
-      - name: bridge # "{{ son-docker_netw }}"
+      - name: bridge
+        aliases:
+          - son-gtkapi
         links:
           - son-gtkpkg
           - son-gtkfnct

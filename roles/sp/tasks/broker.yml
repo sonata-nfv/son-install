@@ -19,6 +19,8 @@
     state: started
     networks:
       - name: bridge
+        aliases:
+          - son-broker
     published_ports: "5672:5672, 8080:15672"
     privileged: yes
     volumes:

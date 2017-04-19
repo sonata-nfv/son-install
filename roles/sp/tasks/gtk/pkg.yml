@@ -9,6 +9,10 @@
       CATALOGUES_URL: http://{{ public_ip }}:4002/catalogues/api/v2
       RACK_ENV: integration
     state: started
+    networks:
+      - name: bridge
+        aliases:
+          - son-gtkpkg
     published_ports: "5100:5100"
     restart_policy: "unless-stopped"
     volumes:

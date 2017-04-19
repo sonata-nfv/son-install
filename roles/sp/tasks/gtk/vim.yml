@@ -14,7 +14,9 @@
       POSTGRES_PASSWORD: sonata
       POSTGRES_USER: sonatatest
     networks:
-      - name: bridge # "{{ son-docker_netw }}"
+      - name: bridge
+        aliases:
+          - son-gtkvim
         links:
           - son-broker
           - son-postgres

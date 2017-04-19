@@ -12,6 +12,10 @@
         POSTGRES_DB: gatekeeper
       state: started
       restart_policy: "unless-stopped"
+    networks:
+      - name: bridge
+        aliases:
+          - son-gtklic
       exposed_ports: 5900
       published_ports: "5900:5900"
       volumes:

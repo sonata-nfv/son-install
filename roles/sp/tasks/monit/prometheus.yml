@@ -8,6 +8,8 @@
         EMAIL_PASS: "czBuQHRAX21vbl9zeXNfMTY="
       networks:
         - name: bridge
+          aliases:
+            - prometheus-srv
       published_ports:
         - 9090:9090
         - 9089:9089

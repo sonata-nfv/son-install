@@ -5,6 +5,7 @@
       state: started
       networks:
         - name: bridge
+          aliases: monit-mgr
       published_ports: 8000:8000
       etc_hosts:
         mysql: "{{ ansible_default_ipv4.address }}"

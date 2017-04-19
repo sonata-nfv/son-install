@@ -5,6 +5,7 @@
       state: started
       networks:
         - name: bridge
+          aliases: pushgw
       published_ports: 9091:9091
       volumes:
         - /var/log/sonata/monitor-pushgateway:/var/log/monitor-pushgateway

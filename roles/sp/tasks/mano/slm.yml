@@ -10,7 +10,9 @@
       url_monitoring_server: http://{{ ansible_default_ipv4.address }}:8000/api/v1/
       broker_host: amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F
     networks:
-      - name: bridge # "{{ son-docker_netw }}"
+      - name: bridge
+        aliases:
+          - son-slm
         links:
           - son-broker
     state: started

@@ -7,6 +7,8 @@
     state: started
     networks:
       - name: bridge
+        aliases:
+          - son-mongo
     published_ports: 27017:27017
     volumes:
       - /var/log/sonata/mongo:/var/log/mongo

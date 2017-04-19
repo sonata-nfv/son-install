@@ -7,6 +7,8 @@
       broker_name: son-broker,broker
     networks:
       - name: bridge # "{{ son-docker_netw }}"
+        aliases:
+          - son-smr
         links:
           - son-broker
     state: started
