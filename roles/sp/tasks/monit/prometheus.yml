@@ -19,6 +19,6 @@
         influx: "{{ ansible_default_ipv4.address }}"
         pushgateway: "{{ ansible_default_ipv4.address }}"
       volumes:
-        - /var/log/sonata/monitor-prometheus:/var/log/son-monitor-prometheus
+        - /var/log/sonata/on-monitor-prometheus:/var/log/son-monitor-prometheus
       log_driver: syslog # gelf
 

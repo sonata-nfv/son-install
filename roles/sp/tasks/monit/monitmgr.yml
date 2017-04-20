@@ -13,7 +13,7 @@
         prometheus: "{{ ansible_default_ipv4.address }}"
       volumes:
         - "/tmp/monitoring/mgr:/var/log/apache2"
-        - /var/log/sonata/monitor-manager:/var/log/son-monitor-manager
+        - /var/log/sonata/son-monitor-manager:/var/log/son-monitor-manager
       log_driver: syslog # gelf
 
   - wait_for: host=0.0.0.0 port=8000 timeout=30 delay=10 state=started

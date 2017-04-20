@@ -18,6 +18,6 @@
           aliases:
             - son-sp-infrabstract
     volumes:
-      - /var/log/sonata/ifta-vim:/var/log/son-sp-infrabstract
+      - /var/log/sonata/son-sp-infrabstract:/var/log/son-sp-infrabstract
     log_driver: syslog # gelf
 

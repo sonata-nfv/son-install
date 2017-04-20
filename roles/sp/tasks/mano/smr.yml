@@ -15,6 +15,6 @@
     state: started
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - /var/log/sonata/smr:/var/log/specificmanagerregistry
+      - /var/log/sonata/specificmanagerregistry:/var/log/specificmanagerregistry
     log_driver: syslog # gelf
 

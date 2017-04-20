@@ -18,7 +18,7 @@
     state: started
     published_ports: 8001:8001
     volumes:
-      - /var/log/sonata/pluginmgr:/var/log/mano-pluginmanager
+      - /var/log/sonata/pluginmgr:/var/log/pluginmanager
     log_driver: syslog # gelf
 
 - wait_for: host=0.0.0.0 port=8001 timeout=30 delay=10 state=started

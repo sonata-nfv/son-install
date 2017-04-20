@@ -18,6 +18,6 @@
           - son-broker
     state: started
     volumes:
-      - /var/log/sonata/slm:/var/log/servicelifecyclemanagement
+      - /var/log/sonata/servicelifecyclemanagement:/var/log/servicelifecyclemanagement
     log_driver: syslog # gelf
 
