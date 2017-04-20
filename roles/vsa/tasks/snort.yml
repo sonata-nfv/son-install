@@ -3,7 +3,7 @@
     name: "snort{{ item }}"
     recreate: yes
     image: glanf/snort # just for PoC - to retrieve private image
-    command: sleep 1d
+    command: sleep 1m
     volumes:
       - /var/log/sonata/snort:/var/log/snort
     log_driver: syslog # gelf
