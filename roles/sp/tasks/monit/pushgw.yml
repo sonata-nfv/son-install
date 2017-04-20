@@ -6,7 +6,8 @@
       network_mode: bridge
       networks:
         - name: "{{ docker_network_name }}"
-          aliases: son-monitor-pushgateway
+          aliases:
+            - son-monitor-pushgateway
       published_ports: "9091:9091"
       volumes:
         - /var/log/sonata/son-monitor-pushgateway:/var/log/son-monitor-pushgateway
