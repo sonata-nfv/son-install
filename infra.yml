@@ -52,6 +52,13 @@
         group: "{{ lookup('env','USER') }}"
         mode: 0644
 
+
+#    - name: create SSH Security Group
+#      shell: openstack security group create sp-secgrp --description "SSH Security Group"
+#    - name: allow SSH port
+#      shell: openstack security group rule create sp-secgrp --protocol tcp --dst-port 22:22 --remote-ip 0.0.0.0/0
+
+
     - name: WAIT the SSH port listening at the new deployed instance
       command: >
         ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} true
@@ -61,8 +68,8 @@
       delay: 10
       with_items: "{{ os_hosts.results }}"
 
-    - name: SLEEP for a MINUTE
-      command: sleep 30s
+    - name: 1st sleep for a couple of seconds
+      command: sleep 2s
 
     - name: Assure that Python 2.7 is installed when target is Xenial VM
       shell: >
@@ -70,8 +77,8 @@
       with_items: "{{ os_hosts.results }}"
       when: vm_distro | match("xenial")
 
-    - name: 2nd SLEEP for a MINUTE
-      command: sleep 30s
+    - name: 2nd sleep for a couple of seconds
+      command: sleep 2s
 
 #    - name: Assure that NO RequiredTTY is needed when target is CentOS 7 VM
 #      shell: >
