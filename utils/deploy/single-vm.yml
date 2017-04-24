@@ -1,0 +1,39 @@
+- name: Deploy on OpenStack
+  hosts: localhost
+  gather_facts: false
+  tasks:
+  - name: Deploy an instance
+    os_server:
+      state: present
+      name: webserver
+      image: Core-cldimg
+      key_name: son-install
+      wait: yes
+      flavor: m1.small
+      auto_floating_ip: yes
+      network: demo-netw
+      meta:
+        hostname: webserver.localdomain
+      register: webserver
+
+  - name: Wait for SSH on the Instance
+    command: >
+      ssh -oBatchMode=yes -oStrictHostKeyChecking=no
+      centos@{{webserver.server.public_v4}} true
+    register: result
+    until: result|success
+    retries: 30
+    delay: 10
+
+  - name: Add CentOS Instance to Inventory
+    add_host: name=webserver groups=webservers
+              ansible_ssh_host={{ webserver.server.public_v4 }}
+
+- hosts: webservers
+  remote_user: centos
+  sudo: yes
+  tasks:
+    - name: ensure apache is at the latest version
+      yum: name=httpd state=latest
+    - name: make sure apache is running
+      service: name=httpd state=running
