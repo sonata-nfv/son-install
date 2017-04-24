@@ -1,6 +1,9 @@
-- name: Deploy on OpenStack
+- name: deploy on Openstack
   hosts: localhost
   gather_facts: false
+  vars:
+    localhome: "{{ lookup('env','PWD') }}"
+    distro: Core
   tasks:
   - name: Deploy an instance
     os_server:
@@ -17,6 +20,7 @@
         - net-id: "391fc7c3-3011-4c94-9eda-8b99bab7cb5e" # DEMO.NETW
       meta:
         hostname: vm.localdomain
+      userdata: "{{ lookup('file', '{{ localhome }}/userdata/{{ distro }}.sh') }}"
     register: vm
 
   - name: Wait for SSH on the Instance
@@ -32,11 +36,30 @@
     add_host: name=vm groups=vms \
               ansible_ssh_private_key_file=~/.ssh/{{ vm.server.key_name }}.pem ansible_ssh_host={{ vm.server.public_v4 }}
 
-- hosts: vms
-  remote_user: centos
+- name: deploy COMMON to ALL nodes (install latest operating system packages)
+  hosts: vms
   become: true
+  vars:
+    localhome: "{{ lookup('env','PWD') }}"
+    vm_user: centos
+  remote_user: "{{ vm_user }}"
+  connection: ssh
+  pre_tasks:
+    - shell: echo 'applying standard configuration'
+    - local_action: shell date +'%F %T'
+      register: ts
+    - debug: msg={{ ts.stdout }}
+    - command: sleep 30s
+  roles:
+    - common
   tasks:
-    - name: ensure apache is at the latest version
-      yum: name=httpd state=latest
-    - name: make sure apache is running
-      service: name=httpd state=running
+    - name: REBOOT ALL VMs
+      shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+      async: 1
+      poll: 0
+      ignore_errors: true
+
+    - name: WAITING for server to come back
+      local_action: wait_for host={{ ansible_host | default(inventory_hostname) }} port=22 state=started delay=10 timeout=400
+      become: false
+

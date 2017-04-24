@@ -5,7 +5,7 @@ pop: alabs
 environ: demo
 distro: xenial
 vm_user: ubuntu
-nbofvms: 1
+nbofvms: 2
 
 servers:
   - name: vm
@@ -17,10 +17,9 @@ servers:
     key_name: son-install
     nics:
       - net-id: "391fc7c3-3011-4c94-9eda-8b99bab7cb5e" # DEMO
-      #- net-name: demo-netw
-      #- net-id: "3ef0b481-8c8c-49c7-88f5-10e4d8c5612f" # QUAL
-      #- net-name: qual-netw
+     #- net-id: "3ef0b481-8c8c-49c7-88f5-10e4d8c5612f" # QUAL
     userdata: "{{ lookup('file', '{{ localhome }}/userdata/{{ distro }}.sh') }}"
     meta:
       hostname: "{{ environ }}-{{ pop }}-{{ distro }}-{{ ansible_date_time.epoch }}"
       group: os
+    with_sequence: "start=1 end={{ nbofvms }} format=%02x"

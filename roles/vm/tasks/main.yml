@@ -12,6 +12,7 @@
         flavor: "{{ item.flavor }}"
         nics: "{{ item.nics }}"
         availability_zone: "{{ item.availability_zone }}"
+        security_groups: "{{ item.security_groups }}"
         timeout: 360
         wait: yes
       with_items: "{{ servers }}"
