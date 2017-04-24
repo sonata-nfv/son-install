@@ -4,34 +4,36 @@
   tasks:
   - name: Deploy an instance
     os_server:
+      cloud: os_alabs_demo
       state: present
-      name: webserver
-      image: Core-cldimg
-      key_name: son-install
+      name: vm
+      image: centos7-cldimg
       wait: yes
       flavor: m1.small
       auto_floating_ip: yes
-      network: demo-netw
+      key_name: son-install
+      nics:
+        - net-id: "391fc7c3-3011-4c94-9eda-8b99bab7cb5e" # DEMO.NETW
       meta:
-        hostname: webserver.localdomain
-      register: webserver
+        hostname: vm.localdomain
+    register: vm
 
   - name: Wait for SSH on the Instance
     command: >
-      ssh -oBatchMode=yes -oStrictHostKeyChecking=no
-      centos@{{webserver.server.public_v4}} true
+      ssh -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ vm.server.key_name }}.pem \
+      centos@{{vm.server.public_v4}} true
     register: result
     until: result|success
     retries: 30
     delay: 10
 
   - name: Add CentOS Instance to Inventory
-    add_host: name=webserver groups=webservers
-              ansible_ssh_host={{ webserver.server.public_v4 }}
+    add_host: name=vm groups=vms \
+              ansible_ssh_private_key_file=~/.ssh/{{ vm.server.key_name }}.pem ansible_ssh_host={{ vm.server.public_v4 }}
 
-- hosts: webservers
+- hosts: vms
   remote_user: centos
-  sudo: yes
+  become: true
   tasks:
     - name: ensure apache is at the latest version
       yum: name=httpd state=latest
