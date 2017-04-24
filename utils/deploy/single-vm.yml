@@ -12,6 +12,7 @@
       flavor: m1.small
       auto_floating_ip: yes
       key_name: son-install
+      security_groups: ssh
       nics:
         - net-id: "391fc7c3-3011-4c94-9eda-8b99bab7cb5e" # DEMO.NETW
       meta:
