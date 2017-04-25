@@ -1,42 +1,40 @@
 ---
 # tasks file for vm
 
-    - name: launch a single instance
-      os_server:
-        # http://docs.openstack.org/developer/os-client-config/
-        state: present
-        cloud: "os_{{ pop }}_{{ environ }}"
-        name: "{{ environ }}-{{ pop }}-{{ distro }}-{{ ansible_date_time.epoch }}"
-        image: "{{ item.image }}"
-        key_name: "{{ item.key_name }}"
-        flavor: "{{ item.flavor }}"
-        nics: "{{ item.nics }}"
-        availability_zone: "{{ item.availability_zone }}"
-        security_groups: "{{ item.security_groups }}"
-        timeout: 360
-        wait: yes
-      with_items: "{{ servers }}"
-      register: "new_vm"
+- name: load variables per PoP, Tenant and Distro
+  include_vars:
+    dir: "{{ localhome }}/roles/{{ plat }}/vars"
+    files_matching: "os_{{ pop }}_{{ proj }}_{{ distro }}"
 
-    - name: create IN-MEMORY Inventory # temporary in-memory group of hosts that only persists until the end of the playbook
-      add_host:
-        name: "{{ item.openstack.name }}"
-        groups: "{{ item.item.meta.group }}"
-        ansible_host: "{{ item.openstack.accessIPv4 }}"
-      with_items: "{{ new_vm.results }}"
+- name: launch Instance(s)
+  os_server:
+    # http://docs.openstack.org/developer/os-client-config/
+    state: present
+    cloud: "os_{{ pop }}_{{ proj }}"
+    name: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ ansible_date_time.epoch }}"
+    image: "{{ image }}"
+    key_name: "{{ key_name }}"
+    flavor: "{{ flavor }}"
+    availability_zone: "{{ availability_zone }}"
+    security_groups: "{{ security_groups }}"
+    timeout: 360
+    wait: yes
+  with_items: "{{ servers }}"
+  register: "new_vm"
 
-    - name: WAIT the SSH port listening at the new deployed instance
-      command: >
-        ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} true
-      register: result
-      until: result|success
-      retries: 20
-      delay: 10
-      with_items: "{{ new_vm.results }}"
+- name: create IN-MEMORY Inventory # temporary in-memory group of hosts that only persists until the end of the playbook
+  add_host:
+    name: "{{ item.openstack.name }}"
+    groups: "{{ item.item.meta.group }}"
+    ansible_host: "{{ item.openstack.accessIPv4 }}"
+  with_items: "{{ new_vm.results }}"
 
-    - name: 1st sleep for a couple of seconds
-      command: sleep 2s
-
-    - debug:
-        msg: DONE
+- name: WAIT the SSH port listening at the new deployed instance
+  command: >
+    ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} true
+  register: result
+  until: result|success
+  retries: 20
+  delay: 10
+  with_items: "{{ new_vm.results }}"
 

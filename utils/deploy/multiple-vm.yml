@@ -1,11 +1,13 @@
 ---
 
-- name: deploy a single/standalone guest machine (VM)
+- name: deploy a guest machine (VM)
   hosts: localhost
   become: false
   connection: local
   vars:
-    localhome: "{{ lookup('env','PWD') }}"
+    localhome: "{{ lookup('env','PWD') }}" # needed for Jenkins CI 
+  vars_files:
+    - "{{ localhome }}/roles/{{ plat }}/vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
   pre_tasks:
     - local_action: shell date +'%F %T'
       register: ts
@@ -17,6 +19,8 @@
         owner: "{{ lookup('env','USER') }}"
         group: "{{ lookup('env','USER') }}"
         mode: "u=rw,g=rw,o=rw"
+    - debug:
+        msg: "passing external variables: -e 'pop=alabs|ncsrd proj=qual|demo distro=trusty|xenial|Core'"
       become: true
   roles:
     - { role: common, become: true }

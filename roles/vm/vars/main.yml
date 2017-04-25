@@ -1,25 +1,35 @@
 ---
 # vars file for vm
 
-pop: alabs
-environ: demo
-distro: xenial
-vm_user: ubuntu
-nbofvms: 2
-
+#nbofvms: 1
 servers:
-  - name: vm
-    image: xenial-cldimg
-    flavor: m1.small
-    security_groups: ssh
-    availability_zone: nova
-    #region_name: RegionOne
-    key_name: son-install
+  - name: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ ansible_date_time.epoch }}"
+    image: "{{ image }}"
+    flavor: "{{ flavor }}"
+    security_groups: "{{ security_groups }}"
+    availability_zone: "{{ availability_zone }}"
+    #region_name: "{{ region_name }}"
+    key_name: "{{ key_name }}"
     nics:
-      - net-id: "391fc7c3-3011-4c94-9eda-8b99bab7cb5e" # DEMO
-     #- net-id: "3ef0b481-8c8c-49c7-88f5-10e4d8c5612f" # QUAL
+      - net-id: "{{ int_net_id }}"
     userdata: "{{ lookup('file', '{{ localhome }}/userdata/{{ distro }}.sh') }}"
     meta:
-      hostname: "{{ environ }}-{{ pop }}-{{ distro }}-{{ ansible_date_time.epoch }}"
-      group: os
-    with_sequence: "start=1 end={{ nbofvms }} format=%02x"
+      hostname: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ ansible_date_time.epoch }}"
+      group: "{{ plat }}"
+#    with_sequence: "start=1 end={{ nbofvms }} format=%02x"
+
+  - name: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ ansible_date_time.epoch }}"
+    image: "{{ image }}"
+    flavor: "{{ flavor }}"
+    security_groups: "{{ security_groups }}"
+    availability_zone: "{{ availability_zone }}"
+    #region_name: "{{ region_name }}"
+    key_name: "{{ key_name }}"
+    nics:
+      - net-id: "{{ int_net_id }}"
+    userdata: "{{ lookup('file', '{{ localhome }}/userdata/{{ distro }}.sh') }}"
+    meta:
+      hostname: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ ansible_date_time.epoch }}"
+      group: "{{ plat }}"
+#    with_sequence: "start=1 end={{ nbofvms }} format=%02x"
+
