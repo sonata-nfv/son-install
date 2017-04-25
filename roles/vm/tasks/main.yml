@@ -1,7 +1,7 @@
 ---
 # tasks file for vm
 
-- name: load variables per PoP, Tenant and Distro
+- name: load variables per Site, Tenant and Distro
   include_vars:
     dir: "{{ localhome }}/roles/{{ plat }}/vars"
     files_matching: "os_{{ pop }}_{{ proj }}_{{ distro }}"
@@ -11,7 +11,7 @@
     # http://docs.openstack.org/developer/os-client-config/
     state: present
     cloud: "os_{{ pop }}_{{ proj }}"
-    name: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ ansible_date_time.epoch }}"
+    name: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ item }}-{{ ansible_date_time.epoch }}"
     image: "{{ image }}"
     key_name: "{{ key_name }}"
     flavor: "{{ flavor }}"
@@ -19,14 +19,17 @@
     security_groups: "{{ security_groups }}"
     timeout: 360
     wait: yes
-  with_items: "{{ servers }}"
+  with_sequence: "start=1 end={{ nbofvms }} format=%02x"
   register: "new_vm"
+
+- debug:
+    var: new_vm
 
 - name: create IN-MEMORY Inventory # temporary in-memory group of hosts that only persists until the end of the playbook
   add_host:
-    name: "{{ item.openstack.name }}"
+    name: "{{ item.server.name }}"
     groups: "{{ item.item.meta.group }}"
-    ansible_host: "{{ item.openstack.accessIPv4 }}"
+    ansible_host: "{{ item.server.accessIPv4 }}"
   with_items: "{{ new_vm.results }}"
 
 - name: WAIT the SSH port listening at the new deployed instance

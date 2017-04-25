@@ -23,6 +23,6 @@
         msg: "passing external variables: -e 'pop=alabs|ncsrd proj=qual|demo distro=trusty|xenial|Core'"
       become: true
   roles:
-    - { role: common, become: true }
-    - { role: openstackclients, become: true }
+#    - { role: common, become: true }
+#    - { role: openstackclients, become: true }
     - vm

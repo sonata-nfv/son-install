@@ -1,9 +1,8 @@
 ---
 # vars file for vm
 
-#nbofvms: 1
 servers:
-  - name: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ ansible_date_time.epoch }}"
+  - name: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ items }}-{{ ansible_date_time.epoch }}"
     image: "{{ image }}"
     flavor: "{{ flavor }}"
     security_groups: "{{ security_groups }}"
@@ -14,22 +13,5 @@ servers:
       - net-id: "{{ int_net_id }}"
     userdata: "{{ lookup('file', '{{ localhome }}/userdata/{{ distro }}.sh') }}"
     meta:
-      hostname: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ ansible_date_time.epoch }}"
+      hostname: "{{ plat }}-{{ item }}-{{ ansible_date_time.epoch }}"
       group: "{{ plat }}"
-#    with_sequence: "start=1 end={{ nbofvms }} format=%02x"
-
-  - name: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ ansible_date_time.epoch }}"
-    image: "{{ image }}"
-    flavor: "{{ flavor }}"
-    security_groups: "{{ security_groups }}"
-    availability_zone: "{{ availability_zone }}"
-    #region_name: "{{ region_name }}"
-    key_name: "{{ key_name }}"
-    nics:
-      - net-id: "{{ int_net_id }}"
-    userdata: "{{ lookup('file', '{{ localhome }}/userdata/{{ distro }}.sh') }}"
-    meta:
-      hostname: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ ansible_date_time.epoch }}"
-      group: "{{ plat }}"
-#    with_sequence: "start=1 end={{ nbofvms }} format=%02x"
-
