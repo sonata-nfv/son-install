@@ -28,7 +28,8 @@
 - name: create IN-MEMORY Inventory # temporary in-memory group of hosts that only persists until the end of the playbook
   add_host:
     name: "{{ item.server.name }}"
-    groups: "{{ item.item.meta.group }}"
+    #groups: "{{ item.item.meta.group }}"
+    groups: "{{ plat }}"
     ansible_host: "{{ item.server.accessIPv4 }}"
   with_items: "{{ new_vm.results }}"
 
