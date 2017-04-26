@@ -1,17 +1,17 @@
 ---
 # vars file for vm
 
-servers:
-  - name: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ items }}-{{ ansible_date_time.epoch }}"
-    image: "{{ image }}"
-    flavor: "{{ flavor }}"
-    security_groups: "{{ security_groups }}"
-    availability_zone: "{{ availability_zone }}"
+#servers:
+#  - name: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ items }}-{{ ansible_date_time.epoch }}"
+#    image: "{{ image }}"
+#    flavor: "{{ flavor }}"
+#    security_groups: "{{ security_groups }}"
+#    availability_zone: "{{ availability_zone }}"
     #region_name: "{{ region_name }}"
-    key_name: "{{ key_name }}"
-    nics:
-      - net-id: "{{ int_net_id }}"
-    userdata: "{{ lookup('file', '{{ localhome }}/userdata/{{ distro }}.sh') }}"
-    meta:
-      hostname: "{{ plat }}-{{ item }}-{{ ansible_date_time.epoch }}"
-      group: "{{ plat }}"
+#    key_name: "{{ key_name }}"
+#    nics:
+#      - net-id: "{{ int_net_id }}"
+#    userdata: "{{ lookup('file', '{{ localhome }}/userdata/{{ distro }}.sh') }}"
+#    meta:
+#      hostname: "{{ plat }}-{{ item }}-{{ ansible_date_time.epoch }}"
+#      group: "{{ plat }}{{ item }}"

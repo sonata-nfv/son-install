@@ -17,6 +17,7 @@
     flavor: "{{ flavor }}"
     availability_zone: "{{ availability_zone }}"
     security_groups: "{{ security_groups }}"
+    meta: "hostname={{ plat }}-{{ item }}-{{ ansible_date_time.epoch }},group={{ plat }}"
     timeout: 360
     wait: yes
   with_sequence: "start=1 end={{ nbofvms }} format=%02x"
@@ -28,8 +29,7 @@
 - name: create IN-MEMORY Inventory # temporary in-memory group of hosts that only persists until the end of the playbook
   add_host:
     name: "{{ item.server.name }}"
-    #groups: "{{ item.item.meta.group }}"
-    groups: "{{ plat }}"
+    groups: "{{ item.item.meta.group }}"
     ansible_host: "{{ item.server.accessIPv4 }}"
   with_items: "{{ new_vm.results }}"
 
