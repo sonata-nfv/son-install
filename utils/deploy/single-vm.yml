@@ -4,8 +4,15 @@
   vars:
     localhome: "{{ lookup('env','PWD') }}"
     distro: Core
+  pre_tasks:
+    - local_action: shell date +'%F %T'
+      register: ts
+    - debug:
+        msg: "{{ ts.stdout }}"
+    - debug:
+        msg: "caution - THIS PLAYBOOK CONTAINS HARD-CODED VARIABLES"
   tasks:
-  - name: Deploy an instance
+  - name: deploy an Instance
     os_server:
       cloud: os_alabs_demo
       state: present
@@ -41,8 +48,6 @@
   become: true
   vars:
     localhome: "{{ lookup('env','PWD') }}"
-    vm_user: centos
-  remote_user: "{{ vm_user }}"
   connection: ssh
   pre_tasks:
     - shell: echo 'applying standard configuration'

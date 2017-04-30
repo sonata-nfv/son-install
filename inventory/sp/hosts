@@ -1,0 +1,2 @@
+[sp]
+sp-alabs-demo-xenial-01-1493579881 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=~/.ssh/son-install.pem ansible_host=172.31.6.86 ansible_ssh_common_args='-o StrictHostKeyChecking=no'

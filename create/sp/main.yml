@@ -1,6 +1,6 @@
 ---
 
-- include: ../../infra.yml
-- include: ../../common.yml
+#- include: ../../infra.yml
+#- include: ../../common.yml
 - include: sp.yml
 

@@ -1,7 +1,7 @@
 ---
 
 - name: starting PostgreSQL Docker container at SP VM appliance
-  hosts: "{{ environ }}"
+  hosts: "{{ plat }}"
   become: true
   tasks:
 

@@ -3,9 +3,7 @@
   connection: ssh
   vars:
     localhome: "{{ lookup('env','PWD') }}"
-  vars_files:
-    - "{{ localhome }}/environments/{{ environ }}/group_vars/os_{{ pop }}_{{ distro }}.yml"
-  remote_user: "{{ vm_user }}"
+
   pre_tasks:
 
     - local_action: shell date +'%F %T'

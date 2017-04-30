@@ -1,4 +1,4 @@
-- hosts: "{{ environ }}"
+- hosts: "{{ plat }}"
   become: true
   connection: ssh
   pre_tasks:

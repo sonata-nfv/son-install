@@ -1,6 +1,6 @@
 ---
 - name: restarting GTK VIM Docker container
-  hosts: "{{ environ }}"
+  hosts: "{{ plat }}"
   become: true
   tasks:
 

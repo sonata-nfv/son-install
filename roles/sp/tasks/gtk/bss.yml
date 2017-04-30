@@ -12,8 +12,9 @@
       - name: "{{ docker_network_name }}"
         aliases:
           - son-bss
-    published_ports: "25001:1337"
-    published_ports: "25002:1338"
+    published_ports:
+      - "25001:1337"
+      - "25002:1338"
     restart_policy: "unless-stopped"
     volumes:
       - /var/log/sonata/son-bss:/var/log/son-bss

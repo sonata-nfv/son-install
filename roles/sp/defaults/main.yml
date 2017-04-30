@@ -1,2 +1,21 @@
 ---
 # defaults file for sp
+
+vm_user: ubuntu
+distro: xenial
+pop: alabs
+proj: demo
+
+# VARs for MONITOR
+upassword: sonata
+urootpw: 1234
+dbname: monitoring
+dbuser: monitoringuser
+
+# pre-load
+public_ip: 172.31.6.21
+graylog_ip: 172.31.6.21
+
+# Docker network segment
+docker_network_name: sonata
+

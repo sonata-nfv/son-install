@@ -1,6 +1,6 @@
 ---
 - name: check if service is running
-  # hosts: {{ environ }}
+  # hosts: {{ plat }}
   hosts: localhost
   connection: local
   become: true

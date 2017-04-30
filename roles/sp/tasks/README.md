@@ -1,5 +1,5 @@
 # Deployment of a MULTISTAGE platform with 2 NGINX guests and 2 PostgreSQL guests
-This playbook follows the recommended [best pratices](http://docs.ansible.com/ansible/playbooks_best_practices.html) to organize playbook content, by the separation of inventory variables between different environments,
+This playbook follows the recommended [best pratices](http://docs.ansible.com/ansible/playbooks_best_practices.html) to organize playbook content, by the separation of inventory variables between different platments,
 
 The inventory is automaticaly generated according to a structure defined at a [jinja2] template - eg:
 
@@ -21,7 +21,7 @@ vnf02
 In the current version, the default variables points to:
 * vim: os
 * pop: alb
-* environ: qual
+* plat: qual
 NOTE: to change these variables, just change 'vars/defaults.yml' or overload some with '-e' (--extra) 
 
    ansible-playbook deploy.yml

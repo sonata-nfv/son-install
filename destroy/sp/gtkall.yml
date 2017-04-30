@@ -1,6 +1,6 @@
 ---
 - name: remove ALL SP Docker containers from VM
-  hosts: "{{ environ }}"
+  hosts: "{{ plat }}"
   become: true
   tasks:
 

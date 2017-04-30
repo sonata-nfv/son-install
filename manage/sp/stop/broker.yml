@@ -1,6 +1,6 @@
 ---
 - name: stopping RabbitMQ Docker container at SON-SP VM appliance
-  hosts: "{{ environ }}"
+  hosts: "{{ plat }}"
   become: true
   tasks:
 

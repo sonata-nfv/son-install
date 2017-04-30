@@ -2,7 +2,7 @@
 # Re-starting the Sonata GTK SERVICES (Docker container)
 
 - name: restarting GTK SRV Docker container
-  hosts: "{{ environ }}"
+  hosts: "{{ plat }}"
   become: true
   tasks:
 

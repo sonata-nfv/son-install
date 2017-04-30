@@ -2,7 +2,7 @@
 # Re-starting the Sonata GTK API Docker container
 
 - name: restarting GTK API Docker container
-  hosts: "{{ environ }}"
+  hosts: "{{ plat }}"
   become: true
   tasks:
 

@@ -6,7 +6,7 @@
     dir: "{{ localhome }}/roles/{{ plat }}/vars"
     files_matching: "os_{{ pop }}_{{ proj }}_{{ distro }}"
 
-- name: launch Instance(s)
+- name: launch a new Instance(s)
   os_server:
     # http://docs.openstack.org/developer/os-client-config/
     state: present
@@ -20,19 +20,36 @@
     meta: "hostname={{ plat }}-{{ item }}-{{ ansible_date_time.epoch }},group={{ plat }}"
     timeout: 360
     wait: yes
-  with_sequence: "start=1 end={{ nbofvms }} format=%02x"
-  register: "new_vm"
+  with_sequence: "start=1 end={{ nbofvms | default(1) }} format=%02x"
+  register: "newvm"
 
 - debug:
-    var: new_vm
+    var: newvm
 
 - name: create IN-MEMORY Inventory # temporary in-memory group of hosts that only persists until the end of the playbook
   add_host:
-    name: "{{ item.server.name }}"
-    #groups: "{{ item.item.meta.group }}"
-    groups: "{{ plat }}"
-    ansible_host: "{{ item.server.accessIPv4 }}"
-  with_items: "{{ new_vm.results }}"
+    name: "{{ item.openstack.name }}"
+    groups: "{{ item.openstack.metadata.group }}"
+    #groups: "{{ plat }}"
+    ansible_host: "{{ item.openstack.accessIPv4 }}"
+  with_items: "{{ newvm.results }}"
+
+- name: create STATIC Inventory based on a provided Template ['jinja2'](http://docs.ansible.com/ansible/template_module.html)
+  template:
+    src: dynamic_inventory.j2
+    dest: "{{ lookup('env','PWD') }}/inventory/{{ plat }}/hosts"
+    owner: "{{ lookup('env','USER') }}"
+    group: "{{ lookup('env','USER') }}"
+    mode: 0644
+
+- name: Add STATIC mappings to /etc/hosts
+  become: true
+  template:
+    src: etc_hosts.j2
+    dest: /etc/hosts
+    owner: "{{ lookup('env','USER') }}"
+    group: "{{ lookup('env','USER') }}"
+    mode: 0644
 
 - name: WAIT the SSH port listening at the new deployed instance
   command: >
@@ -41,5 +58,19 @@
   until: result|success
   retries: 20
   delay: 10
-  with_items: "{{ new_vm.results }}"
+  with_items: "{{ newvm.results }}"
+
+- name: Assure that Python 2.7 is installed when target is Xenial VM
+  vars:
+    vm_distro: "{{ distro }}"
+  shell: >
+    ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} 'sudo apt-get install python -y'
+  with_items: "{{ newvm.results }}"
+  when: vm_distro | match("xenial")
+
+#  - name: Assure that NO RequiredTTY is needed when target is CentOS 7 VM
+#    shell: >
+#      ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} "sudo sed -i -- 's/Defaults    requiretty/Defaults    !requiretty/g' /etc/sudoers"
+#    with_items: "{{ newvm.results }}"
+#    when: vm_distro | match("Core")
 

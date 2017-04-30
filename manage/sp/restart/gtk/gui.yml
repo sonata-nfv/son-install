@@ -2,7 +2,7 @@
 # Re-starting the Sonata GK GUI (Docker container)
 
 - name: restarting GTK GUI Docker container
-  hosts: "{{ environ }}"
+  hosts: "{{ plat }}"
   become: true
   tasks:
 

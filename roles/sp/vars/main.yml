@@ -1,16 +1,20 @@
 ---
 # vars file for sp
 
+# CHARACTERISTICS OF VMs TO INSTANTIATE
 
-# VARs for MONITOR
-upassword: sonata
-urootpw: 1234
-dbname: monitoring
-dbuser: monitoringuser
+servers:
 
-# pre-load
-public_ip: 172.31.6.21
-graylog_ip: 172.31.6.21
+  - name: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ ansible_date_time.epoch }}"
+    image: "{{ image }}"
+    flavor: "{{ flavor }}"
+    key: "{{ key_name }}"
+    nics:
+     - net-id: "{{ int_net_id }}"
+    availability_zone: "{{ availability_zone }}"
+    userdata: "{{ lookup('file', '{{ localhome }}/userdata/{{ ansible_distribution_release }}.sh') }}"
+    meta:
+      - hostname: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ ansible_date_time.epoch }}"
+      - group: "{{ plat }}"
+    with_sequence: "start=1 end={{ nbofvms }} format=%02x"
 
-# Docker network segment
-docker_network_name: sonata

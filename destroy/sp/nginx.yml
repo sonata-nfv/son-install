@@ -1,7 +1,7 @@
 ---
 
 - name: UNINSTALLING NGINX database server
-  hosts: "{{ environ }}"
+  hosts: "{{ plat }}"
   become: true
   tasks:
 

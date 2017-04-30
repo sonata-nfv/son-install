@@ -1,7 +1,7 @@
 ---
 
 - name: UNINSTALLING APACHE
-  hosts: "{{ environ }}"
+  hosts: "{{ plat }}"
   become: true
   tasks:
 
