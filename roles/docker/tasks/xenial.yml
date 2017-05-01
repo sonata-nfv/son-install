@@ -1,4 +1,4 @@
-
+---
 - name: ensure that APT works with the HTTPS method, and that CA certificates are installed
   apt: name={{ item }} state=present update_cache=yes
   with_items:

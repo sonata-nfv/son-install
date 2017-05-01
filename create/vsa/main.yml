@@ -1,6 +1,14 @@
----
+- hosts: "{{ plat }}"
+  become: true
+  connection: ssh
+  pre_tasks:
 
-#- include: ../../infra.yml
-#- include: ../../common.yml
-- include: vsa.yml
+    - local_action: shell date +'%F %T'
+      register: timestamp
 
+    - debug:
+        msg: "{{ timestamp.stdout }}"
+
+  roles:
+    - docker
+    - vsa

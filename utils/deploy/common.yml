@@ -1,7 +1,7 @@
 ---
 
 - name: deploy COMMON to ALL nodes (install latest operating system packages)
-  hosts: "{{ target }}"
+  hosts: "{{ plat }}"
   become: true
   connection: ssh
 

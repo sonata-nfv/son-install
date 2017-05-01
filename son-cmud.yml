@@ -27,37 +27,7 @@
 #    - { role: openstackclients, become: true }
     - { role: vm, become: false, when: ops == "create" }
 
-#- include: common.yml
-
-- name: deploy COMMON to ALL nodes (install latest operating system packages)
-  hosts: "{{ plat }}"
-  become: true
-  connection: ssh
-
-  pre_tasks:
-    - local_action: shell date +'%F %T'
-      register: ts
-    - debug:
-        msg: "{{ ts.stdout }}"
-
-  roles:
-    - { role: ntp, become: true }
-    - { role: common, become: true }
-
-  tasks:
-
-    - debug:
-        msg: ###############################################################
-
-    - name: REBOOT ALL VMs
-      shell: sleep 2 && shutdown -r now "Ansible updates triggered"
-      async: 1
-      poll: 0
-      ignore_errors: true
-
-    - name: WAITING for server to come back
-      local_action: wait_for host={{ ansible_host | default(inventory_hostname) }} port=22 state=started delay=10 timeout=400
-      become: false
+- include: utils/deploy/common.yml
 
 - include: "{{ ops }}/{{ plat }}/main.yml"
 
