@@ -7,7 +7,7 @@
 #    flavor: "{{ flavor }}"
 #    security_groups: "{{ security_groups }}"
 #    availability_zone: "{{ availability_zone }}"
-    #region_name: "{{ region_name }}"
+#    region_name: "{{ region_name }}"
 #    key_name: "{{ key_name }}"
 #    nics:
 #      - net-id: "{{ int_net_id }}"
