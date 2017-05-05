@@ -84,3 +84,7 @@
 #    with_items: "{{ newvm.results }}"
 #    when: vm_distro | match("Core")
 
+- name: pause for 2 minutes to update packages
+  pause:
+    minutes: 2
+
