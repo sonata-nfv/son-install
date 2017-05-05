@@ -1,6 +1,0 @@
-nbofvms: 1
-flavor: m1.small
-availability_zone: nova
-region_name: RegionOne
-key_name: son-install
-

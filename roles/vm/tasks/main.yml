@@ -17,7 +17,10 @@
     flavor: "{{ flavor }}"
     availability_zone: "{{ availability_zone }}"
     security_groups: "{{ security_groups }}"
-    meta: "hostname={{ plat }}-{{ item }}-{{ ansible_date_time.epoch }},group={{ plat }}"
+    #userdata: "{{ lookup('file', '{{ localhome }}/userdata/{{ distro }}.sh') }}"
+    meta:
+      hostname: "{{ plat }}-{{ item }}-{{ ansible_date_time.epoch }}"
+      group: "{{ plat }}"
     timeout: 360
     wait: yes
   with_sequence: "start=1 end={{ nbofvms | default(1) }} format=%02x"
@@ -34,13 +37,20 @@
     ansible_host: "{{ item.openstack.accessIPv4 }}"
   with_items: "{{ newvm.results }}"
 
-- name: create STATIC Inventory based on a provided Template ['jinja2'](http://docs.ansible.com/ansible/template_module.html)
+- name: ensures dir exists
+  file:
+    path: "{{ lookup('env','PWD') }}/inventory/{{ plat }}"
+    state: directory
+    recurse: yes
+    owner: "{{ lookup('env','USER') }}"
+    group: "{{ lookup('env','USER') }}"
+    mode: 0755
+
+- name: create STATIC Inventory based on a provided Template ['jinja2']
+  # http://docs.ansible.com/ansible/template_module.html
   template:
     src: dynamic_inventory.j2
     dest: "{{ lookup('env','PWD') }}/inventory/{{ plat }}/hosts"
-    owner: "{{ lookup('env','USER') }}"
-    group: "{{ lookup('env','USER') }}"
-    mode: 0644
 
 - name: Add STATIC mappings to /etc/hosts
   become: true

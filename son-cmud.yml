@@ -27,6 +27,10 @@
     - { role: openstackclients, become: true }
     - { role: vm, become: false, when: ops == "create" }
 
+- name: pause for 2 minutes to update packages
+  pause:
+    minutes: 2
+
 - include: utils/deploy/common.yml
 
 - include: "{{ ops }}/{{ plat }}/main.yml"

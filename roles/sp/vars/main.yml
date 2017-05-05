@@ -1,20 +1,3 @@
 ---
 # vars file for sp
 
-# CHARACTERISTICS OF VMs TO INSTANTIATE
-
-servers:
-
-  - name: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ ansible_date_time.epoch }}"
-    image: "{{ image }}"
-    flavor: "{{ flavor }}"
-    key: "{{ key_name }}"
-    nics:
-     - net-id: "{{ int_net_id }}"
-    availability_zone: "{{ availability_zone }}"
-    userdata: "{{ lookup('file', '{{ localhome }}/userdata/{{ ansible_distribution_release }}.sh') }}"
-    meta:
-      - hostname: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ ansible_date_time.epoch }}"
-      - group: "{{ plat }}"
-    with_sequence: "start=1 end={{ nbofvms }} format=%02x"
-

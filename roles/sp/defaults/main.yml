@@ -1,11 +1,6 @@
 ---
 # defaults file for sp
 
-vm_user: ubuntu
-distro: xenial
-pop: alabs
-proj: demo
-
 # VARs for MONITOR
 upassword: sonata
 urootpw: 1234

@@ -1,7 +1,2 @@
 ---
 # defaults file for vm
-vm_user: ubuntu
-distro: xenial
-pop: alabs
-proj: demo
-nbofvms: 1
