@@ -10,5 +10,5 @@
         msg: "{{ timestamp.stdout }}"
 
   roles:
-    - docker
+    #- docker
     - vsa
