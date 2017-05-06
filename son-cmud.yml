@@ -23,11 +23,9 @@
       become: true
 
   roles:
-#    - { role: common, become: true }
-#    - { role: openstackclients, become: true }
+    - { role: common, become: true }
+    - { role: openstackclients, become: true }
     - { role: vm, become: false, when: ops == "create" }
-
-- include: utils/deploy/common.yml
 
 - include: "{{ ops }}/{{ plat }}/main.yml"
 
