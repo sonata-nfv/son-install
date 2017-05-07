@@ -5,8 +5,8 @@
   connection: ssh
   vars:
     localhome: "{{ lookup('env','PWD') }}"
-  vars_files:
-    - "{{ localhome }}/roles/{{ plat }}/vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+#  vars_files:
+#    - "{{ localhome }}/roles/{{ plat }}/vars/os_{{ pop }}_{{ proj }}.yml"
   remote_user: "{{ vm_user }}"
 
   pre_tasks:

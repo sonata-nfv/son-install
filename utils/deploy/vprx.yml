@@ -1,14 +1,12 @@
 ---
 
-- name: SONATA CMUD v2.1
+- name: SONATA CMUD v2.1 - virtual Personal Security Appliance (vPSA)
   hosts: localhost
   become: false
   connection: local
   vars:
     localhome: "{{ lookup('env','PWD') }}"
-  vars_files:
-    - "{{ localhome }}/roles/{{ plat }}/vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
-
+    plat: vpsa
   pre_tasks:
     - local_action: shell date +'%F %T'
       register: ts
@@ -23,9 +21,10 @@
       become: true
 
   roles:
-    - { role: common, become: true }
-    - { role: openstackclients, become: true }
-    - { role: vm, become: false, when: ops == "create" }
+#    - { role: common, become: true }
+#   - { role: openstackclients, become: true }
+    - { role: vprx, plat: vpsa }
+#    - { role: vfw }
+#    - { role: vvpn }
 
-- include: "{{ localhome }}/{{ ops }}/{{ plat }}/main.yml"
-
+- include: common.yml -e plat=vpsa
