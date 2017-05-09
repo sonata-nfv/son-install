@@ -5,7 +5,8 @@
   become: false
   connection: local
   vars:
-    localhome: "{{ lookup('env','PWD') }}"
+    #localhome: "{{ lookup('env','PWD') }}"
+    localhome: "{{ ansible_env['PWD'] }}"
   vars_files:
     - "{{ localhome }}/roles/{{ plat }}/vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
 

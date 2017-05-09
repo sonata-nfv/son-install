@@ -7,6 +7,7 @@
   vars:
     localhome: "{{ lookup('env','PWD') }}"
     plat: vpsa
+    vm_user: ubuntu
   pre_tasks:
     - local_action: shell date +'%F %T'
       register: ts
@@ -22,9 +23,8 @@
 
   roles:
 #    - { role: common, become: true }
-#   - { role: openstackclients, become: true }
-    - { role: vprx, plat: vpsa }
+#    - { role: openstackclients, become: true }
+    - { role: vprx }
 #    - { role: vfw }
 #    - { role: vvpn }
 
-- include: common.yml -e plat=vpsa

@@ -11,4 +11,4 @@
 
   roles:
     #- docker
-    - vsa
+    - vpsa

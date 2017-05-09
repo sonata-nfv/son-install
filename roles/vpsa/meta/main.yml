@@ -222,5 +222,5 @@ galaxy_info:
   # to this list.
 dependencies:
   - { role: ntp, become: true }
-  - { role: common, become: true }
-  - { role: docker, become: true }
+  - { role: common, become: true, vm_user: ubuntu, plat: vpsa }
+  - { role: docker, become: true, vm_user: ubuntu }
