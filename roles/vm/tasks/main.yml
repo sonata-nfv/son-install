@@ -10,6 +10,8 @@
     - "defaults.yml"
 
 - name: launch a new Instance(s)
+  vars:
+    local_home: "{{ lookup('env','PWD') }}"
   os_server:
     # http://docs.openstack.org/developer/os-client-config/
     state: present
@@ -22,7 +24,7 @@
     security_groups: "{{ security_groups }}"
     nics: 
       - net-id: "{{ int_net_id }}"
-    #userdata: "{{ lookup('file', '{{ localhome }}/userdata/{{ distro }}.sh') }}"
+    userdata: "{{ lookup('file', '{{ local_home }}/userdata/{{ distro }}.sh') }}"
     meta:
       hostname: "{{ plat }}-{{ item }}-{{ ansible_date_time.epoch }}"
       group: "{{ plat }}"
@@ -75,17 +77,5 @@
   delay: 10
   with_items: "{{ newvm.results }}"
 
-- name: Assure that Python 2.7 is installed when target is Xenial VM
-  vars:
-    vm_distro: "{{ distro }}"
-  shell: >
-    ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} 'sudo apt update -y && sudo apt install python -y'
-  with_items: "{{ newvm.results }}"
-  when: vm_distro | match("xenial")
-
-#  - name: Assure that NO RequiredTTY is needed when target is CentOS 7 VM
-#    shell: >
-#      ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} "sudo sed -i -- 's/Defaults    requiretty/Defaults    !requiretty/g' /etc/sudoers"
-#    with_items: "{{ newvm.results }}"
-#    when: vm_distro | match("Core")
-
+- pause:
+    minutes: 3
