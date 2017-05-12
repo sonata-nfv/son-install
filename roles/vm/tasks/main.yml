@@ -20,6 +20,8 @@
     flavor: "{{ flavor }}"
     availability_zone: "{{ availability_zone }}"
     security_groups: "{{ security_groups }}"
+    nics: 
+      - net-id: "{{ int_net_id }}"
     #userdata: "{{ lookup('file', '{{ localhome }}/userdata/{{ distro }}.sh') }}"
     meta:
       hostname: "{{ plat }}-{{ item }}-{{ ansible_date_time.epoch }}"
