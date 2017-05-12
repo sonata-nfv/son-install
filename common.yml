@@ -10,6 +10,8 @@
 
   pre_tasks:
     - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    - pause:
+        minutes: 1
 
   roles:
      - common
