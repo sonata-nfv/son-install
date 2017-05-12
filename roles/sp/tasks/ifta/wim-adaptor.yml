@@ -3,7 +3,7 @@
 - name: deploying Infrastructure Abstractor WIM Adaptor (Docker container)
   docker_container:
     name: wim-adaptor
-    image: sonatanfv/wim-adaptor
+    image: "sonatanfv/wim-adaptor:{{ ver }}"
     state: started
     env:
       broker_host: "{{ ansible_default_ipv4.address }}"

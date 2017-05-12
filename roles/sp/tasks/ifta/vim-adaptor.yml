@@ -3,7 +3,7 @@
 - name: deployng Infrastructure Abstractor VIM Adaptor (Docker container)
   docker_container:
     name: son-sp-infrabstract
-    image: sonatanfv/son-sp-infrabstract
+    image: "sonatanfv/son-sp-infrabstract:{{ ver }}"
     state: started
     env:
       broker_host: "{{ ansible_default_ipv4.address }}"

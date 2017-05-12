@@ -1,7 +1,7 @@
   - name: MONIT Push Gateway - running Docker containers
     docker_container:
       name: son-monitor-pushgateway
-      image: sonatanfv/son-monitor-pushgateway
+      image: "sonatanfv/son-monitor-pushgateway:{{ ver }}"
       state: started
       network_mode: bridge
       networks:

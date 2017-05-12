@@ -3,7 +3,7 @@
   - name: GATEKEEPER LICENSE MANAGER (GTKLIC) (Docker container)
     docker_container:
       name: son-gtklic
-      image: sonatanfv/son-gtklic
+      image: "sonatanfv/son-gtklic:{{ ver }}"
       env:
         DATABASE_HOST: "{{ public_ip }}"
         DATABASE_PORT: 5432

@@ -4,7 +4,7 @@
 - name: GATEKEEPER SERVICES - running Docker containers
   docker_container:
     name: son-gtksrv
-    image: sonatanfv/son-gtksrv
+    image: "sonatanfv/son-gtksrv:{{ ver }}"
     env:
       CATALOGUES_URL: http://{{ public_ip }}:4002/catalogues/api/v2
       RACK_ENV: integration

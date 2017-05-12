@@ -12,8 +12,8 @@
 
 - name: run the SP Message Bus
   docker_container:
-    name: son-broker
-    image: rabbitmq
+    name: "son-broker"
+    image: "rabbitmq"
     env:
       RABBITMQ_CONSOLE_LOG: new
     state: started

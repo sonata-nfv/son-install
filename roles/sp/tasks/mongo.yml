@@ -1,8 +1,8 @@
 ---
 - name: deploy MongoDB as a Container (used by Monitory)
   docker_container:
-    name: son-mongo
-    image: sonatanfv/son-mongo
+    name: "son-mongo"
+    image: "sonatanfv/son-mongo:{{ ver }}"
     #env:
     state: started
     network_mode: bridge

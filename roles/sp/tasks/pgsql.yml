@@ -2,7 +2,8 @@
 - name: deploy a PostgreSQL database server as a Container
   docker_container:
     name: son-postgres
-    image: sonatanfv/son-postgres
+    #image: sonatanfv/son-postgres
+    image: ntboes/postgres-uuid
     env:
       POSTGRES_DB=gatekeeper
       POSTGRES_USER=sonatatest

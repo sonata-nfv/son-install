@@ -3,7 +3,7 @@
   - name: MONIT Probe - running Docker containers
     docker_container:
       name: son-monitor-probe
-      image: sonatanfv/son-monitor-probe
+      image: "sonatanfv/son-monitor-probe:{{ ver }}"
       state: started
       network_mode: host
       privileged: yes

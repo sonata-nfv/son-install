@@ -3,7 +3,7 @@
 - name: MANO Plug-in Manager (Docker container)
   docker_container:
     name: pluginmanager
-    image: sonatanfv/pluginmanager
+    image: "sonatanfv/pluginmanager:{{ ver }}"
     env:
       mongo_host: "{{ ansible_default_ipv4.address }}"
       broker_host: amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F

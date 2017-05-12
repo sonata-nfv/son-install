@@ -3,7 +3,7 @@
 - name: MANO Service Life-cycle Management (SLM) (Docker container)
   docker_container:
     name: servicelifecyclemanagement
-    image: sonatanfv/servicelifecyclemanagement
+    image: "sonatanfv/servicelifecyclemanagement:{{ ver }}"
     env:
       url_nsr_repository: http://{{ ansible_default_ipv4.address }}:4002/records/nsr/
       url_vnfr_repository: http://{{ ansible_default_ipv4.address }}:4002/records/vnfr/

@@ -8,9 +8,9 @@ dbname: monitoring
 dbuser: monitoringuser
 
 # pre-load
-public_ip: 172.31.6.21
-graylog_ip: 172.31.6.21
+#public_ip: 172.31.6.21
+#graylog_ip: 172.31.6.21
 
 # Docker network segment
-docker_network_name: sonata
+docker_network_name: son-sp
 

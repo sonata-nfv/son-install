@@ -1,7 +1,7 @@
   - name: MONIT PROMETHEUS - running Docker containers
     docker_container:
       name: son-monitor-prometheus
-      image: sonatanfv/son-monitor-prometheus
+      image: "sonatanfv/son-monitor-prometheus:{{ ver }}"
       state: started
       env:
         RABBIT_URL: "{{ ansible_default_ipv4.address }}:5672"

@@ -1,6 +1,9 @@
 - hosts: "{{ plat }}"
   become: true
   connection: ssh
+  vars:
+    localhome: "{{ lookup('env','PWD') }}"
+
   pre_tasks:
 
     - local_action: shell date +'%F %T'
@@ -10,5 +13,4 @@
         msg: "{{ timestamp.stdout }}"
 
   roles:
-    #- docker
     - vpsa

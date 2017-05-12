@@ -18,5 +18,5 @@
   - htop
   - policycoreutils
   - dialog
-  - postgresql-client-common
+  #- postgresql-client-common
   - nscd

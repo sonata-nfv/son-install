@@ -4,7 +4,7 @@
 - name: GATEKEEPER RECORDS - running Docker containers
   docker_container:
     name: son-gtkrec
-    image: sonatanfv/son-gtkrec
+    image: "sonatanfv/son-gtkrec:{{ ver }}"
     env:
       REPOSITORIES_URL: http://{{ public_ip }}:4002/records
       RACK_ENV: integration
