@@ -2,9 +2,12 @@
 # tasks file for vm
 
 - name: load variables per Site, Tenant and Distro
-  include_vars:
-    dir: "{{ localhome }}/roles/{{ plat }}/vars"
-    files_matching: "os_{{ pop }}_{{ proj }}_{{ distro }}"
+  include_vars: "{{ item }}"
+#    dir: "roles/{{ plat }}/vars"
+#    files_matching: "{{ os_{{ pop }}_{{ proj }}_{{ distro }}.yml }}"
+  with_first_found:
+    - "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+    - "defaults.yml"
 
 - name: launch a new Instance(s)
   os_server:

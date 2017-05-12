@@ -4,17 +4,9 @@
   hosts: localhost
   become: false
   connection: local
-  vars:
-    #localhome: "{{ lookup('env','PWD') }}"
-    localhome: "{{ ansible_env['PWD'] }}"
-  vars_files:
-    - "{{ localhome }}/roles/{{ plat }}/vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
 
   pre_tasks:
-    - local_action: shell date +'%F %T'
-      register: ts
-    - debug:
-        msg: "{{ ts.stdout }}"
+    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
     - file:
         path: /var/log/ansible.log
         state: touch
@@ -24,9 +16,11 @@
       become: true
 
   roles:
-    - { role: common, become: true }
-    - { role: openstackclients, become: true }
-    - { role: vm, become: false, when: ops == "create" }
+#    - { role: common, become: true }
+#    - { role: openstackclients, become: true }
+     - vm
 
-- include: "{{ localhome }}/{{ ops }}/{{ plat }}/main.yml"
+- include: "{{ lookup('env','PWD') }}/common.yml"
+
+- include: "{{ lookup('env','PWD') }}/{{ ops }}/{{ plat }}/main.yml"
 

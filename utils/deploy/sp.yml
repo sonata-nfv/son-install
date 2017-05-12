@@ -20,5 +20,5 @@
 
   roles:
     - docker
-    - sp
+    - { role: sp, tag: '2.1' }
 

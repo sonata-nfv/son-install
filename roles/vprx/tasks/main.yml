@@ -3,7 +3,7 @@
 
 - name: load variables per Site, Tenant and Distro
   include_vars:
-    dir: "{{ localhome }}/roles/vprx/vars"
+    dir: "roles/vprx/vars"
     files_matching: "os_{{ pop }}_{{ proj }}.yml"
 
 - name: launch a new Instance(s)
