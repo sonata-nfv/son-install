@@ -1,13 +1,11 @@
 ---
 
-- name: deploy a guest machine (VM)
+- name: deploy an Openstack guest machine (VM)
   hosts: localhost
   become: false
   connection: local
-  vars:
-    localhome: "{{ lookup('env','PWD') }}" # needed for Jenkins CI 
   vars_files:
-    - "{{ localhome }}/roles/{{ plat | default(vm) }}/vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+    - "{{ lookup('env','PWD') }}/roles/{{ plat | default(vm) }}/vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
   pre_tasks:
     - local_action: shell date +'%F %T'
       register: ts
@@ -21,8 +19,10 @@
         mode: "u=rw,g=rw,o=rw"
       become: true
     - debug:
-        msg: "need to pass external variables: -e 'pop=alabs|ncsrd proj=qual|demo distro=trusty|xenial|Core nbofvms=N'"
+        msg: "EXTERNAL VARIABLES: -e 'plat=vm|sp|psa pop=alabs|ncsrd proj=qual|demo distro=trusty|xenial|Core nbofvms=N'"
   roles:
     - { role: common, become: true }
     - { role: openstackclients, become: true }
     - vm
+
+- include: "{{ lookup('env','PWD') }}/common.yml"

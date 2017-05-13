@@ -37,7 +37,7 @@
 
 - name: ensures dir exists
   file:
-    path: "{{ lookup('env','PWD') }}/inventory/vpsa"
+    path: "{{ lookup('env','PWD') }}/group_vars/vpsa"
     state: directory
     recurse: yes
     owner: "{{ lookup('env','USER') }}"
@@ -47,8 +47,8 @@
 - name: create STATIC Inventory based on a provided Template ['jinja2']
   # http://docs.ansible.com/ansible/template_module.html
   template:
-    src: dynamic_inventory.j2
-    dest: "{{ lookup('env','PWD') }}/inventory/vpsa/hosts"
+    src: dynamic_group_vars.j2
+    dest: "{{ lookup('env','PWD') }}/group_vars/vpsa/hosts"
 
 - name: Add STATIC mappings to /etc/hosts
   become: true
