@@ -36,7 +36,10 @@
 - lineinfile:
     path: "{{ lookup('env','PWD') }}/ansible.cfg"
     line: 'private_key_file = ~/.ssh/{{ key_name }}.pem'
-    insertafter: '^#?defaults'
+
+- lineinfile:
+    path: "{{ lookup('env','PWD') }}/ansible.cfg"
+    line: "inventory = group_vars/{{ plat }}"
 
 - name: create IN-MEMORY Inventory # temporary in-memory group of hosts that only persists until the end of the playbook
   add_host:

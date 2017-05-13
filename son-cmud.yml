@@ -14,6 +14,10 @@
         group: "{{ lookup('env','USER') }}"
         mode: "u=rw,g=rw,o=rw"
       become: true
+    - file:
+        path: "{{ lookup('env','PWD') }}/group_vars/{{ plat }}/hosts"
+        state: absent
+      when: ops == "create"
 
   roles:
 #    - { role: common, become: true }
