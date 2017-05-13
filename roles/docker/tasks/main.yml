@@ -42,10 +42,10 @@
 --ip-range=172.20.1.128/25 "{{ docker_network_name | default(sonata) }}"'
 
 - name: restart docker on Upstart (Ubuntu 14)
-  service: name=docker status=restarted
-  when: ansible_os_family == "Debian"
+  service: name=docker state=restarted
+  when: ansible_distribution_release == "trusty"
 
 - name: restart docker on Systemd (Ubuntu 16 and CentOS 7)
   systemd: name=docker state=restarted daemon_reload=yes
-  when: ansible_os_family == "RedHat"
+  when: ansible_distribution_release == "Core" or ansible_distribution_release == "xenial"
 
