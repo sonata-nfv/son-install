@@ -35,3 +35,17 @@
   become: true
 
 - include: "{{ ansible_distribution_release }}.yml"
+
+- name: Docker User Defined Network (generic)
+  shell: 'docker network create --driver=bridge \
+--subnet=172.20.1.0/24 --gateway=172.20.1.1 \
+--ip-range=172.20.1.128/25 "{{ docker_network_name | default(sonata) }}"'
+
+- name: restart docker on Upstart (Ubuntu 14)
+  service: name=docker status=restarted
+  when: ansible_os_family == "Debian"
+
+- name: restart docker on Systemd (Ubuntu 16 and CentOS 7)
+  systemd: name=docker state=restarted daemon_reload=yes
+  when: ansible_os_family == "RedHat"
+

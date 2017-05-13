@@ -1,12 +1,14 @@
 ---
 
-- name: deploy an Openstack guest machine (VM)
+- name: connect to Openstack VIM and deploy a guest machine (VM)
   hosts: localhost
   become: false
   connection: local
   vars_files:
     - "{{ lookup('env','PWD') }}/roles/{{ plat | default(vm) }}/vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
   pre_tasks:
+    - debug:
+        msg: "EXTERNAL VARIABLES: -e 'plat=vm|sp|psa pop=alabs|ncsrd proj=qual|demo distro=trusty|xenial|Core nbofvms=N'"
     - local_action: shell date +'%F %T'
       register: ts
     - debug:
@@ -18,8 +20,6 @@
         group: "{{ lookup('env','USER') }}"
         mode: "u=rw,g=rw,o=rw"
       become: true
-    - debug:
-        msg: "EXTERNAL VARIABLES: -e 'plat=vm|sp|psa pop=alabs|ncsrd proj=qual|demo distro=trusty|xenial|Core nbofvms=N'"
   roles:
     - { role: common, become: true }
     - { role: openstackclients, become: true }
