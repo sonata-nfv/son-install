@@ -1,4 +1,7 @@
 ---
+
+- include_vars: "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+
 - name: Docker User Defined Network (SP)
   shell: 'docker network create --driver=bridge \
 --subnet=172.20.2.0/24 --gateway=172.20.2.1 \
@@ -37,7 +40,4 @@
 - include: monit-all.yml
 
 # deploy Google cAdvisor
-#- include: cadvisor.yml
-
-# deploy Grafana
-#- include: grafana.yml
+- include: cadvisor.yml

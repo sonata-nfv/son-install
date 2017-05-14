@@ -14,3 +14,5 @@ dbuser: monitoringuser
 # Docker network segment
 docker_network_name: son-sp
 
+# SONATA 5G NFV SP development/latest version
+ver: dev
