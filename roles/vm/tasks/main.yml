@@ -5,7 +5,10 @@
   include_vars: "{{ item }}"
   with_first_found:
     - "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+    - "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
     - "defaults.yml"
+
+- include: "{{ plat }}-secgrp.yml"
 
 - name: launch a new Instance(s)
   vars:
@@ -19,17 +22,21 @@
     key_name: "{{ key_name }}"
     flavor: "{{ flavor }}"
     availability_zone: "{{ availability_zone }}"
-    security_groups: "{{ security_groups }}"
+    security_groups:
+      - ssh-secgrp
+      - "{{ os_security_groups }}"
+    #security_groups: "{{ os_security_groups + hostvars[item].os_security_groups | default(os_security_groups) }}"
     nics: 
       - net-id: "{{ int_net_id }}"
     userdata: "{{ lookup('file', '{{ local_home }}/userdata/{{ distro }}.sh') }}"
     meta:
       hostname: "{{ plat }}-{{ item }}-{{ ansible_date_time.epoch }}"
       group: "{{ plat }}"
-    timeout: 360
+    timeout: 180
     wait: yes
   with_sequence: "start=1 end={{ nbofvms | default(1) }} format=%02x"
   register: "newvm"
+
 
 # Add private key (if it does not exist, without passing regexp)
 # https://relativkreativ.at/articles/how-to-use-ansibles-lineinfile-module-in-a-bulletproof-way
