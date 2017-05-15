@@ -30,7 +30,7 @@
 
 - wait_for: host=0.0.0.0 port=5300 timeout=30 delay=10 state=started
 
-- command: /usr/bin/docker exec -d son-gtksrv /bin/bash -c "cd /opt/sonata/son-gtksrv" && "bundle install" && "bundle exec rake db:migrate"
+- shell: /usr/bin/docker exec -d son-gtksrv /bin/bash -c "cd /opt/sonata/son-gtksrv" && "bundle install" && "bundle exec rake db:migrate"
 
 #  - name: wait for Container to finish
 #    shell: >
