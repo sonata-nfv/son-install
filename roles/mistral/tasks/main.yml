@@ -1,0 +1,13 @@
+---
+# tasks file for mistral
+
+
+#- name: initialise
+#  shell: docker exec mistral python -c xpto.sh
+
+- name: sync database and set predefined actions
+  shell: docker exec mistral python /opt/stack/mistral/tools/sync_db.py --config-file /home/mistral/mistral.conf
+
+- name: restart Mistral service
+  shell: docker restart mistral
+
