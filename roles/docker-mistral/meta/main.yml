@@ -57,3 +57,4 @@ dependencies:
   # if you add dependencies to this list.
  #- ntp
  #- common
+  - docker
