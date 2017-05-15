@@ -3,5 +3,6 @@
   hosts: "{{ target }}"
   become: true
   roles:
-  - mistral
+    - docker
+    - mistral
 
