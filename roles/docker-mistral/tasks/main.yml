@@ -32,6 +32,9 @@
 - file:
     path: /tmp/mistral
     state: directory
+    recurse: yes
+    owner: "{{ lookup('env','USER') }}"
+    group: "{{ lookup('env','USER') }}"
     mode: 0755
 
 - name: download MISTRAL tarball
@@ -46,6 +49,8 @@
     #tag: v1
     #push: yes
     load_path: /tmp/mistral/mistral-docker.tar.gz
+
+- command: gunzip /tmp/mistral/mistral-docker.tar.gz
 
 - name: deploy MISTRAL as a Docker container
   docker_container:
