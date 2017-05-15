@@ -50,7 +50,7 @@
     #push: yes
     load_path: /tmp/mistral/mistral-docker.tar.gz
 
-- command: gunzip /tmp/mistral/mistral-docker.tar.gz
+- command: gunzip -f /tmp/mistral/mistral-docker.tar.gz
 
 - name: deploy MISTRAL as a Docker container
   docker_container:
