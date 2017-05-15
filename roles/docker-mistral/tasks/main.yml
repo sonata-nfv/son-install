@@ -101,3 +101,14 @@
 - name: restart Mistral service
   shell: docker restart mistral
 
+- name: install Mistral client to Xenial
+  apt: name=python3-mistralclient state=present
+  when: ansible_distribution_release == "xenial"
+
+- name: install Mistral client to Trusty
+  apt: name=python-mistralclient state=present
+  when: ansible_distribution_release == "trusty"
+
+#- name: install Mistral client to Centos 7
+#  apt: name=python-mistralclient state=present
+#  when: ansible_distribution_release == "Core"
