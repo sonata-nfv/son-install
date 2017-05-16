@@ -10,3 +10,8 @@ ntp_servers:
   - 2.pool.ntp.org iburst 
   - 3.pool.ntp.org iburst 
 
+# defaults file for SON
+pop: alabs
+proj: demo
+distro: xenial
+

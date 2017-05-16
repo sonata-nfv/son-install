@@ -38,7 +38,14 @@
   register: "newvm"
 
 
-- set_fact: public_ip="{{ item.openstack.accessIPv4 }}"
+- set_fact:
+    public_ip: "{{ item.openstack.accessIPv4 }}"
+  with_items: "{{ newvm.results }}"
+
+
+- lineinfile:
+    path: "{{ lookup('env','PWD') }}/host_vars/{{ item.openstack.name }}"
+    line: "public_ip: '{{ item.openstack.accessIPv4 }}'"
   with_items: "{{ newvm.results }}"
 
 

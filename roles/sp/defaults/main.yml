@@ -1,6 +1,10 @@
 ---
 # defaults file for sp
 
+pop: alabs
+proj: demo
+distro: xenial
+
 # VARs for MONITOR
 upassword: sonata
 urootpw: 1234
@@ -12,7 +16,7 @@ dbuser: monitoringuser
 #graylog_ip: 172.31.6.21
 
 # Docker network segment
-docker_network_name: son-sp
+docker_network_name: sonata
 
 # SONATA 5G NFV SP development/latest version
 ver: dev
