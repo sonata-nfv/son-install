@@ -42,10 +42,11 @@
     public_ip: "{{ item.openstack.accessIPv4 }}"
   with_items: "{{ newvm.results }}"
 
-
 - lineinfile:
-    path: "{{ lookup('env','PWD') }}/host_vars/{{ item.openstack.name }}"
-    line: "public_ip: '{{ item.openstack.accessIPv4 }}'"
+    path: "{{ lookup('env','PWD') }}/group_vars/all"
+    create: yes
+    state: present
+    line: "public_ip: {{ item.openstack.accessIPv4 }}"
   with_items: "{{ newvm.results }}"
 
 
