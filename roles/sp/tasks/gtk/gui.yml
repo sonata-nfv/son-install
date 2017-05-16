@@ -8,7 +8,7 @@
     env:
       MON_URL: "{{ public_ip }}:8000"
       GK_URL: "{{ public_ip }}:32001/api/v2"
-      LOGS_URL: "{{ graylog_ip }}:12900"
+      #LOGS_URL: "{{ graylog_ip }}:12900"
     state: started
     network_mode: bridge
     networks:
