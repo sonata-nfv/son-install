@@ -8,7 +8,7 @@
     - "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
     - "defaults.yml"
 
-- include: "{{ plat }}-secgrp.yml"
+- include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/files/secgrp.yml"
 
 - name: launch a new Instance(s)
   vars:
@@ -36,6 +36,10 @@
     wait: yes
   with_sequence: "start=1 end={{ nbofvms | default(1) }} format=%02x"
   register: "newvm"
+
+
+- set_fact: public_ip="{{ item.openstack.accessIPv4 }}"
+  with_items: "{{ newvm.results }}"
 
 
 # Add private key (if it does not exist, without passing regexp)
