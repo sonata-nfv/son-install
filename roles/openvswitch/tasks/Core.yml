@@ -34,7 +34,10 @@
     - bridge-utils
 
 - name: create a directory for RPM BUILD
-  file: path=~/rpmbuild/SOURCES state=directory mode755
+  file:
+    path: "{{ lookup('env','HOME') }}/rpmbuild/SOURCES"
+    state: directory
+    mode: 0755
 
 - name: get openvswith LST tarball 
   get_url:
