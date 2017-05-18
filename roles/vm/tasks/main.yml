@@ -47,6 +47,13 @@
     line: "public_ip: {{ item.openstack.accessIPv4 }}"
   with_items: "{{ newvm.results }}"
 
+- lineinfile:
+    path: "{{ lookup('env','PWD') }}/roles/docker/files/group_vars.yml"
+    line: "public_ip: {{ item.openstack.accessIPv4 }}"
+    create: yes
+    state: present
+  with_items: "{{ newvm.results }}"
+
 
 # Add private key (if it does not exist, without passing regexp)
 # https://relativkreativ.at/articles/how-to-use-ansibles-lineinfile-module-in-a-bulletproof-way
