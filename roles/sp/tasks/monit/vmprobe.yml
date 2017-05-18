@@ -1,7 +1,7 @@
   - name: MONIT VM Probe
     docker_container:
       name: son-mon-vmprobe
-      image: sonatanfv/son-monitor-vmprobe
+      image: "sonatanfv/son-monitor-vmprobe:{{ ver }}"
       state: started
       network_mode: host
       privileged: yes
@@ -11,5 +11,5 @@
       volumes:
       - "/:/rootfs:ro"
       - "/proc:/myhost/proc"
-      - /var/log/sonata:/var/log/mon-vmprobe
+      - /var/log/sonata/mon-vmprobe:/var/log/mon-vmprobe
 

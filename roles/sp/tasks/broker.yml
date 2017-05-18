@@ -12,15 +12,22 @@
 
 - name: run the SP Message Bus
   docker_container:
-    name: son-broker
-    image: rabbitmq
+    name: "son-broker"
+    image: "rabbitmq:3-management"
     env:
       RABBITMQ_CONSOLE_LOG: new
     state: started
-    ports: "5672:5672, 8080:15672"
+    network_mode: bridge
+    networks:
+      - name: "{{ docker_network_name }}"
+        aliases:
+          - son-broker
+    published_ports:
+      - "5672:5672"
+      - "8080:15672"
     privileged: yes
     volumes:
-      - /var/log/sonata/son-broker:/var/log/son-broker
+      - /var/log/sonata/son-broker:/var/log/rabbitmq
     log_driver: syslog # gelf
 # when: service_status.stdout == "active"
 

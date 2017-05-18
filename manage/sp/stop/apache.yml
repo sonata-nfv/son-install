@@ -1,7 +1,7 @@
 ---
 
 - name: MANAGING APACHE LIFE CYCLE
-  hosts: "{{ environ }}"
+  hosts: "{{ plat }}"
   become: true
   tasks:
 

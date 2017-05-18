@@ -3,14 +3,19 @@
   - name: GATEKEEPER KEY PERFORMANCE INDICATORS (GTKKPI) (Docker container)
     docker_container:
       name: son-gtkkpi
-      image: sonatanfv/son-gtkkpi
+      image: "sonatanfv/son-gtkkpi:{{ ver }}"
       state: started
       restart_policy: "unless-stopped"
       env:
         PUSHGATEWAY_HOST: prometheus
         PUSHGATEWAY_PORT: 9091
+      network_mode: bridge
+      networks:
+        - name: "{{ docker_network_name }}"
+          aliases:
+            - son-gtkkpi
       exposed_ports: 5400
-      ports: "5400:5400"
+      published_ports: "5400:5400"
       volumes:
         - /var/log/sonata/son-gtkkpi:/var/log/son-gtkkpi
       log_driver: syslog # gelf

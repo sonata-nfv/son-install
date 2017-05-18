@@ -1,6 +1,6 @@
 ---
-- name: remove PostgreSQL container from the 'environ' machine
-  hosts: "{{ environ }}"
+- name: remove PostgreSQL container from the 'plat' machine
+  hosts: "{{ plat }}"
   become: true
   tasks:
   - name: deploy postgres container

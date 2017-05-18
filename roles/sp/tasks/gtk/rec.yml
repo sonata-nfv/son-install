@@ -4,15 +4,20 @@
 - name: GATEKEEPER RECORDS - running Docker containers
   docker_container:
     name: son-gtkrec
-    image: sonatanfv/son-gtkrec
+    image: "sonatanfv/son-gtkrec:{{ ver }}"
     env:
       REPOSITORIES_URL: http://{{ public_ip }}:4002/records
       RACK_ENV: integration
     state: started
-    ports: "5800:5800"
+    network_mode: bridge
+    networks:
+      - name: "{{ docker_network_name }}"
+        aliases:
+          - son-gtkrec
+    published_ports: "5800:5800"
     restart_policy: "unless-stopped"
     volumes:
-      - /var/log/sonata:/var/log/son-gtkrec
+      - /var/log/sonata/son-gtkrec:/var/log/son-gtkrec
     log_driver: syslog
 
 - wait_for: host=0.0.0.0 port=5800 timeout=30 delay=10 state=started

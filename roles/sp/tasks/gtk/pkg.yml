@@ -4,15 +4,20 @@
 - name: GATEKEEPER PACKAGES - running Docker containers
   docker_container:
     name: son-gtkpkg
-    image: sonatanfv/son-gtkpkg
+    image: "sonatanfv/son-gtkpkg:{{ ver }}"
     env:
-      CATALOGUES_URL: http://{{ public_ip }}:4002/catalogues
+      CATALOGUES_URL: http://{{ public_ip }}:4002/catalogues/api/v2
       RACK_ENV: integration
     state: started
-    ports: "5100:5100"
+    network_mode: bridge
+    networks:
+      - name: "{{ docker_network_name }}"
+        aliases:
+          - son-gtkpkg
+    published_ports: "5100:5100"
     restart_policy: "unless-stopped"
     volumes:
-      - /var/log/sonata:/var/log/son-gtkpkg
+      - /var/log/sonata/son-gtkpkg:/var/log/son-gtkpkg
     log_driver: syslog
 
 - wait_for: host=0.0.0.0 port=5100 timeout=30 delay=10 state=started

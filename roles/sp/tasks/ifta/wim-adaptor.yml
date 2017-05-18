@@ -3,7 +3,7 @@
 - name: deploying Infrastructure Abstractor WIM Adaptor (Docker container)
   docker_container:
     name: wim-adaptor
-    image: sonatanfv/wim-adaptor
+    image: "sonatanfv/wim-adaptor:{{ ver }}"
     state: started
     env:
       broker_host: "{{ ansible_default_ipv4.address }}"
@@ -12,7 +12,12 @@
       repo_port: "5432"
       repo_user: "sonatatest"
       repo_pass: "sonata"
+      network_mode: bridge
+      networks:
+        - name: "{{ docker_network_name }}"
+          aliases:
+            - wim-adaptor
     volumes:
-      - /var/log/sonata:/var/ifta-wim
+      - /var/log/sonata/wim-adaptor:/var/log/wim-adaptor
     log_driver: syslog # gelf
 

@@ -5,7 +5,7 @@
 - name: GATEKEEPER VIM
   docker_container:
     name: son-gtkvim
-    image: sonatanfv/son-gtkvim
+    image: "sonatanfv/son-gtkvim:{{ ver }}"
     env:
       RACK_ENV: integration
       MQSERVER: amqp://guest:guest@{{ public_ip }}:5672
@@ -13,15 +13,20 @@
       DATABASE_PORT: 5432
       POSTGRES_PASSWORD: sonata
       POSTGRES_USER: sonatatest
-    links:
-      - son-broker
-      - son-postgres
+    network_mode: bridge
+    networks:
+      - name: "{{ docker_network_name }}"
+        aliases:
+          - son-gtkvim
+        links:
+          - son-broker
+          - son-postgres
     state: started
     restart_policy: "unless-stopped"
-    ports: "5700:5700"
+    published_ports: "5700:5700"
     volumes:
-      - /home/{{ vm_user }}/son-gkeeper/son-gtkvim/:/opt/sonata/son-gktvim
-      - /var/log/sonata:/var/log/son-gtkvim
+      #- /home/{{ vm_user }}/son-gkeeper/son-gtkvim/:/opt/sonata/son-gktvim
+      - /var/log/sonata/son-gtkvim:/var/log/son-gtkvim
     log_driver: syslog
 
 - wait_for: host=0.0.0.0 port=5700 timeout=30 delay=10 state=started
@@ -32,5 +37,5 @@
 
 # Populate pgSQL database
 #- name: create data model and populate db
-#  command: /usr/bin/docker exec -d son-gtkvim /bin/bash -c "cd /opt/sonata/son-gtkvim" && "bundle install" && "bundle exec rake db:migrate"
+#  shell: /usr/bin/docker exec -d son-gtkvim /bin/bash -c "cd /opt/sonata/son-gtkvim" && "bundle install" && "bundle exec rake db:migrate"
 

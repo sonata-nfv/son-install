@@ -3,7 +3,7 @@
   - name: GATEKEEPER LICENSE MANAGER (GTKLIC) (Docker container)
     docker_container:
       name: son-gtklic
-      image: sonatanfv/son-gtklic
+      image: "sonatanfv/son-gtklic:{{ ver }}"
       env:
         DATABASE_HOST: "{{ public_ip }}"
         DATABASE_PORT: 5432
@@ -12,8 +12,13 @@
         POSTGRES_DB: gatekeeper
       state: started
       restart_policy: "unless-stopped"
+      network_mode: bridge
+      networks:
+        - name: "{{ docker_network_name }}"
+          aliases:
+            - son-gtklic
       exposed_ports: 5900
-      ports: "5900:5900"
+      published_ports: "5900:5900"
       volumes:
         - /var/log/sonata/son-gtklic:/var/log/son-gtklic
       log_driver: syslog # gelf

@@ -1,6 +1,6 @@
 ---
 - name: restarting RabbitMQ Docker container on the SP VM appliance
-  hosts: "{{ environ }}"
+  hosts: "{{ plat }}"
   become: true
   tasks:
 

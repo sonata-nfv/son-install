@@ -1,11 +1,16 @@
   - name: MONIT InfluxDB  - running Docker containers
     docker_container:
       name: son-monitor-influxdb
-      image: sonatanfv/son-monitor-influxdb
+      image: sonatanfv/son-monitor-influxdb:{{ ver }}
       state: started
-      ports: 8086:8086
+      network_mode: bridge
+      networks:
+      - name: "{{ docker_network_name }}"
+        aliases:
+          - influxdb
+      published_ports: 8086:8086
       volumes:
-        - /var/log/sonata:/var/log/monitor-influxdb
+        - /var/log/sonata/son-monitor-influxdb:/var/log/son-monitor-influxdb
       log_driver: syslog
       #log_options: gelf-address=udp://10.31.11.37:12900
 

@@ -1,7 +1,7 @@
 ---
 
 - name: starting Docker engine on the target VM appliance
-  hosts: "{{ environ }}"
+  hosts: "{{ plat }}"
   become: true
   tasks:
 

@@ -3,17 +3,22 @@
 - name: MANO Plug-in Manager (Docker container)
   docker_container:
     name: pluginmanager
-    image: sonatanfv/pluginmanager
+    image: "sonatanfv/pluginmanager:{{ ver }}"
     env:
       mongo_host: "{{ ansible_default_ipv4.address }}"
       broker_host: amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F
-    links:
-      - son-broker
-      - son-mongo
+    network_mode: bridge
+    networks:
+      - name: "{{ docker_network_name }}"
+        aliases:
+          - pluginmanager
+        links:
+          - son-broker
+          - son-mongo
     state: started
-    ports: 8001:8001
+    published_ports: 8001:8001
     volumes:
-      - /var/log/sonata/pluginmgr:/var/log/mano-pluginmanager
+      - /var/log/sonata/pluginmgr:/var/log/pluginmanager
     log_driver: syslog # gelf
 
 - wait_for: host=0.0.0.0 port=8001 timeout=30 delay=10 state=started

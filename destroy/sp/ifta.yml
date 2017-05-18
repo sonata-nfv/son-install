@@ -1,6 +1,6 @@
 ---
 - name: removing Infrastructure Abstraction (Docker container) from the VM
-  hosts: "{{ environ }}"
+  hosts: "{{ plat }}"
   become: true
   tasks:
 

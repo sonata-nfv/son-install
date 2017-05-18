@@ -1,6 +1,6 @@
 ---
 - name: BROKER - starting RabbitMQ Docker container on the SONATA SP VM appliance
-  hosts: "{{ environ }}"
+  hosts: "{{ plat }}"
   become: true
   tasks:
 

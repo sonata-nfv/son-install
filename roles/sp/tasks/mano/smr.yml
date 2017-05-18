@@ -1,15 +1,20 @@
 - name: MANO Specific Manager Registry (SMR) (Docker container)
   docker_container:
     name: specificmanagerregistry
-    image: sonatanfv/specificmanagerregistry
+    image: "sonatanfv/specificmanagerregistry:{{ ver }}"
     env:
       broker_host: amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F
       broker_name: son-broker,broker
-    links:
-      - son-broker
+    network_mode: bridge
+    networks:
+      - name: "{{ docker_network_name }}"
+        aliases:
+          - specificmanagerregistry
+        links:
+          - son-broker
     state: started
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - /var/log/sonata/smr:/var/log/mano-smr
+      - /var/log/sonata/specificmanagerregistry:/var/log/specificmanagerregistry
     log_driver: syslog # gelf
 

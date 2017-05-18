@@ -1,12 +1,3 @@
 ---
 # vars file for sp
 
-
-# VARs for MONITOR
-upassword: sonata
-urootpw: 1234
-dbname: monitoring
-dbuser: monitoringuser
-
-# pre-load
-public_ip: 172.31.6.21

@@ -3,7 +3,6 @@
 - name: install Docker dependency libraries
   yum: name={{ item }} state=present update_cache=yes
   with_items:
-  - git
   - python-pip
 
 - name: make sure docker-python RPM is not installed

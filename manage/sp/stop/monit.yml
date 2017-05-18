@@ -1,6 +1,6 @@
 ---
 - name: stopping MONITORY Docker containers at SP VM
-  hosts: "{{ environ }}"
+  hosts: "{{ plat }}"
   become: true
   tasks:
 

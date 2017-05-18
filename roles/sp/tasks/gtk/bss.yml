@@ -1,16 +1,24 @@
 ---
 # Running the Sonata GK BSS Docker Image
 
-- name: deploying GATEKEEPER BSS (Docker containers)
+- name: deploying GATEKEEPER BSS (as a Docker container)
   docker_container:
     name: son-bss
-    image: sonatanfv/son-yo-gen-bss
-    command: grunt serve:integration --gkApiUrl=http://{{ public_ip }}:32001
+    image: "sonatanfv/son-yo-gen-bss:{{ ver }}"
+    command: "grunt serve:integration --gkApiUrl=https://{{ public_ip }}/api/v2 --hostname: {{ public_ip }} --userManagementEnabled=false --licenseManagementEnabled=false"
     state: started
-    ports: "25001:1337"
+    network_mode: bridge
+    networks:
+      - name: "{{ docker_network_name }}"
+        aliases:
+          - son-bss
+    published_ports:
+      - "25001:1337"
+      - "25002:1338"
     restart_policy: "unless-stopped"
     volumes:
-      - /var/log/sonata:/var/log/son-bss
+      - /var/log/sonata/son-bss:/var/log/son-bss
+      - /etc/ssl/private/sonata/:/usr/local/yeoman/SonataBSS/app/certs/
     log_driver: syslog
 
 #  - wait_for: host=0.0.0.0 port=1337 timeout=30 delay=10 state=started

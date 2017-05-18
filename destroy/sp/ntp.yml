@@ -1,7 +1,7 @@
 ---
 
 - name: UNINSTALLING NTP
-  hosts: "{{ environ }}"
+  hosts: "{{ plat }}"
   become: true
   tasks:
 
@@ -11,21 +11,17 @@
     when: ansible_os_family == "Debian"
 
   - name: check if the NTP svc exists on Redhat systems
-    stat: path=/etc/init.d/ntpd
+    stat: path=/usr/lib/systemd/system/ntpd.service
     register: svc_status
     when: ansible_os_family == "RedHat"
 
   - name: stop NTP svc
-    svc: name=ntp state=stopped enabled=no
-    when: svc_status.stat.exists
-    register: svc_stopped
-    when: ansible_os_family == "Debian"
+    service: name=ntp state=stopped enabled=no
+    when: svc_status.stat.exists and ansible_os_family == "Debian"
 
   - name: stop NTP svc
-    svc: name=ntpd state=stopped enabled=no
-    when: svc_status.stat.exists
-    register: svc_stopped
-    when: ansible_os_family == "RedHat"
+    service: name=ntpd state=stopped enabled=no
+    when: svc_status.stat.exists and ansible_os_family == "RedHat"
 
   - name: finally, remove NTP from system
     apt: name=ntp state=absent 

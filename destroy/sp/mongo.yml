@@ -1,6 +1,6 @@
 ---
-- name: remove MongoDB container from the 'environ' machine
-  hosts: "{{ environ }}"
+- name: remove MongoDB container from the 'plat' machine
+  hosts: "{{ plat }}"
   become: true
   tasks:
   - name: destroy mongo container

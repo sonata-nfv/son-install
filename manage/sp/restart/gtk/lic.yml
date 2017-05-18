@@ -1,7 +1,7 @@
 ---
 
 - name: restarting GTK LIC Docker container
-  hosts: "{{ environ }}"
+  hosts: "{{ plat }}"
   become: true
   tasks:
 
