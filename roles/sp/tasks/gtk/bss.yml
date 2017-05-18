@@ -5,7 +5,7 @@
   docker_container:
     name: son-bss
     image: "sonatanfv/son-yo-gen-bss:{{ ver }}"
-    command: grunt serve:integration --gkApiUrl=https://{{ public_ip }}/api/v2 --userManagementEnabled=false --licenseManagementEnabled=false
+    command: "grunt serve:integration --gkApiUrl=https://{{ public_ip }}/api/v2 --hostname: {{ public_ip }} --userManagementEnabled=false --licenseManagementEnabled=false"
     state: started
     network_mode: bridge
     networks:
@@ -18,6 +18,7 @@
     restart_policy: "unless-stopped"
     volumes:
       - /var/log/sonata/son-bss:/var/log/son-bss
+      - /etc/ssl/private/sonata/:/usr/local/yeoman/SonataBSS/app/certs/
     log_driver: syslog
 
 #  - wait_for: host=0.0.0.0 port=1337 timeout=30 delay=10 state=started

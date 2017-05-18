@@ -6,9 +6,14 @@
     name: son-gui
     image: "sonatanfv/son-gui:{{ ver }}"
     env:
-      MON_URL: "{{ public_ip }}:8000"
-      GK_URL: "{{ public_ip }}:32001/api/v2"
+      #MON_URL: "{{ public_ip }}:8000"
+      #GK_URL: "{{ public_ip }}:32001/api/v2"
       #LOGS_URL: "{{ graylog_ip }}:12900"
+
+      MON_URL: "http://{{ public_ip }}/monitoring"
+      GK_URL: "http://{{ public_ip }}/api/v2"
+      LOGS_URL: i"http://{{ public_ip }}:12900"
+
     state: started
     network_mode: bridge
     networks:
