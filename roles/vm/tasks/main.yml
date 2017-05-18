@@ -48,6 +48,11 @@
   with_items: "{{ newvm.results }}"
 
 - lineinfile:
+    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+    line: "public_ip: {{ item.openstack.accessIPv4 }}"
+  with_items: "{{ newvm.results }}"
+
+- lineinfile:
     path: "{{ lookup('env','PWD') }}/roles/docker/files/group_vars.yml"
     line: "public_ip: {{ item.openstack.accessIPv4 }}"
     create: yes
