@@ -10,7 +10,7 @@
       name: son-gtkpkg
       image: sonatanfv/son-gtkpkg
       env:
-        CATALOGUES_URL: http://{{ public_ip }}:4002/catalogues
+        CATALOGUES_URL: http://{{ public_ip }}:4002/catalogues/api/v2
         RACK_ENV: integration
       state: started
       ports: "5100:5100"
