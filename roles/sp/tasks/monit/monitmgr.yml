@@ -13,7 +13,6 @@
         - "8888:8888"
       volumes:
         - "/tmp/monitoring/mgr:/var/log/apache2"
-      log_driver: syslog
 
   - wait_for: host=0.0.0.0 port=8000 timeout=30 delay=10 state=started
 

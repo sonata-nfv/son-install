@@ -17,6 +17,5 @@
     restart_policy: unless-stopped
     volumes:
       - /var/log/sonata/cadvisor:/var/log/cadvisor
-    log_driver: syslog
 
 - wait_for: host=0.0.0.0 port=8079 timeout=30 delay=10 state=started

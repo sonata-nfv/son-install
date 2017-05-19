@@ -17,5 +17,4 @@
         - name: "{{ docker_network_name }}"
           aliases:
             - son-sp-infrabstract
-    log_driver: syslog
 

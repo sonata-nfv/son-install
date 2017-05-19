@@ -12,4 +12,3 @@
         aliases:
           - placementexecutive
     state: started
-    log_driver: syslog

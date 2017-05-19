@@ -7,7 +7,7 @@
       state: started
       restart_policy: "unless-stopped"
       env:
-        PUSHGATEWAY_HOST: "{{ public_ip }}"
+        PUSHGATEWAY_HOST: "{{ public_ip }}
         PUSHGATEWAY_PORT: 9091
         PROMETHEUS_PORT: 9090
         RACK_ENV: integration
@@ -17,7 +17,6 @@
           aliases:
             - son-gtkkpi
       published_ports: "5400:5400"
-      log_driver: syslog # gelf
 
   - wait_for: host=0.0.0.0 port=5400 timeout=120 delay=10 state=started
 

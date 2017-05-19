@@ -14,5 +14,4 @@
         - "/var/run/docker.sock:/var/run/docker.sock"
         - "/:/rootfs:ro"
         - "/proc:/myhost/proc"
-      log_driver: syslog # gelf
 
