@@ -24,6 +24,4 @@
           - son-broker
     published_ports:
       - "5672:5672"
-    log_driver: syslog
-# when: service_status.stdout == "active"
 

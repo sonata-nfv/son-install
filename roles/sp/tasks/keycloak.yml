@@ -25,6 +25,4 @@
           - son-keycloak
     published_ports:
       - "5601:5601"
-    log_driver: syslog
-# when: service_status.stdout == "active"
 

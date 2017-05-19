@@ -17,5 +17,4 @@
         links:
           - son-broker
     state: started
-    log_driver: syslog
 

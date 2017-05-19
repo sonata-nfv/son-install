@@ -23,7 +23,6 @@
           - son-gtklic
     exposed_ports: 5900
     published_ports: "5900:5900"
-    log_driver: syslog # gelf
 
 - wait_for: host=0.0.0.0 port=5900 timeout=300 delay=10 state=started
 

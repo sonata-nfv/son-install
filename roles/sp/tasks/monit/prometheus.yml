@@ -14,5 +14,4 @@
       published_ports:
         - "9090:9090"
         - "9089:9089"
-      log_driver: syslog
 

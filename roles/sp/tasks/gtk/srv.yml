@@ -24,6 +24,5 @@
     state: started
     restart_policy: "unless-stopped"
     published_ports: "5300:5300"
-    log_driver: syslog
 
 - wait_for: host=0.0.0.0 port=5300 timeout=30 delay=10 state=started

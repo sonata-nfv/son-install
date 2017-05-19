@@ -17,5 +17,4 @@
         - name: "{{ docker_network_name }}"
           aliases:
             - wim-adaptor
-    log_driver: syslog # gelf
 
