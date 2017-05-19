@@ -15,14 +15,17 @@
   systemd: name=docker state=restarted daemon_reload=yes
   when: ansible_os_family == "RedHat"
 
-# deploy RabbitMQ message bus
-- include: broker.yml
-
 # deploy postgreSQL database engine
 - include: pgsql.yml
 
 # deploy MongoDB (NoSQL) database engine
 - include: mongo.yml
+
+# deploy RabbitMQ message bus
+- include: broker.yml
+
+# deploy postgreSQL database engine for monitoring
+- include: pgsql-monitoring.yml
 
 # deploy Repositories
 - include: repos.yml
