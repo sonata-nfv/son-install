@@ -30,6 +30,12 @@
 # deploy Keycloak
 - include: keycloak.yml
 
+# deploy GUI
+- include: gui.yml
+
+# deploy BSS
+- include: bss.yml
+
 # deploy Repositories
 - include: repos.yml
 
