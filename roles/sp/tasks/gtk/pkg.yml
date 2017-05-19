@@ -16,8 +16,6 @@
           - son-gtkpkg
     published_ports: "5100:5100"
     restart_policy: "unless-stopped"
-    volumes:
-      - /var/log/sonata/son-gtkpkg:/var/log/son-gtkpkg
     log_driver: syslog
 
 - wait_for: host=0.0.0.0 port=5100 timeout=30 delay=10 state=started
