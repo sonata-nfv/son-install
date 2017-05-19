@@ -51,5 +51,8 @@
 # deploy Monitoring
 - include: monit-all.yml
 
+# deploy Security Gateway
+- include: sec-gw.yml
+
 # deploy Google cAdvisor
 #- include: cadvisor.yml
