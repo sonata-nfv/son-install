@@ -36,11 +36,11 @@
 # deploy BSS
 - include: bss.yml
 
-# deploy Repositories
-- include: repos.yml
-
 # deploy Gatekepper module
 - include: gtk-all.yml
+
+# deploy Repositories
+- include: repos.yml
 
 # deploy MANO framework
 - include: mano-all.yml
