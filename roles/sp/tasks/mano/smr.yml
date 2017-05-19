@@ -3,7 +3,7 @@
     name: specificmanagerregistry
     image: "sonatanfv/specificmanagerregistry:{{ ver }}"
     env:
-      broker_host: amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F
+      broker_host: amqp://guest:guest@son-broker:5672/%2F
       broker_name: son-broker,broker
     network_mode: bridge
     networks:
@@ -15,6 +15,5 @@
     state: started
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - /var/log/sonata/specificmanagerregistry:/var/log/specificmanagerregistry
-    log_driver: syslog # gelf
+    log_driver: syslog
 
