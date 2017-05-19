@@ -52,4 +52,4 @@
 - include: monit-all.yml
 
 # deploy Google cAdvisor
-- include: cadvisor.yml
+#- include: cadvisor.yml
