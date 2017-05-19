@@ -2,7 +2,6 @@
 
 # Running the Sonata MONITORY Docker Images
 
-- include: monit/influxdb.yml
 - include: monit/pushgw.yml
 - include: monit/monitmgr.yml
 - include: monit/prometheus.yml

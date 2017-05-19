@@ -21,11 +21,11 @@
 # deploy MongoDB (NoSQL) database engine
 - include: mongo.yml
 
-# deploy RabbitMQ message bus
-- include: broker.yml
-
 # deploy postgreSQL database engine for monitoring
 - include: pgsql-monitoring.yml
+
+# deploy RabbitMQ message bus
+- include: broker.yml
 
 # deploy Repositories
 - include: repos.yml
