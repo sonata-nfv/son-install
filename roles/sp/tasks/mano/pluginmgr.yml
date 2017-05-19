@@ -5,8 +5,8 @@
     name: pluginmanager
     image: "sonatanfv/pluginmanager:{{ ver }}"
     env:
-      mongo_host: "{{ ansible_default_ipv4.address }}"
-      broker_host: amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F
+      mongo_host: son-mongo
+      broker_host: amqp://guest:guest@son-broker:5672/%2F
     network_mode: bridge
     networks:
       - name: "{{ docker_network_name }}"
