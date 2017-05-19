@@ -9,10 +9,7 @@
           aliases:
             - son-monitor-pushgateway
       published_ports: "9091:9091"
-      volumes:
-        - /var/log/sonata/son-monitor-pushgateway:/var/log/son-monitor-pushgateway
-      log_driver: syslog # gelf
-      #log-options: gelf-address=udp://10.31.11.37:12900
+      log_driver: syslog
 
   - wait_for: host=0.0.0.0 port=9091 timeout=30 delay=10 state=started
 

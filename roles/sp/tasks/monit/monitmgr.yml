@@ -8,15 +8,12 @@
         - name: "{{ docker_network_name }}"
           aliases:
             - son-monitor-manager
-      published_ports: 8000:8000
-      etc_hosts:
-        #mysql: "{{ ansible_default_ipv4.address }}"
-        son-monitor-postgres: "{{ ansible_default_ipv4.address }}"
-        prometheus: "{{ ansible_default_ipv4.address }}"
+      published_ports:
+        - "8000:8000"
+        - "8888:8888"
       volumes:
         - "/tmp/monitoring/mgr:/var/log/apache2"
-        - /var/log/sonata/son-monitor-manager:/var/log/son-monitor-manager
-      log_driver: syslog # gelf
+      log_driver: syslog
 
   - wait_for: host=0.0.0.0 port=8000 timeout=30 delay=10 state=started
 

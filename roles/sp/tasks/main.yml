@@ -15,20 +15,32 @@
   systemd: name=docker state=restarted daemon_reload=yes
   when: ansible_os_family == "RedHat"
 
-# deploy RabbitMQ message bus
-- include: broker.yml
-
 # deploy postgreSQL database engine
 - include: pgsql.yml
 
 # deploy MongoDB (NoSQL) database engine
 - include: mongo.yml
 
-# deploy Repositories
-- include: repos.yml
+# deploy postgreSQL database engine for monitoring
+- include: pgsql-monitoring.yml
+
+# deploy RabbitMQ message bus
+- include: broker.yml
+
+# deploy Keycloak
+- include: keycloak.yml
+
+# deploy GUI
+- include: gui.yml
+
+# deploy BSS
+- include: bss.yml
 
 # deploy Gatekepper module
 - include: gtk-all.yml
+
+# deploy Repositories
+- include: repos.yml
 
 # deploy MANO framework
 - include: mano-all.yml
@@ -39,5 +51,8 @@
 # deploy Monitoring
 - include: monit-all.yml
 
+# deploy Security Gateway
+- include: sec-gw.yml
+
 # deploy Google cAdvisor
-- include: cadvisor.yml
+#- include: cadvisor.yml

@@ -1,0 +1,22 @@
+---
+# Running the Sonata GK GUI (Docker container)
+
+- name: GATEKEEPER GUI - running Docker containers
+  docker_container:
+    name: son-gui
+    image: "sonatanfv/son-gui:{{ ver }}"
+    env:
+      MON_URL: "http://{{ domain_name }}/monitoring"
+      GK_URL: "http://{{ domain_name }}/api/v2"
+#      LOGS_URL: i"http://{{ public_ip }}:12900"
+
+    state: started
+    network_mode: bridge
+    networks:
+      - name: "{{ docker_network_name }}"
+        aliases:
+          - son-gui
+    restart_policy: "unless-stopped"
+    log_driver: syslog
+
+#- wait_for: host=0.0.0.0 port=80 timeout=30 delay=10 state=started

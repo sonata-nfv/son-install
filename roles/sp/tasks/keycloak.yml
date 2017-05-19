@@ -10,7 +10,7 @@
   register: service_status
   when: ansible_os_family == "Debian"
 
-- name: run the SP User Management (KeyCloak)
+- name: run the SP Keycloak service
   docker_container:
     name: "son-keycloak"
     image: "sonatanfv/son-keycloak:{{ dev }}"
@@ -25,9 +25,6 @@
           - son-keycloak
     published_ports:
       - "5601:5601"
-    privileged: yes
-    volumes:
-      - /var/log/sonata/son-keycloak:/var/log/keycloak
-    log_driver: syslog # gelf
+    log_driver: syslog
 # when: service_status.stdout == "active"
 

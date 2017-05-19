@@ -5,8 +5,8 @@
     name: pluginmanager
     image: "sonatanfv/pluginmanager:{{ ver }}"
     env:
-      mongo_host: "{{ ansible_default_ipv4.address }}"
-      broker_host: amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F
+      mongo_host: son-mongo
+      broker_host: amqp://guest:guest@son-broker:5672/%2F
     network_mode: bridge
     networks:
       - name: "{{ docker_network_name }}"
@@ -17,9 +17,9 @@
           - son-mongo
     state: started
     published_ports: 8001:8001
-    volumes:
-      - /var/log/sonata/pluginmgr:/var/log/pluginmanager
     log_driver: syslog # gelf
 
 - wait_for: host=0.0.0.0 port=8001 timeout=30 delay=10 state=started
 
+- pause:
+    seconds: 10

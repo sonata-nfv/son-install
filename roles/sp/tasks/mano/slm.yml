@@ -5,10 +5,10 @@
     name: servicelifecyclemanagement
     image: "sonatanfv/servicelifecyclemanagement:{{ ver }}"
     env:
-      url_nsr_repository: http://{{ ansible_default_ipv4.address }}:4002/records/nsr/
-      url_vnfr_repository: http://{{ ansible_default_ipv4.address }}:4002/records/vnfr/
-      url_monitoring_server: http://{{ ansible_default_ipv4.address }}:8000/api/v1/
-      broker_host: amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F
+      url_nsr_repository: http://son-catalogue-repos:4011/records/nsr/
+      url_vnfr_repository: http://son-catalogue-repos:4011/records/vnfr/
+      url_monitoring_server: http://{{ public_ip }}:8000/api/v1/
+      broker_host: amqp://guest:guest@son-broker:5672/%2F
     network_mode: bridge
     networks:
       - name: "{{ docker_network_name }}"
@@ -17,7 +17,5 @@
         links:
           - son-broker
     state: started
-    volumes:
-      - /var/log/sonata/servicelifecyclemanagement:/var/log/servicelifecyclemanagement
-    log_driver: syslog # gelf
+    log_driver: syslog
 

@@ -4,7 +4,7 @@
       image: "sonatanfv/son-monitor-prometheus:{{ ver }}"
       state: started
       env:
-        RABBIT_URL: "{{ ansible_default_ipv4.address }}:5672"
+        RABBIT_URL: "son-broker:5672"
         EMAIL_PASS: "czBuQHRAX21vbl9zeXNfMTY="
       network_mode: bridge
       networks:
@@ -14,11 +14,5 @@
       published_ports:
         - "9090:9090"
         - "9089:9089"
-      etc_hosts:
-        cadvisor: "{{ ansible_default_ipv4.address }}"
-        influx: "{{ ansible_default_ipv4.address }}"
-        pushgateway: "{{ ansible_default_ipv4.address }}"
-      volumes:
-        - /var/log/sonata/on-monitor-prometheus:/var/log/son-monitor-prometheus
-      log_driver: syslog # gelf
+      log_driver: syslog
 
