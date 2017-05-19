@@ -10,6 +10,7 @@
       - name: "{{ docker_network_name }}"
         aliases:
           - son-mongo
+          - mongo
     published_ports: 27017:27017
     volumes:
       - /var/log/sonata/mongo:/var/log/mongo
