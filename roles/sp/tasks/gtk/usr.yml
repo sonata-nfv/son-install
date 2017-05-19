@@ -17,7 +17,7 @@
         - name: "{{ docker_network_name }}"
           aliases:
             - son-gtkusr
-      exposed_ports: 5400
+          links: son-mongo:mongo
       published_ports: "5600:5600"
 
   - wait_for: host=0.0.0.0 port=5600 timeout=120 delay=10 state=started
