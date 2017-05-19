@@ -27,6 +27,9 @@
 # deploy RabbitMQ message bus
 - include: broker.yml
 
+# deploy Keycloak
+- include: keycloak.yml
+
 # deploy Repositories
 - include: repos.yml
 

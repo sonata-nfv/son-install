@@ -12,5 +12,4 @@
 - include: gtk/api.yml
 - include: gtk/lic.yml
 - include: gtk/kpi.yml
-- include: gtk/um.yml
 
