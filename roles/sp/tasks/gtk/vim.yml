@@ -2,7 +2,7 @@
 
 # Populate pgSQL database VIM
 - name: create data model and populate db
-  shell: /usr/bin/docker run --net={{ docker_network_name }} -i -e DATABASE_HOST={{ public_ip }} -e MQSERVER=amqp://guest:guest@{{ public_ip }}:5672 -e RACK_ENV=integration -e DATABASE_PORT=5432 -e POSTGRES_PASSWORD=sonata -e POSTGRES_USER=sonatatest --rm=true sonatanfv/son-gtkvim:dev bundle exec rake db:migrate
+  shell: /usr/bin/docker run --net={{ docker_network_name }} -i -e DATABASE_HOST={{ public_ip }} -e MQSERVER=amqp://guest:guest@{{ public_ip }}:5672 -e RACK_ENV=integration -e DATABASE_PORT=5432 -e POSTGRES_PASSWORD=sonata -e POSTGRES_USER=sonatatest --rm=true sonatanfv/son-gtkvim:{{ ver }} bundle exec rake db:migrate
 
 # Start GTK VIM (Docker container)
 - name: GATEKEEPER VIM
