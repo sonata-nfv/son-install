@@ -1,14 +1,14 @@
 ---
 
-- name: deployng Infrastructure Abstractor VIM Adaptor (Docker container)
+- name: deploying Infrastructure Abstractor VIM Adaptor (Docker container)
   docker_container:
     name: son-sp-infrabstract
     image: "sonatanfv/son-sp-infrabstract:{{ ver }}"
     state: started
     env:
-      broker_host: "{{ ansible_default_ipv4.address }}"
-      broker_uri: "amqp://guest:guest@{{ ansible_default_ipv4.address }}:5672/%2F"
-      repo_host: "{{ ansible_default_ipv4.address }}"
+      broker_host: "son-broker"
+      broker_uri: "amqp://guest:guest@son-broker:5672/%2F"
+      repo_host: "son-postgres"
       repo_port: "5432"
       repo_user: "sonatatest"
       repo_pass: "sonata"
@@ -17,7 +17,5 @@
         - name: "{{ docker_network_name }}"
           aliases:
             - son-sp-infrabstract
-    volumes:
-      - /var/log/sonata/son-sp-infrabstract:/var/log/son-sp-infrabstract
-    log_driver: syslog # gelf
+    log_driver: syslog
 
