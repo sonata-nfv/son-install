@@ -7,7 +7,7 @@
       state: started
       restart_policy: "unless-stopped"
       env:
-        PUSHGATEWAY_HOST: "{{ public_ip }}"
+        PUSHGATEWAY_HOST: "{{ public_ip }}
         PUSHGATEWAY_PORT: 9091
         PROMETHEUS_PORT: 9090
         RACK_ENV: integration

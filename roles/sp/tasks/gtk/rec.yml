@@ -6,7 +6,7 @@
     name: son-gtkrec
     image: "sonatanfv/son-gtkrec:{{ ver }}"
     env:
-      REPOSITORIES_URL: http://{{ public_ip }}:4002/records
+      REPOSITORIES_URL: http://son-catalogue-repos:4011/records
       RACK_ENV: integration
     state: started
     network_mode: bridge

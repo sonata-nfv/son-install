@@ -6,7 +6,7 @@
     name: son-gtkfnct
     image: "sonatanfv/son-gtkfnct:{{ ver }}"
     env:
-      CATALOGUES_URL: http://{{ public_ip }}:4002/catalogues/api/v2
+      CATALOGUES_URL: http://son-catalogue-repos:4011/catalogues/api/v2
       RACK_ENV: integration
     state: started
     network_mode: bridge
