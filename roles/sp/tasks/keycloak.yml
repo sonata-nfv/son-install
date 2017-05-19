@@ -1,0 +1,31 @@
+---
+
+- name: check if the DOCKER service exists
+  command: systemctl is-active docker.service
+  register: service_status
+  when: ansible_distribution_release == "Core"
+
+- name: check if the DOCKER service exists
+  stat: path=/etc/init.d/docker
+  register: service_status
+  when: ansible_os_family == "Debian"
+
+- name: run the SP Keycloak service
+  docker_container:
+    name: "son-keycloak"
+    image: "sonatanfv/son-keycloak:{{ dev }}"
+    env:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+    state: started
+    network_mode: bridge
+    networks:
+      - name: "{{ docker_network_name }}"
+        aliases:
+          - son-keycloak
+    published_ports:
+      - "5601:5601"
+    privileged: yes
+    log_driver: syslog
+# when: service_status.stdout == "active"
+

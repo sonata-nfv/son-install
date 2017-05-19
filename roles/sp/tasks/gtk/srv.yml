@@ -1,6 +1,8 @@
 ---
 # Running the Sonata GK SERVICES (Docker container)
 
+- shell: /usr/bin/docker run -i --net={{ docker_network_name }} -e DATABASE_HOST={{ public_ip }} -e MQSERVER=amqp://guest:guest@{{ public_ip }}:5672 -e RACK_ENV=integration -e CATALOGUES_URL=http://{{ public_ip }}:4002/catalogues/api/v2 -e DATABASE_HOST={{ public_ip }} -e DATABASE_PORT=5432 -e POSTGRES_PASSWORD=sonata -e POSTGRES_USER=sonatatest --rm=true sonatanfv/son-gtksrv:dev bundle exec rake db:migrate
+
 - name: GATEKEEPER SERVICES - running Docker containers
   docker_container:
     name: son-gtksrv
@@ -29,8 +31,6 @@
     log_driver: syslog
 
 - wait_for: host=0.0.0.0 port=5300 timeout=30 delay=10 state=started
-
-- shell: /usr/bin/docker exec -d son-gtksrv /bin/bash -c "cd /opt/sonata/son-gtksrv" && "bundle install" && "bundle exec rake db:migrate"
 
 #  - name: wait for Container to finish
 #    shell: >
