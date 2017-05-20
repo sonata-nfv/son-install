@@ -30,6 +30,9 @@
 # deploy RabbitMQ message bus
 - include: broker.yml
 
+# deploy Influxdb
+- include: influxdb.yml
+
 # deploy Keycloak
 - include: keycloak.yml
 
