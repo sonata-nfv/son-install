@@ -8,6 +8,7 @@
 - include: gtk/rec.yml
 - include: gtk/vim.yml
 - include: gtk/lic.yml
+- include: keycloak.yml
 - include: gtk/kpi.yml
 - include: gtk/usr.yml
 - include: gtk/api.yml

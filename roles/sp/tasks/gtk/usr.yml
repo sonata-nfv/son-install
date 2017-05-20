@@ -5,20 +5,19 @@
       name: son-gtkusr
       image: "sonatanfv/son-gtkusr:{{ ver }}"
       state: started
-      restart_policy: "unless-stopped"
       env:
         KEYCLOAK_ADDRESS: son-keycloak
-        KEYCLOAK_PORT: 5601 
-        KEYCLOAK_PATH: auth 
+        KEYCLOAK_PORT: 5601
+        KEYCLOAK_PATH: auth
         SONATA_REALM: sonata
-        CLIENT_NAME: adapter
+        CLIENT_NAME: adapter 
       network_mode: bridge
       networks:
         - name: "{{ docker_network_name }}"
           aliases:
             - son-gtkusr
-          links: son-mongo:mongo
       published_ports: "5600:5600"
+      restart_policy: "unless-stopped"
 
   - wait_for: host=0.0.0.0 port=5600 timeout=120 delay=10 state=started
 
