@@ -5,7 +5,7 @@
     name: "son-keycloak"
     image: "sonatanfv/son-keycloak:{{ ver }}"
     env:
-      KEYCLOAK_USER: admin
+      KEYCLOAK_USER: admin 
       KEYCLOAK_PASSWORD: admin
     state: started
     network_mode: bridge
@@ -15,4 +15,4 @@
           - son-keycloak
     published_ports:
       - "5601:5601"
-
+    restart_policy: "unless-stopped"
