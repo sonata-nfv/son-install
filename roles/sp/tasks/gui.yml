@@ -8,7 +8,6 @@
     env:
       MON_URL: "http://{{ domain_name }}/monitoring"
       GK_URL: "http://{{ domain_name }}/api/v2"
-#      LOGS_URL: i"http://{{ public_ip }}:12900"
 
     state: started
     network_mode: bridge
