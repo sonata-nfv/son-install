@@ -16,5 +16,3 @@
           - son-gtkrec
     published_ports: "5800:5800"
     restart_policy: "unless-stopped"
-
-- wait_for: host=0.0.0.0 port=5800 timeout=30 delay=10 state=started

@@ -11,5 +11,3 @@
           - son-catalogue-repos
     published_ports: 4002:4011
     restart_policy: unless-stopped
-
-- wait_for: host=0.0.0.0 port=4002 timeout=30 delay=10 state=started

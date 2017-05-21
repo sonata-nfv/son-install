@@ -9,6 +9,3 @@
           aliases:
             - son-monitor-pushgateway
       published_ports: "9091:9091"
-
-  - wait_for: host=0.0.0.0 port=9091 timeout=30 delay=10 state=started
-
