@@ -8,6 +8,7 @@
       POSTGRES_USER=monitoringuser
       POSTGRES_PASSWORD=sonata
     state: started
+    command: postgres -p 5433
     network_mode: bridge
     networks:
       - name: "{{ docker_network_name }}"

@@ -11,6 +11,7 @@
         - name: "{{ docker_network_name }}"
           aliases:
             - son-monitor-prometheus
+            - prometheus
       published_ports:
         - "9090:9090"
         - "9089:9089"
