@@ -13,8 +13,8 @@
       repo_user: "sonatatest"
       repo_pass: "sonata"
       network_mode: bridge
-      networks:
-        - name: "{{ docker_network_name }}"
-          aliases:
-            - son-sp-infrabstract
+    networks:
+      - name: "{{ docker_network_name }}"
+        aliases:
+          - son-sp-infrabstract
 
