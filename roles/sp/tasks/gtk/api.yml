@@ -9,7 +9,7 @@
       RACK_ENV: integration
       USER_MANAGEMENT_URL: http://son-gtkusr:5600
       LICENSE_MANAGEMENT_URL: http://son-gtklic:5900
-      METRICS_URL: http://{{ public_ip }}:8000/api/v1
+      METRICS_URL: http://son-monitor-manager:8000/api/v1
       CATALOGUES_URL: http://son-catalogue-repos:4011/catalogues/api/v2
       PACKAGE_MANAGEMENT_URL: http://son-gtkpkg:5100
       SERVICE_MANAGEMENT_URL: http://son-gtksrv:5300

@@ -7,7 +7,7 @@
     env:
       url_nsr_repository: http://son-catalogue-repos:4011/records/nsr/
       url_vnfr_repository: http://son-catalogue-repos:4011/records/vnfr/
-      url_monitoring_server: http://{{ public_ip }}:8000/api/v1/
+      url_monitoring_server: http://son-monitor-manager:8000/api/v1/
       broker_host: amqp://guest:guest@son-broker:5672/%2F
     network_mode: bridge
     networks:
