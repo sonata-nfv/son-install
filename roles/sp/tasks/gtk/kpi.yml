@@ -17,6 +17,3 @@
           aliases:
             - son-gtkkpi
       published_ports: "5400:5400"
-
-  - wait_for: host=0.0.0.0 port=5400 timeout=120 delay=10 state=started
-

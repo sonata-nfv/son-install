@@ -24,5 +24,3 @@
     state: started
     restart_policy: "unless-stopped"
     published_ports: "5700:5700"
-
-- wait_for: host=0.0.0.0 port=5700 timeout=30 delay=10 state=started

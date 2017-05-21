@@ -16,5 +16,3 @@
           - son-monitor-postgres
           - postgsql
     published_ports: 5433:5432
-
-- wait_for: host=0.0.0.0 port=5433 timeout=30 delay=10 state=started

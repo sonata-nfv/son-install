@@ -16,5 +16,3 @@
           - son-gtkpkg
     published_ports: "5100:5100"
     restart_policy: "unless-stopped"
-
-- wait_for: host=0.0.0.0 port=5100 timeout=30 delay=10 state=started
