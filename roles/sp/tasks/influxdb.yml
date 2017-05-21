@@ -9,6 +9,7 @@
         aliases:
           - son-monitor-influxdb
           - influxdb
+          - influx
       published_ports: 8086:8086
 
   - wait_for: host=0.0.0.0 port=8086 timeout=30 delay=10 state=started
