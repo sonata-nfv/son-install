@@ -1,7 +1,7 @@
   - name: MONIT MANAGER - running Docker containers
     docker_container:
       name: son-monitor-manager
-      image: "sonatanfv/son-monitor-manager:{{ ver }}"
+      image: "sonatanfv/son-monitor-manager:{{ sp_ver }}"
       state: started
       network_mode: bridge
       networks:

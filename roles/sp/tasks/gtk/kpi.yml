@@ -3,7 +3,7 @@
   - name: GATEKEEPER KEY PERFORMANCE INDICATORS (GTKKPI) (Docker container)
     docker_container:
       name: son-gtkkpi
-      image: "sonatanfv/son-gtkkpi:{{ ver }}"
+      image: "sonatanfv/son-gtkkpi:{{ sp_ver }}"
       state: started
       restart_policy: "unless-stopped"
       env:

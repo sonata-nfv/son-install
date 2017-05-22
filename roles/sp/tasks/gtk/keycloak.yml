@@ -3,7 +3,7 @@
 - name: run the SP Keycloak service
   docker_container:
     name: "son-keycloak"
-    image: "sonatanfv/son-keycloak:{{ ver }}"
+    image: "sonatanfv/son-keycloak:{{ sp_ver }}"
     env:
       KEYCLOAK_USER: admin 
       KEYCLOAK_PASSWORD: admin

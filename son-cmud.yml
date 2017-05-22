@@ -22,7 +22,7 @@
   roles:
 #    - { role: common, become: true }
 #    - { role: openstackclients, become: true }
-     - vm
+    - vm
 
 - include: "{{ lookup('env','PWD') }}/common.yml"
 

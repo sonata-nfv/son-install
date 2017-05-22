@@ -4,7 +4,7 @@
 - name: GATEKEEPER GUI - running Docker containers
   docker_container:
     name: son-gui
-    image: "sonatanfv/son-gui:{{ ver }}"
+    image: "sonatanfv/son-gui:{{ sp_ver }}"
     env:
       MON_URL: "http://{{ domain_name }}/monitoring"
       GK_URL: "http://{{ domain_name }}/api/v2"
