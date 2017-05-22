@@ -18,7 +18,7 @@
     networks:
       - name: "{{ docker_network_name }}"
         aliases:
-          - son-vpsa-mgmt
+          - son-mgmt
       - name: "{{ docker_openldap_in }}"
         aliases:
           - son-openldap-in

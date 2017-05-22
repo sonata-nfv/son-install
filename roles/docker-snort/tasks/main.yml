@@ -21,7 +21,7 @@
     networks:
       - name: "{{ docker_network_name }}"
         aliases:
-          - son-vpsa-mgmt
+          - son-mgmt
       - name: "{{ docker_snort_in }}"
         aliases:
           - son-snort-in
