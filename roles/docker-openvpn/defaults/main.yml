@@ -3,4 +3,4 @@
 
 docker_openvpn_in:  son-openvpn-in
 docker_openvpn_out: son-openvpn-out
-
+docker_network_name: son-mgmt

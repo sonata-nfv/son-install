@@ -1,0 +1,3 @@
+---
+# defaults file for docker-snort
+docker_network_name: son-mgmt

@@ -19,7 +19,7 @@
     state: started
     network_mode: bridge
     networks:
-      - name: "{{ docker_vpsa_mgmt }}"
+      - name: "{{ docker_network_name }}"
         aliases:
           - son-vpsa-mgmt
       - name: "{{ docker_openvpn_in }}"
