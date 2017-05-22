@@ -3,7 +3,7 @@
 - name: MANO Service Life-cycle Management (SLM) (Docker container)
   docker_container:
     name: servicelifecyclemanagement
-    image: "sonatanfv/servicelifecyclemanagement:{{ ver }}"
+    image: "sonatanfv/servicelifecyclemanagement:{{ sp_ver }}"
     env:
       url_nsr_repository: http://son-catalogue-repos:4011/records/nsr/
       url_vnfr_repository: http://son-catalogue-repos:4011/records/vnfr/

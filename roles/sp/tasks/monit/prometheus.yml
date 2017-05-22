@@ -1,7 +1,7 @@
   - name: MONIT PROMETHEUS - running Docker containers
     docker_container:
       name: son-monitor-prometheus
-      image: "sonatanfv/son-monitor-prometheus:{{ ver }}"
+      image: "sonatanfv/son-monitor-prometheus:{{ sp_ver }}"
       state: started
       env:
         RABBIT_URL: "son-broker:5672"

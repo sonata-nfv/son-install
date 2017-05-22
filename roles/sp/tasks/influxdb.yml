@@ -1,7 +1,7 @@
   - name: MONIT InfluxDB  - running Docker containers
     docker_container:
       name: son-monitor-influxdb
-      image: sonatanfv/son-monitor-influxdb:{{ ver }}
+      image: sonatanfv/son-monitor-influxdb:{{ sp_ver }}
       state: started
       network_mode: bridge
       networks:

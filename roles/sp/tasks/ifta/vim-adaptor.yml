@@ -3,7 +3,7 @@
 - name: deploying Infrastructure Abstractor VIM Adaptor (Docker container)
   docker_container:
     name: son-sp-infrabstract
-    image: "sonatanfv/son-sp-infrabstract:{{ ver }}"
+    image: "sonatanfv/son-sp-infrabstract:{{ sp_ver }}"
     state: started
     env:
       broker_host: "son-broker"

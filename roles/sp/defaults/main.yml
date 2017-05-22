@@ -15,4 +15,5 @@ dbuser: monitoringuser
 docker_network_name: son-sp
 
 # SONATA 5G NFV SP development/latest version
-ver: dev
+sp_ver: dev
+domain_name: sonata-nfv.eu
