@@ -16,9 +16,9 @@
     #- common
     - docker
     - docker-haproxy
-    - docker-squid
     - docker-snort
     - docker-openldap
+    - docker-squid
     #- docker-addblk
     - docker-openvpn
 
