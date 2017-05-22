@@ -20,5 +20,5 @@
 
   roles:
     - docker
-    - { role: sp, ver: '2.1' }
+    - { role: sp, ver: '{{ ver }}' }
 
