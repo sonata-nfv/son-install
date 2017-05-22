@@ -1,0 +1,18 @@
+---
+- hosts: "{{ plat }}"
+  become: true
+  connection: ssh
+  vars_files:
+    - "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+  remote_user: "{{ vm_user }}"
+
+  pre_tasks:
+    - local_action: shell date +'%F %T'
+      register: timestamp
+    - debug:
+        msg: "{{ timestamp.stdout }}"
+
+  roles:
+    - docker
+    - sp
+

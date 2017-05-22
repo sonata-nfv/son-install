@@ -1,0 +1,24 @@
+---
+
+- hosts: "{{ target }}"
+  become: true
+  connection: ssh
+#  vars_files:
+#    - "vars/common.yml"
+#    - [ "vars/{{ ansible_os_family }}.yml", "vars/os_defaults.yml" ]
+  pre_tasks:
+    - debug:
+        msg: "EXTERNAL VARIABLES: -e 'target=localhost pop=alabs|ncsrd proj=qual|demo ver=2.1'"
+    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    - file:
+        path: /var/log/ansible.log
+        state: touch
+        owner: "{{ lookup('env','USER') }}"
+        group: "{{ lookup('env','USER') }}"
+        mode: "u=rw,g=r,o=r"
+      become: true
+
+  roles:
+    - docker
+    - { role: sp, ver: '2.1' }
+

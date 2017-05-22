@@ -1,0 +1,23 @@
+- hosts: ci
+  become: true
+  connection: ssh
+  pre_tasks:
+
+    - local_action: shell date +'%F %T'
+
+      register: timestamp
+
+    - debug: msg={{ timestamp.stdout }}
+  roles:
+  - ntp
+  - common
+  - jdk
+  - firewall
+  - nginx
+  - jenkins
+
+  post_tasks:
+    - local_action: shell date +'%F %T'
+      register: tsout
+    - debug: msg={{ tsout.stdout }}
+

@@ -1,0 +1,26 @@
+---
+# Populate pgSQL database SRV
+- name: create data model and populate db
+  shell: /usr/bin/docker run -i --net={{ docker_network_name }} -e DATABASE_HOST=son-postgres -e RACK_ENV=integration -e CATALOGUES_URL=http://son-catalogue-repos:4002/catalogues/api/v2  -e DATABASE_PORT=5432 -e POSTGRES_PASSWORD=sonata -e POSTGRES_USER=sonatatest -e MQSERVER=amqp://guest:guest@son-broker:5672 --rm=true sonatanfv/son-gtksrv:{{ ver }} bundle exec rake db:migrate
+
+# Running the Sonata GK SERVICES (Docker container)
+- name: GATEKEEPER SERVICES - running Docker containers
+  docker_container:
+    name: son-gtksrv
+    image: "sonatanfv/son-gtksrv:{{ ver }}"
+    env:
+      CATALOGUES_URL: http://son-catalogue-repos:4011/catalogues/api/v2
+      RACK_ENV: integration
+      MQSERVER: amqp://guest:guest@son-broker:5672
+      DATABASE_HOST: son-postgres
+      DATABASE_PORT: 5432
+      POSTGRES_PASSWORD: sonata
+      POSTGRES_USER: sonatatest
+    network_mode: bridge
+    networks:
+      - name: "{{ docker_network_name }}"
+        aliases:
+          - son-gtksrv
+    state: started
+    restart_policy: "unless-stopped"
+    published_ports: "5300:5300"

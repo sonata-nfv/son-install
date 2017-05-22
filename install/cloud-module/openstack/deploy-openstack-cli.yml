@@ -1,7 +1,0 @@
----
-- name: deploy Openstack command line clients to the 'target' machine
-  hosts: "{{ target }}"
-  become: true
-  connection: local
-  roles:
-    - ~/son-install/utils/roles/openstackclients

@@ -1,0 +1,7 @@
+---
+# Running the Sonata MANO Docker Images
+
+- include: mano/pluginmgr.yml
+- include: mano/slm.yml
+- include: mano/smr.yml
+- include: mano/placement.yml

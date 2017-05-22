@@ -1,0 +1,14 @@
+---
+
+- name: MANO Placement Executive Plugin (Docker container)
+  docker_container:
+    name: placementexecutive
+    image: "sonatanfv/placementexecutive:{{ ver }}"
+    env:
+      broker_host: amqp://guest:guest@son-broker:5672/%2F
+    network_mode: bridge
+    networks:
+      - name: "{{ docker_network_name }}"
+        aliases:
+          - placementexecutive
+    state: started

@@ -1,0 +1,61 @@
+---
+
+- include_vars: "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+
+- name: restart docker on Upstart (Ubuntu 14)
+  service: name=docker state=restarted
+  when: ansible_os_family == "Debian"
+
+- name: restart docker on Systemd (Ubuntu 16 and CentOS 7)
+  systemd: name=docker state=restarted daemon_reload=yes
+  when: ansible_os_family == "RedHat"
+
+- name: Docker User Defined Network (SP)
+  shell: 'docker network create --driver=bridge \
+--subnet=172.20.2.0/24 --gateway=172.20.2.1 \
+--ip-range=172.20.2.128/25 "{{ docker_network_name }}"'
+
+- name: force all notified handlers to run at this point, not waiting for normal sync points
+  meta: flush_handlers
+
+# deploy postgreSQL database engine
+- include: pgsql.yml
+
+# deploy MongoDB (NoSQL) database engine
+- include: mongo.yml
+
+# deploy postgreSQL database engine for monitoring
+- include: pgsql-monitoring.yml
+
+# deploy RabbitMQ message bus
+- include: broker.yml
+
+# deploy Influxdb
+- include: influxdb.yml
+
+# deploy GUI
+- include: gui.yml
+
+# deploy BSS
+- include: bss.yml
+
+# deploy Gatekepper module
+- include: gtk-all.yml
+
+# deploy Repositories
+- include: repos.yml
+
+# deploy MANO framework
+- include: mano-all.yml
+
+# deploy Infastructure Adaptor
+- include: ifta-all.yml
+
+# deploy Monitoring
+- include: monit-all.yml
+
+# deploy Security Gateway
+- include: sec-gw.yml
+
+# deploy Google cAdvisor
+#- include: cadvisor.yml

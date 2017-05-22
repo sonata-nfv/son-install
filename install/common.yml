@@ -1,7 +1,0 @@
----
-- name: deploy useful tools and common libraries to the 'target' machine
-  hosts: "{{ target }}"
-  become: true
-  roles:
-    - common
-    - ntp

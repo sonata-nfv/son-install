@@ -1,0 +1,11 @@
+---
+- name: deploy Virtual Security Appliance (vSA) to the target machine
+  hosts: "{{ target }}"
+  become: true
+  roles:
+  - common
+  - haproxy
+  - ldap
+  - squid
+  - snort
+  #- openvpn

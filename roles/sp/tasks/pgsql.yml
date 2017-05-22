@@ -1,0 +1,19 @@
+---
+- name: deploy a PostgreSQL database server as a Container
+  docker_container:
+    name: son-postgres
+    #image: sonatanfv/son-postgres
+    image: ntboes/postgres-uuid
+    env:
+      POSTGRES_DB=gatekeeper
+      POSTGRES_USER=sonatatest
+      POSTGRES_PASSWORD=sonata
+    state: started
+    network_mode: bridge
+    networks:
+      - name: "{{ docker_network_name }}"
+        aliases:
+          - son-postgres
+    published_ports: 5432:5432
+
+- wait_for: host=0.0.0.0 port=5432 timeout=30 delay=10 state=started

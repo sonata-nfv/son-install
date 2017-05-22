@@ -1,0 +1,51 @@
+---
+# tasks file for docker
+
+#- include_vars: "{{ ansible_distribution_release }}.yml"
+- include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution_release }}.yml"
+    - "{{ ansible_os_family }}.yml"
+    - "default.yml"
+
+- group:
+    name: docker
+    state: present
+
+#- file:
+#    path: /etc/ansible/group_vars
+#    state: directory
+#    mode: 0755
+
+#- name: create global/vars file for Ansible
+#  copy:
+#    src: group_vars.all
+#    dest: /etc/ansible/group_vars/all
+#    owner: root
+#    group: root
+#    mode: 0644
+
+- name: create a directory for Docker logging
+  file:
+    path: /var/log/docker
+    state: directory
+    owner: '{{ vm_user }}'
+    group: docker
+    mode: 0775
+  become: true
+
+- include: "{{ ansible_distribution_release }}.yml"
+
+- name: Docker User Defined Network (generic)
+  shell: 'docker network create --driver=bridge \
+--subnet=172.20.1.0/24 --gateway=172.20.1.1 \
+--ip-range=172.20.1.128/25 "{{ docker_network_name | default(sonata) }}"'
+
+- name: restart docker on Upstart (Ubuntu 14)
+  service: name=docker state=restarted
+  when: ansible_distribution_release == "trusty"
+
+- name: restart docker on Systemd (Ubuntu 16 and CentOS 7)
+  systemd: name=docker state=restarted daemon_reload=yes
+  when: ansible_distribution_release == "Core" or ansible_distribution_release == "xenial"
+

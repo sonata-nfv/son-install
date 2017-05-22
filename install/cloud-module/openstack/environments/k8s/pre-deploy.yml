@@ -1,7 +1,0 @@
----
-# Previous install of Openstack command line clients
-- hosts: localhost
-  connection: local
-  roles:
-    - openstackclients
-

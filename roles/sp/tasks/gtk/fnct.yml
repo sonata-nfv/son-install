@@ -1,0 +1,18 @@
+---
+# Running the Sonata GK FUNCTIONS (Docker container)
+
+- name: GATEKEEPER FUNCTIONS - running Docker containers
+  docker_container:
+    name: son-gtkfnct
+    image: "sonatanfv/son-gtkfnct:{{ ver }}"
+    env:
+      CATALOGUES_URL: http://son-catalogue-repos:4011/catalogues/api/v2
+      RACK_ENV: integration
+    state: started
+    network_mode: bridge
+    networks:
+      - name: "{{ docker_network_name }}"
+        aliases:
+          - son-gtkfnct
+    published_ports: "5500:5500"
+    restart_policy: "unless-stopped"

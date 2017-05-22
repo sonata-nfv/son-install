@@ -1,0 +1,4 @@
+---
+# tasks file for squid
+
+- include: "{{ ansible_distribution_release }}.yml"
