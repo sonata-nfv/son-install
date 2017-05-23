@@ -69,7 +69,7 @@ A complete way to deploy and manage SONATA 5G NFV services and application from 
 
 * git clone https://github.com/sonata-nfv/son-install.git
 * cd son-install
-* ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] plat=[SP/INTGR/QUAL/DEMO] pop=[NCSRD|ALABS] distro=[trusty|xenial|Core]"
+* ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] plat=[SP/INTGR/QUAL/DEMO] pop=[NCSRD|ALABS] distro=[trusty|xenial|Core] ver=[latest|dev|2.1]"
 
 NOTE: depending on the performance of your infrastructure deployment and the download time to get package updates, this run could spent from 30 to 60 minutes.
 
@@ -87,11 +87,11 @@ NOTE: depending on the performance of your infrastructure deployment and the dow
 
 #### Example to CREATE a new SONATA Service Platform from the scratch
 
-To deploy a new SP running on top of CentOS 7, to the Demo tenant on Altice Labs Openstack VIM: 
-* ansible-playbook son-cmud.yml -e 'ops=create plat=sp pop=alabs proj=demo distro=Core'
+To deploy the latest SP version running on top of CentOS 7, to the Demo tenant on Altice Labs Openstack VIM: 
+* ansible-playbook son-cmud.yml -e 'ops=create plat=sp pop=alabs proj=demo distro=Core ver=latest'
 
-To deploy a new vPSA to the NCSRD Openstack VIM, running on top of Ubuntu 16.04:
-* ansible-playbook son-cmud.yml -e 'ops=create plat=vpsa pop=ncsrd proj=demo distro=xenial'
+To deploy the development version of vPSA to the NCSRD Openstack VIM, running on top of Ubuntu 16.04:
+* ansible-playbook son-cmud.yml -e 'ops=create plat=vpsa pop=ncsrd proj=demo distro=xenial ver=dev'
 
 
 ### Example to MANAGE the life-cycle of a platform
