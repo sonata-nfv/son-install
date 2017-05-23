@@ -4,3 +4,6 @@
 
 - include: "{{ ansible_distribution_release }}.yml"
 
+- pause:
+    minutes: 2
+
