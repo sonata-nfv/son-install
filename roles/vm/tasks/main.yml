@@ -108,4 +108,4 @@
   with_items: "{{ newvm.results }}"
 
 - pause:
-    minutes: 2
+    minutes: 3
