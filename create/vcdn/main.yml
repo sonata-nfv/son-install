@@ -1,18 +1,10 @@
 - hosts: "{{ plat }}"
   become: true
   connection: ssh
-  vars:
-    localhome: "{{ lookup('env','PWD') }}"
-
   pre_tasks:
-
-    - local_action: shell date +'%F %T'
-      register: timestamp
-
-    - debug:
-        msg: "{{ timestamp.stdout }}"
-
+    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
   roles:
-    - vtc
-    - vtu
-    - vcc
+    - { role: vtc, pop: ncrsd, proj: qual }}
+    #- { role: vtu, pop: ncrsd, proj: qual }}
+    - { role: vcc, pop: ncrsd, proj: qual }}
+    - { role: vcc, pop: alabs, proj: demo }}
