@@ -35,6 +35,11 @@ Deploy the platform from the scratch for a specific platment (eg, SP/CI/QI/DI)
 * Multi-Operations: Create, Manage, Upgrade, Destroy
 
 
+## Requirements
+
+'son-install' version 2.1 requires Ansible 2.3.0
+
+
 ## Usage
 
 The structure of 'son-install' is flexible enough to:

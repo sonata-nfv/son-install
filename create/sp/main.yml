@@ -13,6 +13,5 @@
         msg: "{{ timestamp.stdout }}"
 
   roles:
-    - docker
     - sp
 

@@ -1,0 +1,4 @@
+# DEFAULT VM CONFIG
+nbofvms: 1
+vm_user: "{{ lookup('env','USER') }}"
+
