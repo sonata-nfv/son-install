@@ -10,5 +10,5 @@
     - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
 
   roles:
-    - sp
+    - vcc
 
