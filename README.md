@@ -37,7 +37,8 @@ Deploy the platform from the scratch for a specific platment (eg, SP/CI/QI/DI)
 
 ## Requirements
 
-'son-install' version 2.1 requires Ansible 2.3.0
+* 'son-install' version 2.1 requires Ansible 2.3.0
+* actually, 'son-install' assumes 'ubuntu' or 'centos' default username to run the playbooks - in the near future, this limitation will b eremoved by using a generic 'sonata' user.
 
 
 ## Usage
