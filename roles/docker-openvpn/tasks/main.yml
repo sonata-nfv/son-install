@@ -28,6 +28,7 @@
       - name: "{{ docker_openvpn_out }}"
         aliases:
           - son-openvpn-out
+    restart_policy: "unless-stopped"
     volumes:
       - /var/log/sonata/openvpn:/var/log/openvpn
     log_driver: syslog # gelf

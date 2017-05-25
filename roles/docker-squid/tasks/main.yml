@@ -35,7 +35,7 @@
       - name: "{{ docker_openldap_in }}"
         aliases:
           - son-openldap-in
-
+    restart_policy: "unless-stopped"
     published_ports:
      - 3128:3128
      - 3129:3129

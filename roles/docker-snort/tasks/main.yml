@@ -32,7 +32,7 @@
       - name: "{{ docker_snort_out }}"
         aliases:
           - son-snort-out
-
+    restart_policy: "unless-stopped"
     published_ports:
      - 0:1024
      - 1024:65535

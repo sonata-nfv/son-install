@@ -22,6 +22,7 @@
       - name: "{{ docker_openldap_in }}"
         aliases:
           - son-openldap-in
+    restart_policy: "unless-stopped"
     published_ports: 389:389
     volumes:
       - /var/log/sonata/openldap:/var/log/openldap
