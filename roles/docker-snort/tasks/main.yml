@@ -8,8 +8,12 @@
 
 - name: Docker User Defined Network (vIDS OUT)
   shell: 'docker network create --driver=bridge \
---subnet=172.21.103.0/24 --gateway=172.21.103.1 \
---ip-range=172.21.103.128/25 "{{ docker_snort_out }}"'
+--subnet=172.21.104.0/24 --gateway=172.21.104.1 \
+--ip-range=172.21.104.128/25 "{{ docker_snort_out }}"'
+
+- name: get Snort Docker image
+  docker_image:
+    name: glanf/snort
 
 - name: start Snort IDS container
   docker_container:
@@ -40,5 +44,5 @@
     #  syslog-address: tcp://my-syslog-server:514
     #  syslog-facility: daemon
 
-- wait_for: host=0.0.0.0 port=3128 timeout=30 delay=10 state=started
+#- wait_for: host=0.0.0.0 port=80 timeout=30 delay=10 state=started
 

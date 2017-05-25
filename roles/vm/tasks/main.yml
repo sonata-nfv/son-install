@@ -4,9 +4,11 @@
 - name: load variables per Site, Tenant and Distro
   include_vars: "{{ item }}"
   with_first_found:
-    - "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
-    - "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
-    - "defaults.yml"
+    - files:
+        - "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+        - "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+        - "defaults.yml"
+      skip: true
 
 - include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/files/secgrp.yml"
 
@@ -25,6 +27,7 @@
     security_groups:
       - "{{ os_security_groups }}"
     #security_groups: "{{ os_security_groups + hostvars[item].os_security_groups | default(os_security_groups) }}"
+    floating_ip_pools: "{{ fip }}"
     nics: 
       - net-id: "{{ int_net_id }}"
     userdata: "{{ lookup('file', '{{ local_home }}/userdata/{{ distro }}.sh') }}"

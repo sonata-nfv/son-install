@@ -11,6 +11,10 @@
 --subnet=172.21.102.0/24 --gateway=172.21.102.1 \
 --ip-range=172.21.102.128/25 "{{ docker_squid_out }}"'
 
+- name: get Squid Docker image
+  docker_image:
+    name:  sameersbn/squid
+
 - name: start Squid-proxy container
   docker_container:
     name: squid

@@ -1,0 +1,10 @@
+# DEFAULT VM CONFIG
+nbofvms: 1
+vm_user: centos
+image: vsa-squid-3.5.12
+flavor: m1.small
+os_security_groups: "{{ qual }}-secgrp"
+availability_zone: nova
+region_name: RegionOne
+key_name: son-install
+int_net_id: "3ef0b481-8c8c-49c7-88f5-10e4d8c5612f" # QUAL
