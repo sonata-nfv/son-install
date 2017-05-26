@@ -1,17 +1,10 @@
 # DEFAULT VARs
-#plat: sp
-#cld: openstack
-#pop: ncsrd
-#distro: trusty
-#ops: create
-#svc: all
-#openstack_release: mitaka
 
 # DEFAULT VM CONFIG
 vm_user: ubuntu
 nbofvms: 1
 image: ubu14.04
-flavor: m1.small
+flavor: m1.medium
 os_security_groups: "{{ plat }}-secgrp"
 availability_zone: nova
 region_name: RegionOne
