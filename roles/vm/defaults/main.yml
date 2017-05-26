@@ -1,3 +1,5 @@
 ---
 # defaults file for vm
 fip: admin_floating_net
+public_ip: 172.31.6.111
+public_ip: 172.31.6.109
