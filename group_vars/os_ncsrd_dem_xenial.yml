@@ -1,7 +1,7 @@
 # DEFAULT VM CONFIG
 vm_user: ubuntu
 nbofvms: 1
-image: ubu16.04
+image: u16-cldimg
 flavor: m1.medium
 os_security_groups: "{{ plat }}-secgrp"
 availability_zone: nova
