@@ -28,6 +28,7 @@
       - name: "{{ docker_haprx_out }}"
         aliases:
           - son-haprx-out
+    restart_policy: "unless-stopped"
     published_ports: 80:80
     volumes:
       - /var/log/sonata/haproxy:/var/log/haproxy

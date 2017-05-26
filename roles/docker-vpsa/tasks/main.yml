@@ -1,9 +1,7 @@
 ---
-- hosts: "{{ target }}"
+- hosts: "{{ plat }}"
   become: true
   connection: ssh
-  #remote_user: "{{ vm_user }}"
-  remote_user: ubuntu
   pre_tasks:
     - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
     - file:
@@ -17,7 +15,6 @@
   roles:
     #- common
     - docker
-    - docker-dns
     - docker-haproxy
     - docker-snort
     - docker-openldap

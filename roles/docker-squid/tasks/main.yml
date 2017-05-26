@@ -29,12 +29,16 @@
       - name: "{{ docker_squid_in }}"
         aliases:
           - son-squid-in
+        links:
+          - son-pfsense-in:fw
       - name: "{{ docker_squid_out }}"
         aliases:
           - son-squid-out
       - name: "{{ docker_openldap_in }}"
         aliases:
           - son-openldap-in
+        links:
+          - son-openldap-is:ldap
     restart_policy: "unless-stopped"
     published_ports:
      - 3128:3128

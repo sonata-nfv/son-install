@@ -1,15 +1,9 @@
 - hosts: "{{ plat }}"
   become: true
   connection: ssh
+  remote_user: "{{ vm_user }}"
   pre_tasks:
     - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
-    - file:
-        path: /var/log/ansible.log
-        state: touch
-        owner: "{{ lookup('env','USER') }}"
-        group: "{{ lookup('env','USER') }}"
-        mode: "u=rw,g=rw,o=rw"
-      become: true
   roles:
     #- common
     - docker-haproxy
@@ -18,4 +12,4 @@
     - docker-openldap
     #- docker-addblk
     - docker-openvpn
-
+    #- docker-pfsense
