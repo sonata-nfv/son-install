@@ -6,6 +6,7 @@
     - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
   roles:
     #- common
+    - docker
     - docker-haproxy
     - docker-squid
     - docker-snort
