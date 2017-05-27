@@ -1,16 +1,6 @@
 ---
 # tasks file for docker-openvpn
 
-- name: Docker User Defined Network (vVPN IN)
-  shell: 'docker network create --driver=bridge \
---subnet=172.21.107.0/24 --gateway=172.21.107.1 \
---ip-range=172.21.107.128/25 "{{ docker_openvpn_in }}"'
-
-- name: Docker User Defined Network (vVPN OUT)
-  shell: 'docker network create --driver=bridge \
---subnet=172.21.108.0/24 --gateway=172.21.108.1 \
---ip-range=172.21.108.128/25 "{{ docker_openvpn_out }}"'
-
 - name: start OpenVPN as a Docker containers
   docker_container:
     name: snort
@@ -19,15 +9,21 @@
     state: started
     network_mode: bridge
     networks:
+
       - name: "{{ docker_network_name }}"
         aliases:
-          - son-mgmt
-      - name: "{{ docker_openvpn_in }}"
+          - vpsa-mgmt
+
+      - name: "{{ vl_vpsa_user }}"
         aliases:
-          - son-openvpn-in
-      - name: "{{ docker_openvpn_out }}"
+          - vpsa-user
+
+      - name: "{{ vl_vpn_fw }}"
         aliases:
-          - son-openvpn-out
+          - vpsa-vpn-fw
+        links:
+          - vpsa-vpn-fw:vpn-fw
+
     restart_policy: "unless-stopped"
     volumes:
       - /var/log/sonata/openvpn:/var/log/openvpn

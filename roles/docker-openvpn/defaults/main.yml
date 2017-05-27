@@ -1,6 +1,6 @@
 ---
 # defaults file for docker-openvpn
 
-docker_openvpn_in:  son-openvpn-in
-docker_openvpn_out: son-openvpn-out
-docker_vpsa_mgmt: son-mgmt
+vl_vpsa_mgmt: vpsa-mgmt
+vl_vpsa_user: vpsa-user
+vl_vpn_fw: vpn-fw

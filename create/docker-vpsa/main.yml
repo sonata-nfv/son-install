@@ -6,13 +6,13 @@
   remote_user: "{{ vm_user }}"
   pre_tasks:
     - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    - include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/docker-vpsa-networks.yml"
   roles:
-    #- common
     - docker
-    - docker-haproxy
-    - docker-squid
-    - docker-snort
-    - docker-openldap
-    #- docker-addblk
-    - docker-openvpn
     #- docker-pfsense
+    - docker-snort
+    #- docker-addblk
+    - docker-openldap
+    - docker-squid
+    - docker-openvpn
+    - docker-nginx

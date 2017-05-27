@@ -1,6 +1,7 @@
 ---
 # defaults file for docker-squid
 
-docker_vpsa_mgmt: son-mgmt
-docker_squid_in:  son-squid-in
-docker_squid_out: son-squid-out
+vl_vpsa_mgmt: vpsa-mgmt
+vl_proxy_ldap: proxy-ldap
+vl_proxy_addblk: proxy-addblk
+vl_proxy_ids: proxy-ids

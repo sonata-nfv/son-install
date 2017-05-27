@@ -1,16 +1,6 @@
 ---
 # tasks file for docker-squid
 
-- name: Docker User Defined Network (vPRX IN)
-  shell: 'docker network create --driver=bridge \
---subnet=172.21.101.0/24 --gateway=172.21.101.1 \
---ip-range=172.21.101.128/25 "{{ docker_squid_in }}"'
-
-- name: Docker User Defined Network (vPRX OUT)
-  shell: 'docker network create --driver=bridge \
---subnet=172.21.102.0/24 --gateway=172.21.102.1 \
---ip-range=172.21.102.128/25 "{{ docker_squid_out }}"'
-
 - name: get Squid Docker image
   docker_image:
     name:  sameersbn/squid
@@ -26,19 +16,24 @@
       - name: "{{ docker_network_name }}"
         aliases:
           - son-mgmt
-      - name: "{{ docker_squid_in }}"
+      - name: "{{ docker_enduser_netw }}"
         aliases:
-          - son-squid-in
+          - son-vpsa-enduser
+#      - name: "{{ docker_squid_addblk }}"
+#        aliases:
+#          - son-vpsa-proxy-addblk
+#        links:
+#          - son-vpsa-squid-addblk:squid-addblk
+      - name: "{{ vl_proxy_ids }}"
+        aliases:
+          - son-vpsa-proxy-ids
         links:
-          - son-pfsense-in:fw
-      - name: "{{ docker_squid_out }}"
+          - son-vpsa-squid-ids:squid-ids
+      - name: "{{ vl_proxy_ldap }}"
         aliases:
-          - son-squid-out
-      - name: "{{ docker_openldap_in }}"
-        aliases:
-          - son-openldap-in
+          - son-vpsa-proxy-ldap
         links:
-          - son-openldap-is:ldap
+          - son-vpsa-proxy-ldap:proxy-ldap
     restart_policy: "unless-stopped"
     published_ports:
      - 3128:3128
