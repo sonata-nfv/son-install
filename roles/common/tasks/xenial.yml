@@ -2,7 +2,7 @@
 
 - name: set external name servers for DNS resolution
   copy:
-    src: "{{ lookup('env','PWD') }}/roles/common/files/resolvconf
+    src: "{{ lookup('env','PWD') }}/roles/common/files/resolvconf"
     dest: /etc/resolvconf/resolv.conf.d/base
     owner: root
     group: root
@@ -27,5 +27,4 @@
   - htop
   - policycoreutils
   - dialog
-  #- postgresql-client-common
   - nscd
