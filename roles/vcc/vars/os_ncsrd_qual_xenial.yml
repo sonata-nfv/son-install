@@ -2,7 +2,7 @@
 vm_user: ubuntu
 nbofvms: 1
 image: squid-3.5.12
-flavor: m1.sp
+flavor: m1.medium
 os_security_groups: "{{ plat }}-secgrp"
 availability_zone: nova
 region_name: RegionOne
