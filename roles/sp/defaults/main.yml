@@ -21,5 +21,4 @@ docker_network_name: son-sp
 # SONATA 5G NFV SP development/latest version
 sp_ver: dev
 domain_name: sonata-nfv.eu
-
-public_ip: 172.31.6.93
+sp_fqdn: sp.sonata-nfv.eu

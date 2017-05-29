@@ -1,11 +1,11 @@
 # son-install
 
-'son-install' provides a simple way to create, manage, upgrade and destroy (CMUD) SONATA resources, like:
-* the Service Plataform (SP) as a standalone platment 
-* the specialized Integration (CI), Qualification (QI) and Demonstration (DI) platments
-* the existing VNF/NS bundles - eg, vPSA
+'son-install' provides a simple way to Create, Manage, Upgrade and Destroy (CMUD) SONATA resources for:
+* the Service Plataform (SP) as a standalone platform 
+* the specialized Integration (CI), Qualification (QI) and Demonstration (DI) platform
+* the existing VNF/NS bundles - eg, Personal Security Applicance (PSA)
 
-'son-install' is built on a set of Ansible playbooks for:
+'son-install' is built on a set of Ansible playbooks and aims to:
 * automate the deployment (and termination) of infrastructure and applications.
 * manage the SP services and applications lifecycle
 * zero downtime roll up upgrades
@@ -16,7 +16,7 @@ All you need is a 'bash' shell with Ansible installed: actually, 'son-cmud.yml' 
 
 ## What's new in Release 2.1
 * application versioning - you can now choose the deployment of the 'latest' version or the 'dev' version or '2.1' version, for example
-* Virtual Personal Security Applicance (vPSA) - you can now deploy a dockerized vPSA Network Service to the localhost, to a target IP address or to an Openstack VIM in a single command line 
+* virtual Personal Security Applicance (PSA) - you can now deploy a dockerized PSA Network Service to the localhost, to a target IP address or to an Openstack VIM in a single command line 
 
 ## What's new in Release 2.0
 

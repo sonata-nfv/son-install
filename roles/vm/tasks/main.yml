@@ -27,12 +27,13 @@
     security_groups:
       - "{{ os_security_groups }}"
     #security_groups: "{{ os_security_groups + hostvars[item].os_security_groups | default(os_security_groups) }}"
-    floating_ip_pools: "{{ fip }}"
+    #floating_ip_pools: "{{ fip }}"
     nics: 
       - net-id: "{{ int_net_id }}"
+      #- net-id: "{{ ext_net_id }}"
     userdata: "{{ lookup('file', '{{ local_home }}/userdata/{{ distro }}.sh') }}"
     meta:
-      hostname: "{{ plat }}-{{ item }}-{{ ansible_date_time.epoch }}"
+      hostname: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ item }}-{{ ansible_date_time.epoch }}"
       group: "{{ plat }}"
     timeout: 180
     wait: yes
@@ -45,18 +46,26 @@
   with_items: "{{ newvm.results }}"
 
 - lineinfile:
-    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/defaults/main.yml"
+    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
     line: "public_ip: {{ item.openstack.accessIPv4 }}"
     create: yes
     state: present
   with_items: "{{ newvm.results }}"
 
 - lineinfile:
-    path: "{{ lookup('env','PWD') }}/roles/docker/files/group_vars.yml"
-    line: "public_ip: {{ item.openstack.accessIPv4 }}"
+    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+    line: "{{ plat }}_fqdn: {{ item.openstack.name }}"
     create: yes
     state: present
   with_items: "{{ newvm.results }}"
+
+
+#- lineinfile:
+#    path: "{{ lookup('env','PWD') }}/roles/docker/files/group_vars.yml"
+#    line: "public_ip: {{ item.openstack.accessIPv4 }}"
+#    create: yes
+#    state: present
+#  with_items: "{{ newvm.results }}"
 
 
 # Add private key (if it does not exist, without passing regexp)
@@ -121,4 +130,5 @@
   when: distro == "xenial"
 
 - pause:
-    minutes: 3
+    minutes: 2
+  when: plat == "sp"
