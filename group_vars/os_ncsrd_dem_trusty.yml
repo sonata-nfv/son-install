@@ -6,6 +6,7 @@ nbofvms: 1
 image: ubu14.04
 flavor: m1.medium
 os_security_groups: "{{ plat }}-secgrp"
+fip: provider
 availability_zone: nova
 region_name: RegionOne
 key_name: son-install
