@@ -10,7 +10,9 @@
         - "defaults.yml"
       skip: true
 
-- include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/files/secgrp.yml"
+- include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/secgrp.yml"
+
+- include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/networks.yml"
 
 - name: launch a new Instance(s)
   vars:
@@ -27,7 +29,7 @@
     security_groups:
       - "{{ os_security_groups }}"
     #security_groups: "{{ os_security_groups + hostvars[item].os_security_groups | default(os_security_groups) }}"
-    #floating_ip_pools: "{{ fip }}"
+    floating_ip_pools: "{{ fip }}"
     nics: 
       - net-id: "{{ int_net_id }}"
       #- net-id: "{{ ext_net_id }}"

@@ -1,2 +1,5 @@
 ---
 # tasks file for vcc
+
+- include: "{{ ansible_distribution_release }}.yml"
+

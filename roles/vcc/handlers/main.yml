@@ -1,2 +1,6 @@
 ---
 # handlers file for vcc
+
+- name: reload firewalld
+  service: name=firewalld state=reloaded sleep=1
+

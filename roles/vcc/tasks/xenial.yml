@@ -1,0 +1,30 @@
+
+# FW - set Iptables configuration
+
+- apt: name=firewalld state=present
+
+- name: ensure the Firewall service is running
+  service: name=firewalld state=started enabled=yes
+
+- name: open Squid port at firewall
+  firewalld:
+    port: 3128/tcp
+    permanent: true
+    state: enabled
+    immediate: yes
+  #when: not ( security_firewall is defined and not security_firewall )
+  notify: reload firewalld
+
+
+# SQUID - set Squid configuration
+
+- name: set Squid for transparent proxy
+  copy:
+    src: "{{ lookup('env','PWD') }}/roles/{{ plat }}/files/squid.conf"
+    dest: /etc/squid/squid.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: start PROXY service
+  service: name=squid state=started enabled=yes
