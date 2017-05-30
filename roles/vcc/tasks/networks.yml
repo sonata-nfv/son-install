@@ -1,17 +1,19 @@
 - name: create END USER (consumer) VLAN
   os_network:
-    cloud: "os_{{ pop }}_admin"
+    cloud: "os_{{ pop }}_{{ proj }}"
     state: present
     name: enduser
     shared: false
-    external: true
+    external: false
+  register: net_enduser
 
 - os_subnet:
-    cloud: "os_{{ pop }}_admin"
+    cloud: "os_{{ pop }}_{{ proj }}"
     state: present
-    network_name: enduser
-    name: enduser-subnet
+    network_name: "{{ net_enduser.id }}"
+    name: subnet-enduser
     cidr: 172.22.0.0/24
+    gateway_ip: 172.22.0.1
     enable_dhcp: true
     allocation_pool_start: 172.22.0.2
     allocation_pool_end: 172.22.0.126
@@ -20,7 +22,7 @@
        - 8.8.8.8
     host_routes:
        #- destination: 0.0.0.0/0
-       #  nexthop: 12.34.56.78
+       #  nexthop: 172.31.6.1
        - destination: 172.22.0.0/24
          nexthop: 172.22.0.1
   environment:
@@ -31,18 +33,20 @@
  
 - name: create MGMT VLAN
   os_network:
-    cloud: "os_{{ pop }}_admin"
+    cloud: "os_{{ pop }}_{{ proj }}"
     state: present
     name: mgmt
     shared: false
     external: false
+  register: net_mgmt
 
 - os_subnet:
-    cloud: "os_{{ pop }}_admin"
+    cloud: "os_{{ pop }}_{{ proj }}"
     state: present
-    network_name: mgmt
-    name: mgmt-subnet
+    network_name: "{{ net_mgmt.id }}"
+    name: subnet-mgmt
     cidr: 172.22.1.0/24
+    gateway_ip: 172.22.1.1
     enable_dhcp: true
     allocation_pool_start: 172.22.1.2
     allocation_pool_end: 172.22.1.126
@@ -51,7 +55,7 @@
        - 8.8.8.8
     host_routes:
        #- destination: 0.0.0.0/0
-       #  nexthop: 12.34.56.78
+       #  nexthop: 172.31.6.1
        - destination: 172.22.1.0/24
          nexthop: 172.22.1.1
   environment:
@@ -62,18 +66,20 @@
 
 - name: create LDAP authentication VLAN
   os_network:
-    cloud: "os_{{ pop }}_admin"
+    cloud: "os_{{ pop }}_{{ proj }}"
     state: present
     name: ldap
     shared: false
     external: false
+  register: net_ldap
 
 - os_subnet:
-    cloud: "os_{{ pop }}_admin"
+    cloud: "os_{{ pop }}_{{ proj }}"
     state: present
-    network_name: ldap
-    name: ldap-subnet
+    network_name: "{{ net_ldap.id }}"
+    name: subnet-ldap
     cidr: 172.22.2.0/24
+    gateway_ip: 172.22.2.1
     enable_dhcp: true
     allocation_pool_start: 172.22.2.2
     allocation_pool_end: 172.22.2.126
@@ -82,7 +88,7 @@
        - 8.8.8.8
     host_routes:
        #- destination: 0.0.0.0/0
-       #  nexthop: 12.34.56.78
+       #  nexthop: 172.31.6.1
        - destination: 172.22.2.0/24
          nexthop: 172.22.2.1
   environment:
@@ -93,18 +99,20 @@
 
 - name: create PROXY-ADDBLOCK VLAN
   os_network:
-    cloud: "os_{{ pop }}_admin"
+    cloud: "os_{{ pop }}_{{ proj }}"
     state: present
     name: proxy-addblk
     shared: false
     external: false
+  register: net_proxy_addblk
 
 - os_subnet:
-    cloud: "os_{{ pop }}_admin"
+    cloud: "os_{{ pop }}_{{ proj }}"
     state: present
-    network_name: proxy-addblk
-    name: proxy-addblk-subnet
+    network_name: "{{ net_proxy_addblk.id }}"
+    name: subnet-proxy-addblk
     cidr: 172.22.3.0/24
+    gateway_ip: 172.22.3.1
     enable_dhcp: true
     allocation_pool_start: 172.22.3.2
     allocation_pool_end: 172.22.3.126
@@ -113,7 +121,7 @@
        - 8.8.8.8
     host_routes:
        #- destination: 0.0.0.0/0
-       #  nexthop: 12.34.56.78
+       #  nexthop: 172.31.6.1
        - destination: 172.22.3.0/24
          nexthop: 172.22.3.1
   environment:
@@ -124,18 +132,20 @@
 
 - name: create PROXY-IDS VLAN
   os_network:
-    cloud: "os_{{ pop }}_admin"
+    cloud: "os_{{ pop }}_{{ proj }}"
     state: present
     name: proxy-ids
     shared: false
     external: false
+  register: net_proxy_ids
 
 - os_subnet:
-    cloud: "os_{{ pop }}_admin"
+    cloud: "os_{{ pop }}_{{ proj }}"
     state: present
-    network_name: proxy-ids
-    name: proxy-ids-subnet
+    network_name: "{{ net_proxy_ids.id }}"
+    name: subnet-proxy-ids
     cidr: 172.22.4.0/24
+    gateway_ip: 172.22.4.1
     enable_dhcp: true
     allocation_pool_start: 172.22.4.2
     allocation_pool_end: 172.22.4.126
@@ -144,9 +154,41 @@
        - 8.8.8.8
     host_routes:
        #- destination: 0.0.0.0/0
-       #  nexthop: 12.34.56.78
+       #  nexthop: 172.31.6.1
        - destination: 172.22.4.0/24
          nexthop: 172.22.4.1
+  environment:
+    OS_PROJECT_NAME: "son-{{ proj }}"
+    OS_TENANT_NAME: "son-{{ proj }}"
+    #OS_TENANT_ID: ""
+
+- name: create PROXY-FW VLAN
+  os_network:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    name: proxy-fw
+    shared: false
+    external: false
+  register: net_proxy_fw
+
+- os_subnet:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    network_name: "{{ net_proxy_fw.id }}"
+    name: subnet-proxy-fw
+    cidr: 172.22.5.0/24
+    gateway_ip: 172.22.5.1
+    enable_dhcp: true
+    allocation_pool_start: 172.22.5.2
+    allocation_pool_end: 172.22.5.126
+    dns_nameservers:
+       - 8.8.8.7
+       - 8.8.8.8
+    host_routes:
+       #- destination: 0.0.0.0/0
+       #  nexthop: 172.31.6.1
+       - destination: 172.22.5.0/24
+         nexthop: 172.22.5.1
   environment:
     OS_PROJECT_NAME: "son-{{ proj }}"
     OS_TENANT_NAME: "son-{{ proj }}"

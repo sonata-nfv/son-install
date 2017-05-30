@@ -1,0 +1,43 @@
+- name: launch a new Instance for vCC NS
+  vars:
+    local_home: "{{ lookup('env','PWD') }}"
+  os_server:
+    # http://docs.openstack.org/developer/os-client-config/
+    state: present
+    cloud: "os_{{ pop }}_{{ proj }}"
+    name: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ item }}-{{ ansible_date_time.epoch }}"
+    image: "{{ image }}"
+    key_name: "{{ key_name }}"
+    flavor: "{{ flavor }}"
+    availability_zone: "{{ availability_zone }}"
+    security_groups:
+      - "{{ os_security_groups }}"
+    nics:
+      - net-id: "{{ int_net_id }}"
+      #- net-id: "{{ ext_net_id }}"
+      - net-id: "{{ net_enduser.id }}"
+      - net-id: "{{ net_mgmt.id }}"
+      - net-id: "{{ net_ldap.id }}"
+      - net-id: "{{ net_proxy_addblk.id }}"
+      - net-id: "{{ net_proxy_ids.id }}"
+      - net-id: "{{ net_proxy_fw.id }}"
+    userdata: "{{ lookup('file', '{{ local_home }}/userdata/{{ distro }}.sh') }}"
+    meta:
+      hostname: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ item }}-{{ ansible_date_time.epoch }}"
+      group: "{{ plat }}"
+    timeout: 180
+    wait: yes
+  with_sequence: "start=1 end={{ nbofvms | default(1) }} format=%02x"
+  register: "newvm"
+
+- name: assign Floating IP to an Instance on Management network
+  os_floating_ip:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    reuse: yes
+    server: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ item }}-{{ ansible_date_time.epoch }}"
+    network: admin_floating_net
+    nat_destination: demo-netw
+    #fixed_address: 172.31.6.88: true
+    timeout: 180
+

@@ -1,4 +1,2 @@
 ---
 # vars file for vcc
-public_ip: 172.31.6.93
-vcc_fqdn: vcc-alabs-demo-xenial-01-1496158715
