@@ -1,38 +1,80 @@
-Role Name
-=========
+virtual Cache Content (vCC)
+===========================
 
-A brief description of the role goes here.
+This role deploys a VM to an Openstack VIM running a content cache service on a multi-distro instance, namely: Ubuntu 14.04, Ubuntu 16.04 or CentOS 7. 
+
+The vCC NS is based on a Squid proxy server operating in transparent mode.
+
+The steps of execution are:
+
+1. Create 'networks' and 'subnets' for Squid connectivity with other VNU's, namely:
+
+* end-user access
+* vTC
+* vTU
+* FW 
+
+2. Create 'security groups' for Squid
+
+3. Create a (large) Volume for cache storage
+
+4. Create a VM based on a Squid Glance image and mount the cache Volume
+
+5. Change the default Squid configuration (if needed) - '/etc/squid/squid.conf'
+
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+* Ansible 2.3.0
+* Shade 1.16.0 (automatic deployment during playbook execution)
+* Openstack Command Line clients (idem)
+
+NOTE: create a file named '/etc/openstack/cloud.yaml' (or '~/.config/openstack/cloud.yaml' if you don't have root access) with the right parameters to connect to Openstack - eg:
+
+  os_alabs_demo:
+    auth:
+      auth_url: 'http://YOUR_OS_AUTH_URL:5000/v3'
+      username: 'YOUR_OS_USERNAME'
+      password: '*******'
+      project_name: 'YOUR_OS_PROJECT_NAME'
+      project_domain_name: 'default'
+      user_domain_name: 'default'
+    auth_type: 'password'
+    identity_api_version: '3'
+    region_name: 'RegionOne'
+
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+'var/mail.yml' will be loaded with the hostname and IP address assigned during instance creation.
+'/var/os_"POP"_"PROJ"_"DISTRO".yml' contains the parameters to create an instance to a PoP/Tenant/Distro.
+
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+* ansible-playbook son-cmud.yml -e "ops=create plat=vcc pop='POP' proj='PROJ' distro='DISTRO'"
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+where:
+* POP = [your_openstack_vim_alias]
+* PROJ = [your_tenant_name]
+* DISTRO = ['xenial', 'trusty', 'Core'] 
+* VER = ['latest', '2.1', 'ver']
+
 
 License
 -------
 
-BSD
+Apache 2.1
+
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+alberto-m-rocha@alticelabs.com

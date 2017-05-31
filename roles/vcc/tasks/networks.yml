@@ -1,35 +1,3 @@
-- name: create END USER (consumer) VLAN
-  os_network:
-    cloud: "os_{{ pop }}_{{ proj }}"
-    state: present
-    name: enduser
-    shared: false
-    external: false
-  register: net_enduser
-
-- os_subnet:
-    cloud: "os_{{ pop }}_{{ proj }}"
-    state: present
-    network_name: "{{ net_enduser.id }}"
-    name: subnet-enduser
-    cidr: 172.22.0.0/24
-    gateway_ip: 172.22.0.1
-    enable_dhcp: true
-    allocation_pool_start: 172.22.0.2
-    allocation_pool_end: 172.22.0.126
-    dns_nameservers:
-       - 8.8.8.7
-       - 8.8.8.8
-    host_routes:
-       #- destination: 0.0.0.0/0
-       #  nexthop: 172.31.6.1
-       - destination: 172.22.0.0/24
-         nexthop: 172.22.0.1
-  environment:
-    OS_PROJECT_NAME: "son-{{ proj }}"
-    OS_TENANT_NAME: "son-{{ proj }}"
-    OS_TENANT_ID: ""
-
  
 - name: create MGMT VLAN
   os_network:
@@ -58,26 +26,25 @@
        #  nexthop: 172.31.6.1
        - destination: 172.22.1.0/24
          nexthop: 172.22.1.1
-  environment:
-    OS_PROJECT_NAME: "son-{{ proj }}"
-    OS_TENANT_NAME: "son-{{ proj }}"
+  #environment:
+    #OS_PROJECT_NAME: "son-{{ proj }}"
+    #OS_TENANT_NAME: "son-{{ proj }}"
     #OS_TENANT_ID: ""
 
-
-- name: create LDAP authentication VLAN
+- name: create vTC VLAN
   os_network:
     cloud: "os_{{ pop }}_{{ proj }}"
     state: present
-    name: ldap
+    name: vtc
     shared: false
     external: false
-  register: net_ldap
+  register: net_vtc
 
 - os_subnet:
     cloud: "os_{{ pop }}_{{ proj }}"
     state: present
-    network_name: "{{ net_ldap.id }}"
-    name: subnet-ldap
+    network_name: "{{ net_vtc.id }}"
+    name: subnet-vtc
     cidr: 172.22.2.0/24
     gateway_ip: 172.22.2.1
     enable_dhcp: true
@@ -91,26 +58,21 @@
        #  nexthop: 172.31.6.1
        - destination: 172.22.2.0/24
          nexthop: 172.22.2.1
-  environment:
-    OS_PROJECT_NAME: "son-{{ proj }}"
-    OS_TENANT_NAME: "son-{{ proj }}"
-    #OS_TENANT_ID: ""
 
-
-- name: create PROXY-ADDBLOCK VLAN
+- name: create vTU VLAN
   os_network:
     cloud: "os_{{ pop }}_{{ proj }}"
     state: present
-    name: proxy-addblk
+    name: vtu
     shared: false
     external: false
-  register: net_proxy_addblk
+  register: net_vtu
 
 - os_subnet:
     cloud: "os_{{ pop }}_{{ proj }}"
     state: present
-    network_name: "{{ net_proxy_addblk.id }}"
-    name: subnet-proxy-addblk
+    network_name: "{{ net_vtu.id }}"
+    name: subnet-vtu
     cidr: 172.22.3.0/24
     gateway_ip: 172.22.3.1
     enable_dhcp: true
@@ -124,73 +86,4 @@
        #  nexthop: 172.31.6.1
        - destination: 172.22.3.0/24
          nexthop: 172.22.3.1
-  environment:
-    OS_PROJECT_NAME: "son-{{ proj }}"
-    OS_TENANT_NAME: "son-{{ proj }}"
-    #OS_TENANT_ID: ""
-
-
-- name: create PROXY-IDS VLAN
-  os_network:
-    cloud: "os_{{ pop }}_{{ proj }}"
-    state: present
-    name: proxy-ids
-    shared: false
-    external: false
-  register: net_proxy_ids
-
-- os_subnet:
-    cloud: "os_{{ pop }}_{{ proj }}"
-    state: present
-    network_name: "{{ net_proxy_ids.id }}"
-    name: subnet-proxy-ids
-    cidr: 172.22.4.0/24
-    gateway_ip: 172.22.4.1
-    enable_dhcp: true
-    allocation_pool_start: 172.22.4.2
-    allocation_pool_end: 172.22.4.126
-    dns_nameservers:
-       - 8.8.8.7
-       - 8.8.8.8
-    host_routes:
-       #- destination: 0.0.0.0/0
-       #  nexthop: 172.31.6.1
-       - destination: 172.22.4.0/24
-         nexthop: 172.22.4.1
-  environment:
-    OS_PROJECT_NAME: "son-{{ proj }}"
-    OS_TENANT_NAME: "son-{{ proj }}"
-    #OS_TENANT_ID: ""
-
-- name: create PROXY-FW VLAN
-  os_network:
-    cloud: "os_{{ pop }}_{{ proj }}"
-    state: present
-    name: proxy-fw
-    shared: false
-    external: false
-  register: net_proxy_fw
-
-- os_subnet:
-    cloud: "os_{{ pop }}_{{ proj }}"
-    state: present
-    network_name: "{{ net_proxy_fw.id }}"
-    name: subnet-proxy-fw
-    cidr: 172.22.5.0/24
-    gateway_ip: 172.22.5.1
-    enable_dhcp: true
-    allocation_pool_start: 172.22.5.2
-    allocation_pool_end: 172.22.5.126
-    dns_nameservers:
-       - 8.8.8.7
-       - 8.8.8.8
-    host_routes:
-       #- destination: 0.0.0.0/0
-       #  nexthop: 172.31.6.1
-       - destination: 172.22.5.0/24
-         nexthop: 172.22.5.1
-  environment:
-    OS_PROJECT_NAME: "son-{{ proj }}"
-    OS_TENANT_NAME: "son-{{ proj }}"
-    #OS_TENANT_ID: ""
 

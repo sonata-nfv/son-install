@@ -1,11 +1,22 @@
+- name: create a Volume for caching the proxy content
+  os_volume:
+    state: present
+    cloud: "os_{{ pop }}_{{ proj }}"
+    availability_zone: "{{ availability_zone }}"
+    size: 10
+    display_name: vcc_cache
+    wait: yes
+  register: cache_vol
+
 - name: launch a new Instance for vCC NS
   vars:
     local_home: "{{ lookup('env','PWD') }}"
+    vm_name: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ ansible_date_time.epoch }}"
   os_server:
     # http://docs.openstack.org/developer/os-client-config/
     state: present
     cloud: "os_{{ pop }}_{{ proj }}"
-    name: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ item }}-{{ ansible_date_time.epoch }}"
+    name: "{{ vm_name }}"
     image: "{{ image }}"
     key_name: "{{ key_name }}"
     flavor: "{{ flavor }}"
@@ -14,30 +25,36 @@
       - "{{ os_security_groups }}"
     nics:
       - net-id: "{{ int_net_id }}"
-      #- net-id: "{{ ext_net_id }}"
-      - net-id: "{{ net_enduser.id }}"
-      - net-id: "{{ net_mgmt.id }}"
-      - net-id: "{{ net_ldap.id }}"
-      - net-id: "{{ net_proxy_addblk.id }}"
-      - net-id: "{{ net_proxy_ids.id }}"
-      - net-id: "{{ net_proxy_fw.id }}"
+#      - net-id: "{{ net_mgmt.id }}"
+#      - net-id: "{{ net_vtc.id }}"
+#      - net-id: "{{ net_vtu.id }}"
     userdata: "{{ lookup('file', '{{ local_home }}/userdata/{{ distro }}.sh') }}"
     meta:
-      hostname: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ item }}-{{ ansible_date_time.epoch }}"
+      hostname: "{{ vm_name }}"
       group: "{{ plat }}"
     timeout: 180
     wait: yes
   with_sequence: "start=1 end={{ nbofvms | default(1) }} format=%02x"
   register: "newvm"
 
-- name: assign Floating IP to an Instance on Management network
-  os_floating_ip:
-    cloud: "os_{{ pop }}_{{ proj }}"
-    state: present
-    reuse: yes
-    server: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ item }}-{{ ansible_date_time.epoch }}"
-    network: admin_floating_net
-    nat_destination: demo-netw
-    #fixed_address: 172.31.6.88: true
-    timeout: 180
 
+- name: attach volume to host
+  vars:
+    vm_name: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ ansible_date_time.epoch }}"
+  os_server_volume:
+    state: present
+    cloud: "os_{{ pop }}_{{ proj }}"
+    server: "{{ vm_name }}"
+    volume: "{{ cache_vol.id }}"
+    device: /dev/vdb
+
+
+#- name: assign Floating IP to an Instance on Management network
+#  os_floating_ip:
+#    cloud: "os_{{ pop }}_{{ proj }}"
+#    state: present
+#    reuse: yes
+#    server: "{{ vm_name }}"
+#    nat_destination: "{{ int_net_id }}"
+#    #floating_ip_address: 172.31.6.252
+#    timeout: 180
