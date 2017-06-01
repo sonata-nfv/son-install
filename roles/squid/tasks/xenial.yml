@@ -1,26 +1,24 @@
-# local package cache already up-to-date by 'common' role
+### FW - set Iptables configuration
 
-- name: now, install SQUID on Ubuntu
-  apt: name=squid state=present
+- apt: name=ufw state=present
 
-# preserve original config file
-- fetch:
-    src: /etc/squid/squid.conf
-    dest: /tmp/squid.conf
-    flat: yes
-- copy:
-    src: /tmp/squid.conf
-    dest: /etc/squid/squid.conf.ORIG
-    owner: root
-    group: root
-    mode: 0640
+- name: ensure the Firewall service is running
+  service: name=ufw state=started enabled=yes
 
-- name: setting your specific configuration
-  copy:
-    remote_src: true
-    src: "{{ role_path }}/files/squid.conf"
-    dest: /etc/squid/squid.conf
+- name: open Squid port at firewall
+  ufw:
+    rule: allow
+    port: 3128
+    proto: tcp
+  notify: reload ufw
 
-- name: start SQUID service
-  service: name=squid state=started enabled=yes
+- ufw:
+    service: http
+    state: enabled
+  notify: reload ufw
+
+- ufw:
+    service: https
+    state: enabled
+  notify: reload ufw
 

@@ -1,29 +1,35 @@
+# FW - set Iptables configuration
 
-# local package cache and EPEL already solved by 'common' role
+- name: install Python Firewall tools
+  package: name=python-firewall state=present
+  become: true
 
-- name: installing SQUID proxy server on CentOS 7
-  package:
-    name: squid
-    state: latest
+- yum: name=firewalld state=present
+  become: true
 
-# preserve original config file
-- fetch:
-    src: /etc/squid/squid.conf
-    dest: /tmp/squid.conf
-    flat: yes
-- copy:
-    src: /tmp/squid.conf
-    dest: /etc/squid/squid.conf.ORIG
-    owner: root
-    group: root
-    mode: 0640
+- name: ensure the Firewall service is running
+  service: name=firewalld state=started enabled=yes
+  become: true
 
-- name: setting your specific configuration
-  copy:
-    remote_src: true
-    src: "{{ role_path }}/files/squid.conf"
-    dest: /etc/squid/squid.conf
+- name: open Squid port at firewall
+  firewalld:
+    port: 3128/tcp
+    state: enabled
+    immediate: true
+    permanent: true
+  notify: reload firewalld
 
-- name: start SQUID service
-  service: name=squid state=started enabled=yes
+- firewalld:
+    service: http
+    state: enabled
+    immediate: true
+    permanent: true
+  notify: reload firewalld
+
+- firewalld:
+    service: https
+    state: enabled
+    immediate: true
+    permanent: true
+  notify: reload firewalld
 
