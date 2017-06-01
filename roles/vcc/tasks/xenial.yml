@@ -17,12 +17,14 @@
   notify: reload ufw
 
 - ufw:
-    service: http
-    state: enabled
+    rule: allow
+    port: 80
+    proto: tcp
   notify: reload ufw
 
 - ufw:
-    service: https
-    state: enabled
+    rule: allow
+    port: 443
+    proto: tcp
   notify: reload ufw
 
