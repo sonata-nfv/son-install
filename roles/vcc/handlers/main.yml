@@ -4,3 +4,6 @@
 - name: reload firewalld
   service: name=firewalld state=reloaded sleep=1
 
+- name: reload ufw
+  service: name=ufw state=reloaded sleep=1
+

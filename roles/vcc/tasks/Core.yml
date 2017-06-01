@@ -1,0 +1,51 @@
+
+# FW - set Iptables configuration
+
+- name: install Python Firewall tools
+  package: name=python-firewall state=present
+  become: true
+
+- yum: name=firewalld state=present
+  become: true
+
+- name: ensure the Firewall service is running
+  service: name=firewalld state=started enabled=yes
+  become: true
+
+- name: open Squid port at firewall
+  firewalld:
+    port: 3128/tcp
+    state: enabled
+    immediate: true
+    permanent: true
+  notify: reload firewalld
+
+- firewalld:
+    service: http
+    state: enabled
+    immediate: true
+    permanent: true
+  notify: reload firewalld
+
+- firewalld:
+    service: https
+    state: enabled
+    immediate: true
+    permanent: true
+  notify: reload firewalld
+
+
+# SQUID - set Squid configuration
+
+- name: set Squid for transparent proxy
+  copy:
+    src: "{{ lookup('env','PWD') }}/roles/{{ plat }}/files/squid.conf"
+    dest: /etc/squid/squid.conf
+    owner: root
+    group: root
+    mode: 0644
+
+
+- name: start PROXY service
+  service: name=squid state=started enabled=yes
+  become: true

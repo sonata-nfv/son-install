@@ -1,29 +1,32 @@
 
 # FW - set Iptables configuration
 
-#- apt: name=firewalld state=present
+#- name: install Python Firewall tools
+#  package: name=python-firewall state=present
 
-#- name: ensure the Firewall service is running
-#  service: name=firewalld state=started enabled=yes
+- apt: name=ufw state=present
 
-#- name: open Squid port at firewall
-#  firewalld:
-#    port: 3128/tcp
-#    permanent: true
-#    state: enabled
-#    immediate: yes
-  #when: not ( security_firewall is defined and not security_firewall )
-#  notify: reload firewalld
+- name: ensure the Firewall service is running
+  service: name=ufw state=started enabled=yes
 
-- firewalld:
-    service: http
-    permanent: true
-    state: enabled
+- name: open Squid port at firewall
+  ufw:
+    rule: allow
+    port: 3128
+    proto: tcp
+  notify: reload ufw
 
-- firewalld:
-    service: https
-    permanent: true
-    state: enabled
+- ufw:
+    rule: allow
+    port: 80
+    proto: tcp
+  notify: reload ufw
+
+- ufw:
+    rule: allow
+    port: 443
+    proto: tcp
+  notify: reload ufw
 
 
 # SQUID - set Squid configuration
@@ -36,10 +39,6 @@
     group: root
     mode: 0644
 
-- firewalld:
-    port: 3128/tcp
-    permanent: true
-    state: enabled
 
 - name: start PROXY service
   service: name=squid state=started enabled=yes
