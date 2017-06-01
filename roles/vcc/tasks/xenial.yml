@@ -1,19 +1,29 @@
 
 # FW - set Iptables configuration
 
-- apt: name=firewalld state=present
+#- apt: name=firewalld state=present
 
-- name: ensure the Firewall service is running
-  service: name=firewalld state=started enabled=yes
+#- name: ensure the Firewall service is running
+#  service: name=firewalld state=started enabled=yes
 
-- name: open Squid port at firewall
-  firewalld:
-    port: 3128/tcp
+#- name: open Squid port at firewall
+#  firewalld:
+#    port: 3128/tcp
+#    permanent: true
+#    state: enabled
+#    immediate: yes
+  #when: not ( security_firewall is defined and not security_firewall )
+#  notify: reload firewalld
+
+- firewalld:
+    service: http
     permanent: true
     state: enabled
-    immediate: yes
-  #when: not ( security_firewall is defined and not security_firewall )
-  notify: reload firewalld
+
+- firewalld:
+    service: https
+    permanent: true
+    state: enabled
 
 
 # SQUID - set Squid configuration
@@ -25,6 +35,11 @@
     owner: root
     group: root
     mode: 0644
+
+- firewalld:
+    port: 3128/tcp
+    permanent: true
+    state: enabled
 
 - name: start PROXY service
   service: name=squid state=started enabled=yes

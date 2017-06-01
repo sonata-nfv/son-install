@@ -3,10 +3,14 @@
     state: present
     cloud: "os_{{ pop }}_{{ proj }}"
     availability_zone: "{{ availability_zone }}"
-    size: 10
-    display_name: vcc_cache
+    size: 12
+    display_name: SQUID_CACHE
+    #volume_type: xfs
     wait: yes
   register: cache_vol
+
+- debug:
+    var: cache_vol
 
 - name: launch a new Instance for vCC NS
   vars:
@@ -37,6 +41,9 @@
   with_sequence: "start=1 end={{ nbofvms | default(1) }} format=%02x"
   register: "newvm"
 
+- debug:
+    var: newvm
+
 
 - name: attach volume to host
   vars:
@@ -46,8 +53,38 @@
     cloud: "os_{{ pop }}_{{ proj }}"
     server: "{{ vm_name }}"
     volume: "{{ cache_vol.id }}"
-    device: /dev/vdb
+    #device: /dev/vdc
+  register: device_mapper_vol
 
+- debug:
+    var: device_mapper_vol
+
+- name: install system updates for centos systems
+  yum: name=* state=latest update_cache=yes
+  when: ansible_distribution == "CentOS"
+  become: true
+
+- name: install system updates for ubuntu systems
+  apt: upgrade=dist update_cache=yes
+  when: ansible_distribution == "Ubuntu"
+  become: true
+
+- name: install xfsprogs
+  package: name=xfsprogs state=latest
+  become: true
+
+- name: format new volume
+  filesystem: fstype=ext4 dev="{{ device_mapper_vol.id }}"
+  become: true
+
+- name: mount up external volume
+  mount:
+    path: /mnt/cache
+    src: "{{ device_mapper_vol.id }}"
+    fstype: ext4
+    #opts: noatime
+    state: mounted
+  become: true
 
 #- name: assign Floating IP to an Instance on Management network
 #  os_floating_ip:
