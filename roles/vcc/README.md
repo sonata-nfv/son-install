@@ -1,7 +1,7 @@
 virtual Cache Content (vCC)
 ===========================
 
-This role deploys a VM to an Openstack VIM running a content cache service on a multi-distro instance, namely: Ubuntu 14.04, Ubuntu 16.04 or CentOS 7. 
+This role creates a VM on an Openstack VIM and installs Squid on a multi-distro instance, namely: Ubuntu 14.04, Ubuntu 16.04 or CentOS 7. 
 
 The vCC NS is based on a Squid proxy server operating in transparent mode.
 

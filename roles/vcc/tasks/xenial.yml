@@ -17,28 +17,12 @@
   notify: reload ufw
 
 - ufw:
-    rule: allow
-    port: 80
-    proto: tcp
+    service: http
+    state: enabled
   notify: reload ufw
 
 - ufw:
-    rule: allow
-    port: 443
-    proto: tcp
+    service: https
+    state: enabled
   notify: reload ufw
 
-
-# SQUID - set Squid configuration
-
-- name: set Squid for transparent proxy
-  copy:
-    src: "{{ lookup('env','PWD') }}/roles/{{ plat }}/files/squid.conf"
-    dest: /etc/squid/squid.conf
-    owner: root
-    group: root
-    mode: 0644
-
-
-- name: start PROXY service
-  service: name=squid state=started enabled=yes
