@@ -3,8 +3,8 @@
     state: present
     cloud: "os_{{ pop }}_{{ proj }}"
     availability_zone: "{{ availability_zone }}"
-    size: 4
-    display_name: SQUID_CACHE
+    size: 8
+    display_name: SQUID_CACHE_C7
     #volume_type: xfs
     wait: yes
   register: cache_vol

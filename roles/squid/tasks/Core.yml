@@ -33,3 +33,10 @@
     permanent: true
   notify: reload firewalld
 
+### OPS
+#
+# sudo systemctl start firewalld.service
+#
+# firewall-cmd --state
+#
+###
