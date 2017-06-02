@@ -1,13 +1,15 @@
 virtual Cache Content (vCC)
 ===========================
 
-This role creates a VM on an Openstack VIM and installs Squid on a multi-distro instance, namely: Ubuntu 14.04, Ubuntu 16.04 or CentOS 7. 
+This role instanciates a VM (running a Squid proxy server) based on a pre-loaded Openstack Glance qcow2 image. 
 
-The vCC NS is based on a Squid proxy server operating in transparent mode.
+You can change the 'roles/vcc/files/squid.conf' to modify the authentication mode:
+* transparent (default)
+* local password (htpasswd), LDAP, AD, whatever
 
 The steps of execution are:
 
-1. Create 'networks' and 'subnets' for Squid connectivity with other VNU's, namely:
+1. Create 'networks' and 'subnets' for vCC connectivity with other VNU's, namely:
 
 * end-user access
 * vTC
@@ -48,12 +50,14 @@ NOTE: create a file named '/etc/openstack/cloud.yaml' (or '~/.config/openstack/c
 Role Variables
 --------------
 
-'var/mail.yml' will be loaded with the hostname and IP address assigned during instance creation.
-'/var/os_"POP"_"PROJ"_"DISTRO".yml' contains the parameters to create an instance to a PoP/Tenant/Distro.
+* 'var/mail.yml' will be loaded with the hostname and IP address assigned during instance creation.
+* '/var/os_"POP"_"PROJ"_"DISTRO".yml' contains the parameters to create an instance to a PoP/Tenant/Distro.
 
 
 Dependencies
 ------------
+
+For different Squid image name, set the iappropriate Glance qcow2 image name in 'roles/vcc/vars/os_"POP"_"PROJ"' variables.
 
 
 Example Playbook
@@ -71,7 +75,7 @@ where:
 License
 -------
 
-Apache 2.1
+Apache 2.0
 
 
 Author Information

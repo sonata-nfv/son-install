@@ -2,7 +2,7 @@
 # handlers file for vcc
 
 - name: reload firewalld
-  service: name=firewalld state=reloaded
+  shell: firewall-cmd --reload
   when: ansible_distribution == "CentOS"
 
 - name: reload ufw
