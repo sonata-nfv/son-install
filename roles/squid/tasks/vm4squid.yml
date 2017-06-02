@@ -1,13 +1,13 @@
-- name: create a Volume for caching the proxy content
-  os_volume:
-    state: present
-    cloud: "os_{{ pop }}_{{ proj }}"
-    availability_zone: "{{ availability_zone }}"
-    size: 8
-    display_name: SQUID_CACHE_C7
+#- name: create a Volume for caching the proxy content
+#  os_volume:
+#    state: present
+#    cloud: "os_{{ pop }}_{{ proj }}"
+#    availability_zone: "{{ availability_zone }}"
+#    size: 8
+#    display_name: SQUID_CACHE_C7
     #volume_type: xfs
-    wait: yes
-  register: cache_vol
+#    wait: yes
+#  register: cache_vol
 
 - name: launch a new Instance for vCC NS
   vars:
