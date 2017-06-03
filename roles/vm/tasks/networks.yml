@@ -25,4 +25,3 @@
        #  nexthop: 172.31.6.1
        - destination: 172.22.1.0/24
          nexthop: 172.22.1.1
-
