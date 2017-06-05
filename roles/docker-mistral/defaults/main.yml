@@ -2,4 +2,3 @@
 # defaults file for mistral
 
 docker_network_name: son-mistral
-public_ip: 172.31.6.111

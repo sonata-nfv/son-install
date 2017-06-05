@@ -93,8 +93,18 @@
 - name: create a safe copy of mistral.conf
   shell: docker exec mistral cp mistral.conf mistral.conf.orig
 
-#- name: initialise
-#  shell: docker exec mistral python -c xpto.sh
+- name: initialise
+  shell: docker exec mistral python -c "
+import ConfigParser
+c = ConfigParser.ConfigParser()
+c.read('/home/mistral/mistral.conf')
+c.set('DEFAULT', 'transport_url', 'rabbit://guest:guest@rabbitmq:5672/')
+c.set('database','connection','mysql://root:strangehat@mysql:3306/mistral')
+c.set('pecan', 'auth_enable', 'false')
+with open('/home/mistral/mistral.conf', 'w') as f:
+c.write(f)
+"
+ 
 
 - name: sync database and set predefined actions
   shell: docker exec mistral python /opt/stack/mistral/tools/sync_db.py --config-file /home/mistral/mistral.conf

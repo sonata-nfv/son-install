@@ -12,7 +12,7 @@
 
 All you need is a 'bash' shell with Ansible installed: actually, 'son-cmud.yml' is the main playbook to invoke all the SONATA CMUD operations.
 
-[![asciicast](https://asciinema.org/a/a1q347o8bvxafr84xpo4q59d8.png)](https://asciinema.org/a/a1q347o8bvxafr84xpo4q59d8?autoplay=1)
+[![asciicast](https://asciinema.org/a/31n3zv4c946zb8l4be7v84r45.png)](https://asciinema.org/a/31n3zv4c946zb8l4be7v84r45?autoplay=1)
 
 ## What's new in Release 2.1
 * application versioning - you can now choose the deployment of the 'latest' version or the 'dev' version or '2.1' version, for example
