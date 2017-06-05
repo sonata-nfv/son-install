@@ -1,3 +1,0 @@
-docker_vpsa_mgmt: son-mgmt
-vm_user: ubuntu
-public_ip: 172.31.6.93

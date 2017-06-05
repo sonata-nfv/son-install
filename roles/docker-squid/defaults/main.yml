@@ -1,7 +1,0 @@
----
-# defaults file for docker-squid
-
-vl_vpsa_mgmt: vpsa-mgmt
-vl_proxy_ldap: proxy-ldap
-vl_proxy_addblk: proxy-addblk
-vl_proxy_ids: proxy-ids

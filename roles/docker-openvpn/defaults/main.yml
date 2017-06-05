@@ -1,6 +1,0 @@
----
-# defaults file for docker-openvpn
-
-vl_vpsa_mgmt: vpsa-mgmt
-vl_vpsa_user: vpsa-user
-vl_vpn_fw: vpn-fw

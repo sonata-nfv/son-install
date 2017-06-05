@@ -1,8 +1,0 @@
----
-# defaults file for docker-snort
-
-vl_vpsa_mgmt: vpsa-mgmt
-vl_proxy_ids: proxy-ids
-vl_addblk_ids: addblk-ids
-vl_ids_fw: ids-fw
-
