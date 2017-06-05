@@ -96,5 +96,5 @@
   when: distro == "xenial"
 
 - pause:
-    minutes: 1
+    minutes: 3
   when: plat == "sp"

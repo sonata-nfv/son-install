@@ -1,9 +1,6 @@
 # son-install
 
-'son-install' provides a simple way to Create, Manage, Upgrade and Destroy (CMUD) SONATA resources for:
-* the Service Plataform (SP) as a standalone platform 
-* the specialized Integration (CI), Qualification (QI) and Demonstration (DI) platform
-* the existing VNF/NS bundles - eg, Personal Security Applicance (PSA)
+'son-install' provides a simple way to Create, Manage, Upgrade and Destroy (CMUD) SONATA resources for the Service Plataform (SP) as a standalone machine 
 
 'son-install' is built on a set of Ansible playbooks and aims to:
 * automate the deployment (and termination) of infrastructure and applications.
@@ -14,9 +11,10 @@ All you need is a 'bash' shell with Ansible installed: actually, 'son-cmud.yml' 
 
 [![asciicast](https://asciinema.org/a/31n3zv4c946zb8l4be7v84r45.png)](https://asciinema.org/a/31n3zv4c946zb8l4be7v84r45?autoplay=1)
 
+
 ## What's new in Release 2.1
-* application versioning - you can now choose the deployment of the 'latest' version or the 'dev' version or '2.1' version, for example
-* virtual Personal Security Applicance (PSA) - you can now deploy a dockerized PSA Network Service to the localhost, to a target IP address or to an Openstack VIM in a single command line 
+* application versioning - you can now choose the deployment of the 'latest', '2.1' or 'dev' version
+
 
 ## What's new in Release 2.0
 
@@ -38,7 +36,7 @@ Deploy the platform from the scratch for a specific platment (eg, SP/CI/QI/DI)
 ## Requirements
 
 * 'son-install' version 2.1 requires Ansible 2.3.0
-* actually, 'son-install' assumes 'ubuntu' or 'centos' default username to run the playbooks - in the near future, this limitation will b eremoved by using a generic 'sonata' user.
+* actually, 'son-install' assumes 'ubuntu' or 'centos' default username to run the playbooks - in the near future, this limitation will be removed, by using a generic 'sonata' user.
 
 
 ## Usage
@@ -50,23 +48,31 @@ The structure of 'son-install' is flexible enough to:
 
 ### Method 1 - deploying to an existing machine
 
-A quick way to deploy SONATA 5G NFV SP to an existing host or guest machine (VM) is:
+A quick way to deploy SONATA 5G NFV SP to the local machine is:
 
 * git clone https://github.com/sonata-nfv/son-install.git
 * cd son-install
-* ansible-playbook utils/deploy/sp.yml -e target='localhost|ipaddr'
-Alternative:
-* ansible-playbook utils.yml -e "target=localhost plat=sp"
+* ansible-playbook utils/deploy/sp.yml -e target='localhost'
 
-A quick way to deploy vPSA to an existing host or guest machine (VM) is:
 
-* ansible-playbook utils/deploy/vpsa.yml -e target=localhost
-Alternative:
-* ansible-playbook utils.yml -e "target=localhost plat=vpsa"
-
-Actualy, the following services and applications are available for deployment to the localhost or to a target machine (with authorized keys):
-* apache.yml  haproxy.yml  keycloak.yml    letsencrypt.yml  nginx.yml  openstackclients.yml  ovs.yml    snort.yml  squid.yml
-docker.yml  jenkins.yml  kubernetes.yml  mysql.yml        odoo.yml   otrs5.yml             pgsql.yml  sp.yml     terraform.yml
+Similar to 'sp.yml', actualy, the following services and applications are available for deployment to the localhost or to a target machine (with authorized keys):
+* apache.yml
+* haproxy.yml
+* keycloak.yml
+* letsencrypt.yml
+* nginx.yml
+* openstackclients.yml
+* ovs.yml
+* snort.yml
+* squid.yml
+* docker.yml
+* jenkins.yml
+* kubernetes.yml
+* mysql.yml
+* odoo.yml
+* otrs5.yml
+* pgsql.yml
+* terraform.yml
 
 
 ### Method 2 - provisioning infrastructure and deploying software
@@ -75,7 +81,7 @@ A complete way to deploy and manage SONATA 5G NFV services and application from 
 
 * git clone https://github.com/sonata-nfv/son-install.git
 * cd son-install
-* ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] plat=[SP/INTGR/QUAL/DEMO] pop=[NCSRD|ALABS] distro=[trusty|xenial|Core] ver=[latest|dev|2.1]"
+* ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] plat=[SP] pop=[NCSRD|ALABS] distro=[trusty|xenial|Core] ver=[latest|dev|2.1]"
 
 NOTE: depending on the performance of your infrastructure deployment and the download time to get package updates, this run could spent from 30 to 60 minutes.
 
@@ -96,26 +102,20 @@ NOTE: depending on the performance of your infrastructure deployment and the dow
 To deploy the latest SP version running on top of CentOS 7, to the Demo tenant on Altice Labs Openstack VIM: 
 * ansible-playbook son-cmud.yml -e 'ops=create plat=sp pop=alabs proj=demo distro=Core ver=latest'
 
-To deploy the development version of vPSA to the NCSRD Openstack VIM, running on top of Ubuntu 16.04:
-* ansible-playbook son-cmud.yml -e 'ops=create plat=vpsa pop=ncsrd proj=demo distro=xenial ver=dev'
-
 
 ### Example to MANAGE the life-cycle of a platform
 
 To stop ALL the services at the SP platform
-* ansible-playbook son-cmud.yml -e 'ops=manage plat=sp pop=ncsrd proj=demo distro=xenial action=stop svc=all'
+* ansible-playbook son-cmud.yml -e 'ops=manage plat=sp pop=alabs proj=demo distro=xenial action=stop svc=all'
 
 To ask for the status of all the SP services
-* ansible-playbook son-cmud.yml -e 'ops=manage plat=sp pop=ncsrd proj=demo distro=xenial action=status svc=all'
+* ansible-playbook son-cmud.yml -e 'ops=manage plat=sp pop=alabs proj=demo distro=xenial action=status svc=all'
 
 
 ### Example to UPGRADE a platform (to be enhanced on future release)
 
-To upgrade a Qualification Infrastructure (QI) - this implementation is on the roadmap
-* ansible-playbook son-cmud.yml -e 'ops=upgrade plat=qi pop=alabs proj=demo'
-
-To upgrade the Continuous Integration Infrastructure (CI)
-* ansible-playbook son-cmud.yml -e 'ops=upgrade plat=ci pop=ncsrd proj=demo'
+To upgrade the SP (this implementation is on the roadmap)
+* ansible-playbook son-cmud.yml -e 'ops=upgrade plat=sp pop=alabs proj=demo sp_ver=2.2'
 
 
 ### Example to DESTROY a platform
