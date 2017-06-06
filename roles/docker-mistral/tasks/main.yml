@@ -43,15 +43,15 @@
     url: https://tarballs.openstack.org/mistral/images/mistral-docker.tar.gz
     dest: /tmp/mistral
 
+- command: gunzip -f /tmp/mistral/mistral-docker.tar.gz
+
 - name: Load image from archive and push to a private registry
   docker_image:
     name: mistral-all
     #name: registry.sonata-nfv.eu:5000/sonatanfv/mistral-all
     #tag: v1
     #push: yes
-    load_path: /tmp/mistral/mistral-docker.tar.gz
-
-- command: gunzip -f /tmp/mistral/mistral-docker.tar.gz
+    load_path: /tmp/mistral/mistral-docker.tar
 
 - name: deploy MISTRAL as a Docker container
   docker_container:
@@ -93,18 +93,9 @@
 - name: create a safe copy of mistral.conf
   shell: docker exec mistral cp mistral.conf mistral.conf.orig
 
+- local_action: command cp "{{ role_path }}/files/initialise.py" /var/log/sonata/son-mistral
 - name: initialise
-  shell: docker exec mistral python -c "
-import ConfigParser
-c = ConfigParser.ConfigParser()
-c.read('/home/mistral/mistral.conf')
-c.set('DEFAULT', 'transport_url', 'rabbit://guest:guest@rabbitmq:5672/')
-c.set('database','connection','mysql://root:strangehat@mysql:3306/mistral')
-c.set('pecan', 'auth_enable', 'false')
-with open('/home/mistral/mistral.conf', 'w') as f:
-c.write(f)
-"
- 
+  shell: docker exec mistral "python -c /var/log/son-mistral/initialise.py"
 
 - name: sync database and set predefined actions
   shell: docker exec mistral python /opt/stack/mistral/tools/sync_db.py --config-file /home/mistral/mistral.conf
