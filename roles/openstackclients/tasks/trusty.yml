@@ -62,18 +62,8 @@
   - dogpile.cache>=0.5.3
   - decorator
 
-- name: install SHADE
-  pip: name=shade state=present
+#- name: install SHADE
+#  pip: name=shade state=present
 
-
-# Install 'shade' python module (needed by Ansible Cloud module)
-#- name: get Shade tarball
-#  get_url:
-#    url="https://pypi.python.org/packages/7e/1f/2409fd66f2574a2dc9daf335b47384e91f1ae52d8c1bb713ec1f840e188d/shade-{{ shade_tarball }}.tar.gz#md5=a09e159e35727bbb68eb3e5779658df4"
-#    dest="/tmp"
-#  register: new_archive
-
-#- name: install tarball
-#  pip: name=file:///tmp/shade-{{ shade_tarball }}.tar.gz
-#  when: new_archive|changed
+- include: shade.yml
 

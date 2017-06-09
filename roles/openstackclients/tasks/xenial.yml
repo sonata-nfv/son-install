@@ -48,4 +48,6 @@
 #  - ipaddress
 #  - dogpile.cache>=0.5.3
 #  - decorator
-#
+
+- include: shade.yml
+
