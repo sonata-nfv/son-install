@@ -128,7 +128,7 @@ To deploy infrastrucutre resources to an Openstack VIM, the [Openstack command l
 The following developers are responsible for this repository and have admin rights.
 
 * Alberto Rocha (arocha7)
-* Felipe Vincens (felipevicens)
+* Felipe Vicens (felipevicens)
 
 ## Contributing
 
