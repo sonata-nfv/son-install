@@ -5,9 +5,12 @@
     #image: sonatanfv/son-postgres
     image: ntboes/postgres-uuid
     env:
-      POSTGRES_DB=gatekeeper
-      POSTGRES_USER=sonatatest
-      POSTGRES_PASSWORD=sonata
+      #POSTGRES_DB=gatekeeper
+      #POSTGRES_USER=sonatatest
+      #POSTGRES_PASSWORD=sonata
+      POSTGRES_DB: "{{ gtk_db_name }}"
+      POSTGRES_USER: "{{ gtk_db_user }}"
+      POSTGRES_PASSWORD: "{{ gtk_db_pass }}"
     state: started
     network_mode: bridge
     networks:

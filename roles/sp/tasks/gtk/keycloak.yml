@@ -5,8 +5,10 @@
     name: "son-keycloak"
     image: "sonatanfv/son-keycloak:{{ sp_ver }}"
     env:
-      KEYCLOAK_USER: admin 
-      KEYCLOAK_PASSWORD: admin
+      #KEYCLOAK_USER: admin 
+      #KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_USER: "{{ gtk_keycloak_user }}" 
+      KEYCLOAK_PASSWORD: "{{ gtk_keycloak_pass }}"
     state: started
     network_mode: bridge
     networks:

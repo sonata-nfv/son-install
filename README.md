@@ -9,7 +9,7 @@
 
 All you need is a 'bash' shell with Ansible installed: actually, 'son-cmud.yml' is the main playbook to invoke all the SONATA CMUD operations.
 
-[![asciicast](https://asciinema.org/a/31n3zv4c946zb8l4be7v84r45.png)](https://asciinema.org/a/31n3zv4c946zb8l4be7v84r45?autoplay=1)
+[![asciicast](http://asciinema.org/a/32wmaiey5d54d5l6msdd7nu32.png)](http://asciinema.org/a/32wmaiey5d54d5l6msdd7nu32?autoplay=1)
 
 
 ## What's new in Release 2.1

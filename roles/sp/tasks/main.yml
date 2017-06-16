@@ -13,6 +13,7 @@
     comment: "SONATA admin user"
     shell: /bin/bash
     group: sudo
+    groups: docker
     password: "{{ sp_pass }}"
   when: ansible_os_family == "Debian"
 - name: remove password prompt for sudo
@@ -25,6 +26,7 @@
     comment: "SONATA admin user"
     shell: /bin/bash
     group: wheel
+    groups: docker
     password: "{{ sp_pass }}"
   when: ansible_os_family == "RadHat"
 - name: remove password prompt for sudo

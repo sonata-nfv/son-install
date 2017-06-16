@@ -14,8 +14,11 @@
       MQSERVER: amqp://guest:guest@son-broker:5672
       DATABASE_HOST: son-postgres
       DATABASE_PORT: 5432
-      POSTGRES_PASSWORD: sonata
-      POSTGRES_USER: sonatatest
+      #POSTGRES_PASSWORD: sonata
+      #POSTGRES_USER: sonatatest
+      POSTGRES_PASSWORD: "{{ gtk_db_pass }}"
+      POSTGRES_USER: "{{ gtk_db_user }}"
+      POSTGRES_DB: "{{ gtk_db_name }}"
     network_mode: bridge
     networks:
       - name: "{{ docker_network_name }}"

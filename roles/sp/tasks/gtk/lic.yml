@@ -11,9 +11,9 @@
     env:
       DATABASE_HOST: son-postgres
       DATABASE_PORT: 5432
-      POSTGRES_PASSWORD: sonata
-      POSTGRES_USER: sonatatest
-      POSTGRES_DB: gatekeeper
+      POSTGRES_PASSWORD: "{{ gtk_db_pass }}"
+      POSTGRES_USER: "{{ gtk_db_user }}"
+      POSTGRES_DB: "{{ gtk_db_name }}"
     state: started
     restart_policy: "unless-stopped"
     network_mode: bridge
