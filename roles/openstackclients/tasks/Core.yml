@@ -18,7 +18,7 @@
 
 - command: pip install --upgrade pip
 
-- name: install required libraries for Shade (https://pypi.python.org/pypi/shade/1.14.1)
+- name: install required libraries for Shade (https://pypi.python.org/pypi/shade/)
   pip: name={{ item }} state=latest
   with_items:
     - requestsexceptions>=1.1.1
