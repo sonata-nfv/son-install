@@ -2,6 +2,22 @@
 
 - include_vars: "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
 
+- include_vars: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+
+- name: Add hostname and IP address to '/etc/hosts' on the remote machine
+  become: true
+  template:
+    src: "{{ lookup('env','PWD') }}/roles/{{ plat }}/templates/etc_hosts.j2"
+    dest: /etc/hosts
+    mode: 0644
+
+- name: set external name servers for DNS resolution
+  copy:
+    src: "{{ lookup('env','PWD') }}/roles/common/files/resolvconf"
+    dest: /etc/resolvconf/resolv.conf.d/base
+    mode: 0644
+
+
 - include: "{{ ansible_distribution_release }}.yml"
 
 - pause:

@@ -1,13 +1,5 @@
 ---
 
-- name: set external name servers for DNS resolution
-  copy:
-    src: "{{ lookup('env','PWD') }}/roles/common/files/resolvconf"
-    dest: /etc/resolvconf/resolv.conf.d/base
-    owner: root
-    group: root
-    mode: 0644
-
 - name: previous install APTitude
   apt: name=aptitude state=present
 
