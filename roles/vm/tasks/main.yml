@@ -14,11 +14,12 @@
 
 - include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/networks.yml"
 
-- include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/vm4{{ plat }}.yml"
+#- include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/vm4{{ plat }}.yml"
+- include: "{{ lookup('env','PWD') }}/roles/vm/tasks/vm.yml"
 
-- set_fact:
-    public_ip: "{{ item.openstack.accessIPv4 }}"
-  with_items: "{{ newvm.results }}"
+#- set_fact:
+#    public_ip: "{{ item.openstack.accessIPv4 }}"
+#  with_items: "{{ newvm.results }}"
 
 - lineinfile:
     path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
@@ -29,7 +30,7 @@
 
 - lineinfile:
     path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
-    line: "{{ plat }}_fqdn: {{ item.openstack.name }}"
+    line: "plat_hostname: {{ item.openstack.name }}"
     create: yes
     state: present
   with_items: "{{ newvm.results }}"

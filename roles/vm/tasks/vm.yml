@@ -25,3 +25,11 @@
   with_sequence: "start=1 end={{ nbofvms | default(1) }} format=%02x"
   register: "newvm"
 
+- set_fact:
+    public_ip: "{{ item.openstack.accessIPv4 }}"
+  with_items: "{{ newvm.results }}"
+
+- set_fact:
+    plat_hostname: "{{ item.openstack.name }}"
+  with_items: "{{ newvm.results }}"
+

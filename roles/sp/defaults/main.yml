@@ -12,7 +12,7 @@ docker_network_name: son-sp
 # SONATA 5G NFV SP development/latest version
 sp_ver: dev
 domain_name: sonata-nfv.eu
-sp_fqdn: "{{ plat }}.{{ pop }}.{{ domain_name }}"
+fqdn: "{{ plat }}.{{ pop }}.{{ domain_name }}"
 
 sp_user: sonata
 sp_pass: "$1$SRc2ws2Z$rSdCC/UKiatagNdfsTVuf0"
