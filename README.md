@@ -2,12 +2,12 @@
 
 'son-install' provides a simple way to Create, Manage, Upgrade and Destroy (CMUD) SONATA resources for the Service Plataform (SP) as a standalone machine 
 
-'son-install' is built on a set of Ansible playbooks and aims to:
-* automate the deployment (and termination) of infrastructure and applications.
+'son-install' is built on a set of Ansible playbooks that aims to:
+* automate the deployment of the SONATA SP
 * manage the SP services and applications lifecycle
 * zero downtime roll up upgrades
 
-All you need is a 'bash' shell with Ansible installed: actually, 'son-cmud.yml' is the main playbook to invoke all the SONATA CMUD operations.
+All you need is a 'bash' shell with Ansible installed to run 'son-cmud.yml', ie, all the SONATA CMUD operations can be executed in a single line command
 
 [![asciicast](http://asciinema.org/a/32wmaiey5d54d5l6msdd7nu32.png)](http://asciinema.org/a/32wmaiey5d54d5l6msdd7nu32?autoplay=1)
 
@@ -35,8 +35,10 @@ Deploy the platform from the scratch for a specific platment (eg, SP/CI/QI/DI)
 
 ## Requirements
 
-* 'son-install' version 2.1 requires Ansible 2.3.0
-* actually, 'son-install' assumes 'ubuntu' or 'centos' default username to run the playbooks - in the near future, this limitation will be removed, by using a generic 'sonata' user.
+* Ansible 2.3.0+
+* Shade 1.16.0+
+
+NOTE: actually, 'son-install' assumes 'ubuntu' or 'centos' default username to run the playbooks and key based authentication - in the near future, this limitation will be removed, by using a generic 'sonata' user.
 
 
 ## Usage
@@ -115,7 +117,7 @@ To ask for the status of all the SP services
 ### Example to UPGRADE a platform (to be enhanced on future release)
 
 To upgrade the SP (this implementation is on the roadmap)
-* ansible-playbook son-cmud.yml -e 'ops=upgrade plat=sp pop=alabs proj=demo sp_ver=2.2'
+* ansible-playbook son-cmud.yml -e 'ops=upgrade plat=sp pop=alabs proj=demo sp_ver=2.1'
 
 
 ### Example to DESTROY a platform
@@ -135,6 +137,7 @@ The following developers are responsible for this repository and have admin righ
 
 * Alberto Rocha (arocha7)
 * Felipe Vicens (felipevicens)
+* Navdeep Uniyal (Navdeepuniyal)
 
 ## Contributing
 

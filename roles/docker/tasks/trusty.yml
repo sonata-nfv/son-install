@@ -87,6 +87,11 @@
 - name: start Docker daemon
   service: name=docker state=restarted enabled=yes
 
+- include: "{{ lookup('env','PWD') }}/roles/docker/tasks/networks.yml"
+
+- name: restart docker on Upstart (Ubuntu 14)
+  service: name=docker state=restarted
+
 # RSYSLOG
 
 - apt: name=rsyslog state=latest

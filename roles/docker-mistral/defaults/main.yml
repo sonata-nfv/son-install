@@ -9,5 +9,5 @@ docker_network_name: son-sp
 
 sp_ver: dev
 domain_name: sonata-nfv.eu
-sp_fqdn: "sp.{{ pop }}.{{ domain_name }}"
+fqdn: "{{ plat }}.{{ pop }}.{{ domain_name }}"
 

@@ -85,6 +85,12 @@
 - name: start Docker daemon
   service: name=docker state=restarted enabled=yes
 
+- include: "{{ lookup('env','PWD') }}/roles/docker/tasks/networks.yml"
+
+- name: restart docker on Systemd (Ubuntu 16.04 and CentOS 7)
+  systemd: name=docker state=restarted daemon_reload=yes
+
+
 #- name: configure RSYSLOG
 #  template:
 #    src: rsyslog.j2

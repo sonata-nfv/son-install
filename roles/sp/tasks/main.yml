@@ -7,6 +7,8 @@
         - "{{ lookup('env','PWD') }}/roles/{{ plat }}/defaults/main.yml"
       skip: true
 
+- include_vars: "{{ lookup('env','PWD') }}/roles/{{ plat }}/defaults/main.yml"
+
 - lineinfile:
     path: "/etc/hosts"
     line: "{{ public_ip }} {{ plat_hostname }}"
@@ -23,6 +25,7 @@
     groups: docker
     password: "{{ sp_pass }}"
   when: ansible_os_family == "Debian"
+
 - name: remove password prompt for sudo
   shell: "echo '%sudo ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers"
   when: ansible_os_family == "Debian"
@@ -36,6 +39,7 @@
     groups: docker
     password: "{{ sp_pass }}"
   when: ansible_os_family == "RadHat"
+
 - name: remove password prompt for sudo
   shell: "echo 'sonata ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/90-cloud-init-users"
   when: ansible_os_family == "RedHat"
