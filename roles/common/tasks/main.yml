@@ -2,12 +2,6 @@
 
 #- include_vars: "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
 
-- name: set external name servers for DNS resolution
-  copy:
-    src: "{{ lookup('env','PWD') }}/roles/common/files/resolvconf"
-    dest: /etc/resolvconf/resolv.conf.d/base
-    mode: 0644
-
 - include: "{{ ansible_distribution_release }}.yml"
 
 - pause:
