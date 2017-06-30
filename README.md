@@ -1,3 +1,5 @@
+<p align="center"><img src="https://github.com/sonata-nfv/son-install/blob/master/wikiresources/sonata_logo_400px.png" /></p>
+
 # son-install
 
 'son-install' provides a simple way to create, manage, upgrade and destroy (CMUD) SONATA resources, like:
