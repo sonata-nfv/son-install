@@ -26,7 +26,7 @@
   register: "newvm"
 
 - set_fact:
-    public_ip: "{{ item.openstack.accessIPv4 }}"
+    public_ip: "'{{ item.openstack.accessIPv4 }}'"
   with_items: "{{ newvm.results }}"
 
 - set_fact:

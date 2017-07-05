@@ -18,7 +18,7 @@
 
 - lineinfile:
     path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
-    line: "public_ip: {{ item.openstack.accessIPv4 }}"
+    line: "public_ip: '{{ item.openstack.accessIPv4 }}'"
     create: yes
     state: present
   with_items: "{{ newvm.results }}"
@@ -38,7 +38,7 @@
 
 - lineinfile:
     path: "{{ lookup('env','PWD') }}/ansible.cfg"
-    line: "inventory = group_vars/{{ plat }}"
+    line: "inventory = inventory/{{ plat }}"
 
 - name: create IN-MEMORY Inventory # temporary in-memory group of hosts that only persists until the end of the playbook
   add_host:
@@ -50,7 +50,7 @@
 
 - name: ensures dir exists
   file:
-    path: "{{ lookup('env','PWD') }}/group_vars/{{ plat }}"
+    path: "{{ lookup('env','PWD') }}/inventory/{{ plat }}"
     state: directory
     recurse: yes
     owner: "{{ lookup('env','USER') }}"
@@ -61,7 +61,7 @@
   # http://docs.ansible.com/ansible/template_module.html
   template:
     src: dynamic_inventory.j2
-    dest: "{{ lookup('env','PWD') }}/group_vars/{{ plat }}/hosts"
+    dest: "{{ lookup('env','PWD') }}/inventory/{{ plat }}/hosts"
 
 - name: Add STATIC mappings to /etc/hosts
   become: true
@@ -81,6 +81,9 @@
   delay: 10
   with_items: "{{ newvm.results }}"
 
+- pause:
+    minutes: 2
+
 - name: install Python 2.7 to the new deployed instance, if Xenial
   shell: >
     ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} 'sudo apt-get update && sudo apt-get install python-minimal -y'
@@ -92,4 +95,4 @@
   when: distro == "xenial"
 
 - pause:
-    minutes: 2
+    minutes: 1

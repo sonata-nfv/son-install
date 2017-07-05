@@ -93,10 +93,12 @@ NOTE: depending on the performance of your infrastructure deployment and the dow
 1. Create the hidden file that contains the available Openstack clouds you can connect [os_client_config](http://docs.openstack.org/developer/os-client-config/)
 * ~/.config/openstack/clouds.yaml
 
-2. Select the platment you want to deploy in 'ansible.cfg' (default: "inventory = group_vars/'PLAT'"):<br>
-* inventory = "inventory/'PLAT'
+2. Select the platment you want to deploy in 'ansible.cfg' (default: "inventory = inventory/'PLAT'") - eg:<br>
+* inventory = "inventory/sp"
 
 3. To avoid setting password credentials, use the private key pair (eg, "~/.ssh/YOUR-KEY.pem") of the public key you have used to create the VM
+
+4. Database passwords are encrypted in an external file: "~/.config/openstack/.vault_pass"
 
 
 #### Example to CREATE a new SONATA Service Platform from the scratch

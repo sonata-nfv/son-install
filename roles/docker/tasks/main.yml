@@ -12,19 +12,6 @@
     name: docker
     state: present
 
-#- file:
-#    path: /etc/ansible/group_vars
-#    state: directory
-#    mode: 0755
-
-#- name: create global/vars file for Ansible
-#  copy:
-#    src: group_vars.all
-#    dest: /etc/ansible/group_vars/all
-#    owner: root
-#    group: root
-#    mode: 0644
-
 - name: create a directory for Docker logging
   file:
     path: /var/log/docker
@@ -35,13 +22,4 @@
   become: true
 
 - include: "{{ ansible_distribution_release }}.yml"
-
-
-- name: restart docker on Upstart (Ubuntu 14)
-  service: name=docker state=restarted
-  when: ansible_distribution_release == "trusty"
-
-- name: restart docker on Systemd (Ubuntu 16 and CentOS 7)
-  systemd: name=docker state=restarted daemon_reload=yes
-  when: ansible_distribution_release == "Core" or ansible_distribution_release == "xenial"
 
