@@ -1,3 +1,0 @@
----
-# defaults file for docker-snort
-docker_vpsa_mgmt: son-mgmt

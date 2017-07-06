@@ -2,8 +2,9 @@
 vm_user: ubuntu
 nbofvms: 1
 image: u16-cldimg
-flavor: m1.sp
+flavor: m1.medium
 os_security_groups: "{{ plat }}-secgrp"
+fip: provider
 availability_zone: nova
 region_name: RegionOne
 key_name: son-install

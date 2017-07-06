@@ -1,9 +1,0 @@
----
-- name: deploy SQUID to the target machine
-  hosts: "{{ target }}"
-  become: true
-  roles:
-  - common
-  - firewall
-  - squid
-

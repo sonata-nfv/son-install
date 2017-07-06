@@ -1,11 +1,3 @@
-# DEFAULT VARs
-#plat: sp
-#cld: openstack
-#pop: ncsrd
-#distro: trusty
-#ops: create
-#svc: all
-#openstack_release: mitaka
 
 # DEFAULT VM CONFIG
 vm_user: ubuntu
@@ -13,6 +5,7 @@ nbofvms: 1
 image: u14-cldimg
 flavor: m1.small
 os_security_groups: "{{ plat }}-secgrp"
+fip: provider
 availability_zone: nova
 region_name: RegionOne
 key_name: son-install

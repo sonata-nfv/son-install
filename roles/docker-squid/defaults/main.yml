@@ -1,6 +1,0 @@
----
-# defaults file for docker-squid
-
-docker_vpsa_mgmt: son-mgmt
-docker_squid_in:  son-squid-in
-docker_squid_out: son-squid-out

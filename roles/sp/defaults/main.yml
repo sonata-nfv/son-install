@@ -1,15 +1,10 @@
 ---
 # defaults file for sp
 
+nbofvms: 1
 pop: alabs
 proj: demo
 distro: xenial
-
-# VARs for MONITOR
-upassword: sonata
-urootpw: 1234
-dbname: monitoring
-dbuser: monitoringuser
 
 # Docker network segment
 docker_network_name: son-sp
@@ -17,5 +12,8 @@ docker_network_name: son-sp
 # SONATA 5G NFV SP development/latest version
 sp_ver: dev
 domain_name: sonata-nfv.eu
-public_ip: 172.31.6.86
-public_ip: 172.31.6.107
+fqdn: "{{ plat }}.{{ pop }}.{{ domain_name }}"
+
+sp_user: sonata
+sp_pass: "$1$SRc2ws2Z$rSdCC/UKiatagNdfsTVuf0"
+

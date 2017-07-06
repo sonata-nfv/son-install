@@ -18,7 +18,7 @@
 
 - command: pip install --upgrade pip
 
-- name: install required libraries for Shade (https://pypi.python.org/pypi/shade/1.14.1)
+- name: install required libraries for Shade (https://pypi.python.org/pypi/shade/)
   pip: name={{ item }} state=latest
   with_items:
     - requestsexceptions>=1.1.1
@@ -63,14 +63,5 @@
 - name: install os-client-config
   pip: name='file:///tmp/os-client-config-1.26.0.tar.gz' state=present
 
-- name: get Shade (Python module needed by Ansible Cloud module)
-  get_url:
-    url: "https://pypi.python.org/packages/7e/1f/2409fd66f2574a2dc9daf335b47384e91f1ae52d8c1bb713ec1f840e188d/shade-1.14.1.tar.gz#md5=a09e159e35727bbb68eb3e5779658df4" # 1.14.1
-#    url: 'https://pypi.python.org/packages/8a/23/82202df7efe5bc0112f29700fa6907fc008f7fe0af8ac2e70860e31d7e51/shade-1.16.0.tar.gz#md5=a876208efd25dff182e534b261dfcd0a'
-    dest: "/tmp"
-#  register: new_archive
-
-- name: install Shade 
-  pip: name='file:///tmp/shade-1.14.1.tar.gz' state=present
-#  when: new_archive|changed
+- include: shade.yml
 

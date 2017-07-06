@@ -8,7 +8,7 @@
 #    - [ "vars/{{ ansible_os_family }}.yml", "vars/os_defaults.yml" ]
   pre_tasks:
     - debug:
-        msg: "EXTERNAL VARIABLES: -e 'target=localhost pop=alabs|ncsrd proj=qual|demo ver=2.1'"
+        msg: "example of EXTERNAL VARIABLES: -e 'target=localhost sp_ver=latest'"
     - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
     - file:
         path: /var/log/ansible.log

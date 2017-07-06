@@ -4,6 +4,7 @@ vm_user: ubuntu
 image: xenial-cldimg
 flavor: m1.small
 os_security_groups: "{{ plat }}-secgrp"
+fip: admin_floating_net
 availability_zone: nova
 region_name: RegionOne
 key_name: son-install

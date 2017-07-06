@@ -4,4 +4,4 @@
 pop: alabs
 proj: demo
 distro: xenial
-
+plat: vm

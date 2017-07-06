@@ -1,4 +1,0 @@
----
-# tasks file for haproxy
-
-- include: "{{ ansible_os_family }}.yml"

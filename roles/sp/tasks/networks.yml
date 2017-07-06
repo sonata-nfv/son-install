@@ -1,0 +1,28 @@
+ 
+- name: create MGMT VLAN
+  os_network:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    name: mgmt
+    shared: false
+    external: false
+  register: net_mgmt
+
+- os_subnet:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    network_name: "{{ net_mgmt.id }}"
+    name: subnet-mgmt
+    cidr: 172.22.1.0/24
+    gateway_ip: 172.22.1.1
+    enable_dhcp: true
+    allocation_pool_start: 172.22.1.2
+    allocation_pool_end: 172.22.1.126
+    dns_nameservers:
+       - 8.8.8.7
+       - 8.8.8.8
+    host_routes:
+       #- destination: 0.0.0.0/0
+       #  nexthop: 172.31.6.1
+       - destination: 172.22.1.0/24
+         nexthop: 172.22.1.1

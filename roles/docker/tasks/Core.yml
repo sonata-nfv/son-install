@@ -1,5 +1,7 @@
 ---
 
+- yum: name=epel-release state=latest
+
 - name: install Docker dependency libraries
   yum: name={{ item }} state=present update_cache=yes
   with_items:
@@ -15,7 +17,6 @@
   with_items: 
     - docker-py==1.9.0
     - six
-
 
 - name: add Docker repo to YUM
   copy: src=docker.repo dest=/etc/yum.repos.d/docker.repo owner=root group=root mode=0644
@@ -43,3 +44,9 @@
 
 - name: start Docker daemon
   service: name=docker state=started enabled=yes
+
+- include: "{{ lookup('env','PWD') }}/roles/docker/tasks/networks.yml"
+
+- name: restart docker on Systemd (Ubuntu 16 and CentOS 7)
+  systemd: name=docker state=restarted daemon_reload=yes
+

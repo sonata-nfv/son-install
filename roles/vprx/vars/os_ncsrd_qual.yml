@@ -1,7 +1,7 @@
 # DEFAULT VM CONFIG
 nbofvms: 1
 vm_user: ubuntu
-image: vsa-squid-3.5.12
+image: squid-3.5.12
 flavor: m1.small
 security_groups: "squid"
 availability_zone: nova

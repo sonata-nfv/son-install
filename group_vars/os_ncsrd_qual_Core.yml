@@ -4,6 +4,7 @@ nbofvms: 1
 image: ce7-cldimg
 flavor: m1.small
 os_security_groups: "{{ plat }}-secgrp"
+fip: provider
 availability_zone: nova
 region_name: RegionOne
 key_name: son-install

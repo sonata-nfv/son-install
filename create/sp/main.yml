@@ -4,15 +4,12 @@
   connection: ssh
   vars_files:
     - "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+    - "{{ lookup('env','PWD') }}/group_vars/{{ plat }}/vault.yml"
   remote_user: "{{ vm_user }}"
 
   pre_tasks:
-    - local_action: shell date +'%F %T'
-      register: timestamp
-    - debug:
-        msg: "{{ timestamp.stdout }}"
+    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
 
   roles:
-    - docker
     - sp
 
