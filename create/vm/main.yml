@@ -20,4 +20,4 @@
     - vm
 
   tasks:
-    - include: common.yml
+    - include: "{{ lookup('env','PWD') }}/common.yml"
