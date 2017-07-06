@@ -1,3 +1,5 @@
+<p align="center"><img src="https://github.com/sonata-nfv/son-install/blob/master/wikiresources/sonata_logo_400px.png" /></p>
+
 # son-install
 
 'son-install' provides a simple way to Create, Manage, Upgrade and Destroy (CMUD) SONATA resources for the Service Plataform (SP) as a standalone machine 
@@ -140,6 +142,8 @@ The following developers are responsible for this repository and have admin righ
 * Alberto Rocha (arocha7)
 * Felipe Vicens (felipevicens)
 * Navdeep Uniyal (Navdeepuniyal)
+=======
+
 
 ## Contributing
 
