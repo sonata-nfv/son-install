@@ -9,5 +9,5 @@
       - name: "{{ docker_network_name }}"
         aliases:
           - son-catalogue-repos
-    published_ports: 4002:4011
-    restart_policy: unless-stopped
+    published_ports: "4002:4011"
+    restart_policy: "unless-stopped"
