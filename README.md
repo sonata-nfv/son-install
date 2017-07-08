@@ -15,7 +15,7 @@ All you need is a 'bash' shell with Ansible installed to run 'son-cmud.yml', ie,
 
 
 ## What's new in Release 2.1
-* application versioning - you can now choose the deployment of the 'latest', '2.1' or 'dev' version
+* application versioning - you can now choose the SP version to deployment, eg:  'latest', '2.1' or 'dev'
 
 
 ## What's new in Release 2.0
@@ -40,8 +40,6 @@ Deploy the platform from the scratch for a specific platment (eg, SP/CI/QI/DI)
 * Ansible 2.3.0+
 * Shade 1.16.0+
 
-NOTE: actually, 'son-install' assumes 'ubuntu' or 'centos' default username to run the playbooks and key based authentication - in the near future, this limitation will be removed, by using a generic 'sonata' user.
-
 
 ## Usage
 
@@ -65,6 +63,13 @@ NOTE: the remaining parameters must be passed because we are reusing 'son-cmud' 
 * public_ip: is the IP address of the (local) guest machine, ie, the Floating IP in Openstack lingo
 * plat_hostname: is the hostname of the (local) guest machine
 
+#### Method 1 pre-configuration
+
+1. The SP database passwords are encrypted - you MUST create an external file "~/.ssh/.vault_pass" with the string "sonata" inside
+
+[![asciicast](https://asciinema.org/a/g3nHBa28FE0TdmeUwfNGczGL9.png)](https://asciinema.org/a/g3nHBa28FE0TdmeUwfNGczGL9?autoplay=1)
+
+
 ### Method 2 - provisioning infrastructure and deploying software
 
 The complete way to deploy and manage SONATA 5G NFV services and application from the scratch, ie, first provisioning the infrastructure resources and then deploying the software
@@ -76,20 +81,38 @@ s $* ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] plat=
 NOTE: depending on the performance of your infrastructure deployment and the download time to get package updates, this run could spent from 30 to 60 minutes.
 
 
-#### Pre-configuration
+#### Method 2 pre-configuration
 
-1. Create the hidden file that contains the available Openstack clouds you can connect [os_client_config](http://docs.openstack.org/developer/os-client-config/)
-* ~/.config/openstack/clouds.yaml
+1. The SP database passwords are encrypted - you MUST create an external file "~/.ssh/.vault_pass" with the string "sonata" inside
 
-2. To avoid setting password credentials, use the private key pair (eg, "~/.ssh/YOUR-KEY.pem") of the public key you have used to create the VM
+2. To avoid setting password credentials, use the private key pair (eg, "~/.ssh/YOUR-KEY.pem") of the public key you have used when creating the VM
+NOTE: actually, it assumes the default cloud image Username ('ubuntu' or 'centos') using key based authentication
 
-3. Database passwords are encrypted in an external file: "~/.config/openstack/.vault_pass"
+3. Create the hidden file that contains the available Openstack clouds that you can connect [os_client_config](http://docs.openstack.org/developer/os-client-config/) - choose one of the following options:
+ $ vi ~/.config/openstack/clouds.yaml
+ # vi /etc/openstack/clouds.yaml
+
+Example for Openstack Mitaka release:
+
+ clouds:
+ 
+   os_alabs_demo:
+     auth:
+       auth_url: 'http://YOUR_OS_URL:5000/v3'
+       username: 'YOUR_OS_USER'
+       password: 'YOUR_OS_PASS'
+       project_name: 'YOUR_OS_PROJ'
+       project_domain_name: "default"
+       user_domain_name: "default"
+     auth_type: password
+     identity_api_version: "3"
+     region_name: RegionOne
 
 
 #### Example to CREATE a new SONATA Service Platform from the scratch
 
 To deploy the latest SP version running on top of CentOS 7, to the Demo tenant on Altice Labs Openstack VIM: 
- $ ansible-playbook son-cmud.yml -e 'ops=create plat=sp pop=alabs proj=demo distro=Core ver=latest'
+ $ ansible-playbook son-cmud.yml -e 'ops=create plat=sp pop=alabs proj=demo distro=Core sp_ver=latest'
 
 
 ### Example to MANAGE the life-cycle of a platform
