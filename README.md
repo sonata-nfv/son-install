@@ -11,7 +11,6 @@
 
 All you need is a 'bash' shell with Ansible installed to run 'son-cmud.yml', ie, all the SONATA CMUD operations can be executed in a single line command
 
-[![asciicast](http://asciinema.org/a/32wmaiey5d54d5l6msdd7nu32.png)](http://asciinema.org/a/32wmaiey5d54d5l6msdd7nu32?autoplay=1)
 
 
 ## What's new in Release 2.1
@@ -63,11 +62,11 @@ NOTE: the remaining parameters must be passed because we are reusing 'son-cmud' 
 * public_ip: is the IP address of the (local) guest machine, ie, the Floating IP in Openstack lingo
 * plat_hostname: is the hostname of the (local) guest machine
 
+[![asciicast](https://asciinema.org/a/g3nHBa28FE0TdmeUwfNGczGL9.png)](https://asciinema.org/a/g3nHBa28FE0TdmeUwfNGczGL9?autoplay=1)
+
 #### Method 1 pre-configuration
 
 1. The SP database passwords are encrypted - you MUST create an external file "~/.ssh/.vault_pass" with the string "sonata" inside
-
-[![asciicast](https://asciinema.org/a/g3nHBa28FE0TdmeUwfNGczGL9.png)](https://asciinema.org/a/g3nHBa28FE0TdmeUwfNGczGL9?autoplay=1)
 
 
 ### Method 2 - provisioning infrastructure and deploying software
@@ -80,6 +79,7 @@ s $* ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] plat=
 
 NOTE: depending on the performance of your infrastructure deployment and the download time to get package updates, this run could spent from 30 to 60 minutes.
 
+[![asciicast](http://asciinema.org/a/32wmaiey5d54d5l6msdd7nu32.png)](http://asciinema.org/a/32wmaiey5d54d5l6msdd7nu32?autoplay=1)
 
 #### Method 2 pre-configuration
 
