@@ -52,7 +52,9 @@ The structure of 'son-install' is flexible enough to:
 A quick way to deploy SONATA 5G NFV SP to the local machine is:
 
   $ git clone https://github.com/sonata-nfv/son-install.git
+
   $ cd son-install
+
   $ ansible-playbook utils/deploy/sp.yml -e 'target=localhost plat=sp public_ip=YOUR_IPADDR plat_hostname=YOUR_HOSTNAME' -v
 
 where:
@@ -66,7 +68,7 @@ NOTE: the remaining parameters must be passed because we are reusing 'son-cmud' 
 
 #### Method 1 pre-configuration
 
-1. The SP database passwords are encrypted - you MUST create an external file "~/.ssh/.vault_pass" with the string "sonata" inside
+1. The SP database passwords are now encrypted, so you MUST create an external file "~/.ssh/.vault_pass" with the default "sonata" password
 
 
 ### Method 2 - provisioning infrastructure and deploying software
@@ -74,7 +76,9 @@ NOTE: the remaining parameters must be passed because we are reusing 'son-cmud' 
 The complete way to deploy and manage SONATA 5G NFV services and application from the scratch, ie, first provisioning the infrastructure resources and then deploying the software
 
  $ git clone https://github.com/sonata-nfv/son-install.git
+
  $ cd son-install
+
 s $* ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] plat=[SP] pop=[NCSRD|ALABS] distro=[trusty|xenial|Core] ver=[latest|dev|2.1]"
 
 NOTE: depending on the performance of your infrastructure deployment and the download time to get package updates, this run could spent from 30 to 60 minutes.
@@ -89,8 +93,10 @@ NOTE: depending on the performance of your infrastructure deployment and the dow
 NOTE: actually, it assumes the default cloud image Username ('ubuntu' or 'centos') using key based authentication
 
 3. Create the hidden file that contains the available Openstack clouds that you can connect [os_client_config](http://docs.openstack.org/developer/os-client-config/) - choose one of the following options:
+
  $ vi ~/.config/openstack/clouds.yaml
- # vi /etc/openstack/clouds.yaml
+
+ $ sudo vi /etc/openstack/clouds.yaml
 
 Example for Openstack Mitaka release:
 
