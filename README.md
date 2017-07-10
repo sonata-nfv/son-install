@@ -19,7 +19,7 @@ All you need is a 'bash' shell with Ansible installed to run 'son-cmud.yml', ie,
 
 ## What's new in Release 2.0
 
-Deploy the platform from the scratch for a specific platment (eg, SP/CI/QI/DI)
+Deploy the platform from the scratch for a specific environment (integration, qualification, demonstration)
 * step 1: provision infrastrucutre
 * step 2: standardize configurations
 * step 3: install applications and services
@@ -43,11 +43,33 @@ Deploy the platform from the scratch for a specific platment (eg, SP/CI/QI/DI)
 ## Usage
 
 The structure of 'son-install' is flexible enough to:
-* deploy and manage a single service or application to an existing machine - designated by 'method 1'
-* deploy, manage, upgrade, destroy a complex distributed platform - designated by 'method 2'
+* deploy and manage a single service or application to an existing machine
+* deploy, manage, upgrade, destroy a complex distributed platform
 
 
-### Method 1 - deploying to an existing machine
+### Deploying to LOCAL machine
+
+#### Pre-configuration
+
+1. The SP database passwords are now encrypted, so you MUST create an external file "~/.ssh/.vault_pass" with the default "sonata" password
+
+2. You able to customize your environment by changing the SP defaults file: "roles/sp/defaults/main.yml" - eg:
+
+pop: alabs
+proj: demo
+distro: xenial
+# Docker network segment
+docker_network_name: son-sp
+# SONATA 5G NFV SP development/latest version
+sp_ver: dev
+domain_name: sonata-nfv.eu
+fqdn: "{{ plat }}.{{ pop }}.{{ domain_name }}"
+# SP user
+sp_user: sonata
+sp_pass: "_passwd_hash_"
+
+
+#### Deployment
 
 A quick way to deploy SONATA 5G NFV SP to the local machine is:
 
@@ -66,26 +88,13 @@ NOTE: the remaining parameters must be passed because we are reusing 'son-cmud' 
 
 [![asciicast](https://asciinema.org/a/g3nHBa28FE0TdmeUwfNGczGL9.png)](https://asciinema.org/a/g3nHBa28FE0TdmeUwfNGczGL9?autoplay=1)
 
-#### Method 1 pre-configuration
 
-1. The SP database passwords are now encrypted, so you MUST create an external file "~/.ssh/.vault_pass" with the default "sonata" password
-
-
-### Method 2 - provisioning infrastructure and deploying software
+### Openstack VIM: Provisioning infrastructure and deploying software
 
 The complete way to deploy and manage SONATA 5G NFV services and application from the scratch, ie, first provisioning the infrastructure resources and then deploying the software
 
- $ git clone https://github.com/sonata-nfv/son-install.git
 
- $ cd son-install
-
-s $* ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] plat=[SP] pop=[NCSRD|ALABS] distro=[trusty|xenial|Core] ver=[latest|dev|2.1]"
-
-NOTE: depending on the performance of your infrastructure deployment and the download time to get package updates, this run could spent from 30 to 60 minutes.
-
-[![asciicast](http://asciinema.org/a/32wmaiey5d54d5l6msdd7nu32.png)](http://asciinema.org/a/32wmaiey5d54d5l6msdd7nu32?autoplay=1)
-
-#### Method 2 pre-configuration
+#### Pre-configuration
 
 1. The SP database passwords are encrypted - you MUST create an external file "~/.ssh/.vault_pass" with the string "sonata" inside
 
@@ -113,6 +122,18 @@ Example for Openstack Mitaka release:
      auth_type: password
      identity_api_version: "3"
      region_name: RegionOne
+
+#### Deployment
+
+ $ git clone -b v2 https://github.com/sonata-nfv/son-install.git
+
+ $ cd son-install
+
+s $* ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] plat=[SP] pop=[NCSRD|ALABS] distro=[trusty|xenial|Core] ver=[latest|dev|2.1]"
+
+NOTE: depending on the performance of your infrastructure deployment and the download time to get package updates, this run could spent from 30 to 60 minutes.
+
+[![asciicast](http://asciinema.org/a/32wmaiey5d54d5l6msdd7nu32.png)](http://asciinema.org/a/32wmaiey5d54d5l6msdd7nu32?autoplay=1)
 
 
 #### Example to CREATE a new SONATA Service Platform from the scratch
