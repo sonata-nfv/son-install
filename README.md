@@ -55,18 +55,23 @@ The structure of 'son-install' is flexible enough to:
 
 2. You able to customize your environment by changing the SP defaults file: "roles/sp/defaults/main.yml" - eg:
 
-pop: alabs
-proj: demo
-distro: xenial
-# Docker network segment
-docker_network_name: son-sp
-# SONATA 5G NFV SP development/latest version
-sp_ver: dev
-domain_name: sonata-nfv.eu
-fqdn: "{{ plat }}.{{ pop }}.{{ domain_name }}"
-# SP user
-sp_user: sonata
-sp_pass: "_passwd_hash_"
+ pop: alabs
+
+ proj: demo
+
+ distro: xenial
+
+ docker_network_name: son-sp
+
+ sp_ver: dev
+
+ domain_name: sonata-nfv.eu
+
+ fqdn: "{{ plat }}.{{ pop }}.{{ domain_name }}"
+
+ sp_user: sonata
+
+ sp_pass: "_passwd_hash_"
 
 
 #### Deployment
