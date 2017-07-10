@@ -15,3 +15,5 @@
     published_ports:
       - "5672:5672"
 
+- wait_for: host=0.0.0.0 port=5672 timeout=30 delay=10 state=started
+

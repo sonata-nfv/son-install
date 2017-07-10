@@ -10,8 +10,7 @@
       broker_uri: "amqp://guest:guest@son-broker:5672/%2F"
       repo_host: "son-postgres"
       repo_port: "5432"
-      #repo_user: "sonatatest"
-      #repo_pass: "sonata"
+      #Defaults: ia_repo_user: "sonatatest" ia_repo_pass: "sonata"
       repo_user: "{{ ia_repo_user }}"
       repo_pass: "{{ ia_repo_pass }}"
       network_mode: bridge

@@ -8,4 +8,5 @@
         - name: "{{ docker_network_name }}"
           aliases:
             - son-monitor-pushgateway
+            - pushgateway
       published_ports: "9091:9091"
