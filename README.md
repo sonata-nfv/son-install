@@ -11,11 +11,10 @@
 
 All you need is a 'bash' shell with Ansible installed to run 'son-cmud.yml', ie, all the SONATA CMUD operations can be executed in a single line command
 
-[![asciicast](http://asciinema.org/a/32wmaiey5d54d5l6msdd7nu32.png)](http://asciinema.org/a/32wmaiey5d54d5l6msdd7nu32?autoplay=1)
 
 
 ## What's new in Release 2.1
-* application versioning - you can now choose the deployment of the 'latest', '2.1' or 'dev' version
+* application versioning - you can now choose the SP version to deployment, eg:  'latest', '2.1' or 'dev'
 
 
 ## What's new in Release 2.0
@@ -40,8 +39,6 @@ Deploy the platform from the scratch for a specific platment (eg, SP/CI/QI/DI)
 * Ansible 2.3.0+
 * Shade 1.16.0+
 
-NOTE: actually, 'son-install' assumes 'ubuntu' or 'centos' default username to run the playbooks and key based authentication - in the near future, this limitation will be removed, by using a generic 'sonata' user.
-
 
 ## Usage
 
@@ -54,80 +51,95 @@ The structure of 'son-install' is flexible enough to:
 
 A quick way to deploy SONATA 5G NFV SP to the local machine is:
 
-* git clone https://github.com/sonata-nfv/son-install.git
-* cd son-install
-* ansible-playbook utils/deploy/sp.yml -e target='localhost'
+  $ git clone https://github.com/sonata-nfv/son-install.git
 
+  $ cd son-install
 
-Similar to 'sp.yml', actualy, the following services and applications are available for deployment to the localhost or to a target machine (with authorized keys):
-* apache.yml
-* haproxy.yml
-* keycloak.yml
-* letsencrypt.yml
-* nginx.yml
-* openstackclients.yml
-* ovs.yml
-* snort.yml
-* squid.yml
-* docker.yml
-* jenkins.yml
-* kubernetes.yml
-* mysql.yml
-* odoo.yml
-* otrs5.yml
-* pgsql.yml
-* terraform.yml
+  $ ansible-playbook utils/deploy/sp.yml -e 'target=localhost plat=sp public_ip=YOUR_IPADDR plat_hostname=YOUR_HOSTNAME' -v
+
+where:
+* target: is the IP address of the machine you want to deploy the SP
+NOTE: the remaining parameters must be passed because we are reusing 'son-cmud' playbooks
+* plat: 'sp' indicates to deploy the Service Platform
+* public_ip: is the IP address of the (local) guest machine, ie, the Floating IP in Openstack lingo
+* plat_hostname: is the hostname of the (local) guest machine
+
+[![asciicast](https://asciinema.org/a/g3nHBa28FE0TdmeUwfNGczGL9.png)](https://asciinema.org/a/g3nHBa28FE0TdmeUwfNGczGL9?autoplay=1)
+
+#### Method 1 pre-configuration
+
+1. The SP database passwords are now encrypted, so you MUST create an external file "~/.ssh/.vault_pass" with the default "sonata" password
 
 
 ### Method 2 - provisioning infrastructure and deploying software
 
-A complete way to deploy and manage SONATA 5G NFV services and application from the scratch, ie, provisioning first the infrastructure resources and then deploying the software
+The complete way to deploy and manage SONATA 5G NFV services and application from the scratch, ie, first provisioning the infrastructure resources and then deploying the software
 
-* git clone https://github.com/sonata-nfv/son-install.git
-* cd son-install
-* ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] plat=[SP] pop=[NCSRD|ALABS] distro=[trusty|xenial|Core] ver=[latest|dev|2.1]"
+ $ git clone https://github.com/sonata-nfv/son-install.git
+
+ $ cd son-install
+
+s $* ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] plat=[SP] pop=[NCSRD|ALABS] distro=[trusty|xenial|Core] ver=[latest|dev|2.1]"
 
 NOTE: depending on the performance of your infrastructure deployment and the download time to get package updates, this run could spent from 30 to 60 minutes.
 
+[![asciicast](http://asciinema.org/a/32wmaiey5d54d5l6msdd7nu32.png)](http://asciinema.org/a/32wmaiey5d54d5l6msdd7nu32?autoplay=1)
 
-#### Pre-configuration
+#### Method 2 pre-configuration
 
-1. Create the hidden file that contains the available Openstack clouds you can connect [os_client_config](http://docs.openstack.org/developer/os-client-config/)
-* ~/.config/openstack/clouds.yaml
+1. The SP database passwords are encrypted - you MUST create an external file "~/.ssh/.vault_pass" with the string "sonata" inside
 
-2. Select the platment you want to deploy in 'ansible.cfg' (default: "inventory = inventory/'PLAT'") - eg:<br>
-* inventory = "inventory/sp"
+2. To avoid setting password credentials, use the private key pair (eg, "~/.ssh/YOUR-KEY.pem") of the public key you have used when creating the VM
+NOTE: actually, it assumes the default cloud image Username ('ubuntu' or 'centos') using key based authentication
 
-3. To avoid setting password credentials, use the private key pair (eg, "~/.ssh/YOUR-KEY.pem") of the public key you have used to create the VM
+3. Create the hidden file that contains the available Openstack clouds that you can connect [os_client_config](http://docs.openstack.org/developer/os-client-config/) - choose one of the following options:
 
-4. Database passwords are encrypted in an external file: "~/.config/openstack/.vault_pass"
+ $ vi ~/.config/openstack/clouds.yaml
+
+ $ sudo vi /etc/openstack/clouds.yaml
+
+Example for Openstack Mitaka release:
+
+ clouds:
+ 
+   os_alabs_demo:
+     auth:
+       auth_url: 'http://YOUR_OS_URL:5000/v3'
+       username: 'YOUR_OS_USER'
+       password: 'YOUR_OS_PASS'
+       project_name: 'YOUR_OS_PROJ'
+       project_domain_name: "default"
+       user_domain_name: "default"
+     auth_type: password
+     identity_api_version: "3"
+     region_name: RegionOne
 
 
 #### Example to CREATE a new SONATA Service Platform from the scratch
 
 To deploy the latest SP version running on top of CentOS 7, to the Demo tenant on Altice Labs Openstack VIM: 
-* ansible-playbook son-cmud.yml -e 'ops=create plat=sp pop=alabs proj=demo distro=Core ver=latest'
+ $ ansible-playbook son-cmud.yml -e 'ops=create plat=sp pop=alabs proj=demo distro=Core sp_ver=latest'
 
 
 ### Example to MANAGE the life-cycle of a platform
 
 To stop ALL the services at the SP platform
-* ansible-playbook son-cmud.yml -e 'ops=manage plat=sp pop=alabs proj=demo distro=xenial action=stop svc=all'
+ $ ansible-playbook son-cmud.yml -e 'ops=manage plat=sp pop=alabs proj=demo distro=xenial action=stop svc=all'
 
 To ask for the status of all the SP services
-* ansible-playbook son-cmud.yml -e 'ops=manage plat=sp pop=alabs proj=demo distro=xenial action=status svc=all'
+ $ ansible-playbook son-cmud.yml -e 'ops=manage plat=sp pop=alabs proj=demo distro=xenial action=status svc=all'
 
 
 ### Example to UPGRADE a platform (to be enhanced on future release)
 
 To upgrade the SP (this implementation is on the roadmap)
-* ansible-playbook son-cmud.yml -e 'ops=upgrade plat=sp pop=alabs proj=demo sp_ver=2.1'
+ $ ansible-playbook son-cmud.yml -e 'ops=upgrade plat=sp pop=alabs proj=demo sp_ver=2.1'
 
 
 ### Example to DESTROY a platform
 
 To terminate a SP platform
-* ansible-playbook son-cmud.yml -e 'ops=destroy plat=sp pop=alabs proj=demo'
+ $ ansible-playbook son-cmud.yml -e 'ops=destroy plat=sp pop=alabs proj=demo'
 
 
 ### Dependencies
@@ -141,8 +153,7 @@ The following developers are responsible for this repository and have admin righ
 
 * Alberto Rocha (arocha7)
 * Felipe Vicens (felipevicens)
-* Navdeep Uniyal (Navdeepuniyal)
-=======
+* Navdeep Uniyal (navdeepuniyal)
 
 
 ## Contributing
