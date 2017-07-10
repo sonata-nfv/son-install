@@ -27,7 +27,7 @@ Deploy the platform from the scratch for a specific environment (integration, qu
 
 ##  Characteristics
 
-* Multi-Stage: deploy the Integration, Qualification and Demonstration platments
+* Multi-Stage: deploy the Integration, Qualification and Demonstration environments
 * Multi-PoP: deploy to multiple sites (set the right credential variables)
 * Multi-VIM: Openstack (AWS under evaluation, OSM under evaluation)
 * Multi-Distro: Ubuntu 14.04, Ubuntu 16.04, CentOS 7
