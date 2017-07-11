@@ -2,7 +2,7 @@
 nbofvms: 1
 vm_user: centos
 image: centos7-cldimg
-flavor: m1.small
+flavor: m1.sp
 os_security_groups: "{{ qual }}-secgrp"
 fip: admin_floating_net
 availability_zone: nova
