@@ -5,10 +5,13 @@
     name: "son-keycloak"
     image: "sonatanfv/son-keycloak:{{ sp_ver }}"
     env:
-      #KEYCLOAK_USER: admin 
-      #KEYCLOAK_PASSWORD: admin
+      #Default: KEYCLOAK_USER: admin KEYCLOAK_PASSWORD: admin
       KEYCLOAK_USER: "{{ gtk_keycloak_user }}" 
       KEYCLOAK_PASSWORD: "{{ gtk_keycloak_pass }}"
+    etc_hosts: >
+       {
+          "sp.int3.sonata-nfv.eu": "172.20.1.250"
+       }
     state: started
     network_mode: bridge
     networks:

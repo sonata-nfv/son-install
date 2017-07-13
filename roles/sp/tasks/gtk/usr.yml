@@ -16,5 +16,6 @@
         - name: "{{ docker_network_name }}"
           aliases:
             - son-gtkusr
+          ipv4_address: "172.20.1.250"
       published_ports: "5600:5600"
       restart_policy: "unless-stopped"

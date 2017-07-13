@@ -21,4 +21,3 @@
   roles:
     - docker
     - { role: sp, ver: '{{ ver }}' }
-
