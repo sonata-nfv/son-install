@@ -4,7 +4,7 @@
 vm_user: ubuntu
 nbofvms: 1
 image: ubu14.04
-flavor: m1.medium
+flavor: m1.sp
 os_security_groups: "{{ plat }}-secgrp"
 fip: provider
 availability_zone: nova
