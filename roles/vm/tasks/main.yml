@@ -10,6 +10,8 @@
         - "defaults.yml"
       skip: true
 
+- include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/privkey.yml"
+
 - include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/secgrp.yml"
 
 - include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/networks.yml"
@@ -35,6 +37,7 @@
 - lineinfile:
     path: "{{ lookup('env','PWD') }}/ansible.cfg"
     line: 'private_key_file = ~/.ssh/{{ key_name }}.pem'
+  no_log: True
 
 - lineinfile:
     path: "{{ lookup('env','PWD') }}/ansible.cfg"
@@ -74,8 +77,7 @@
 
 - name: WAIT the SSH port listening at the new deployed instance
   command: >
-  become: false
-    ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i {{ lookup('env','HOME') }}//.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} true
+    ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} true
   register: result
   until: result|success
   retries: 20
@@ -87,10 +89,10 @@
 
 - name: install Python 2.7 to the new deployed instance, if Xenial
   shell: >
-    ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i {{ lookup('env','HOME') }}//.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} 'sudo apt-get update && sudo apt-get install python-minimal -y'
+    ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} 'sudo apt-get update && sudo apt-get install python-minimal -y'
   register: result
   until: result|success
-  retries: 20
+  retries: 30
   delay: 10
   with_items: "{{ newvm.results }}"
   when: distro == "xenial"

@@ -1,3 +1,40 @@
+- name: create an internal NETWORK
+  os_network:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    name: int-net
+    shared: false
+    external: false
+  register: int_net
+
+- os_subnet: create a SUBNET for the internal network
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    network_name: "{{ int_net.id }}"
+    name: int-net-subnet
+    cidr: 192.168.10.0/24
+    gateway_ip: 192.168.10.1
+    enable_dhcp: true
+    allocation_pool_start: 192.168.10.100
+    allocation_pool_end: 192.168.10.200
+    dns_nameservers:
+       - 8.8.8.7
+       - 8.8.8.8
+    host_routes:
+       - destination: 0.0.0.0/0
+         nexthop: 192.168.10.1
+
+- name: create a ROUTER for the internal network
+  os_router:
+    state: present
+    name: int-net-router
+    network: ext-net
+    external_fixed_ips:
+      - subnet: ext-net
+        #ip: 192.168.10.2
+    interfaces:
+      - int-net-subnet
+
 - name: create MGMT VLAN
   os_network:
     cloud: "os_{{ pop }}_{{ proj }}"
@@ -21,7 +58,5 @@
        - 8.8.8.7
        - 8.8.8.8
     host_routes:
-       #- destination: 0.0.0.0/0
-       #  nexthop: 172.31.6.1
-       - destination: 172.22.1.0/24
+       - destination: 0.0.0.0/0
          nexthop: 172.22.1.1
