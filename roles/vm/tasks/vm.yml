@@ -1,6 +1,8 @@
 
 - include_vars: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
 
+- include_vars: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+
 - name: launch a new Instance(s)
   vars:
     local_home: "{{ lookup('env','PWD') }}"
