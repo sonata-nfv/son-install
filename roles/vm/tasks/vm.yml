@@ -1,3 +1,8 @@
+
+- include_vars: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+
+- include_vars: "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+
 - name: launch a new Instance(s)
   vars:
     local_home: "{{ lookup('env','PWD') }}"
@@ -13,6 +18,7 @@
     security_groups:
       - "{{ os_security_groups }}"
     floating_ip_pools: "{{ fip }}"
+    #auto_ip: yes
     nics:
       - net-id: "{{ int_net_id }}"
       #- net-id: "{{ ext_net_id }}"
