@@ -10,7 +10,7 @@
         - "defaults.yml"
       skip: true
 
-- include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/privkey.yml"
+- include: "{{ lookup('env','PWD') }}/roles/vm/tasks/privkey.yml"
 
 - include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/secgrp.yml"
 
