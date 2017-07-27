@@ -8,7 +8,6 @@
     group: root
     mode: 0644
   become_user: root
-  become_method: su
 
 - name: previous install APTitude
   apt: name=aptitude state=present

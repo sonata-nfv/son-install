@@ -34,7 +34,7 @@
   - requests
   #- docker-py==1.9.0
   - docker-py
-
+  - pyopenssl
 
 #- name: on Trusty it is recommended to install the linux-image-extra kernel package
 #  apt: name=linux-image-extra-$(uname -r) state=present update_cache=yes
