@@ -1,6 +1,8 @@
 ---
 # tasks file for vm
 
+- debug: msg="##### VM CREATION {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+
 - name: load variables per Site, Tenant and Distro
   include_vars: "{{ item }}"
   with_first_found:

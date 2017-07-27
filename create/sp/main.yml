@@ -8,7 +8,7 @@
   remote_user: "{{ vm_user }}"
 
   pre_tasks:
-    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    - debug: msg="##### SP DEPLOYMENT STARTED {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
 
   roles:
     - sp
