@@ -6,7 +6,7 @@
   connection: local
 
   pre_tasks:
-    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    - debug: msg="##### ACC PREPARE {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
     - file:
         path: /var/log/ansible.log
         state: touch

@@ -3,8 +3,6 @@
 
 - include: "{{ ansible_distribution_release }}.yml"
 
-- yum: name=git state=present
-
 - name: Updating Snort Rule using Pulled Pork
   git: 
     repo: https://github.com/shirkdog/pulledpork.git
@@ -38,5 +36,6 @@
 # provide feedback on the installed version
 - command: sudo snort -V
   register: snort_ver
-- debug: msg="{{ snort_ver.stdout }}"
+- debug:
+    var: snort_ver.stdout
 
