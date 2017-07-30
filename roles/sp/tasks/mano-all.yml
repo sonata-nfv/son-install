@@ -1,4 +1,6 @@
 ---
+- debug: msg="##### SP MANO DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+
 # Running the Sonata MANO Docker Images
 
 - include: mano/pluginmgr.yml

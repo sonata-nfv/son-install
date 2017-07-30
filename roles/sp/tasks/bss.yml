@@ -1,4 +1,6 @@
 ---
+- debug: msg="##### SP BSS DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+
 # Running the Sonata GK BSS Docker Image
 
 - name: deploying GATEKEEPER BSS (as a Docker container)

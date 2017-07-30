@@ -1,4 +1,5 @@
 ---
+- debug: msg="##### SP SEC-GW DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
 
 - name: run the SP Security Gateway
   docker_container:

@@ -1,5 +1,7 @@
 ---
 
+- debug: msg="##### SP MONIT DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+
 # Running the Sonata MONITORY Docker Images
 
 - include: monit/pushgw.yml

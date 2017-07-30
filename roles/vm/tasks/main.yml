@@ -86,6 +86,8 @@
   delay: 10
   with_items: "{{ newvm.results }}"
 
+- debug: msg="##### VM CREATED {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+
 - pause:
     minutes: 2
 
