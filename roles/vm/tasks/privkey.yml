@@ -1,7 +1,7 @@
 # Creates a key pair with the running users public key
 
 # assure that pyOpenSSL is installed
-- apt: name:python-pip state=present
+- apt: name=python-pip state=present
 - pip: name=pyopenssl state=present
 
 - os_keypair:
