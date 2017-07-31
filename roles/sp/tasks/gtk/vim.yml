@@ -1,5 +1,7 @@
 ---
 
+- debug: msg="##### SP GTK-VIM DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+
 # Populate pgSQL database VIM
 - name: create data model and populate db
   shell: /usr/bin/docker run --net={{ docker_network_name }} -i -e DATABASE_HOST=son-postgres -e MQSERVER=amqp://guest:guest@son-broker:5672 -e RACK_ENV=integration -e DATABASE_PORT=5432 -e POSTGRES_PASSWORD=sonata -e POSTGRES_USER=sonatatest --rm=true sonatanfv/son-gtkvim:{{ sp_ver }} bundle exec rake db:migrate

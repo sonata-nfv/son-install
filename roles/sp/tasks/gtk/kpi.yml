@@ -1,4 +1,5 @@
 ---
+- debug: msg="##### SP GTK-KPI DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
 
   - name: GATEKEEPER KEY PERFORMANCE INDICATORS (GTKKPI) (Docker container)
     docker_container:
