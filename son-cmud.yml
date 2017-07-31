@@ -8,12 +8,11 @@
   pre_tasks:
     - debug: msg="##### ACC PREPARE {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
     - file:
-        path: /var/log/ansible.log
+        path: "{{ lookup('env','PWD') }}/ansible.log"
         state: touch
         owner: "{{ lookup('env','USER') }}"
         group: "{{ lookup('env','USER') }}"
         mode: "u=rw,g=rw,o=rw"
-      become: true
     - file:
         path: "{{ lookup('env','PWD') }}/group_vars/{{ plat }}/hosts"
         state: absent
