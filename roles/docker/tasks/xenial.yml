@@ -29,7 +29,8 @@
   - jinja2
   - PyYAML
   - setuptools
-  - pycrypto>=2.6
+  #- pycrypto>=2.6
+  - pycrypto
   - six
   - requests
   #- docker-py==1.9.0
