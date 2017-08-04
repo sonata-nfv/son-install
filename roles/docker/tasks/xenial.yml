@@ -24,7 +24,7 @@
   easy_install: name=pip
 
 - name: "Install docker-py library on the remote server"
-  pip: name={{ item }}  state=present
+  pip: name={{ item }} state=present
   with_items:
   - jinja2
   - PyYAML
@@ -35,7 +35,6 @@
   - requests
   #- docker-py==1.9.0
   - docker-py
-  - pyopenssl==16.2.0
 
 #- name: on Trusty it is recommended to install the linux-image-extra kernel package
 #  apt: name=linux-image-extra-$(uname -r) state=present update_cache=yes
