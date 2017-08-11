@@ -13,14 +13,14 @@
     name: docker
     state: present
 
-- name: create a directory for Docker logging
-  file:
-    path: /var/log/docker
-    state: directory
-    owner: '{{ vm_user }}'
-    group: docker
-    mode: 0775
-  become: true
+#- name: create a directory for Docker logging
+#  file:
+#    path: /var/log/docker
+#    state: directory
+#    owner: '{{ vm_user }}'
+#    group: docker
+#    mode: 0775
+#  become: true
 
 - include: "{{ ansible_distribution_release }}.yml"
 
