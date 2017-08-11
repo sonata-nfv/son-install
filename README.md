@@ -1,4 +1,4 @@
-<p align="center"><img src="https://github.com/sonata-nfv/son-install/blob/master/wikiresources/sonata_logo_400px.png" /></p>
+<p align="center"><img src="https://github.com/sonata-nfv/son-install/wiki/images/sonata_logo_400px.png" /></p>
 
 # son-install
 
