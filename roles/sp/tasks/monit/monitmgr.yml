@@ -11,5 +11,3 @@
       published_ports:
         - "8000:8000"
         - "8888:8888"
-      volumes:
-        - "/tmp/monitoring/mgr:/var/log/apache2"
