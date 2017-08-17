@@ -100,3 +100,6 @@
 
 # deploy Google cAdvisor
 #- include: cadvisor.yml
+
+- name: "Creating SONATA Service"
+  copy: src=sonata dest=/etc/init.d/sonata owner=root group=root mode=0744

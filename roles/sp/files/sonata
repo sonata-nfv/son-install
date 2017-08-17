@@ -1,13 +1,13 @@
 #!/bin/bash
 
 start () {
-  echo "   _____ ____  _   _____  _________         _   _________    __"
-  echo "  / ___// __ \/ | / /   |/_  __/   |       / | / / ____/ |  / /"
-  echo "  \__ \/ / / /  |/ / /| | / / / /| |______/  |/ / /_   | | / / "
-  echo " ___/ / /_/ / /|  / ___ |/ / / ___ /_____/ /|  / __/   | |/ /  "
-  echo "/____/\____/_/ |_/_/  |_/_/ /_/  |_|    /_/ |_/_/      |___/   "
+  echo -e "\e[93m   _____ ____  _   _____  _________         _   _________    __"
+  echo -e "\e[93m  / ___// __ \/ | / /   |/_  __/   |       / | / / ____/ |  / /"
+  echo -e "\e[93m  \__ \/ / / /  |/ / /| | / / / /| |______/  |/ / /_   | | / / "
+  echo -e "\e[93m ___/ / /_/ / /|  / ___ |/ / / ___ /_____/ /|  / __/   | |/ /  "
+  echo -e "\e[93m/____/\____/_/ |_/_/  |_/_/ /_/  |_|    /_/ |_/_/      |___/   "
   echo ""
-  echo "                  SONATA-NFV is STARTING "
+  echo -e "\e[93m                  SONATA-NFV is STARTING "
 
 if [ $(docker inspect -f {{.State.Running}} son-postgres) = false ]; then docker start son-postgres; while ! nc -z localhost 5432; do sleep 1 && echo -n .; done; fi
 if [ $(docker inspect -f {{.State.Running}} son-mongo) = false ]; then docker start son-mongo; while ! nc -z localhost 27017; do sleep 1 && echo -n .; done; fi
@@ -44,26 +44,26 @@ docker ps -a -f "status=created" -f "status=dead" -f "status=restarting" -f "sta
 }
 
 status () {
-  echo "   _____ ____  _   _____  _________         _   _________    __"
-  echo "  / ___// __ \/ | / /   |/_  __/   |       / | / / ____/ |  / /"
-  echo "  \__ \/ / / /  |/ / /| | / / / /| |______/  |/ / /_   | | / / "
-  echo " ___/ / /_/ / /|  / ___ |/ / / ___ /_____/ /|  / __/   | |/ /  "
-  echo "/____/\____/_/ |_/_/  |_/_/ /_/  |_|    /_/ |_/_/      |___/   "
+  echo -e "\e[93m   _____ ____  _   _____  _________         _   _________    __"
+  echo -e "\e[93m  / ___// __ \/ | / /   |/_  __/   |       / | / / ____/ |  / /"
+  echo -e "\e[93m  \__ \/ / / /  |/ / /| | / / / /| |______/  |/ / /_   | | / / "
+  echo -e "\e[93m ___/ / /_/ / /|  / ___ |/ / / ___ /_____/ /|  / __/   | |/ /  "
+  echo -e "\e[93m/____/\____/_/ |_/_/  |_/_/ /_/  |_|    /_/ |_/_/      |___/   "
   echo ""
-  echo "                  SONATA-NFV SP STATUS "
+  echo -e "\e[93m                  SONATA-NFV SP STATUS "
 
 docker ps -a --filter "status=running" --format "{{.Names}}" | awk '{ print "[" "\033[32m UP \033[0m""]", "\011" $1 ;}' | sort
 docker ps -a -f "status=created" -f "status=dead" -f "status=restarting" -f "status=removing" -f "status=paused" -f "status=exited" --format "{{.Names}}" | awk '{ print "[" "\033[31mDOWN\033[0m""]", "\011" $1 ;}'
 }
 
 stop () {
-  echo "   _____ ____  _   _____  _________         _   _________    __"
-  echo "  / ___// __ \/ | / /   |/_  __/   |       / | / / ____/ |  / /"
-  echo "  \__ \/ / / /  |/ / /| | / / / /| |______/  |/ / /_   | | / / "
-  echo " ___/ / /_/ / /|  / ___ |/ / / ___ /_____/ /|  / __/   | |/ /  "
-  echo "/____/\____/_/ |_/_/  |_/_/ /_/  |_|    /_/ |_/_/      |___/   "
+  echo -e "\e[93m   _____ ____  _   _____  _________         _   _________    __"
+  echo -e "\e[93m  / ___// __ \/ | / /   |/_  __/   |       / | / / ____/ |  / /"
+  echo -e "\e[93m  \__ \/ / / /  |/ / /| | / / / /| |______/  |/ / /_   | | / / "
+  echo -e "\e[93m ___/ / /_/ / /|  / ___ |/ / / ___ /_____/ /|  / __/   | |/ /  "
+  echo -e "\e[93m/____/\____/_/ |_/_/  |_/_/ /_/  |_|    /_/ |_/_/      |___/   "
   echo ""
-  echo "                  SONATA-NFV is STOPPING "
+  echo -e "\e[93m                  SONATA-NFV is STOPPING "
 
 docker stop -t 5 son-postgres son-mongo son-monitor-postgres son-monitor-influxdb
 docker stop -t 1 son-broker son-keycloak son-gui son-bss son-gtkpkg son-gtksrv son-gtkfnct son-gtkrec son-gtkvim son-gtklic son-gtkkpi son-gtkusr son-gtkapi son-catalogue-repos pluginmanager specificmanagerregistry servicelifecyclemanagement placementexecutive son-sp-infrabstract wim-adaptor son-monitor-pushgateway son-monitor-prometheus son-monitor-manager son-monitor-probe son-sec-gw
