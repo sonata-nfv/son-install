@@ -6,6 +6,7 @@
     name: "son-redis"
     image: "redis"
     state: started
+    restart_policy: "always"
     network_mode: bridge
     networks:
       - name: "{{ docker_network_name }}"

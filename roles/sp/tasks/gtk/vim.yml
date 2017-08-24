@@ -25,5 +25,5 @@
         aliases:
           - son-gtkvim
     state: started
-    restart_policy: "unless-stopped"
+    restart_policy: "always"
     published_ports: "5700:5700"

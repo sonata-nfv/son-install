@@ -21,4 +21,4 @@
           - son-keycloak
     published_ports:
       - "5601:5601"
-    restart_policy: "unless-stopped"
+    restart_policy: "always"

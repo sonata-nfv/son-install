@@ -12,6 +12,7 @@
           - specificmanagerregistry
         links:
           - son-broker
+    restart_policy: "always"
     state: started
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"

@@ -26,5 +26,5 @@
         aliases:
           - son-gtksrv
     state: started
-    restart_policy: "unless-stopped"
+    restart_policy: "always"
     published_ports: "5300:5300"

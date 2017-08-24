@@ -28,4 +28,4 @@
           - son-gtkapi
     state: started
     published_ports: "32001:5000"
-    restart_policy: "unless-stopped"
+    restart_policy: "always"

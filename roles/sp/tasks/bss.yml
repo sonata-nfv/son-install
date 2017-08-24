@@ -18,4 +18,4 @@
     published_ports:
       - "25001:1337"
       - "25002:1338"
-    restart_policy: "unless-stopped"
+    restart_policy: "always"

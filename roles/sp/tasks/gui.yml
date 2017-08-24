@@ -11,11 +11,10 @@
     env:
       MON_URL: "http://{{ fqdn }}/monitoring"
       GK_URL: "http://{{ fqdn }}/api/v2"
-
     state: started
     network_mode: bridge
     networks:
       - name: "{{ docker_network_name }}"
         aliases:
           - son-gui
-    restart_policy: "unless-stopped"
+    restart_policy: "always"

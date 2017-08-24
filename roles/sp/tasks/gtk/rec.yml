@@ -18,4 +18,4 @@
         aliases:
           - son-gtkrec
     published_ports: "5800:5800"
-    restart_policy: "unless-stopped"
+    restart_policy: "always"
