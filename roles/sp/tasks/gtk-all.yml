@@ -12,5 +12,6 @@
 - include: gtk/keycloak.yml
 - include: gtk/kpi.yml
 - include: gtk/usr.yml
+- include: gtk/rlt.yml
 - include: gtk/api.yml
 
