@@ -15,8 +15,6 @@ if [ $(docker inspect -f {{.State.Running}} son-monitor-postgres) ]; then docker
 if [ $(docker inspect -f {{.State.Running}} son-monitor-influxdb) ]; then docker start son-monitor-influxdb; fi
 if [ $(docker inspect -f {{.State.Running}} son-broker) ]; then docker start son-broker; while ! nc -z localhost 5672; do sleep 1 && echo -n .; done; fi
 if [ $(docker inspect -f {{.State.Running}} son-keycloak) ]; then docker start son-keycloak; fi
-if [ $(docker inspect -f {{.State.Running}} son-gui) ]; then docker start son-gui; fi
-if [ $(docker inspect -f {{.State.Running}} son-bss) ]; then docker start son-bss; fi
 if [ $(docker inspect -f {{.State.Running}} son-gtkpkg) ]; then docker start son-gtkpkg; fi
 if [ $(docker inspect -f {{.State.Running}} son-gtksrv) ]; then docker start son-gtksrv; fi
 if [ $(docker inspect -f {{.State.Running}} son-gtkfnct) ]; then docker start son-gtkfnct; fi
@@ -27,6 +25,8 @@ if [ $(docker inspect -f {{.State.Running}} son-gtkkpi) ]; then docker start son
 if [ $(docker inspect -f {{.State.Running}} son-gtkkpi) ]; then docker start son-gtkkpi; fi
 if [ $(docker inspect -f {{.State.Running}} son-gtkusr) ]; then docker start son-gtkusr; fi
 if [ $(docker inspect -f {{.State.Running}} son-gtkapi) ]; then docker start son-gtkapi; fi
+if [ $(docker inspect -f {{.State.Running}} son-gui) ]; then docker start son-gui; fi
+if [ $(docker inspect -f {{.State.Running}} son-bss) ]; then docker start son-bss; fi
 if [ $(docker inspect -f {{.State.Running}} son-catalogue-repos) ]; then docker start son-catalogue-repos; fi
 if [ $(docker inspect -f {{.State.Running}} pluginmanager) ]; then docker start pluginmanager; sleep 10; fi
 if [ $(docker inspect -f {{.State.Running}} specificmanagerregistry) ]; then docker start specificmanagerregistry; fi

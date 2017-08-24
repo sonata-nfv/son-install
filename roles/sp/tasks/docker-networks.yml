@@ -1,3 +1,8 @@
+- name: Install docker-py python module
+  pip:
+    name: docker-py
+    version: "1.9.0"
+
 - name: Docker User Defined Network
   shell: 'if ! [[ "$(docker network inspect {{ docker_network_name }} 2> /dev/null)" == "" ]]; then docker network rm {{ docker_network_name }} ; fi & service docker restart'
   become: true
