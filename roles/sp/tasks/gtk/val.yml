@@ -1,0 +1,23 @@
+---
+
+- debug: msg="##### SP SON-VALIDATE DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+
+# Running the Sonata GK SERVICES (Docker container)
+
+- name: SONATA VALIDATOR (son-validate) (Docker container)
+  docker_container:
+    name: son-validate
+    image: "sonatanfv/son-validate:{{ sp_ver }}"
+    env:
+      VAPI_DEBUG: "False"
+      VAPI_REDIS: "son-redis"
+      VAPI_PORT: "5050"
+    state: started
+    restart_policy: "unless-stopped"
+    network_mode: bridge
+    networks:
+      - name: "{{ docker_network_name }}"
+        aliases:
+          - son-validate
+    exposed_ports: 5050
+    published_ports: "5050:5050"
