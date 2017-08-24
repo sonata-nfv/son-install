@@ -18,8 +18,8 @@ docker_network_name: son-sp
 #############################################
 # SONATA 5G NFV SP specific version variables
 #############################################
-# SONATA SP Version. This installer was created to deploy version 2.1
-sp_ver: 2.1
+# SONATA SP Version. This installer was created to deploy version "dev"
+sp_ver: dev
 
 # SONATA SP Hostname. Default Public IP address
 plat_hostname: "{{ public_ip }}"
