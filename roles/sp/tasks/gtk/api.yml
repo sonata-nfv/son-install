@@ -19,7 +19,7 @@
       VIM_MANAGEMENT_URL: http://son-gtkvim:5700 
       RECORD_MANAGEMENT_URL: http://son-gtkrec:5800
       KPI_MANAGEMENT_URL: http://son-gtkkpi:5400
-      VALIDATOR_URL http://son-validate:5050
+      VALIDATOR_URL: http://son-validate:5050
       RATE_LIMITER_URL: http://son-gtkrlt:5150      
     network_mode: bridge
     networks:
