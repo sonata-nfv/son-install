@@ -9,9 +9,10 @@
     name: son-validate
     image: "sonatanfv/son-validate:{{ sp_ver }}"
     env:
-      VAPI_DEBUG: "False"
-      VAPI_REDIS: "son-redis"
+      VAPI_DEBUG: "True"
+      VAPI_REDIS_HOST: "son-redis"
       VAPI_PORT: "5050"
+      SON_CLI_IN_DOCKER: "1"
     state: started
     restart_policy: "always"
     network_mode: bridge
@@ -21,3 +22,4 @@
           - son-validate
     exposed_ports: 5050
     published_ports: "5050:5050"
+
