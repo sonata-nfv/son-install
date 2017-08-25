@@ -6,7 +6,7 @@
     name: son-gtkkpi
     image: "sonatanfv/son-gtkkpi:{{ sp_ver }}"
     state: started
-    restart_policy: "unless-stopped"
+    restart_policy: "always"
     env:
       PUSHGATEWAY_HOST: "pushgateway"
       PUSHGATEWAY_PORT: 9091

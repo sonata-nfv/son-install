@@ -18,4 +18,4 @@
         aliases:
           - son-gtkpkg
     published_ports: "5100:5100"
-    restart_policy: "unless-stopped"
+    restart_policy: "always"

@@ -6,10 +6,10 @@
     name: son-catalogue-repos
     image: "sonatanfv/son-catalogue-repos:{{ sp_ver }}"
     state: started
+    restart_policy: "always"
     network_mode: bridge
     networks:
       - name: "{{ docker_network_name }}"
         aliases:
           - son-catalogue-repos
     published_ports: "4002:4011"
-    restart_policy: "unless-stopped"

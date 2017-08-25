@@ -16,5 +16,6 @@
           - servicelifecyclemanagement
         links:
           - son-broker
+    restart_policy: "always"
     state: started
 

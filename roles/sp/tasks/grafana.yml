@@ -15,6 +15,6 @@
     etc_hosts:
       cadvisor: "{{ ansible_default_ipv4.address }}"
       mongo: "{{ ansible_default_ipv4.address }}"
-    restart_policy: "unless-stopped"
+    restart_policy: "always"
 
 - wait_for: host=0.0.0.0 port=3000 timeout=30 delay=10 state=started

@@ -11,6 +11,7 @@
       POSTGRES_USER: "{{ mon_db_user }}"
       POSTGRES_PASSWORD: "{{ mon_db_pass }}"
     state: started
+    restart_policy: "always"
     command: postgres -p 5433
     network_mode: bridge
     networks:

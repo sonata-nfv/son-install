@@ -6,6 +6,7 @@
     name: son-monitor-influxdb
     image: sonatanfv/son-monitor-influxdb:{{ sp_ver }}
     state: started
+    restart_policy: "always"
     network_mode: bridge
     networks:
     - name: "{{ docker_network_name }}"
