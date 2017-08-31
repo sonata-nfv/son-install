@@ -7,20 +7,21 @@
   debug:
     var: openstack_subnets
 
-- name: create SNORT VLAN
+- name: create SNORT network
   os_network:
     cloud: "os_{{ pop }}_{{ proj }}"
     state: present
-    name: "snort-{{ ansible_date_time.epoch }}"
+    name: snort-netw
     shared: false
     external: false
   register: net_snort
 
-- os_subnet:
+- name: create subnet to attach SNORT
+  os_subnet:
     cloud: "os_{{ pop }}_{{ proj }}"
     state: present
     network_name: "{{ net_snort.id }}"
-    name: subnet-snort
+    name: snort-subnet
     cidr: 172.21.4.0/24
     gateway_ip: 172.21.4.1
     enable_dhcp: true

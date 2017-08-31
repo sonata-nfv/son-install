@@ -7,16 +7,16 @@
   debug:
     var: openstack_subnets
 
-- name: create HAPROXY network
+- name: create default HAPROXY network
   os_network:
     cloud: "os_{{ pop }}_{{ proj }}"
     state: present
-    name: "haproxy-netw"
+    name: haproxy-netw
     shared: false
     external: false
   register: net_haproxy
 
-- name: create HAPROXY subnet
+- name: create subnet to attach HAPROXY
   os_subnet:
     cloud: "os_{{ pop }}_{{ proj }}"
     state: present

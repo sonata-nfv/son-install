@@ -7,16 +7,17 @@
   debug:
     var: openstack_subnets
 
-- name: create SQUID VLAN
+- name: create default SQUID network
   os_network:
     cloud: "os_{{ pop }}_{{ proj }}"
     state: present
-    name: "squid-netw"
+    name: squid-netw
     shared: false
     external: false
   register: net_squid
 
-- os_subnet:
+- name: create subnet to attach SQUID
+  os_subnet:
     cloud: "os_{{ pop }}_{{ proj }}"
     state: present
     network_name: "{{ net_squid.id }}"

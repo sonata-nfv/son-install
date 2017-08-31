@@ -7,21 +7,21 @@
   debug:
     var: openstack_subnets
 
-- name: create NGINX network
+- name: create default NGINX network
   os_network:
     cloud: "os_{{ pop }}_{{ proj }}"
     state: present
-    name: "nginx-netw"
+    name: nginx-netw
     shared: false
     external: false
   register: net_nginx
 
-- name: create NGINX subnet
+- name: create default subnet to attach NGINX
   os_subnet:
     cloud: "os_{{ pop }}_{{ proj }}"
     state: present
     network_name: "{{ net_nginx.id }}"
-    name: squid-subnet
+    name: nginx-subnet
     cidr: 172.21.5.0/24
     gateway_ip: 172.21.5.1
     enable_dhcp: true
