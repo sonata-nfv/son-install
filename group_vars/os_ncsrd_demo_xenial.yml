@@ -2,7 +2,7 @@
 vm_user: ubuntu
 nbofvms: 1
 image: xenial64
-flavor: m1.medium
+flavor: sp-flavor
 os_security_groups: "{{ plat }}-secgrp"
 fip: provider
 availability_zone: nova
