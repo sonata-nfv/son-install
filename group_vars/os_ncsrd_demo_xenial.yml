@@ -1,7 +1,7 @@
 # DEFAULT VM CONFIG
 vm_user: ubuntu
 nbofvms: 1
-image: u16-cldimg
+image: xenial64
 flavor: m1.medium
 os_security_groups: "{{ plat }}-secgrp"
 fip: provider
