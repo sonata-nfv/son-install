@@ -19,5 +19,6 @@
     - { role: firewall, become: true }
     - { role: squid, become: true }
     - { role: snort, become: true }
+    - { role: nginx, become: true }
 
 - include: "{{ lookup('env','PWD') }}/common.yml"
