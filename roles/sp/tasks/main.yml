@@ -77,6 +77,9 @@
 # deploy Influxdb
 - include: influxdb.yml
 
+# deploy Keycloak
+- include: keycloak.yml
+
 # deploy GUI
 - include: gui.yml
 
