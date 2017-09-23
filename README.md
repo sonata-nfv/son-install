@@ -37,8 +37,8 @@ Deploy the platform from the scratch for a specific environment (integration, qu
 ## Requirements
 
 * Ansible 2.3.0+
-* Shade 1.16.0+
 
+* if you are deploying the SP to a new VM running on an Openstack VIM, considere the use of pre-build images with cloud-init package at [Get Images](https://docs.openstack.org/image-guide/obtain-images.html)
 
 ## Usage
 
@@ -112,7 +112,7 @@ NOTE: actually, it assumes the default cloud image Username ('ubuntu' or 'centos
 
  $ sudo vi /etc/openstack/clouds.yaml
 
-Example for Openstack Mitaka release:
+Example for Openstack Mitaka/Neuton release:
 
  clouds:
  
@@ -130,11 +130,11 @@ Example for Openstack Mitaka release:
 
 #### Deployment
 
- $ git clone -b v2 https://github.com/sonata-nfv/son-install.git
+ $ git clone https://github.com/sonata-nfv/son-install.git
 
  $ cd son-install
 
-s $* ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] plat=[SP] pop=[NCSRD|ALABS] distro=[trusty|xenial|Core] ver=[latest|dev|2.1]"
+s $* ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] plat=[SP] pop=[NCSRD|ALABS] distro=[trusty|xenial|Core] ver=[latest|dev|3.0]"
 
 NOTE: depending on the performance of your infrastructure deployment and the download time to get package updates, this run could spent from 30 to 60 minutes.
 
