@@ -49,49 +49,25 @@ The structure of 'son-install' is flexible enough to:
 
 ### Deploying to LOCAL machine
 
-#### Pre-configuration
-
-1. The SP database passwords are now encrypted, so you MUST create an external file "~/.ssh/.vault_pass" with the default "sonata" password
-
-2. You able to customize your environment by changing the SP defaults file: "roles/sp/defaults/main.yml" - eg:
-
- pop: alabs
-
- proj: demo
-
- distro: xenial
-
- docker_network_name: son-sp
-
- sp_ver: dev
-
- domain_name: sonata-nfv.eu
-
- fqdn: "{{ plat }}.{{ pop }}.{{ domain_name }}"
-
- sp_user: sonata
-
- sp_pass: "_passwd_hash_"
-
-
 #### Deployment
 
 A quick way to deploy SONATA 5G NFV SP to the local machine is:
-
-  $ git clone https://github.com/sonata-nfv/son-install.git
-
-  $ cd son-install
-
-  $ ansible-playbook utils/deploy/sp.yml -e 'target=localhost plat=sp public_ip=YOUR_IPADDR plat_hostname=YOUR_HOSTNAME' -v
-
+On a fresh ubuntu xenial installation
+```
+ sudo apt-get install -y software-properties-common
+ sudo apt-add-repository -y ppa:ansible/ansible
+ sudo apt-get update
+ sudo apt-get install -y ansible
+ sudo apt-get install -y git
+ git clone https://github.com/sonata-nfv/son-install.git
+ cd son-install
+ echo sonata | tee ~/.ssh/.vault_pass
+ ansible-playbook utils/deploy/sp.yml -e "target=localhost public_ip=<your_ip4_address>" -v
+```
 where:
-* target: is the IP address of the machine you want to deploy the SP
-NOTE: the remaining parameters must be passed because we are reusing 'son-cmud' playbooks
-* plat: 'sp' indicates to deploy the Service Platform
 * public_ip: is the IP address of the (local) guest machine, ie, the Floating IP in Openstack lingo
-* plat_hostname: is the hostname of the (local) guest machine
 
-[![asciicast](https://asciinema.org/a/g3nHBa28FE0TdmeUwfNGczGL9.png)](https://asciinema.org/a/g3nHBa28FE0TdmeUwfNGczGL9?autoplay=1)
+[![asciicast](https://asciinema.org/a/44MwPYliuOxxYBFkkm7M8eqM4.png)](https://asciinema.org/a/44MwPYliuOxxYBFkkm7M8eqM4)
 
 
 ### Openstack VIM: Provisioning infrastructure and deploying software
