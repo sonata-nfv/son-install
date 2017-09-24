@@ -18,6 +18,15 @@
 - name: install Python 2.7
   apt: name=python state=present
 
+- name: install Python libraries
+  easy_install:
+    name: pip
+    state: latest
+
+- shell: pip install --upgrade pip
+
+- command: easy_install pyOpenSSL
+
 - name: install useful operating system tools
   apt: name={{ item }} state=latest
   with_items:
