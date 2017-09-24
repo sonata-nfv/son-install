@@ -15,8 +15,20 @@
 - name: upgrade all packages to the latest version
   apt: upgrade=yes update_cache=yes
 
+- name: install required libraries and tools for PIP
+  apt: name={{ item }} state=latest
+  with_items:
+  - build-essential
+  - python-dev
+  - python-pip
+  - libssl-dev
+  - libffi-dev
+
 - name: install Python 2.7
   apt: name=python state=present
+
+- name: install Python tools to get 'easy_install'
+  apt: name=python-setuptools state=present
 
 - name: install Python libraries
   easy_install: name=pip state=latest
@@ -25,7 +37,7 @@
   shell: pip install --upgrade pip
 
 - name: from Ansible 2.4, the python pyOpenSSL module is required on the ACC even if its already installed
-  command: easy_install pyOpenSSL
+  command: /usr/bin/easy_install pyOpenSSL
 
 - name: install useful operating system tools
   apt: name={{ item }} state=latest
