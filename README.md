@@ -12,6 +12,9 @@
 All you need is a 'bash' shell with Ansible installed to run 'son-cmud.yml', ie, all the SONATA CMUD operations can be executed in a single line command
 
 
+## What's new in Release 3.0
+* deployment of PSA pilot
+
 
 ## What's new in Release 2.1
 * application versioning - you can now choose the SP version to deployment, eg:  'latest', '2.1' or 'dev'
@@ -134,7 +137,7 @@ Example for Openstack Mitaka/Neuton release:
 
  $ cd son-install
 
-s $* ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] plat=[SP] pop=[NCSRD|ALABS] distro=[trusty|xenial|Core] ver=[latest|dev|3.0]"
+s $* ansible-playbook son-cmud.yml -e "ops=[CREATE/MANAGE/UPGRADE/DESTROY] plat=[SP] pop=[NCSRD|ALABS] distro=[trusty|xenial|Core] sp_ver=[latest|dev|3.0]"
 
 NOTE: depending on the performance of your infrastructure deployment and the download time to get package updates, this run could spent from 30 to 60 minutes.
 
@@ -168,9 +171,26 @@ To terminate a SP platform
  $ ansible-playbook son-cmud.yml -e 'ops=destroy plat=sp pop=alabs proj=demo'
 
 
-### Dependencies
+## Dependencies
 
 To deploy infrastrucutre resources to an Openstack VIM, the [Openstack command line clients](http://docs.openstack.org/user-guide/common/cli-install-openstack-command-line-clients.html) must be locally installed (already included in the 'son-cmud.yml' playbook)
+
+
+## Ansible installation
+
+* to Ubuntu 16.04 (Xenial)
+<p>
+sudo apt-get update
+sudo add-apt-repository ppa:ansible/ansible
+ansible --version (2.4.0+)
+</p>
+
+* to CentOS 7
+<p>
+sudo yum update
+sudo yum install epel-release
+sudo yum install ansible
+</p>
 
 
 ## Lead Developers
