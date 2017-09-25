@@ -181,15 +181,21 @@ To deploy infrastrucutre resources to an Openstack VIM, the [Openstack command l
 * to Ubuntu 16.04 (Xenial)
 <p>
 sudo apt-get update
+<br>
 sudo add-apt-repository ppa:ansible/ansible
+<br>
 ansible --version (2.4.0+)
 </p>
 
 * to CentOS 7
 <p>
 sudo yum update
+<br>
 sudo yum install epel-release
+<br>
 sudo yum install ansible
+<br>
+ansible --version (2.4.0+)
 </p>
 
 
