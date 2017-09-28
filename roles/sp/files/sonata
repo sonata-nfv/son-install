@@ -22,7 +22,7 @@ if [ $(docker inspect -f {{.State.Running}} son-gtkrec) ]; then docker start son
 if [ $(docker inspect -f {{.State.Running}} son-gtkvim) ]; then docker start son-gtkvim; fi
 if [ $(docker inspect -f {{.State.Running}} son-gtklic) ]; then docker start son-gtklic; fi
 if [ $(docker inspect -f {{.State.Running}} son-gtkkpi) ]; then docker start son-gtkkpi; fi
-if [ $(docker inspect -f {{.State.Running}} son-gtkkpi) ]; then docker start son-gtkkpi; fi
+if [ $(docker inspect -f {{.State.Running}} son-gtkrlt) ]; then docker start son-gtkkpi; fi
 if [ $(docker inspect -f {{.State.Running}} son-gtkusr) ]; then docker start son-gtkusr; fi
 if [ $(docker inspect -f {{.State.Running}} son-gtkapi) ]; then docker start son-gtkapi; fi
 if [ $(docker inspect -f {{.State.Running}} son-gui) ]; then docker start son-gui; fi

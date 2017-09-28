@@ -12,4 +12,5 @@
       - name: "{{ docker_network_name }}"
         aliases:
           - son-catalogue-repos
+    dns_servers: "8.8.8.8"
     published_ports: "4002:4011"
