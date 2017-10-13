@@ -30,7 +30,7 @@
 
 - name: download SNORT tarball
   unarchive:
-    src: https://www.snort.org/downloads/snort/snort-2.9.9.0.tar.gz
+    src: https://www.snort.org/downloads/snort/snort-2.9.11.tar.gz
     dest: /tmp/snort_src
     remote_src: true
 
