@@ -35,7 +35,7 @@
     remote_src: true
 
 - name: install SNORT (w/ ability to packet performance monitoring)
-  shell: cd /tmp/snort_src/snort-2.9.9.0 && ./configure --enable-sourcefire && make && make install
+  shell: cd /tmp/snort_src/snort-2.9.11 && ./configure --enable-sourcefire && make && make install
 
 - name: upload shared libraries (otherwise you will get an error when you try to run Snort)
   command: ldconfig
@@ -108,41 +108,41 @@
 
 # Currently remote_src does not support recursive copying
 - copy:
-    src: /tmp/snort_src/snort-2.9.9.0/etc/classification.config
+    src: /tmp/snort_src/snort-2.9.11/etc/classification.config
     dest: /etc/snort
     remote_src: true
 
 - copy:
-    src: /tmp/snort_src/snort-2.9.9.0/etc/file_magic.conf
+    src: /tmp/snort_src/snort-2.9.11/etc/file_magic.conf
     dest: /etc/snort
     remote_src: true
 
 - copy:
-    src: /tmp/snort_src/snort-2.9.9.0/etc/reference.config
+    src: /tmp/snort_src/snort-2.9.11/etc/reference.config
     dest: /etc/snort
     remote_src: true
 - copy:
-    src: /tmp/snort_src/snort-2.9.9.0/etc/snort.conf
-    dest: /etc/snort
-    remote_src: true
-
-- copy:
-    src: /tmp/snort_src/snort-2.9.9.0/etc/threshold.conf
+    src: /tmp/snort_src/snort-2.9.11/etc/snort.conf
     dest: /etc/snort
     remote_src: true
 
 - copy:
-    src: /tmp/snort_src/snort-2.9.9.0/etc/gen-msg.map
+    src: /tmp/snort_src/snort-2.9.11/etc/threshold.conf
     dest: /etc/snort
     remote_src: true
 
 - copy:
-    src: /tmp/snort_src/snort-2.9.9.0/etc/unicode.map
+    src: /tmp/snort_src/snort-2.9.11/etc/gen-msg.map
     dest: /etc/snort
     remote_src: true
 
 - copy:
-    src: /tmp/snort_src/snort-2.9.9.0/etc/attribute_table.dtd
+    src: /tmp/snort_src/snort-2.9.11/etc/unicode.map
+    dest: /etc/snort
+    remote_src: true
+
+- copy:
+    src: /tmp/snort_src/snort-2.9.11/etc/attribute_table.dtd
     dest: /etc/snort
     remote_src: true
 
@@ -152,5 +152,5 @@
     src: "{{ item }}"
     dest: "/usr/local/lib/snort_dynamicpreprocessor/"
   with_fileglob:
-    - /tmp/snort_src/snort-2.9.9.0/src/dynamic-preprocessors/build/usr/local/lib/snort_dynamicpreprocessor/*
+    - /tmp/snort_src/snort-2.9.11/src/dynamic-preprocessors/build/usr/local/lib/snort_dynamicpreprocessor/*
 
