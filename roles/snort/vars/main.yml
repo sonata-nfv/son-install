@@ -1,2 +1,4 @@
 ---
 # vars file for snort
+public_ip: '172.31.6.25'
+plat_hostname: snort-alabs-dem-xenial-01-1507906690

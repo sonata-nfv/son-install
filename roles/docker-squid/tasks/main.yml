@@ -2,6 +2,7 @@
 # tasks file for docker-squid
 
 - include_vars: "{{ lookup('env','PWD') }}/roles/docker-vpsa/defaults/main.yml"
+- include_vars: "{{ lookup('env','PWD') }}/roles/docker-vpsa/tasks/docker-networks.yml"
 
 - name: get Squid Docker image
   docker_image:
@@ -17,27 +18,12 @@
     state: started
     network_mode: bridge
     networks:
-      - name: "{{ vl_enduser }}"
+      - name: "{{ docker_vpsa_in }}"
         aliases:
           - vpsa-enduser
-      - name: "{{ vl_mgmt }}"
+      - name: "{{ docker_vpsa_mgmt }}"
         aliases:
           - vpsa-mgmt
-      #- name: "{{ vl_prx_addblk }}"
-      #  aliases:
-      #    - vpsa-prx-addblk
-      #  links:
-      #    - vpsa-squid-addblk:squid-addblk
-      - name: "{{ vl_ids }}"
-        aliases:
-          - vpsa-ids
-        links:
-          - vpsa-ids
-#      - name: "{{ vl_prx_ldap }}"
-#        aliases:
-#          - vpsa-prx-ldap
-#        links:
-#          - vpsa-prx-ldap:prx-ldap
     restart_policy: "unless-stopped"
     published_ports:
      - 3128:3128

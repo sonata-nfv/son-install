@@ -15,22 +15,12 @@
     state: started
     network_mode: bridge
     networks:
-      - name: "{{ vl_mgmt }}"
+      - name: "{{ docker_vpsa_mgmt }}"
         aliases:
           - son-mgmt
-      - name: "{{ vl_ids }}"
+      - name: "{{ docker_vpsa_in }}"
         aliases:
           - vpsa-ids
-        links:
-          - vpsa-ids:prx-ids
-      #- name: "{{ vl_addblk_ids }}"
-      #  aliases:
-      #    - vpsa-addblk-ids
-      - name: "{{ vl_fwin }}"
-        aliases:
-          - vpsa-fwin
-        links:
-          - vpsa-fwin:idsfwin
     restart_policy: "unless-stopped"
     published_ports:
      - 0:1024

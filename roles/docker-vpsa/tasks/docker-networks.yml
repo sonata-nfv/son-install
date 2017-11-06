@@ -1,7 +1,17 @@
+- name: Docker User Defined Network (vPSA IN)
+  shell: "docker network create --driver=bridge \
+--subnet=172.22.111.0/24 --gateway=172.22.109.1 \
+--ip-range=172.22.111.128/25 '{{ docker_vpsa_in }}'"
+
+- name: Docker User Defined Network (vPSA OUT)
+  shell: "docker network create --driver=bridge \
+--subnet=172.22.111.0/24 --gateway=172.22.110.1 \
+--ip-range=172.22.111.128/25 '{{ docker_vpsa_out }}'"
+
 - name: Docker User Defined Network (vPSA MGMT)
   shell: "docker network create --driver=bridge \
 --subnet=172.22.111.0/24 --gateway=172.22.111.1 \
---ip-range=172.22.111.128/25 '{{ vl_mgmt }}'"
+--ip-range=172.22.111.128/25 '{{ docker_vpsa_mgmt }}'"
 
 - name: Docker User Defined Network (vPSA END USER)
   shell: "docker network create --driver=bridge \
