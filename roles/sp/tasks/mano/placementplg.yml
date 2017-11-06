@@ -1,9 +1,9 @@
 ---
 
-- name: MANO Placement Executive Plugin (Docker container)
+- name: MANO Placement Plugin (Docker container)
   docker_container:
-    name: placementexecutive
-    image: "sonatanfv/placementexecutive:{{ sp_ver }}"
+    name: placementplugin
+    image: "sonatanfv/placementplugin:{{ sp_ver }}"
     env:
       broker_host: amqp://guest:guest@son-broker:5672/%2F
     restart_policy: "always"
@@ -11,5 +11,5 @@
     networks:
       - name: "{{ docker_network_name }}"
         aliases:
-          - placementexecutive
+          - placementplugin
     state: started

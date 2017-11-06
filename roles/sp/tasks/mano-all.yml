@@ -5,5 +5,7 @@
 
 - include: mano/pluginmgr.yml
 - include: mano/slm.yml
+- include: mano/flm.yml
 - include: mano/smr.yml
+- include: mano/placementplg.yml
 - include: mano/placement.yml

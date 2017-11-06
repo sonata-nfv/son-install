@@ -1,6 +1,5 @@
 ---
 - debug: msg="##### SP GTK-USER-MGMT DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
-
 - name: GATEKEEPER USER MANAGEMENT (GTKUSR) (Docker container)
   docker_container:
     name: son-gtkusr
@@ -18,4 +17,4 @@
         aliases:
           - son-gtkusr
     published_ports: "5600:5600"
-    restart_policy: "unless-stopped"
+    restart_policy: "always"

@@ -18,4 +18,4 @@
         aliases:
           - son-gtkfnct
     published_ports: "5500:5500"
-    restart_policy: "unless-stopped"
+    restart_policy: "always"

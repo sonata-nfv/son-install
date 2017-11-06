@@ -4,6 +4,7 @@
   docker_container:
     name: son-sp-infrabstract
     image: "sonatanfv/son-sp-infrabstract:{{ sp_ver }}"
+    restart_policy: "always"
     state: started
     env:
       broker_host: "son-broker"

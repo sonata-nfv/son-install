@@ -65,6 +65,9 @@
 # deploy MongoDB (NoSQL) database engine
 - include: mongo.yml
 
+# deploy Redis database engine
+- include: redis.yml
+
 # deploy postgreSQL database engine for monitoring
 - include: pgsql-monitoring.yml
 
@@ -73,6 +76,9 @@
 
 # deploy Influxdb
 - include: influxdb.yml
+
+# deploy Keycloak
+- include: keycloak.yml
 
 # deploy GUI
 - include: gui.yml
