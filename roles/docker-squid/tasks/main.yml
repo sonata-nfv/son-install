@@ -18,6 +18,9 @@
     state: started
     network_mode: bridge
     networks:
+      - name: "{{ vl_mgmt }}"
+        aliases:
+          - vpsa-mgmt
       - name: "{{ vl_prxin }}"
         aliases:
           - vpsa-prxin

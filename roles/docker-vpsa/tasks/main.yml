@@ -30,5 +30,4 @@
     #- docker-openvpn
 
   tasks:
-    - import_tasks: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/docker-networks.yml"
-    - include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/vpsa-client.yml"
+    - include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/docker-vpsa-client.yml"
