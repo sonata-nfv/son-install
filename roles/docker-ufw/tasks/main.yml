@@ -1,17 +1,10 @@
 ---
 # tasks file for docker-ufw
 
-#- name: Docker User Defined Network (vUFW IN)
-#  shell: 'docker network create --driver=bridge \
-#--subnet=172.22.111.0/24 --gateway=172.22.111.1 \
-#--ip-range=172.22.111.128/25 "{{ docker_ufw_in }}"'
+- include_vars: "{{ lookup('env','PWD') }}/roles/docker-ufw/defaults/main.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/docker-ufw/tasks/docker-networks.yml"
 
-#- name: Docker User Defined Network (vUFW OUT)
-#  shell: 'docker network create --driver=bridge \
-#--subnet=172.22.112.0/24 --gateway=172.22.112.1 \
-#--ip-range=172.22.112.128/25 "{{ docker_ufw_out }}"'
-
-- name: start HA-Proxy (load-balancer) as a Docker container
+- name: start UFW as a Docker container
   docker_container:
     name: ufw
     image: arocha/ufw
@@ -19,15 +12,15 @@
     state: started
     network_mode: bridge
     networks:
-      - name: "{{ docker_vpsa_mgmt }}"
+      - name: "{{ vl_mgmt }}"
         aliases:
-          - son-mgmt
-      - name: "{{ docker_vpsa_in }}"
+          - son-vpsa-mgmt
+      - name: "{{ vl_fwin }}"
         aliases:
-          - son-vpsa-in
-      - name: "{{ docker_vpsa_out }}"
+          - son-vpsa-fwin
+      - name: "{{ vl_fwout }}"
         aliases:
-          - son-vpsa-out
+          - son-vpsa-fwout
     restart_policy: "unless-stopped"
     published_ports: 80:80
     volumes:

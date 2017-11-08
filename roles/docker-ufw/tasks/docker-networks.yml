@@ -1,0 +1,15 @@
+- name: Docker User Defined Network (vFW MGMT)
+  shell: "docker network create --driver=bridge \
+--subnet=172.22.100.0/24 --gateway=172.22.100.1 \
+--ip-range=172.22.100.128/25 '{{ vl_mgmt }}'"
+
+- name: Docker User Defined Network (vFW INSIDE)
+  shell: "docker network create --driver=bridge \
+--subnet=172.22.111.0/24 --gateway=172.22.111.1 \
+--ip-range=172.22.111.128/25 '{{ vl_fwin }}'"
+
+- name: Docker User Defined Network (vFW OUTSIDE)
+  shell: "docker network create --driver=bridge \
+--subnet=172.22.112.0/24 --gateway=172.22.112.1 \
+--ip-range=172.22.112.128/25 '{{ vl_fwout }}'"
+

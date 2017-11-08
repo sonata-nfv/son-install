@@ -16,8 +16,9 @@
         group: "{{ lookup('env','USER') }}"
         mode: "u=rw,g=rw,o=rw"
   roles:
-    - firewall
-    - docker
+#    - firewall
+#    - docker
+    - docker-ufw
     - docker-squid
     - docker-snort
     #- { role: docker-vpn, become: true }

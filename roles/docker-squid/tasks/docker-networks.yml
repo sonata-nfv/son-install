@@ -1,0 +1,10 @@
+- name: Docker User Defined Network (vPRX INSIDE)
+  shell: "docker network create --driver=bridge \
+--subnet=172.22.121.0/24 --gateway=172.22.121.1 \
+--ip-range=172.22.121.128/25 '{{ vl_prxin }}'"
+
+- name: Docker User Defined Network (vPRX OUTSIDE)
+  shell: "docker network create --driver=bridge \
+--subnet=172.22.122.0/24 --gateway=172.22.122.1 \
+--ip-range=172.22.122.128/25 '{{ vl_prxout }}'"
+

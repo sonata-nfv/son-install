@@ -17,19 +17,18 @@
         line: "{{ public_ip }} {{ plat_hostname }}"
         create: yes
         state: present
-    - include_vars: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/docker-networks.yml"
 
   roles:
     #- common
     - docker
-    #- docker-haproxy
-    - docker-snort
-    #- docker-openldap
+    - docker-ufw
     - docker-squid
+    - docker-snort
+    #- docker-haproxy
+    #- docker-openldap
     #- docker-addblk
     #- docker-openvpn
-    - docker-ufw
 
   tasks:
-#    - include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/docker-networks.yml"
+    - import_tasks: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/docker-networks.yml"
     - include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/vpsa-client.yml"

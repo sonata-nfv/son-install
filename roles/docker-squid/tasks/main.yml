@@ -1,8 +1,8 @@
 ---
 # tasks file for docker-squid
 
-- include_vars: "{{ lookup('env','PWD') }}/roles/docker-vpsa/defaults/main.yml"
-- include_vars: "{{ lookup('env','PWD') }}/roles/docker-vpsa/tasks/docker-networks.yml"
+- include_vars: "{{ lookup('env','PWD') }}/roles/docker-squid/defaults/main.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/docker-squid/tasks/docker-networks.yml"
 
 - name: get Squid Docker image
   docker_image:
@@ -18,12 +18,12 @@
     state: started
     network_mode: bridge
     networks:
-      - name: "{{ docker_vpsa_in }}"
+      - name: "{{ vl_prxin }}"
         aliases:
-          - vpsa-enduser
-      - name: "{{ docker_vpsa_mgmt }}"
+          - vpsa-prxin
+      - name: "{{ vl_prxout }}"
         aliases:
-          - vpsa-mgmt
+          - vpsa-prxout
     restart_policy: "unless-stopped"
     published_ports:
      - 3128:3128

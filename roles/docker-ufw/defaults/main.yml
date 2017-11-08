@@ -1,7 +1,6 @@
 ---
 # defaults file for docker-ufw
 
-docker_vpsa_mgmt: son-vpsa-vl-mgmt
-docker_vpsa_in: son-vpsa-vl-in
-docker_vpsa_out: son-vpsa-vl-out
+vl_fwin: vpsa-fwin
+vl_fwout: vpsa-fwout
 
