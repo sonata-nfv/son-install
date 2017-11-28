@@ -11,13 +11,8 @@
 
   roles:
     - docker
+    - docker-ufw
     - docker-nginx
-    #- docker-pfsense
-    #- docker-openvpn
-    - docker-snort
-    #- docker-addblk
-    #- docker-openldap
     - docker-squid
-
-  tasks:
-    - include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/docker-vpsa-client.yml"
+    - docker-snort
+    - docker-openvpn

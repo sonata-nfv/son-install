@@ -1,7 +1,13 @@
 ---
 # defaults file for docker-nginx
 
-docker_vpsa_mgmt: son-vpsa-vl-mgmt
-docker_vpsa_in:  son-vpsa-vl-in
-docker_vpsa_out: son-vpsa-vl-out
+pop: alabs
+proj: demo
+distro: xenial
+plat: docker-vpsa
+
+#vl_enduser: "{{ 'sonata.dem-net' if pop == 'ncsrd' and proj == 'dem' else 'demo-netw' }}"
+
+vl_prxin: vpsa-wwwin
+vl_prxout: vpsa-wwwout
 

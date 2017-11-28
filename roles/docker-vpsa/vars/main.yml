@@ -1,2 +1,4 @@
 ---
 # vars file for docker-vpsa
+public_ip: '172.31.6.36'
+plat_hostname: docker-vpsa-alabs-dem-xenial-01-1511795832

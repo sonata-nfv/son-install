@@ -1,2 +1,4 @@
 ---
 # vars file for vm
+public_ip: '172.31.6.47'
+plat_hostname: vm-alabs-dem-xenial-01-1511870760

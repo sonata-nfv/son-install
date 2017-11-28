@@ -1,6 +1,14 @@
 ---
 # tasks file for docker-openvpn
 
+- include_vars: "{{ lookup('env','PWD') }}/roles/{{ plat }}/defaults/main.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/networks.yml"
+
+- name: get OpenVPN Docker image
+  docker_image:
+    #image: kylemanna/openvpn
+    image: lconceicao/vpnserver
+
 - name: start OpenVPN Server as a Docker container
   docker_container:
     name: vpnserver
@@ -14,22 +22,12 @@
       - name: "{{ vl_mgmt }}"
         aliases:
           - vpsa-mgmt
-
-      - name: "{{ vl_enduser }}"
+      - name: "{{ vl_vpnin }}"
         aliases:
-          - vpsa-enduser
-
-      - name: "{{ vl_fwin }}"
+          - vpsa-vpnin
+      - name: "{{ vl_vpnout }}"
         aliases:
-          - vpsa-vpn-fwin
-        links:
-          - vpsa-vpn-fwin:vpn-fwin
-
-      - name: "{{ vl_fwout }}"
-        aliases:
-          - vpsa-vpn-fwout
-        links:
-          - vpsa-vpn-fwout:vpn-fwout
+          - vpsa-vpnout
 
     restart_policy: "unless-stopped"
     volumes:

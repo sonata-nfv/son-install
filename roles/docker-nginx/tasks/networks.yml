@@ -1,0 +1,36 @@
+- name: check if MGMT network exists
+  #shell: "docker network inspect -f '{{ .Name }}' vpsa-mgmt"
+  shell: "docker network inspect vpsa-mgmt"
+  ignore_errors: yes
+  register: mgmt_net_status
+
+- name: Docker User Defined Network (vFW MGMT), when MGMT network does not exists
+  shell: "docker network create --driver=bridge \
+--subnet=172.22.100.0/24 --gateway=172.22.100.1 \
+--ip-range=172.22.100.128/25 '{{ vl_mgmt }}'"
+  when: mgmt_net_status.rc != 0
+
+- name: check if vWWW INSIDE network exists
+  #shell: "docker network inspect -f '{{ .Name }}' vpsa-wwwin"
+  shell: "docker network inspect vpsa-wwwin"
+  ignore_errors: yes
+  register: wwwin_net_status
+
+- name: Docker User Defined Network (vWWW INSIDE)
+  shell: "docker network create --driver=bridge \
+--subnet=172.22.181.0/24 --gateway=172.22.181.1 \
+--ip-range=172.22.181.128/25 '{{ vl_wwwin }}'"
+  when: wwwin_net_status.rc != 0
+
+- name: check if vWWW OUTSIDE network exists
+  #shell: "docker network inspect -f '{{ .Name }}' vpsa-wwwout"
+  shell: "docker network inspect vpsa-wwwout"
+  ignore_errors: yes
+  register: wwwout_net_status
+
+- name: Docker User Defined Network (vWWW OUTSIDE)
+  shell: "docker network create --driver=bridge \
+--subnet=172.22.182.0/24 --gateway=172.22.182.1 \
+--ip-range=172.22.182.128/25 '{{ vl_wwwout }}'"
+  when: wwwout_net_status.rc != 0
+

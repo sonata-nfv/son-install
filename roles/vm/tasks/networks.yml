@@ -37,6 +37,22 @@
 #    interfaces:
 #      - int-net-subnet
 
+- name: Gather facts about a previously created network by name MGMT
+  os_networks_facts:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    name: mgmt
+  register: netw_result
+
+- name: check that network is available
+  assert:
+    that: "netw_result.ansible_facts.openstack_networks"
+    msg: "Network MGMT is not available"
+  when: not netw_result|default(None)
+
+- name: Show openstack networks
+  debug:
+    var: openstack_networks
+
 - name: create MGMT network
   os_network:
     cloud: "os_{{ pop }}_{{ proj }}"
@@ -44,6 +60,7 @@
     name: mgmt
     shared: false
     external: false
+  when: not netw_result|default(None)
   register: net_mgmt
 
 - name: create MGMT subnet
@@ -63,3 +80,5 @@
     host_routes:
        - destination: 0.0.0.0/0
          nexthop: 172.22.1.1
+  when: not netw_result|default(None)
+

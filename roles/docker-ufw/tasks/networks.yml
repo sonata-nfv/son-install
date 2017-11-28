@@ -8,7 +8,7 @@
   shell: "docker network create --driver=bridge \
 --subnet=172.22.100.0/24 --gateway=172.22.100.1 \
 --ip-range=172.22.100.128/25 '{{ vl_mgmt }}'"
-  when: mgmt_net_status.rc != 0
+  when: mgmt_net_status.rc == 1
 
 - name: check if vFW INSIDE network exists
   #shell: "docker network inspect -f '{{ .Name }}' vpsa-fwin"
@@ -16,11 +16,14 @@
   ignore_errors: yes
   register: fwin_net_status
 
+- debug:
+    msg: fwin_net_status
+
 - name: Docker User Defined Network (vFW INSIDE)
   shell: "docker network create --driver=bridge \
 --subnet=172.22.111.0/24 --gateway=172.22.111.1 \
 --ip-range=172.22.111.128/25 '{{ vl_fwin }}'"
-  when: fwin_net_status.rc != 0
+#  when: fwin_net_status.rc == 1
 
 - name: check if vFW OUTSIDE network exists
   #shell: "docker network inspect -f '{{ .Name }}' vpsa-fwout"
@@ -32,5 +35,5 @@
   shell: "docker network create --driver=bridge \
 --subnet=172.22.112.0/24 --gateway=172.22.112.1 \
 --ip-range=172.22.112.128/25 '{{ vl_fwout }}'"
-  when: fwout_net_status.rc != 0
+#  when: fwout_net_status.rc == 1
 

@@ -1,6 +1,6 @@
 ---
 
-- name: SONATA CMUD v2.1 - upgrade Operating System packages and useful tools
+- name: SONATA CMUD v3.0 - upgrade Operating System packages and useful tools
   hosts: "{{ plat }}"
   become: true
   connection: ssh
@@ -9,7 +9,7 @@
   remote_user: "{{ vm_user }}"
 
   pre_tasks:
-    - debug: msg="##### VM SW STANDARDIZATION STARTED {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    - debug: msg="##### VM SW STD {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
 
   roles:
      - common

@@ -8,5 +8,7 @@
   remote_user: "{{ vm_user }}"
 
   roles:
+    #- { role: common, become: true }
+    - openstackclients
     - sp
 

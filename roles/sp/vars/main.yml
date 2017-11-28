@@ -1,4 +1,6 @@
 ---
 # vars file for sp
-public_ip: '172.31.6.127'
-plat_hostname: sp-alabs-demo-xenial-01-1500286632
+public_ip: '172.31.6.41'
+plat_hostname: sp-alabs-dem-xenial-01-1510686221
+public_ip: '172.31.6.45'
+plat_hostname: sp-alabs-dem-xenial-01-1510689354

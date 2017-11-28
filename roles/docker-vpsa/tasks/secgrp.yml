@@ -15,7 +15,7 @@
     port_range_max: 22
     remote_ip_prefix: 0.0.0.0/0
 
-- name: add a security rule on that group to allow connections to vPSA
+- name: add a security rule on that group to allow HTTP connections to vPSA
   os_security_group_rule:
     cloud: "os_{{ pop }}_{{ proj }}"
     security_group: "{{ plat }}-secgrp"
@@ -24,7 +24,7 @@
     port_range_max: 80
     remote_ip_prefix: 0.0.0.0/0
 
-- name: add a security rule on that group to allow VPN connections on behalf of vPSA
+- name: add a security rule on that group to allow HTTPS connections on behalf of vPSA
   os_security_group_rule:
     cloud: "os_{{ pop }}_{{ proj }}"
     security_group: "{{ plat }}-secgrp"

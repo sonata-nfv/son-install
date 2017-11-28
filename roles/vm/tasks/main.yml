@@ -12,13 +12,13 @@
         - "defaults.yml"
       skip: true
 
-- include: "{{ lookup('env','PWD') }}/roles/vm/tasks/privkey.yml"
-
 - include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/secgrp.yml"
 
-- include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/networks.yml"
+- include: "{{ lookup('env','PWD') }}/roles/vm/tasks/privkey.yml"
 
-#- include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/vm.yml"
+- include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/networks.yml"
+  when: plat != docker-vpsa
+
 - include: "{{ lookup('env','PWD') }}/roles/vm/tasks/vm.yml"
 
 - lineinfile:

@@ -1,9 +1,16 @@
 ---
-- hosts: "{{ plat }}"
+
+- name: SONATA CMUD v3.0 - deploy vPSA containers to the instantiated VM
+  hosts: "{{ plat }}"
   become: true
   connection: ssh
+  vars_files:
+    - "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+  remote_user: "{{ vm_user }}"
+
   pre_tasks:
-    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    - debug: msg="##### vPSA containers deployment STARTED {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+
     - file:
         path: /var/log/ansible.log
         state: touch
@@ -11,6 +18,7 @@
         group: "{{ lookup('env','USER') }}"
         mode: "u=rw,g=rw,o=rw"
       become: true
+
     - lineinfile:
         become: true
         path: "/etc/hosts"
@@ -19,15 +27,10 @@
         state: present
 
   roles:
-    #- common
     - docker
     - docker-ufw
+    - docker-nginx
     - docker-squid
     - docker-snort
-    #- docker-haproxy
-    #- docker-openldap
-    #- docker-addblk
-    #- docker-openvpn
+    - docker-openvpn
 
-  tasks:
-    - include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/docker-vpsa-client.yml"

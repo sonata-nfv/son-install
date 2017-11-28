@@ -2,6 +2,7 @@
 pop: alabs
 proj: demo
 distro: xenial
+plat: docker-vpsa
 
 #vl_enduser: "{{ 'sonata.dem-net' if pop == 'ncsrd' and proj == 'dem' else 'demo-netw' }}"
 
