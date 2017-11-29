@@ -1,8 +1,8 @@
 ---
 # tasks file for docker-ufw
 
-- include_vars: "{{ lookup('env','PWD') }}/roles/{{ plat }}/defaults/main.yml"
-- include_tasks: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/networks.yml"
+- include_vars: "{{ lookup('env','PWD') }}/roles/docker-ufw/defaults/main.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/docker-ufw/tasks/networks.yml"
 
 - name: start UFW as a Docker container
   docker_container:

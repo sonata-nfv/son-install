@@ -2,7 +2,7 @@
 # tasks file for docker-squid
 
 - include_vars: "{{ lookup('env','PWD') }}/roles/docker-squid/defaults/main.yml"
-- include_tasks: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/networks.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/docker-squid/tasks/networks.yml"
 
 - name: get Squid Docker image
   docker_image:

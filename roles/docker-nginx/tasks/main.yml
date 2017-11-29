@@ -1,6 +1,9 @@
 ---
 # tasks file for docker-nginx
 
+- include_vars: "{{ lookup('env','PWD') }}/roles/docker-nginx/defaults/main.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/docker-nginx/tasks/networks.yml"
+
 - name: get NGINX Docker image
   docker_image:
     name: nginx
