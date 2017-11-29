@@ -6,14 +6,14 @@
 
 - name: get OpenVPN Docker image
   docker_image:
-    #image: kylemanna/openvpn
-    image: lconceicao/vpnserver
+    image: kylemanna/openvpn
+    #image: lconceicao/vpnserver
 
 - name: start OpenVPN Server as a Docker container
   docker_container:
     name: vpnserver
-    #image: kylemanna/openvpn
-    image: lconceicao/vpnserver
+    image: kylemanna/openvpn
+    #image: lconceicao/vpnserver
     #env:
     state: started
     network_mode: bridge
