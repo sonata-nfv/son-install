@@ -17,7 +17,7 @@
     network_mode: bridge
     networks:
 
-      - name: "{{ docker_network_name }}"
+      - name: "{{ vl_mgmt }}"
         aliases:
           - vpsa-mgmt
 
