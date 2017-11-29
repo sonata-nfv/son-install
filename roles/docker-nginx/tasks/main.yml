@@ -16,12 +16,19 @@
     state: started
     network_mode: bridge
     networks:
+
       - name: "{{ docker_network_name }}"
         aliases:
           - vpsa-mgmt
-      - name: "{{ vl_enduser }}"
+
+      - name: "{{ vl_wwwin }}"
         aliases:
-          - vpsa-enduser
+          - vpsa-wwwin
+
+      - name: "{{ vl_wwwout }}"
+        aliases:
+          - vpsa-wwwout
+
     restart_policy: "unless-stopped"
     volumes:
       - /var/log/sonata/nginx:/var/log/nginx
