@@ -8,6 +8,11 @@
     flavor: "m1.sp"
   when: plat == "sp" and pop == "alabs"
 
+- name: set the appropriate FLAVOR to run the SP on a VM at NCSRD PoP
+  set_fact:
+    flavor: "sp-flavor"
+  when: plat == "sp" and pop == "ncsrd"
+
 - name: launch a new Instance(s)
   vars:
     local_home: "{{ lookup('env','PWD') }}"
