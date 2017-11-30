@@ -4,7 +4,8 @@
 vm_user: ubuntu
 nbofvms: 1
 image: trusty64
-flavor: sp-flavor
+#flavor: sp-flavor
+flavor: m1.small
 os_security_groups: "{{ plat }}-secgrp"
 fip: ext_net_id
 availability_zone: nova
