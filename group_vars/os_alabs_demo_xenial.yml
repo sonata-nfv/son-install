@@ -8,5 +8,5 @@ fip: admin_floating_net
 availability_zone: nova
 region_name: RegionOne
 key_name: son-install
-int_net_id: "391fc7c3-3011-4c94-9eda-8b99bab7cb5e" # DEMO
-ext_net_id: "6d3bf6d3-7168-4eb8-8494-bc02acb0e89c" # FIP
+int_net_id: "5788d300-92c1-4efa-8f4f-5b0830638c9f" # DEMO
+ext_net_id: "83d48c16-8461-4939-9cb3-e7e240ec9538" # FIP
