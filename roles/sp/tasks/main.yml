@@ -54,55 +54,55 @@
   systemd: name=docker state=restarted daemon_reload=yes
   when: ansible_os_family == "RedHat"
 
-- include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/networks.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/networks.yml"
 
 - name: force all notified handlers to run at this point, not waiting for normal sync points
   meta: flush_handlers
 
 # deploy postgreSQL database engine
-- include: pgsql.yml
+- include_tasks: pgsql.yml
 
 # deploy MongoDB (NoSQL) database engine
-- include: mongo.yml
+- include_tasks: mongo.yml
 
 # deploy Redis database engine
-- include: redis.yml
+- include_tasks: redis.yml
 
 # deploy postgreSQL database engine for monitoring
-- include: pgsql-monitoring.yml
+- include_tasks: pgsql-monitoring.yml
 
 # deploy RabbitMQ message bus
-- include: broker.yml
+- include_tasks: broker.yml
 
 # deploy Influxdb
-- include: influxdb.yml
+- include_tasks: influxdb.yml
 
 # deploy Keycloak
-- include: keycloak.yml
+- include_tasks: keycloak.yml
 
 # deploy GUI
-- include: gui.yml
+- include_tasks: gui.yml
 
 # deploy BSS
-- include: bss.yml
+- include_tasks: bss.yml
 
 # deploy Gatekepper module
-- include: gtk-all.yml
+- include_tasks: gtk-all.yml
 
 # deploy Repositories
-- include: repos.yml
+- include_tasks: repos.yml
 
 # deploy MANO framework
-- include: mano-all.yml
+- include_tasks: mano-all.yml
 
 # deploy Infastructure Adaptor
-- include: ifta-all.yml
+- include_tasks: ifta-all.yml
 
 # deploy Monitoring
-- include: monit-all.yml
+- include_tasks: monit-all.yml
 
 # deploy Security Gateway
-- include: sec-gw.yml
+- include_tasks: sec-gw.yml
 
 # deploy Google cAdvisor
-#- include: cadvisor.yml
+#- include_tasks: cadvisor.yml

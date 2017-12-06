@@ -1,0 +1,9 @@
+---
+# tasks file for docker-vcdn
+
+- include_tasks: "vcc-fsm-css.yml"
+- include_tasks: "vtc-fsm-css.yml"
+- include_tasks: "vtu-fsm-css.yml"
+#- include_tasks: "ssm-placement.yml"
+#- include_tasks: "ssm-taskconfigmonitor.yml"
+

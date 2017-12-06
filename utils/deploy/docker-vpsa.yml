@@ -23,4 +23,4 @@
     - docker-snort
     #- { role: docker-vpn, become: true }
 
-#- include: "{{ lookup('env','PWD') }}/common.yml"
+#- include_tasks "{{ lookup('env','PWD') }}/common.yml"

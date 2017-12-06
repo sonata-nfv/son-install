@@ -1,29 +1,29 @@
 ---
 
 # deploy Docker engine
-#- include: docker.yml
+#- include_tasks: docker.yml
 
 # deploy RabbitMQ message bus
-- include: broker.yml
+- include_tasks: broker.yml
 
 # deploy MySQL database engine
-- include: pgsql.yml
+- include_tasks: pgsql.yml
 
 # deploy MongoDB engine
-- include: mongo.yml
+- include_tasks: mongo.yml
 
 # deploy Repositories
-- include: repos.yml
+- include_tasks: repos.yml
 
 # deploy Gatekepper module
-- include: gtk-all.yml
+- include_tasks: gtk-all.yml
 
 # deploy MANO framework
-- include: mano.yml
+- include_tasks: mano.yml
 
 # deploy IFT Abstrator
-- include: ifta.yml
+- include_tasks: ifta.yml
 
 # deploy Monitoring
-- include: monit.yml
+- include_tasks: monit.yml
 

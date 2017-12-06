@@ -22,4 +22,4 @@
     - { role: openstackclients, become: true }
     - vm
 
-- include: "{{ lookup('env','PWD') }}/common.yml"
+- include_tasks "{{ lookup('env','PWD') }}/common.yml"

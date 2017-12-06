@@ -63,5 +63,5 @@
 - name: install os-client-config
   pip: name='file:///tmp/os-client-config-1.26.0.tar.gz' state=present
 
-- include: shade.yml
+- include_tasks: shade.yml
 

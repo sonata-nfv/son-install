@@ -1,4 +1,4 @@
 ---
 
-- include: "utils/deploy/{{ plat }}.yml"
+- include_tasks: "utils/deploy/{{ plat }}.yml"
 

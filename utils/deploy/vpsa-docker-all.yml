@@ -21,4 +21,4 @@
     - { role: docker-snort, become: true }
 #    - docker-pfsense
 
-- include: "{{ lookup('env','PWD') }}/common.yml"
+- include_tasks "{{ lookup('env','PWD') }}/common.yml"

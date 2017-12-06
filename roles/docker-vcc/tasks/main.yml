@@ -1,0 +1,37 @@
+---
+# tasks file for roles/docker-vcc
+
+- include_vars: "{{ lookup('env','PWD') }}/roles/docker-vcc/defaults/main.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/docker-vcc/tasks/networks.yml"
+
+- name: start vTU as a Docker container
+  docker_container:
+    name: vcc
+    image: sonatanfv/vcdn-vcc-fsm-css
+    #env:
+    state: started
+    network_mode: bridge
+    networks:
+
+      - name: "{{ vl_mgmt }}"
+        aliases:
+          - son-vpsa-mgmt
+
+      - name: "{{ vl_vccin }}"
+        aliases:
+          - son-vpsa-vccin
+
+      - name: "{{ vl_vccout }}"
+        aliases:
+          - son-vpsa-vccout
+
+    restart_policy: "unless-stopped"
+    #published_ports: 80:80
+    volumes:
+      - /var/log/sonata/docker-vcc:/var/log/docker-vcc
+    log_driver: syslog # gelf
+
+    #log_options:
+    #  syslog-address: tcp://my-syslog-server:514
+    #  syslog-facility: daemon
+

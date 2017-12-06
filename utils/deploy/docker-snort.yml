@@ -19,4 +19,4 @@
     - firewall
     - docker-snort
 
-- include: "{{ lookup('env','PWD') }}/common.yml"
+- include_tasks "{{ lookup('env','PWD') }}/common.yml"

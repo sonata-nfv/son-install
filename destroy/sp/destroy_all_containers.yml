@@ -1,8 +1,8 @@
 ---
 
-- include: "{{ lookup('env','PWD') }}/destroy/{{ plat }}/stop_all_containers.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/destroy/{{ plat }}/stop_all_containers.yml"
 
-- include: "{{ lookup('env','PWD') }}/destroy/{{ plat }}/refresh_all_containers.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/destroy/{{ plat }}/refresh_all_containers.yml"
 
 - name: REMOVE all Docker images
   hosts: "{{ plat }}"

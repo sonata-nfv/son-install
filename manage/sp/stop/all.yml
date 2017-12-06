@@ -1,28 +1,28 @@
 ---
 # destroy Monitoring
-- include: monit.yml
+- include_tasks: monit.yml
 
 # destroy Infrstr. Abstractor
-- include: ifta.yml
+- include_tasks: ifta.yml
 
 # destroy MANO framework
-- include: mano.yml
+- include_tasks: mano.yml
 
 # destroy Gatekepper module
-- include: gtkall.yml
+- include_tasks: gtkall.yml
 
 # destroy Repositories
-- include: repos.yml
+- include_tasks: repos.yml
 
 # destroy RabbitMQ message bus
-- include: broker.yml
+- include_tasks: broker.yml
 
 # destroy MongoDB engine
-- include: mongo.yml
+- include_tasks: mongo.yml
 
 # destroy MySQL database engine
-- include: pgsql.yml
+- include_tasks: pgsql.yml
 
 # destroy Docker engine
-- include: docker.yml
+- include_tasks: docker.yml
 

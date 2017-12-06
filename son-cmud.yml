@@ -7,12 +7,12 @@
 
   pre_tasks:
     - debug: msg="##### ACC PREPARE {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
-#    - file:
-#        path: "{{ lookup('env','PWD') }}/ansible.log"
-#        state: touch
-#        owner: "{{ lookup('env','USER') }}"
-#        group: "{{ lookup('env','USER') }}"
-#        mode: "u=rw,g=rw,o=rw"
+    - file:
+        path: "{{ lookup('env','PWD') }}/ansible.log"
+        state: touch
+        owner: "{{ lookup('env','USER') }}"
+        group: "{{ lookup('env','USER') }}"
+        mode: "u=rw,g=rw,o=rw"
     - file:
         path: "{{ lookup('env','PWD') }}/group_vars/{{ plat }}/hosts"
         state: absent
@@ -23,7 +23,7 @@
     - { role: openstackclients, become: true }
     - vm
 
-- include: "{{ lookup('env','PWD') }}/common.yml"
+- import_playbook: "{{ lookup('env','PWD') }}/common.yml"
 
-- include: "{{ lookup('env','PWD') }}/{{ ops }}/{{ plat }}/main.yml"
+- import_playbook: "{{ lookup('env','PWD') }}/{{ ops }}/{{ plat }}/main.yml"
 
