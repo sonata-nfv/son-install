@@ -3,6 +3,11 @@
 
 - include_vars: "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
 
+- name: set the appropriate FLAVOR to run the SQUID on a VM at Alabs PoP
+  set_fact:
+    flavor: "m1.micro2"
+  when: plat == "squid" and pop == "alabs"
+
 - name: set the appropriate FLAVOR to run the SP on a VM at Alabs PoP
   set_fact:
     flavor: "m1.sp"

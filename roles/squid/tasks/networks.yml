@@ -7,21 +7,21 @@
   debug:
     var: openstack_subnets
 
-- name: create default SQUID network
+- name: create Connection Point (CP) for INSIDE network
   os_network:
     cloud: "os_{{ pop }}_{{ proj }}"
     state: present
-    name: squid-netw
+    name: cp-in
     shared: false
     external: false
-  register: net_squid
+  register: cpin
 
-- name: create subnet to attach SQUID
+- name: create subnet to attach 
   os_subnet:
     cloud: "os_{{ pop }}_{{ proj }}"
     state: present
-    network_name: "{{ net_squid.id }}"
-    name: squid-subnet
+    network_name: "{{ cpin.id }}"
+    name: cp-in-subnet
     cidr: 172.21.3.0/24
     gateway_ip: 172.21.3.1
     enable_dhcp: true
@@ -35,4 +35,34 @@
        #  nexthop: 172.31.6.1
        - destination: 172.21.3.0/24
          nexthop: 172.21.3.1
+
+- name: create Connection Point (CP) for OUTSIDE network
+  os_network:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    name: cp-out
+    shared: false
+    external: false
+  register: cpout
+
+- name: create subnet to attach
+  os_subnet:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    network_name: "{{ cpout.id }}"
+    name: cp-out-subnet
+    cidr: 172.21.4.0/24
+    gateway_ip: 172.21.4.1
+    enable_dhcp: true
+    allocation_pool_start: 172.21.4.100
+    allocation_pool_end: 172.21.4.200
+    dns_nameservers:
+       - 8.8.8.7
+       - 8.8.8.8
+    host_routes:
+       #- destination: 0.0.0.0/0
+       #  nexthop: 172.31.6.1
+       - destination: 172.21.4.0/24
+         nexthop: 172.21.4.1
+
 

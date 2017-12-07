@@ -7,32 +7,61 @@
   debug:
     var: openstack_subnets
 
-- name: create SNORT network
+- name: create CP to INSIDE network
   os_network:
     cloud: "os_{{ pop }}_{{ proj }}"
     state: present
-    name: snort-netw
+    name: cp-in
     shared: false
     external: false
-  register: net_snort
+  register: cpin
 
-- name: create subnet to attach SNORT
+- name: create subnet to attach
   os_subnet:
     cloud: "os_{{ pop }}_{{ proj }}"
     state: present
-    network_name: "{{ net_snort.id }}"
-    name: snort-subnet
-    cidr: 172.21.4.0/24
-    gateway_ip: 172.21.4.1
+    network_name: "{{ cpin.id }}"
+    name: cp-in-subnet
+    cidr: 172.21.5.0/24
+    gateway_ip: 172.21.5.1
     enable_dhcp: true
-    allocation_pool_start: 172.21.4.2
-    allocation_pool_end: 172.21.4.126
+    allocation_pool_start: 172.21.5.2
+    allocation_pool_end: 172.21.5.126
     dns_nameservers:
        - 8.8.8.7
        - 8.8.8.8
     host_routes:
        #- destination: 0.0.0.0/0
-       #  nexthop: 172.4..6.1
-       - destination: 172.21.4.0/24
-         nexthop: 172.21.4.1
+       #  nexthop: 172.31.6.1
+       - destination: 172.21.5.0/24
+         nexthop: 172.21.5.1
+
+- name: create CP to OUTSIDE network
+  os_network:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    name: cp-out
+    shared: false
+    external: false
+  register: cpout
+
+- name: create subnet to attach
+  os_subnet:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    network_name: "{{ cpout.id }}"
+    name: cp-out-subnet
+    cidr: 172.21.6.0/24
+    gateway_ip: 172.21.6.1
+    enable_dhcp: true
+    allocation_pool_start: 172.21.6.2
+    allocation_pool_end: 172.21.6.126
+    dns_nameservers:
+       - 8.8.8.7
+       - 8.8.8.8
+    host_routes:
+       #- destination: 0.0.0.0/0
+       #  nexthop: 172.31.6.1
+       - destination: 172.21.6.0/24
+         nexthop: 172.21.6.1
 
