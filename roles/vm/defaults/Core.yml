@@ -1,1 +1,2 @@
 vm_user: centos
+localhome: "{{ lookup('env','HOME') }}"
