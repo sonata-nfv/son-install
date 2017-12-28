@@ -7,7 +7,7 @@ proj: demo
 distro: xenial
 
 # Docker network segment
-docker_network_name: son-sp
+docker_network_name: sp-docker-net
 
 # SONATA 5G NFV SP development/latest version
 sp_ver: dev

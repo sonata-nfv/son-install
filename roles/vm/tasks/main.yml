@@ -74,7 +74,7 @@
 - debug: msg="##### VM CREATED FINISH {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
 
 - pause:
-    minutes: 2
+    minutes: 1
 
 - name: install Python 2.7 to the new deployed instance, if Xenial
   shell: >
@@ -88,3 +88,4 @@
 
 - pause:
     minutes: 2
+

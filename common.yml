@@ -1,6 +1,6 @@
 ---
 
-- name: SONATA CMUD v3.0 - upgrade Operating System packages and useful tools
+- name: SONATA CMUD v1.0 - upgrade Operating System packages and useful tools
   hosts: "{{ plat }}"
   become: true
   connection: ssh
