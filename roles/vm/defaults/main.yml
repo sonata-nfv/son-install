@@ -3,3 +3,6 @@
 domain_name: sonata-nfv.eu
 plat: vm
 flavor: m1.small
+localhome: "{{ lookup('env','HOME') }}"
+#dem_router_id: "f4345d4b-83bd-4098-8c01-47c5d4f92418"
+

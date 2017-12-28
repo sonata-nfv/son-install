@@ -4,7 +4,7 @@
 # http://cbonte.github.io/haproxy-dconv/
 
 - name: installing HA Proxy
-  include: "{{ ansible_os_family }}.yml"
+  include_tasks: "{{ ansible_os_family }}.yml"
 
 - name: install HA Proxy
   package: name=haproxy state=present

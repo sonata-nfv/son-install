@@ -19,5 +19,5 @@
   roles:
     - vm
 
-  tasks:
-    - include_tasks: "{{ lookup('env','PWD') }}/common.yml"
+#  tasks:
+#    - include_tasks: "{{ lookup('env','PWD') }}/common.yml"

@@ -1,7 +1,4 @@
 ---
 # vars file for squid
 flavor: m1.small
-public_ip: '172.31.6.20'
-plat_hostname: squid-alabs-dem-xenial-01-1511866559
-public_ip: '172.31.6.27'
-plat_hostname: squid-alabs-dem-xenial-01-1512466693
+#

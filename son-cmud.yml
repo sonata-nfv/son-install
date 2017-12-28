@@ -1,6 +1,6 @@
 ---
 
-- name: SONATA CMUD v3.0
+- name: SONATA CMUD v2.0
   hosts: localhost
   become: false
   connection: local
@@ -18,12 +18,15 @@
         state: absent
       when: ops == "create"
 
+# STEP 1 - DEPLOY A NEW INSTANCE
   roles:
     - { role: common, become: true }
     - { role: openstackclients, become: true }
     - vm
 
+# STEP 2 - LOCAL PACKAGE UPGRADE & TOOLS INSTALLATION
 - import_playbook: "{{ lookup('env','PWD') }}/common.yml"
 
+# STEP 3 - INSTALL SPECIFIC SOFTWARE
 - import_playbook: "{{ lookup('env','PWD') }}/{{ ops }}/{{ plat }}/main.yml"
-
+  when: plat != 'vm'

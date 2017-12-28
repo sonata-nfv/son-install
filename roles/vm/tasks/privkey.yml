@@ -24,3 +24,10 @@
     - son_key.failed
     - '"present but key hash not the same as offered. Delete key first." in son_key.msg'
 
+# Add private key (if it does not exist, without passing regexp)
+# https://relativkreativ.at/articles/how-to-use-ansibles-lineinfile-module-in-a-bulletproof-way
+- lineinfile:
+    path: "{{ lookup('env','PWD') }}/ansible.cfg"
+    line: 'private_key_file = ~/.ssh/{{ key_name }}.pem'
+  no_log: True
+

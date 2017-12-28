@@ -1,0 +1,86 @@
+
+- name: Gather facts about a previously created network by name MGMT
+  os_networks_facts:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    name: mgmt
+  register: netw_result
+
+- name: check that network is available
+  assert:
+    that: "netw_result.ansible_facts.openstack_networks"
+    msg: "Network MGMT is not available"
+  when: not netw_result|default(None)
+
+- name: Show openstack networks
+  debug:
+    var: openstack_networks
+
+- name: Show openstack networks (registered var)
+  debug:
+    var: netw_result
+
+- lineinfile:
+    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+    #line: 'mgmt_net_id: "{{ (openstack_networks | default({})).id | default(omit) }}"'
+    line: 'mgmt_net_id: "{{ openstack_networks.0.id }}"'
+    create: yes
+    state: present
+  when: openstack_networks
+
+
+- name: create MGMT network
+  os_network:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    name: mgmt
+    shared: false
+    external: false
+  when: not openstack_networks
+  register: net_mgmt
+
+- name: Show CP-IN network parameters
+  debug:
+    var: net_mgmt
+
+- name: Show openstack networks
+  debug:
+    var: openstack_networks
+
+
+- lineinfile:
+    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+    #line: 'mgmt_net_id: "{{ (net_mgmt | default({})).id | default(omit) }}"'
+    line: 'mgmt_net_id: "{{ net_mgmt.id }}"'
+    create: yes
+    state: present
+  when: not openstack_networks
+
+- lineinfile:
+    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+    #line: 'mgmt_net_id: "{{ (net_mgmt | default({})).id | default(omit) }}"'
+    line: 'mgmt_net_id: "{{ openstack_networks.0.id }}"'
+    create: yes
+    state: present
+  when: openstack_networks
+
+
+- name: create MGMT subnet
+  os_subnet:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    network_name: "{{ net_mgmt.id }}"
+    name: subnet-mgmt
+    cidr: 172.22.0.0/24
+    gateway_ip: 172.22.0.1
+    enable_dhcp: true
+    allocation_pool_start: 172.22.0.200
+    allocation_pool_end: 172.22.0.226
+    dns_nameservers:
+       - 8.8.8.7
+       - 8.8.8.8
+#    host_routes:
+#       - destination: 0.0.0.0/0
+#         nexthop: 172.22.0.1
+#  when: not netw_result|default(None)
+  when: not openstack_networks
+

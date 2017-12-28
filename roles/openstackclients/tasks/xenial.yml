@@ -50,5 +50,5 @@
 #  - dogpile.cache>=0.5.3
 #  - decorator
 
-- include_tasks: shade.yml
+#- include_tasks: shade.yml
 

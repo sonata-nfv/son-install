@@ -18,7 +18,8 @@
     flavor: "sp-flavor"
   when: plat == "sp" and pop == "ncsrd"
 
-- name: launch a new Instance(s)
+
+- name: launch new Instance(s)
   vars:
     local_home: "{{ lookup('env','PWD') }}"
   os_server:
@@ -33,10 +34,12 @@
     security_groups:
       - "{{ os_security_groups }}"
     floating_ip_pools: "{{ fip }}"
-    #auto_ip: yes
+    #auto_ip: no
     nics:
       - net-id: "{{ int_net_id }}"
-      #- net-id: "{{ ext_net_id }}"
+      #- net-id: "{{ mgmt_net_id|default([]) }}"
+      #- net-id: "{{ cpin_net_id|default([]) }}"
+      #- net-id: "{{ cpou_net_id|default([]) }}"
     userdata: "{{ lookup('file', '{{ local_home }}/userdata/{{ distro }}.sh') }}"
     meta:
       hostname: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ item }}-{{ ansible_date_time.epoch }}"
@@ -46,11 +49,31 @@
   with_sequence: "start=1 end={{ nbofvms | default(1) }} format=%02x"
   register: "newvm"
 
-- set_fact:
-    public_ip: "'{{ item.openstack.accessIPv4 }}'"
+
+#- os_floating_ip:
+#     cloud: "os_{{ pop }}_{{ proj }}"
+#     state: present
+#     reuse: yes
+#     server: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ item }}-{{ ansible_date_time.epoch }}"
+#     #network: "{{ fip }"
+#     network: "admin_floating_net"
+#     #fixed_address: 172.31.6.66
+#     nat_destination: "{{ mgmt_net_id|default([]) }}"
+#     wait: true
+#     timeout: 180
+#  with_sequence: "start=1 end={{ nbofvms | default(1) }} format=%02x"
+
+
+- lineinfile:
+    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+    line: "public_ip: '{{ item.openstack.accessIPv4 }}'"
+    create: yes
+    state: present
   with_items: "{{ newvm.results }}"
 
-- set_fact:
-    plat_hostname: "{{ item.openstack.name }}"
+- lineinfile:
+    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+    line: "plat_hostname: {{ item.openstack.name }}"
+    create: yes
+    state: present
   with_items: "{{ newvm.results }}"
-

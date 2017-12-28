@@ -37,7 +37,7 @@
 # Upload content
 
 - name: copy www content
-  include: copy-www-content.yml
+  include_tasks: copy-www-content.yml
   notify:
     - restart nginx
 
