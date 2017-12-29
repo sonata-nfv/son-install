@@ -3,7 +3,7 @@
 
 - include_vars: "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
 
-- name: set the appropriate FLAVOR to run the SQUID on a VM at Alabs PoP
+- name: set the appropriate FLAVOR to run the APP on a VM at Alabs PoP
   set_fact:
     flavor: "m1.micro2"
   when: plat == "squid" and pop == "alabs"
@@ -33,8 +33,8 @@
     availability_zone: "{{ availability_zone }}"
     security_groups:
       - "{{ os_security_groups }}"
-    floating_ip_pools: "{{ fip }}"
-    #auto_ip: no
+    #floating_ip_pools: "{{ fip }}"
+    auto_ip: yes
     nics:
       - net-id: "{{ int_net_id }}"
       #- net-id: "{{ mgmt_net_id|default([]) }}"
@@ -55,8 +55,7 @@
 #     state: present
 #     reuse: yes
 #     server: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ item }}-{{ ansible_date_time.epoch }}"
-#     #network: "{{ fip }"
-#     network: "admin_floating_net"
+#     network: "{{ fip }"
 #     #fixed_address: 172.31.6.66
 #     nat_destination: "{{ mgmt_net_id|default([]) }}"
 #     wait: true
