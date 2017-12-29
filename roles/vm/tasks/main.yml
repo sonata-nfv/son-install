@@ -18,7 +18,7 @@
 
 - include_tasks: "{{ lookup('env','PWD') }}/roles/vm/tasks/privkey.yml"
 
-#- include_tasks: "{{ lookup('env','PWD') }}/roles/vm/tasks/networks.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/vm/tasks/networks.yml"
 #  when: not plat | search ("docker-")
 #  when: plat.find("docker-") != 1
 

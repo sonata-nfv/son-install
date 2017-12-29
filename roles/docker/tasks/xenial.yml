@@ -29,11 +29,9 @@
   - jinja2
   - PyYAML
   - setuptools
-  #- pycrypto>=2.6
   - pycrypto
   - six
   - requests
-  #- docker-py==1.9.0
   - docker-py
 
 #- name: on Trusty it is recommended to install the linux-image-extra kernel package

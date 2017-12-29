@@ -15,7 +15,8 @@
     name: '{{ item }}'
     state: present
   with_items: 
-    - docker-py==1.9.0
+    #- docker-py==1.9.0
+    - docker-py
     - six
 
 - name: add Docker repo to YUM
