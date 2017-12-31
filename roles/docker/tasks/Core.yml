@@ -28,6 +28,9 @@
 - name: add user to Docker group
   user: name=sonata shell=/bin/bash groups=docker append=yes
 
+- name: "Add default image user to group"
+  user: name="{{ vm_user }}" shell=/bin/bash groups=docker append=yes
+
 - name: add Docker configuration options
   copy: src=docker2systemd dest=/etc/sysconfig/docker owner=root group=root mode=0644
 
@@ -44,5 +47,5 @@
   when: result|changed
 
 - name: restart docker on Systemd (Ubuntu 16 and CentOS 7)
-  systemd: name=docker state=restarted daemon_reload=yes
+  systemd: name=docker state=reloaded daemon_reload=yes
 
