@@ -40,7 +40,7 @@
     group: wheel
     groups: docker
     password: "{{ sp_pass }}"
-  when: ansible_os_family == "RadHat"
+  when: ansible_os_family == "RedHat"
 
 - name: remove password prompt for sudo
   shell: "echo 'sonata ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/90-cloud-init-users"
@@ -54,7 +54,7 @@
   systemd: name=docker state=restarted daemon_reload=yes
   when: ansible_os_family == "RedHat"
 
-- include_tasks: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/network4dockers.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/networks.yml"
 
 - name: force all notified handlers to run at this point, not waiting for normal sync points
   meta: flush_handlers
