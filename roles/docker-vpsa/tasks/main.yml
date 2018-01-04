@@ -1,0 +1,24 @@
+- name: install Docker
+  include_role:
+    name: docker
+
+- name: instanciate dockerized UFW
+  include_role:
+    name: docker-ufw
+
+- name: instanciate dockerized NGINX
+  include_role:
+    name: docker-nginx
+
+- name: instanciate dockerized SQUID
+  include_role:
+    name: docker-squid
+
+- name: instanciate dockerized SNORT
+  include_role:
+    name: docker-snort
+
+- name: instanciate dockerized OPENVPN
+  include_role:
+    name: docker-openvpn
+
