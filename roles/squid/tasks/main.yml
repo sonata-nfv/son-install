@@ -3,6 +3,8 @@
 
 - include_tasks: "{{ ansible_distribution_release }}.yml"
 
+- include_tasks: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/networks.yml"
+
 - name: installing SQUID proxy server
   package:
     name: squid
