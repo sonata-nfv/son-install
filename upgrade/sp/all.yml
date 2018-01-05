@@ -1,7 +1,7 @@
 ---
 
 # upgrade packages and deploy useful tools
-- include_tasks: 'common.yml'
+- include_tasks: "{{ lookup('env','PWD') }}/common.yml"
 
 # deploy Docker container engine
 - include_tasks: 'docker.yml'
