@@ -1,4 +1,4 @@
-- hosts: squid
+- hosts: "{{ plat }}"
   become: true
   connection: ssh
   pre_tasks:
@@ -9,5 +9,5 @@
 
     - debug: msg={{ timestamp.stdout }}
   roles:
-    - squidguard
+    - "{{ svc }}"
 

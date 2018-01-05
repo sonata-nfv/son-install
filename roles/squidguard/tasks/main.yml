@@ -25,14 +25,24 @@
 - name: get Berkeley BlackList (freely available from Oracle) for SquidGuard
   get_url:
     #url: "http://download.oracle.com/otn/berkeley-db/db-6.2.32.tar.gz"
-    url: "ftp://Arocha:Arocha@ftp.ptinovacao.pt/db-6.2.32.tar.gz"
+    url: "http://files.sonata-nfv.eu/son-psa-pilot/prx-vnf/db-6.2.32.tar.gz"
     dest: "/tmp"
+    url_username: "{{ son-files-usr }}"
+    url_password: "{{ son-files-pwd }}"
+
 
 - name: unarchiving BlackList tarball
   unarchive:
     src: "/tmp/db-6.2.32.tar.gz"
     dest: "/usr/local/BerkeleyDB"
     remote_src: true
+
+- copy:
+    src: "/usr/local/BerkeleyDB/db-6.2.32/"
+    dest: "/usr/local/BerkeleyDB"
+    recursive: true
+    remote_src: true
+    delete: False
 
 
 - name: get SquidGuard (URL redirector used to use blacklists with the Proxy software) 
