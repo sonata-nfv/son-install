@@ -24,7 +24,8 @@
 
 - name: get Berkeley BlackList (freely available from Oracle) for SquidGuard
   get_url:
-    url: "http://download.oracle.com/otn/berkeley-db/db-6.2.32.tar.gz"
+    #url: "http://download.oracle.com/otn/berkeley-db/db-6.2.32.tar.gz"
+    url: "ftp://Arocha:Arocha@ftp.ptinovacao.pt/db-6.2.32.tar.gz"
     dest: "/tmp"
 
 - name: unarchiving BlackList tarball
