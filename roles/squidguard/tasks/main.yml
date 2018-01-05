@@ -1,0 +1,33 @@
+---
+# tasks file for squidguard
+- name: get SquidGuard (URL redirector used to use blacklists with the Proxy software) 
+  get_url:
+    url: "http://www.squidguard.org/Downloads/squidGuard-1.4.tar.gz"
+    dest: "/tmp"
+#  register: new_archive
+
+- name: install SquidGuard 1.4
+  shell: cd /tmp && ./configure && make && make install
+
+
+#- name: install SquidGuard
+#  pip: name='file:///tmp/squidGuard-1.4.tar.gz' state=present
+#  when: new_archive|changed
+
+
+- file:
+    path: "/usr/local/squidGuard/db"
+    state: directory
+    mode: 0755
+
+- name: get MESD BlackList (freely available) for SquidGuard
+  get_url:
+    url: "http://squidguard.mesd.k12.or.us/blacklists.tgz"
+    dest: "/tmp"
+
+- name: unarchiving BlackList tarball
+  unarchive:
+    src: "/tmp/blacklists.tgz"
+    dest: "/usr/local/squidGuard/db"
+    remote_src: true
+

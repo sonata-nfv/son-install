@@ -22,9 +22,9 @@
   roles:
     - { role: common, become: true }
     - { role: openstackclients, become: true }
-    - vm
+    - { role: vm, when: ops == "create" }
 
-# STEP 2 - LOCAL PACKAGE UPGRADE & TOOLS INSTALLATION
+# STEP 2 - REMOTE PACKAGE UPGRADE & TOOLS INSTALLATION
 - import_playbook: "{{ lookup('env','PWD') }}/common.yml"
 
 # STEP 3 - INSTALL SPECIFIC SOFTWARE
