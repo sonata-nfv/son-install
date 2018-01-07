@@ -1,6 +1,10 @@
-### FW - set Iptables configuration
+- name: install Apache utils
+  apt:
+    name: apache2-utils
+    state: present
 
-- apt: name=ufw state=present
+- name: install UFW
+  apt: name=ufw state=present
 
 - name: ensure the Firewall service is running
   service: name=ufw state=started enabled=yes
