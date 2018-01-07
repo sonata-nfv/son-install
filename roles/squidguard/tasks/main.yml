@@ -35,7 +35,7 @@
 - name: unarchiving SquidGuard (URL redirector used to use blacklists with the Proxy software)
   unarchive:
     src: "http://www.squidguard.org/Downloads/squidGuard-1.4.tar.gz"
-    dest: "/tmp/
+    dest: "/tmp"
     remote_src: true
 
 - name: install SquidGuard 1.4
