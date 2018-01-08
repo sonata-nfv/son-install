@@ -1,46 +1,60 @@
 # tasks file for squidguard
 ---
 
-- name: get BerkeleyDB for SquidGuard
-  get_url:
-    #url: "http://download.oracle.com/otn/berkeley-db/db-6.2.32.tar.gz"
-    url: "http://files.sonata-nfv.eu/son-psa-pilot/prx-vnf/db-6.2.32.tar.gz"
-    dest: "/tmp"
-    #url_username: "{{ son-files-usr }}"
-    #url_password: "{{ son-files-pwd }}"
-    url_username: "sonata-files"
-    url_password: "]M[/>zn9R{9v$)ef"
+# # # # # # # # # # # # # # # # # # # # # # # #
+# http://www.squidguard.org/Doc/install.html  #
+# # # # # # # # # # # # # # # # # # # # # # # #
 
-- file:
-    path: "/usr/local/BerkeleyDB"
-    state: directory
-    mode: 0755
+#- name: get BerkeleyDB for SquidGuard
+#  get_url:
+#    #url: "http://download.oracle.com/otn/berkeley-db/db-6.2.32.tar.gz"
+#    url: "http://files.sonata-nfv.eu/son-psa-pilot/prx-vnf/db-6.2.32.tar.gz"
+#    dest: "/tmp"
+#    #url_username: "{{ son-files-usr }}"
+#    #url_password: "{{ son-files-pwd }}"
+#    url_username: "sonata-files"
+#    url_password: "]M[/>zn9R{9v$)ef"
 
-- name: unarchiving BlackList tarball
-  unarchive:
-    src: "/tmp/db-6.2.32.tar.gz"
-    dest: "/usr/local/BerkeleyDB"
-    remote_src: true
+#- file:
+#    path: "/usr/local/BerkeleyDB"
+#    state: directory
+#    mode: 0755
 
-- synchronize:
-    src: "/usr/local/BerkeleyDB/db-6.2.32/"
-    dest: "/usr/local/BerkeleyDB"
-    #recursive: true
-  delegate_to: "{{ inventory_hostname }}"
+#- name: unarchiving BlackList tarball
+#  unarchive:
+#    src: "/tmp/db-6.2.32.tar.gz"
+#    dest: "/usr/local/BerkeleyDB"
+#    remote_src: true
 
-- name: install BerkeleyDB
-  shell: cd /usr/local/BerkeleyDB && sudo dist/configure --with-db-inc=/usr/local/BerkeleyDB --with-db-lib=/usr/local/BerkeleyDB && sudo make && sudo make install
+#- synchronize:
+#    src: "/usr/local/BerkeleyDB/db-6.2.32/"
+#    dest: "/usr/local/BerkeleyDB"
+#    #recursive: true
+#  delegate_to: "{{ inventory_hostname }}"
 
+#- name: install BerkeleyDB
+#  # requires "@Development tools" already installed
+#  shell: cd /usr/local/BerkeleyDB && dist/configure && make && sudo make install
+#  # installs to '/usr/local/BerkeleyDB.6.2'
+
+- name: install 'libdb'
+  yum: name=libdb-devel state=present
+  when: ansible_distribution == "CentOS"
+
+- name: install 'libdb'
+  apt-get: name=libdb-dev state=present
+  when: ansible_distribution == "Ubuntu"
 
 - name: unarchiving SquidGuard (URL redirector used to use blacklists with the Proxy software)
   unarchive:
     src: "http://www.squidguard.org/Downloads/squidGuard-1.4.tar.gz"
     dest: "/tmp"
     remote_src: true
+    owner: "{{ vm_user }}"
+    group: "{{ vm_user }}"
 
 - name: install SquidGuard 1.4
-  shell: cd /tmp/squidGuard-1.4 && sudo ./configure --with-db-inc=/usr/local/BerkeleyDB --with-db-lib=/usr/local/BerkeleyDB && sudo make && sudo make install
-
+  shell: cd /tmp/squidGuard-1.4 && sudo ./configure && make && sudo make install
 
 - file:
     path: "/usr/local/squidGuard/db"
@@ -52,4 +66,6 @@
     src: "http://squidguard.mesd.k12.or.us/blacklists.tgz"
     dest: "/usr/local/squidGuard/db"
     remote_src: true
+    owner: "{{ vm_user }}"
+    group: "{{ vm_user }}"
 
