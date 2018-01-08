@@ -2,8 +2,7 @@
 # tasks file for squid
 
 #- include_tasks: "{{ ansible_distribution_release }}.yml"
-
-- include_tasks: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/networks.yml"
+#- include_tasks: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/networks.yml"
 #- include_tasks: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/interfaces.yml"
 
 - name: installing SQUID proxy server
