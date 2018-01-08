@@ -9,6 +9,9 @@
 - name: install 'shade'
   pip: name='shade' state=present
 
+
+- include_vars: "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+
 - file:
     path: "{{ lookup('env','HOME') }}/.config/openstack/"
     state: directory
