@@ -10,20 +10,20 @@
   pip: name='shade' state=present
 
 
-- include_vars: "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+#- include_vars: "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
 
-- file:
-    path: "{{ lookup('env','HOME') }}/.config/openstack/"
-    state: directory
-    owner: "{{ vm_user }}"
-    group: "{{ vm_user }}"
-    mode: 0755
+#- file:
+#    path: "{{ lookup('env','HOME') }}/.config/openstack/"
+#    state: directory
+#    owner: "{{ vm_user }}"
+#    group: "{{ vm_user }}"
+#    mode: 0755
 
-- name: copy 'clouds.yaml' to the remote guest
-  copy:
-    src: "{{ lookup('env','HOME') }}/.config/openstack/clouds.yaml"
-    dest: "{{ lookup('env','HOME') }}/.config/openstack/clouds.yaml"
-    remote_src: no
-    owner: "{{ vm_user }}"
-    group: "{{ vm_user }}"
+#- name: copy 'clouds.yaml' to the remote guest
+#  copy:
+#    src: "{{ lookup('env','HOME') }}/.config/openstack/clouds.yaml"
+#    dest: "{{ lookup('env','HOME') }}/.config/openstack/clouds.yaml"
+#    remote_src: no
+#    owner: "{{ vm_user }}"
+#    group: "{{ vm_user }}"
 
