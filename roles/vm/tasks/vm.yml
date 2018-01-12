@@ -33,7 +33,7 @@
     availability_zone: "{{ availability_zone }}"
     security_groups:
       - "{{ os_security_groups }}"
-    floating_ip_pools: "{{ fip }}"
+    floating_ip_pools: "{{ ext_net_id }}"
     #auto_ip: yes
     nics:
       - net-id: "{{ int_net_id }}"
