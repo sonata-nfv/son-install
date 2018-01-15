@@ -1,10 +1,12 @@
 - name: Docker User Defined Network
-  shell: 'if ! [[ "$(sudo docker network inspect {{ docker_network_name }} 2> /dev/null)" == "" ]]; then "sudo docker network rm {{ docker_network_name }}" else "sudo docker network create --driver=bridge --subnet=172.20.1.0/24 --gateway=172.20.1.1 --ip-range=172.20.1.128/25 {{ docker_network_name }}" ; fi & sudo service docker restart'
+  shell: 'if ! [[ "$(docker network inspect {{ docker_network_name }} 2> /dev/null)" == "" ]]; then docker network rm {{ docker_network_name }}; fi && service docker restart'
   become: true
+  ignore_errors: true
+  register: dockernet
 
-#- name: Docker creating network
-#  shell: 'sudo docker network create --driver=bridge --subnet=172.20.1.0/24 --gateway=172.20.1.1 --ip-range=172.20.1.128/25 "{{ docker_network_name }}"'
-#  notify:
-#    - restart docker
-#  become: true
-
+- name: Docker creating network
+  shell: 'docker network create --driver=bridge --subnet=172.20.1.0/24 --gateway=172.20.1.1 --ip-range=172.20.1.128/25 "{{ docker_network_name }}"'
+  notify:
+    - restart docker
+  become: true
+  when: dockernet|failed
