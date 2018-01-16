@@ -13,6 +13,12 @@
     name: docker
     state: present
 
+- user:
+    name: sonata
+    shell: /bin/bash
+    groups: docker
+    append: yes
+
 - name: create a directory for Docker logging
   file:
     path: /var/log/docker
