@@ -2,6 +2,7 @@
   #shell: "docker network inspect -f '{{ .Name }}' vpsa-mgmt"
   shell: "docker network inspect vpsa-mgmt"
   ignore_errors: yes
+  no_log: true
   register: mgmt_net_status
 
 - name: Docker User Defined Network (vFW MGMT), when MGMT network does not exists
@@ -15,6 +16,7 @@
   #shell: "docker network inspect -f '{{ .Name }}' vpsa-idsin"
   shell: "docker network inspect vpsa-idsin"
   ignore_errors: yes
+  no_log: true
   register: idsin_net_status
 
 - name: Docker User Defined Network (vIDS INSIDE)
@@ -28,6 +30,7 @@
   #shell: "docker network inspect -f '{{ .Name }}' vpsa-idsout"
   shell: "docker network inspect vpsa-idsout"
   ignore_errors: yes
+  no_log: true
   register: idsout_net_status
 
 - name: Docker User Defined Network (vIDS OUTSIDE)

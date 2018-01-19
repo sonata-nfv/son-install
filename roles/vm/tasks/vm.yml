@@ -18,7 +18,6 @@
     flavor: "sp-flavor"
   when: plat == "sp" and pop == "ncsrd"
 
-
 - name: launch new Instance(s)
   vars:
     local_home: "{{ lookup('env','PWD') }}"

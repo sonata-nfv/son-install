@@ -2,6 +2,7 @@
   #shell: "docker network inspect -f '{{ .Name }}' vpsa-mgmt"
   shell: "docker network inspect vpsa-mgmt"
   ignore_errors: yes
+  no_log: true
   register: mgmt_net_status
 
 - name: Docker User Defined Network (vFW MGMT), when MGMT network does not exists
@@ -14,6 +15,7 @@
   #shell: "docker network inspect -f '{{ .Name }}' vpsa-prxin"
   shell: "docker network inspect vpsa-prxin"
   ignore_errors: yes
+  no_log: true
   register: prxin_net_status
 
 - name: Docker User Defined Network (vPRX INSIDE)
@@ -26,6 +28,7 @@
   #shell: "docker network inspect -f '{{ .Name }}' vpsa-prxout"
   shell: "docker network inspect vpsa-prxout"
   ignore_errors: yes
+  no_log: true
   register: prxout_net_status
 
 - name: Docker User Defined Network (vPRX OUTSIDE)
