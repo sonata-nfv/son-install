@@ -46,6 +46,9 @@
 - shell: systemctl daemon-reload
   when: result|changed
 
-#- name: restart docker on Systemd (Ubuntu 16 and CentOS 7)
-#  systemd: name=docker state=reloaded daemon_reload=yes
+- pause:
+    seconds: 3
+
+- name: restart docker on Systemd (Ubuntu 16 and CentOS 7)
+  systemd: name=docker state=reloaded daemon_reload=yes
 
