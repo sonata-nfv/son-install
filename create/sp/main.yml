@@ -12,3 +12,5 @@
     - openstackclients
     - sp
 
+  tasks:
+    - debug: msg="##### SP DEPLOYED SUCCESSFULLY {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
