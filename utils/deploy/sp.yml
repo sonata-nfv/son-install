@@ -6,18 +6,16 @@
   vars:
     target: localhost
     plat: sp
-#  vars_files:
-#    - "vars/common.yml"
-#    - [ "vars/{{ ansible_os_family }}.yml", "vars/os_defaults.yml" ]
+    public_ip: localhost
+    plat_hostname: "{{ lookup('env','HOSTNAME') }}"
   pre_tasks:
-    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    - debug: msg="##### START SP DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
     - file:
         path: /var/log/ansible.log
         state: touch
         owner: "{{ lookup('env','USER') }}"
         group: "{{ lookup('env','USER') }}"
         mode: "u=rw,g=r,o=r"
-
   roles:
     - { role: sp, ver: '{{ ver }}' }
 
