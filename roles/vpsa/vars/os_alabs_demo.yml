@@ -1,9 +1,0 @@
-vm_user: ubuntu
-image: xenial-cldimg
-flavor: m1.small
-security_groups: "{{ plat }}-secgrp"
-availability_zone: nova
-region_name: RegionOne
-key_name: son-install
-int_net_id: "391fc7c3-3011-4c94-9eda-8b99bab7cb5e" # DEMO
-

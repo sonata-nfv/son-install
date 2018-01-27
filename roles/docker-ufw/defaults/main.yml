@@ -1,0 +1,8 @@
+---
+# defaults file for docker-ufw
+
+plat: docker-vpsa
+
+vl_fwin: vpsa-fwin
+vl_fwout: vpsa-fwout
+

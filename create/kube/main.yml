@@ -1,6 +1,6 @@
 ---
 
-- include: ../../infra.yml
-- include: ../../common.yml
-- include: kube.yml
+- include_tasks: ../../infra.yml
+- include_tasks: ../../common.yml
+- include_tasks: kube.yml
 

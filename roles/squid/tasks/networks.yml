@@ -1,0 +1,4 @@
+- include_tasks: network_mgmt.yml
+- include_tasks: network_cpin.yml
+- include_tasks: network_cpou.yml
+ 

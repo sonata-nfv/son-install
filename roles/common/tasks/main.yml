@@ -1,6 +1,9 @@
 ---
 
-- include_vars: "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+- debug: msg="##### STANDARDIZE {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
 
-- include: "{{ ansible_distribution_release }}.yml"
+- include_tasks: "{{ ansible_distribution_release }}.yml"
+
+- pause:
+    minutes: 1
 

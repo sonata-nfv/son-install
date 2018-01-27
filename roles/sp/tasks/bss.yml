@@ -1,13 +1,14 @@
 ---
+- debug: msg="##### SP BSS DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+
 # Running the Sonata GK BSS Docker Image
 
 - name: deploying GATEKEEPER BSS (as a Docker container)
   docker_container:
     name: son-bss
     image: "sonatanfv/son-yo-gen-bss:{{ sp_ver }}"
-    command: "grunt serve:integration --gkApiUrl=http://{{ domain_name }}/api/v2 --hostname={{ domain_name }} --userManagementEnabled=false --licenseManagementEnabled=false"
+    command: "grunt serve:integration --gkApiUrl=http://{{ fqdn }}/api/v2 --hostname=0.0.0.0 --userManagementEnabled=true --licenseManagementEnabled=true --debug"
     state: started
-    hostname: "{{ domain_name }}"
     network_mode: bridge
     networks:
       - name: "{{ docker_network_name }}"
@@ -16,4 +17,4 @@
     published_ports:
       - "25001:1337"
       - "25002:1338"
-    restart_policy: "unless-stopped"
+    restart_policy: "always"

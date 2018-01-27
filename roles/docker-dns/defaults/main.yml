@@ -1,0 +1,7 @@
+---
+# defaults file for docker-dns
+
+docker_vpsa_mgmt: son-vpsa-vl-mgmt
+docker_vpsa_in: son-vpsa-vl-in
+docker_vpsa_out: son-vpsa-vl-out
+

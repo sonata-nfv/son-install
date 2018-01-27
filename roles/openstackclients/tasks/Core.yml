@@ -18,7 +18,7 @@
 
 - command: pip install --upgrade pip
 
-- name: install required libraries for Shade (https://pypi.python.org/pypi/shade/1.14.1)
+- name: install required libraries for Shade (https://pypi.python.org/pypi/shade/)
   pip: name={{ item }} state=latest
   with_items:
     - requestsexceptions>=1.1.1
@@ -31,9 +31,6 @@
     - ipaddress
     - dogpile.cache>=0.5.3
     - six
-
-#- name: install os-client-config
-#  pip: name=os-client-config state=present
 
 - name: install Openstack command line clients
   pip: name={{ item }} state=latest
@@ -55,22 +52,14 @@
 #- name: install RDO repos (provides RPM packages of Python Openstack command line clients)
 #  yum: name=centos-release-openstack-{{ openstack_release }} state=present 
 
-- name: get OpenStack Client Configuration Library (os-client-config)
-  get_url:
-    url: https://pypi.python.org/packages/27/13/aca5ca37a70ffefec4e6550b766c760743ccd68a7e0b9ebd1f801e7b178b/os-client-config-1.26.0.tar.gz#md5=0dd6b8d38e1375822fbff8e0df302631
-    dest: "/tmp"
+#- name: get OpenStack Client Configuration Library (os-client-config)
+#  get_url:
+#    #url: https://pypi.python.org/packages/27/13/aca5ca37a70ffefec4e6550b766c760743ccd68a7e0b9ebd1f801e7b178b/os-client-config-1.26.0.tar.gz#md5=0dd6b8d38e1375822fbff8e0df302631
+#    url: https://pypi.python.org/packages/84/18/7a950c23631fccd09aa33832df52b7bfce2cf2ea104959a14c04512b19db/os-client-config-1.28.0.tar.gz#md5=cf0bffcf349932c306fd1d81459b1a9e
+#    dest: "/tmp"
 
-- name: install os-client-config
-  pip: name='file:///tmp/os-client-config-1.26.0.tar.gz' state=present
+#- name: install os-client-config
+#  pip: name='file:///tmp/os-client-config-1.28.0.tar.gz' state=present
 
-- name: get Shade (Python module needed by Ansible Cloud module)
-  get_url:
-    url: "https://pypi.python.org/packages/7e/1f/2409fd66f2574a2dc9daf335b47384e91f1ae52d8c1bb713ec1f840e188d/shade-1.14.1.tar.gz#md5=a09e159e35727bbb68eb3e5779658df4" # 1.14.1
-#    url: 'https://pypi.python.org/packages/8a/23/82202df7efe5bc0112f29700fa6907fc008f7fe0af8ac2e70860e31d7e51/shade-1.16.0.tar.gz#md5=a876208efd25dff182e534b261dfcd0a'
-    dest: "/tmp"
-#  register: new_archive
-
-- name: install Shade 
-  pip: name='file:///tmp/shade-1.14.1.tar.gz' state=present
-#  when: new_archive|changed
+#- include_tasks: shade.yml
 

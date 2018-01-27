@@ -1,0 +1,39 @@
+- name: check if MGMT network exists
+  #shell: "docker network inspect -f '{{ .Name }}' vpsa-mgmt"
+  shell: "docker network inspect vpsa-mgmt"
+  ignore_errors: yes
+  no_log: true
+  register: mgmt_net_status
+
+- name: Docker User Defined Network (vFW MGMT), when MGMT network does not exists
+  shell: "docker network create --driver=bridge \
+--subnet=172.22.100.0/24 --gateway=172.22.100.1 \
+--ip-range=172.22.100.128/25 '{{ vl_mgmt }}'"
+  when: mgmt_net_status.rc != 0
+
+- name: check if vPRX INSIDE network exists
+  #shell: "docker network inspect -f '{{ .Name }}' vpsa-prxin"
+  shell: "docker network inspect vpsa-prxin"
+  ignore_errors: yes
+  no_log: true
+  register: prxin_net_status
+
+- name: Docker User Defined Network (vPRX INSIDE)
+  shell: "docker network create --driver=bridge \
+--subnet=172.22.121.0/24 --gateway=172.22.121.1 \
+--ip-range=172.22.121.128/25 '{{ vl_prxin }}'"
+  when: prxin_net_status.rc != 0
+
+- name: check if vPRX OUTSIDE network exists
+  #shell: "docker network inspect -f '{{ .Name }}' vpsa-prxout"
+  shell: "docker network inspect vpsa-prxout"
+  ignore_errors: yes
+  no_log: true
+  register: prxout_net_status
+
+- name: Docker User Defined Network (vPRX OUTSIDE)
+  shell: "docker network create --driver=bridge \
+--subnet=172.22.122.0/24 --gateway=172.22.122.1 \
+--ip-range=172.22.122.128/25 '{{ vl_prxout }}'"
+  when: prxout_net_status.rc != 0
+

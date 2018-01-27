@@ -1,0 +1,37 @@
+---
+# tasks file for roles/docker-vtu
+
+- include_vars: "{{ lookup('env','PWD') }}/roles/docker-vtu/defaults/main.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/docker-vtu/tasks/networks.yml"
+
+- name: start vTU as a Docker container
+  docker_container:
+    name: vtu
+    image: sonatanfv/vcdn-vtu-fsm-css
+    #env:
+    state: started
+    network_mode: bridge
+    networks:
+
+      - name: "{{ vl_mgmt }}"
+        aliases:
+          - son-vpsa-mgmt
+
+      - name: "{{ vl_vtuin }}"
+        aliases:
+          - son-vpsa-vtuin
+
+      - name: "{{ vl_vtuout }}"
+        aliases:
+          - son-vpsa-vtuout
+
+    restart_policy: "unless-stopped"
+    #published_ports: 80:80
+    volumes:
+      - /var/log/sonata/docker-vtu:/var/log/docker-vtu
+    log_driver: syslog # gelf
+
+    #log_options:
+    #  syslog-address: tcp://my-syslog-server:514
+    #  syslog-facility: daemon
+

@@ -1,6 +1,10 @@
 # Pre-requirements 
+
+- yum: name=epel-release state=present
+- yum: name=libnghttp2 state=present
+
 - name: install CentOS 7 depedency libraries
-  yum: name={{ item }}
+  yum: name={{ item }} state=present
   with_items:
     - gcc
     - flex

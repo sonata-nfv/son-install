@@ -221,6 +221,6 @@ galaxy_info:
   # Be sure to remove the '[]' above if you add dependencies
   # to this list.
 dependencies:
-  - { role: ntp, become: true }
-  - { role: common, become: true, vm_user: ubuntu, plat: vpsa }
-  - { role: docker, become: true, vm_user: ubuntu }
+  #- { role: ntp, become: true }
+  #- { role: common, become: true }
+  - { role: docker, become: true }

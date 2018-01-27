@@ -1,37 +1,35 @@
 ---
 # tasks file for docker-squid
 
-- name: Docker User Defined Network (vPRX IN)
-  shell: 'docker network create --driver=bridge \
---subnet=172.21.101.0/24 --gateway=172.21.101.1 \
---ip-range=172.21.101.128/25 "{{ docker_squid_in }}"'
+- include_vars: "{{ lookup('env','PWD') }}/roles/docker-squid/defaults/main.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/docker-squid/tasks/networks.yml"
 
-- name: Docker User Defined Network (vPRX OUT)
-  shell: 'docker network create --driver=bridge \
---subnet=172.21.102.0/24 --gateway=172.21.102.1 \
---ip-range=172.21.102.128/25 "{{ docker_squid_out }}"'
+- name: get Squid Docker image
+  docker_image:
+    #name: sameersbn/squid
+    name: arocha/vpsa-squid-3.3.8 
 
 - name: start Squid-proxy container
   docker_container:
     name: squid
-    image:  sameersbn/squid
+    #image: sameersbn/squid
+    image: arocha/vpsa-squid-3.3.8
     #env:
     state: started
     network_mode: bridge
     networks:
-      - name: "{{ docker_network_name }}"
-        aliases:
-          - son-mgmt
-      - name: "{{ docker_squid_in }}"
-        aliases:
-          - son-squid-in
-      - name: "{{ docker_squid_out }}"
-        aliases:
-          - son-squid-out
-      - name: "{{ docker_openldap_in }}"
-        aliases:
-          - son-openldap-in
 
+      - name: "{{ vl_mgmt }}"
+        aliases:
+          - vpsa-mgmt
+      - name: "{{ vl_prxin }}"
+        aliases:
+          - vpsa-prxin
+      - name: "{{ vl_prxout }}"
+        aliases:
+          - vpsa-prxout
+
+    restart_policy: "unless-stopped"
     published_ports:
      - 3128:3128
      - 3129:3129

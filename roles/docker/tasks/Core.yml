@@ -1,5 +1,7 @@
 ---
 
+- yum: name=epel-release state=latest
+
 - name: install Docker dependency libraries
   yum: name={{ item }} state=present update_cache=yes
   with_items:
@@ -13,9 +15,9 @@
     name: '{{ item }}'
     state: present
   with_items: 
-    - docker-py==1.9.0
+    #- docker-py==1.9.0
+    - docker-py
     - six
-
 
 - name: add Docker repo to YUM
   copy: src=docker.repo dest=/etc/yum.repos.d/docker.repo owner=root group=root mode=0644
@@ -26,6 +28,9 @@
 - name: add user to Docker group
   user: name=sonata shell=/bin/bash groups=docker append=yes
 
+- name: "Add default image user to group"
+  user: name="{{ vm_user }}" shell=/bin/bash groups=docker append=yes
+
 - name: add Docker configuration options
   copy: src=docker2systemd dest=/etc/sysconfig/docker owner=root group=root mode=0644
 
@@ -35,11 +40,15 @@
 - name: "Configuring Docker Options"
   copy: src=docker.conf dest=/etc/systemd/system/docker.service.d/docker.conf owner=root group=root mode=0644
   register: result
-  notify:
-  - restart docker
+#  notify:
+#  - restart docker
 
 - shell: systemctl daemon-reload
   when: result|changed
 
-- name: start Docker daemon
-  service: name=docker state=started enabled=yes
+- pause:
+    seconds: 3
+
+- name: restart docker on Systemd (Ubuntu 16 and CentOS 7)
+  systemd: name=docker state=reloaded daemon_reload=yes
+

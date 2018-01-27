@@ -1,33 +1,35 @@
 ---
 # tasks file for docker-openvpn
 
-- name: Docker User Defined Network (vVPN IN)
-  shell: 'docker network create --driver=bridge \
---subnet=172.21.107.0/24 --gateway=172.21.107.1 \
---ip-range=172.21.107.128/25 "{{ docker_openvpn_in }}"'
+- include_vars: "{{ lookup('env','PWD') }}/roles/docker-openvpn/defaults/main.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/docker-openvpn/tasks/networks.yml"
 
-- name: Docker User Defined Network (vVPN OUT)
-  shell: 'docker network create --driver=bridge \
---subnet=172.21.108.0/24 --gateway=172.21.108.1 \
---ip-range=172.21.108.128/25 "{{ docker_openvpn_out }}"'
+- name: get OpenVPN Docker image
+  docker_image:
+    #name: kylemanna/openvpn
+    name: lconceicao/vpnserver
 
-- name: start OpenVPN as a Docker containers
+- name: start OpenVPN Server as a Docker container
   docker_container:
-    name: snort
+    name: vpnserver
     image: kylemanna/openvpn
+    #image: lconceicao/vpnserver
     #env:
     state: started
     network_mode: bridge
     networks:
-      - name: "{{ docker_network_name }}"
+
+      - name: "{{ vl_mgmt }}"
         aliases:
-          - son-mgmt
-      - name: "{{ docker_openvpn_in }}"
+          - vpsa-mgmt
+      - name: "{{ vl_vpnin }}"
         aliases:
-          - son-openvpn-in
-      - name: "{{ docker_openvpn_out }}"
+          - vpsa-vpnin
+      - name: "{{ vl_vpnout }}"
         aliases:
-          - son-openvpn-out
+          - vpsa-vpnout
+
+    restart_policy: "unless-stopped"
     volumes:
       - /var/log/sonata/openvpn:/var/log/openvpn
     log_driver: syslog # gelf

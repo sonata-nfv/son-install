@@ -1,8 +1,8 @@
 ---
 # tasks file for vpsa
 
-- include: "squid_qcow2.yml"
-- include: haproxy.yml
-- include: ldap.yml
-- include: snort.yml
-#- include: openvpn.yml
+- include_tasks: "squid_qcow2.yml"
+- include_tasks: haproxy.yml
+- include_tasks: ldap.yml
+- include_tasks: snort.yml
+#- include_tasks: openvpn.yml

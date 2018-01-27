@@ -1,6 +1,9 @@
 ---
 # tasks file for docker-haproxy
 
+- include_vars: "{{ lookup('env','PWD') }}/roles/docker-haproxy/defaults/main.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/docker-haproxy/tasks/networks.yml"
+
 - name: Docker User Defined Network (vHAPRX IN)
   shell: 'docker network create --driver=bridge \
 --subnet=172.22.111.0/24 --gateway=172.22.111.1 \
@@ -28,6 +31,7 @@
       - name: "{{ docker_haprx_out }}"
         aliases:
           - son-haprx-out
+    restart_policy: "unless-stopped"
     published_ports: 80:80
     volumes:
       - /var/log/sonata/haproxy:/var/log/haproxy

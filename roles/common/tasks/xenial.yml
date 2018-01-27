@@ -1,13 +1,43 @@
 ---
 
+- name: set external name servers for DNS resolution
+  copy:
+    src: "{{ lookup('env','PWD') }}/roles/common/files/resolvconf"
+    dest: /etc/resolvconf/resolv.conf.d/base
+    owner: root
+    group: root
+    mode: 0644
+  become_user: root
+
 - name: previous install APTitude
   apt: name=aptitude state=present
 
 - name: upgrade all packages to the latest version
   apt: upgrade=yes update_cache=yes
 
+- name: install required libraries and tools for PIP
+  apt: name={{ item }} state=latest
+  with_items:
+  - build-essential
+  - python-dev
+  - python-pip
+  - libssl-dev
+  - libffi-dev
+
 - name: install Python 2.7
   apt: name=python state=present
+
+- name: install Python tools to get 'easy_install'
+  apt: name=python-setuptools state=present
+
+- name: install Python libraries
+  easy_install: name=pip state=latest
+
+- name: upgrade PIP (from 8.1.1 to 9.0.1)
+  shell: pip install --upgrade pip
+
+- name: from Ansible 2.4, the python pyOpenSSL module is required on the ACC even if its already installed
+  command: /usr/bin/easy_install pyOpenSSL
 
 - name: install useful operating system tools
   apt: name={{ item }} state=latest
@@ -18,5 +48,4 @@
   - htop
   - policycoreutils
   - dialog
-  #- postgresql-client-common
   - nscd

@@ -2,12 +2,7 @@
   become: true
   connection: ssh
   pre_tasks:
-
-    - local_action: shell date +'%F %T'
-
-      register: timestamp
-
-    - debug: msg={{ timestamp.stdout }}
+    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
   roles:
   - ntp
   - common
@@ -17,7 +12,5 @@
   - jenkins
 
   post_tasks:
-    - local_action: shell date +'%F %T'
-      register: tsout
-    - debug: msg={{ tsout.stdout }}
+    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
 

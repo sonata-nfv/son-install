@@ -1,0 +1,7 @@
+- include_tasks: network_mgmt.yml
+#  when: plat != 'sp'
+#- include_tasks: network_cpin.yml
+#  when: plat != 'sp'
+#- include_tasks: network_cpou.yml
+#  when: plat != 'sp'
+ 

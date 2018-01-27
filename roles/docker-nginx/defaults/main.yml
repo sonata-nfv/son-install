@@ -1,0 +1,12 @@
+---
+# defaults file for docker-nginx
+
+pop: alabs
+proj: demo
+distro: xenial
+plat: docker-vpsa
+
+#vl_enduser: "{{ 'sonata.dem-net' if pop == 'ncsrd' and proj == 'dem' else 'dem-netw' }}"
+
+vl_wwwin: vpsa-wwwin
+vl_wwwout: vpsa-wwwout

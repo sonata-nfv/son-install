@@ -22,6 +22,6 @@
     port: 8080/tcp
     permanent: true
     state: enabled
-  notify: reload firewall
+  notify: reload firewalld
   when: ansible_os_family == "RedHat"
 

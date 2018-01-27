@@ -1,0 +1,6 @@
+---
+# vars file for docker-vcdn
+public_ip: '172.31.6.27'
+plat_hostname: docker-vcdn-alabs-dem-xenial-01-1512380112
+public_ip: '172.31.6.36'
+plat_hostname: docker-vcdn-alabs-dem-xenial-01-1512405346

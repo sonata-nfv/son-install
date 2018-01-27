@@ -1,24 +1,26 @@
 ---
-- hosts: "{{ target }}"
+
+- name: deploy dockerized VPSA to the local machine
+  hosts: localhost
   become: true
-  connection: ssh
+  connection: local
+  vars_files:
+    #- "{{ lookup('env','PWD') }}/roles/{{ plat | default(docker-vpsa) }}/defaults/main.yml"
+    - "{{ lookup('env','PWD') }}/roles/docker-vpsa/defaults/main.yml"
   pre_tasks:
-    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
     - file:
         path: /var/log/ansible.log
         state: touch
         owner: "{{ lookup('env','USER') }}"
         group: "{{ lookup('env','USER') }}"
         mode: "u=rw,g=rw,o=rw"
-      become: true
-
   roles:
-    #- common
-    - docker
-    - docker-haproxy
-    - docker-snort
-    - docker-openldap
+    #- firewall
+    #- docker
+    - docker-ufw
     - docker-squid
-    #- docker-addblk
-    - docker-openvpn
+    - docker-snort
+    #- { role: docker-vpn, become: true }
 
+#- include_tasks "{{ lookup('env','PWD') }}/common.yml"

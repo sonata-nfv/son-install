@@ -1,61 +1,109 @@
 ---
 
-- include_vars: "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+- include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+        - "{{ lookup('env','PWD') }}/roles/{{ plat }}/defaults/main.yml"
+      skip: true
+
+- include_vars: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+
+- include_vars: "{{ lookup('env','PWD') }}/group_vars/{{ plat }}/vault.yml"
+  no_log: true
+
+- lineinfile:
+    path: "/etc/hosts"
+    line: "{{ public_ip }} {{ plat_hostname }}"
+    create: yes
+    state: present
+  become: true
+
+- name: add user 'sonata' with superuser priviledges on Debian machines
+  user:
+    name: "{{ sp_user }}"
+    comment: "SONATA admin user"
+    shell: /bin/bash
+    group: sudo
+    groups: docker
+    password: "{{ sp_pass }}"
+  when: ansible_os_family == "Debian"
+
+- name: remove password prompt for sudo
+  shell: "echo '%sudo ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers"
+  when: ansible_os_family == "Debian"
+
+- name: add user 'sonata' with superuser priviledges on CentOS 7 machines
+  user:
+    name: "{{ sp_user }}"
+    comment: "SONATA admin user"
+    shell: /bin/bash
+    group: wheel
+    groups: docker
+    password: "{{ sp_pass }}"
+  when: ansible_os_family == "RedHat"
+
+- name: remove password prompt for sudo
+  shell: "echo 'sonata ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/90-cloud-init-users"
+  when: ansible_os_family == "RedHat"
 
 - name: restart docker on Upstart (Ubuntu 14)
   service: name=docker state=restarted
-  when: ansible_os_family == "Debian"
+  when: ansible_distribution_release == "trusty"
 
 - name: restart docker on Systemd (Ubuntu 16 and CentOS 7)
   systemd: name=docker state=restarted daemon_reload=yes
-  when: ansible_os_family == "RedHat"
+  when: ansible_distribution_release == "xenial" or ansible_distribution_release == "Core"
 
-- name: Docker User Defined Network (SP)
-  shell: 'docker network create --driver=bridge \
---subnet=172.20.2.0/24 --gateway=172.20.2.1 \
---ip-range=172.20.2.128/25 "{{ docker_network_name }}"'
+#- include_tasks: "{{ lookup('env','PWD') }}/roles/docker/tasks/networks.yml"
 
 - name: force all notified handlers to run at this point, not waiting for normal sync points
   meta: flush_handlers
 
 # deploy postgreSQL database engine
-- include: pgsql.yml
+- include_tasks: pgsql.yml
 
 # deploy MongoDB (NoSQL) database engine
-- include: mongo.yml
+- include_tasks: mongo.yml
+
+# deploy Redis database engine
+- include_tasks: redis.yml
 
 # deploy postgreSQL database engine for monitoring
-- include: pgsql-monitoring.yml
+- include_tasks: pgsql-monitoring.yml
 
 # deploy RabbitMQ message bus
-- include: broker.yml
+- include_tasks: broker.yml
 
 # deploy Influxdb
-- include: influxdb.yml
+- include_tasks: influxdb.yml
+
+# deploy Keycloak
+- include_tasks: keycloak.yml
 
 # deploy GUI
-- include: gui.yml
+- include_tasks: gui.yml
 
 # deploy BSS
-- include: bss.yml
+- include_tasks: bss.yml
 
 # deploy Gatekepper module
-- include: gtk-all.yml
+- include_tasks: gtk-all.yml
 
 # deploy Repositories
-- include: repos.yml
+- include_tasks: repos.yml
 
 # deploy MANO framework
-- include: mano-all.yml
+- include_tasks: mano-all.yml
 
 # deploy Infastructure Adaptor
-- include: ifta-all.yml
+- include_tasks: ifta-all.yml
 
 # deploy Monitoring
-- include: monit-all.yml
+- include_tasks: monit-all.yml
 
 # deploy Security Gateway
-- include: sec-gw.yml
+- include_tasks: sec-gw.yml
 
 # deploy Google cAdvisor
-#- include: cadvisor.yml
+#- include_tasks: cadvisor.yml

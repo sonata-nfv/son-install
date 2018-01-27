@@ -1,6 +1,5 @@
 ---
 # defaults file for docker-openldap
 
-docker_openldap_in:  son-openldap-in
-docker_openldap_out: son-openldap-out
-docker_vpsa_mgmt: son-mgmt
+vl_mgmt: vpsa-mgmt
+vl_proxy_ldap: proxy-ldap

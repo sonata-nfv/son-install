@@ -1,5 +1,7 @@
 ---
 
-- include: ifta/vim-adaptor.yml
-- include: ifta/wim-adaptor.yml
+- debug: msg="##### SP IFTA DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+
+- include_tasks: ifta/vim-adaptor.yml
+- include_tasks: ifta/wim-adaptor.yml
 

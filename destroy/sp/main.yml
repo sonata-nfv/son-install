@@ -1,1 +1,1 @@
-- include: "{{ svc }}.yml"
+- include_tasks: "{{ svc }}.yml"

@@ -1,0 +1,33 @@
+# Creates a key pair with the running users public key
+
+# assure that pyOpenSSL is installed
+#- package: name=python-pip state=present
+#- pip: name=pyopenssl==16.2.0 state=present
+
+- name: verify if the create a KEY pair exist
+  os_keypair:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    name: son-install
+  register: son_key
+
+- debug:
+    msg: "son_key.msg"
+
+- name: create a KEY pair using the running user public key
+  os_keypair:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    name: son-install
+    public_key_file: "{{ lookup('env','HOME') }}/.ssh/son-install.pub"
+  when:
+    - son_key.failed
+    - '"present but key hash not the same as offered. Delete key first." in son_key.msg'
+
+# Add private key (if it does not exist, without passing regexp)
+# https://relativkreativ.at/articles/how-to-use-ansibles-lineinfile-module-in-a-bulletproof-way
+- lineinfile:
+    path: "{{ lookup('env','PWD') }}/ansible.cfg"
+    line: 'private_key_file = ~/.ssh/{{ key_name }}.pem'
+  no_log: True
+

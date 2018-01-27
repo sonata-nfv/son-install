@@ -1,1 +1,1 @@
-- include: "{{ action }}/{{ svc }}.yml"
+- include_tasks: "{{ action }}/{{ svc }}.yml"

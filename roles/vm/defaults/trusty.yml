@@ -1,0 +1,2 @@
+vm_user: ubuntu
+localhome: "{{ lookup('env','HOME') }}"

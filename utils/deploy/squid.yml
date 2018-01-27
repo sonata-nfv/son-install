@@ -3,7 +3,5 @@
   hosts: "{{ target }}"
   become: true
   roles:
-  - common
   - firewall
   - squid
-

@@ -78,14 +78,13 @@
 
 - name: "Configuring Docker Options"
   copy: src=docker2upstart dest=/etc/default/docker owner=root group=root mode=0644
-  notify:
-  - restart docker
+#  notify:
+#  - restart docker
 
-#- name: "The docker_service module also requires docker-compose"
-#  pip: name=docker-compose state=present
+- name: restart docker on Upstart (Ubuntu 14)
+  service: name=docker state=restarted daemon_reload=yes
+  when: ansible_distribution_release == "trusty"
 
-- name: start Docker daemon
-  service: name=docker state=restarted enabled=yes
 
 # RSYSLOG
 

@@ -1,0 +1,36 @@
+---
+# tasks file for docker-nginx
+
+- include_vars: "{{ lookup('env','PWD') }}/roles/docker-nginx/defaults/main.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/docker-nginx/tasks/networks.yml"
+
+- name: get NGINX Docker image
+  docker_image:
+    name: nginx
+
+- name: start NGINX as a Docker containers
+  docker_container:
+    name: nginx
+    image: nginx
+    #env:
+    state: started
+    network_mode: bridge
+    networks:
+
+      - name: "{{ vl_mgmt }}"
+        aliases:
+          - vpsa-mgmt
+
+      - name: "{{ vl_wwwin }}"
+        aliases:
+          - vpsa-wwwin
+
+      - name: "{{ vl_wwwout }}"
+        aliases:
+          - vpsa-wwwout
+
+    restart_policy: "unless-stopped"
+    volumes:
+      - /var/log/sonata/nginx:/var/log/nginx
+    log_driver: syslog # gelf
+

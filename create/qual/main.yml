@@ -1,5 +1,0 @@
----
-
-- include: ../../infra.yml
-- include: ../../common.yml
-- include: qual.yml

@@ -10,6 +10,9 @@
   remote_user: "{{ vm_user }}"
 
   pre_tasks:
+    - name: "USAGE: -e plat=localhost -e vm_user=[ubuntu|centos]"
+      pause:
+        seconds: 1
     - local_action: shell date +'%F %T'
       register: ts
     - debug:

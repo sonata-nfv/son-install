@@ -1,14 +1,17 @@
 ---
+- debug: msg="##### SP PGSQL DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+
 - name: deploy a PostgreSQL database server as a Container
   docker_container:
     name: son-postgres
     #image: sonatanfv/son-postgres
     image: ntboes/postgres-uuid
     env:
-      POSTGRES_DB=gatekeeper
-      POSTGRES_USER=sonatatest
-      POSTGRES_PASSWORD=sonata
+      POSTGRES_DB: "{{ gtk_db_name }}"
+      POSTGRES_USER: "{{ gtk_db_user }}"
+      POSTGRES_PASSWORD: "{{ gtk_db_pass }}"
     state: started
+    restart_policy: "always"
     network_mode: bridge
     networks:
       - name: "{{ docker_network_name }}"

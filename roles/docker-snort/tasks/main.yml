@@ -1,15 +1,12 @@
 ---
-# tasks file for docker-snnort
+# tasks file for docker-snort
 
-- name: Docker User Defined Network (vIDS IN)
-  shell: 'docker network create --driver=bridge \
---subnet=172.21.103.0/24 --gateway=172.21.103.1 \
---ip-range=172.21.103.128/25 "{{ docker_snort_in }}"'
+- include_vars: "{{ lookup('env','PWD') }}/roles/docker-snort/defaults/main.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/docker-snort/tasks/networks.yml"
 
-- name: Docker User Defined Network (vIDS OUT)
-  shell: 'docker network create --driver=bridge \
---subnet=172.21.103.0/24 --gateway=172.21.103.1 \
---ip-range=172.21.103.128/25 "{{ docker_snort_out }}"'
+- name: get Snort Docker image
+  docker_image:
+    name: glanf/snort
 
 - name: start Snort IDS container
   docker_container:
@@ -19,16 +16,18 @@
     state: started
     network_mode: bridge
     networks:
-      - name: "{{ docker_network_name }}"
-        aliases:
-          - son-mgmt
-      - name: "{{ docker_snort_in }}"
-        aliases:
-          - son-snort-in
-      - name: "{{ docker_snort_out }}"
-        aliases:
-          - son-snort-out
 
+      - name: "{{ vl_mgmt }}"
+        aliases:
+          - vpsa-mgmt
+      - name: "{{ vl_idsin }}"
+        aliases:
+          - vpsa-idsin
+      - name: "{{ vl_idsout }}"
+        aliases:
+          - vpsa-idsout
+
+    restart_policy: "unless-stopped"
     published_ports:
      - 0:1024
      - 1024:65535
@@ -40,5 +39,5 @@
     #  syslog-address: tcp://my-syslog-server:514
     #  syslog-facility: daemon
 
-- wait_for: host=0.0.0.0 port=3128 timeout=30 delay=10 state=started
+#- wait_for: host=0.0.0.0 port=80 timeout=30 delay=10 state=started
 

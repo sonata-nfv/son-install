@@ -1,0 +1,96 @@
+
+- name: Gather facts about a previously created network by name CPOU
+  os_networks_facts:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    name: docker-vpsa-cpou
+  register: netw_result
+
+- name: check that network is available
+  assert:
+    that: "netw_result.ansible_facts.openstack_networks"
+    msg: "Network CPOU is not available"
+  when: not netw_result|default(None)
+
+- name: Show openstack networks
+  debug:
+    var: openstack_networks
+
+- name: Show openstack networks (registered var)
+  debug:
+    var: netw_result
+
+- lineinfile:
+    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+    #line: 'docker-vpsa-cpou_net_id: "{{ (openstack_networks | default({})).id | default(omit) }}"'
+    line: 'docker-vpsa-cpou_net_id: "{{ openstack_networks.0.id }}"'
+    create: yes
+    state: present
+  when: openstack_networks
+
+- name: create CPOU network
+  os_network:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    name: docker-vpsa-cpou
+    shared: false
+    external: false
+  when: not openstack_networks
+  register: net_docker-vpsa-cpou
+
+- lineinfile:
+    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+    #line: 'docker-vpsa-cpou_net_id: "{{ (net_docker-vpsa-cpou | default({})).id | default(omit) }}"'
+    line: 'docker-vpsa-cpou_net_id: "{{ net_docker-vpsa-cpou.id }}"'
+    create: yes
+    state: present
+  when: not openstack_networks
+
+- lineinfile:
+    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+    #line: 'docker-vpsa-cpou_net_id: "{{ (net_docker-vpsa-cpou | default({})).id | default(omit) }}"'
+    line: 'docker-vpsa-cpou_net_id: "{{ openstack_networks.0.id }}"'
+    create: yes
+    state: present
+  when: openstack_networks
+
+- name: create CPOU subnet
+  os_subnet:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    network_name: "{{ net_docker-vpsa-cpou.id }}"
+    name: subnet-docker-vpsa-cpou
+    cidr: 172.23.20.0/24
+    gateway_ip: 172.23.20.1
+    enable_dhcp: true
+    allocation_pool_start: 172.23.20.200
+    allocation_pool_end: 172.23.20.226
+    dns_nameservers:
+       - 8.8.8.7
+       - 8.8.8.8
+    host_routes:
+       - destination: 0.0.0.0/0
+         nexthop: 172.23.20.1
+  when: not openstack_networks
+
+- os_floating_ip:
+     cloud: "os_{{ pop }}_{{ proj }}"
+     state: present
+     reuse: yes
+     server: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ item }}-{{ ansible_date_time.epoch }}"
+     network: "{{ net_docker-vpsa-cpou.id }}"
+     #fixed_address: 172.31.6.66
+     wait: true
+     timeout: 180
+  when: not openstack_networks
+
+- os_floating_ip:
+     cloud: "os_{{ pop }}_{{ proj }}"
+     state: present
+     reuse: yes
+     server: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ item }}-{{ ansible_date_time.epoch }}"
+     network: "{{ openstack_networks.0.id }}"
+     #fixed_address: 172.31.6.66
+     wait: true
+     timeout: 180
+  when: openstack_networks
+

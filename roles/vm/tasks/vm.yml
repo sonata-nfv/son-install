@@ -1,0 +1,77 @@
+
+- include_vars: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+
+- include_vars: "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+
+- name: set the appropriate FLAVOR to run the APP on a VM at Alabs PoP
+  set_fact:
+    flavor: "m1.micro2"
+  when: plat == "squid" and pop == "alabs"
+
+- name: set the appropriate FLAVOR to run the SP on a VM at Alabs PoP
+  set_fact:
+    flavor: "m1.sp"
+  when: plat == "sp" and pop == "alabs"
+
+- name: set the appropriate FLAVOR to run the SP on a VM at NCSRD PoP
+  set_fact:
+    flavor: "sp-flavor"
+  when: plat == "sp" and pop == "ncsrd"
+
+- name: launch new Instance(s)
+  vars:
+    local_home: "{{ lookup('env','PWD') }}"
+  os_server:
+    # http://docs.openstack.org/developer/os-client-config/
+    state: present
+    cloud: "os_{{ pop }}_{{ proj }}"
+    name: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ item }}-{{ ansible_date_time.epoch }}"
+    image: "{{ image }}"
+    key_name: "{{ key_name }}"
+    flavor: "{{ flavor }}"
+    availability_zone: "{{ availability_zone }}"
+    security_groups:
+      - "{{ os_security_groups }}"
+    floating_ip_pools: "{{ ext_net_id }}"
+    #auto_ip: yes
+    nics:
+      - net-id: "{{ int_net_id }}"
+      #- net-id: "{{ mgmt_net_id|default([]) }}"
+      #- net-id: "{{ cpin_net_id|default([]) }}"
+      #- net-id: "{{ cpou_net_id|default([]) }}"
+    userdata: "{{ lookup('file', '{{ local_home }}/userdata/{{ distro }}.sh') }}"
+    meta:
+      hostname: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ item }}-{{ ansible_date_time.epoch }}"
+      group: "{{ plat }}"
+    timeout: 180
+    wait: yes
+  with_sequence: "start=1 end={{ nbofvms | default(1) }} format=%02x"
+  register: "newvm"
+
+
+#- os_floating_ip:
+#     cloud: "os_{{ pop }}_{{ proj }}"
+#     state: present
+#     reuse: yes
+#     server: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ item }}-{{ ansible_date_time.epoch }}"
+#     network: "{{ fip }"
+#     #fixed_address: 172.31.6.66
+#     nat_destination: "{{ mgmt_net_id|default([]) }}"
+#     wait: true
+#     timeout: 180
+#  with_sequence: "start=1 end={{ nbofvms | default(1) }} format=%02x"
+
+
+- lineinfile:
+    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+    line: "public_ip: '{{ item.openstack.accessIPv4 }}'"
+    create: yes
+    state: present
+  with_items: "{{ newvm.results }}"
+
+- lineinfile:
+    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+    line: "plat_hostname: {{ item.openstack.name }}"
+    create: yes
+    state: present
+  with_items: "{{ newvm.results }}"

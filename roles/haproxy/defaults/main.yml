@@ -1,3 +1,2 @@
 ---
 # defaults file for haproxy
-svc_port: 80

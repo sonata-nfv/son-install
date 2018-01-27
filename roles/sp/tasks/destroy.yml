@@ -5,7 +5,7 @@
   connection: local
   tasks:
 #    - include_vars: "~/.config/openstack/{{ vim }}{{ pop }}_{{ plat }}_vault.yaml"
-#    - include_vars: vars/default.yml
+#    - include_vars: vars/main.yml
 #    - include_vars: "{{ item }}"
 #      with_first_found:
 #        - "vars/{{ ansible_distribution_release }}.yml"

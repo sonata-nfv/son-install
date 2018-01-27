@@ -17,9 +17,10 @@
   - nova-common
   - python-shade
 
-#- name: "Install dependency libraries on the remote server"
-#  pip: name={{ item }}  state=present
-#  with_items:
+- name: install dependency libraries on the remote server
+  pip: name={{ item }}  state=present
+  with_items:
+    - pyopenssl
 #  - PyYAML
 #  - setuptools
 #  - pycrypto>=2.6
@@ -48,4 +49,6 @@
 #  - ipaddress
 #  - dogpile.cache>=0.5.3
 #  - decorator
-#
+
+#- include_tasks: shade.yml
+

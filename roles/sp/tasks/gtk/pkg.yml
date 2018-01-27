@@ -1,4 +1,7 @@
 ---
+
+- debug: msg="##### SP GTK-PACKAGEs DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+
 # Running the Sonata GK PACKAGES (Docker container)
 
 - name: GATEKEEPER PACKAGES - running Docker containers
@@ -15,4 +18,4 @@
         aliases:
           - son-gtkpkg
     published_ports: "5100:5100"
-    restart_policy: "unless-stopped"
+    restart_policy: "always"

@@ -1,0 +1,39 @@
+- name: check if MGMT network exists
+  #shell: "docker network inspect -f '{{ .Name }}' vpsa-mgmt"
+  shell: "docker network inspect vpsa-mgmt"
+  ignore_errors: yes
+  no_log: true
+  register: mgmt_net_status
+
+- name: Docker User Defined Network (vPSA MGMT), when MGMT network does not exists
+  shell: "docker network create --driver=bridge \
+--subnet=172.22.100.0/24 --gateway=172.22.100.1 \
+--ip-range=172.22.100.128/25 '{{ vl_mgmt }}'"
+  when: mgmt_net_status.rc != 0
+
+- name: check if vVPN INSIDE network exists
+  #shell: "docker network inspect -f '{{ .Name }}' vpsa-vpnin"
+  shell: "docker network inspect vpsa-vpnin"
+  ignore_errors: yes
+  no_log: true
+  register: vpnin_net_status
+
+- name: Docker User Defined Network (vVPN INSIDE)
+  shell: "docker network create --driver=bridge \
+--subnet=172.22.161.0/24 --gateway=172.22.161.1 \
+--ip-range=172.22.161.128/25 '{{ vl_vpnin }}'"
+  when: vpnin_net_status.rc != 0
+
+- name: check if vVPN OUTSIDE network exists
+  #shell: "docker network inspect -f '{{ .Name }}' vpsa-vpnout"
+  shell: "docker network inspect vpsa-vpnout"
+  ignore_errors: yes
+  no_log: true
+  register: vpnout_net_status
+
+- name: Docker User Defined Network (vVPN OUTSIDE)
+  shell: "docker network create --driver=bridge \
+--subnet=172.22.162.0/24 --gateway=172.22.162.1 \
+--ip-range=172.22.162.128/25 '{{ vl_vpnout }}'"
+  when: vpnout_net_status.rc != 0
+

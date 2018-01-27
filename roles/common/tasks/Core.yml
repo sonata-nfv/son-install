@@ -3,6 +3,12 @@
 #- name: clean cache info
 #  command: 'yum clean all'
 
+- name: set external name servers for DNS resolution
+  copy:
+    src: "{{ lookup('env','PWD') }}/roles/common/files/resolvconf"
+    dest: /etc/resolv.conf
+    mode: 0644
+
 - name:  upgrade all packages to the latest version
   become: true
   yum: name='*' state=latest update_cache=yes

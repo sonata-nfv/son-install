@@ -1,11 +1,11 @@
 ---
 # files for Apache
 #- name: APACHE2 | installing Apache for CentOS
-#  include: redhat.yml
+#  include_tasks: redhat.yml
 #  when: ansible_os_family == "RedHat"
 #
 #- name: APACHE2 | installing Apache for Ubuntu
-#  include: debian.yml
+#  include_tasks: debian.yml
 #  when: ansible_os_family == "Debian"
 
-- include: "{{ ansible_distribution_release }}.yml"
+- include_tasks: "{{ ansible_distribution_release }}.yml"

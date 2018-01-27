@@ -1,7 +1,7 @@
 ---
 # tasks file for PostgreSQL
 
-- include: "{{ ansible_distribution_release }}.yml"
+- include_tasks: "{{ ansible_distribution_release }}.yml"
 
 # Create DB, Users and privileges
 
