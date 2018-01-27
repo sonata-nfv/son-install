@@ -1,6 +1,6 @@
 ---
 
-- debug: msg="##### SP MONIT DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+- debug: msg="##### SP MONIT DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
 
 # Running the Sonata MONITORY Docker Images
 

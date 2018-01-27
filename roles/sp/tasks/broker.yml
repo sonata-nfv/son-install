@@ -1,6 +1,6 @@
 ---
 
-- debug: msg="##### SP BROKER DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+- debug: msg="##### SP BROKER DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
 
 - name: run the SP Message Bus
   docker_container:

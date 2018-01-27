@@ -1,5 +1,5 @@
 ---
-- debug: msg="##### SP BSS DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+- debug: msg="##### SP BSS DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
 
 # Running the Sonata GK BSS Docker Image
 

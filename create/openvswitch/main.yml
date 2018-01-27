@@ -2,7 +2,7 @@
   become: true
   connection: ssh
   pre_tasks:
-    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
     - file:
         path: /var/log/ansible.log
         state: touch

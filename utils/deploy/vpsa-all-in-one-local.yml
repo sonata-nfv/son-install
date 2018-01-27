@@ -7,7 +7,7 @@
 #  vars_files:
 #    - "{{ lookup('env','PWD') }}/roles/{{ plat | default(vm) }}/vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
   pre_tasks:
-    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
     - file:
         path: /var/log/ansible.log
         state: touch

@@ -8,9 +8,9 @@
   remote_user: "{{ vm_user }}"
 
   roles:
-    #- { role: common, become: true }
-    - openstackclients
+    #- common
+    #- openstackclients
     - sp
 
   tasks:
-    - debug: msg="##### SP DEPLOYED SUCCESSFULLY {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    - debug: msg="##### SP DEPLOYED SUCCESSFULLY {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"

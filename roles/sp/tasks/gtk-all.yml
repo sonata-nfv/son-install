@@ -1,5 +1,5 @@
 ---
-- debug: msg="##### SP GTK DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+- debug: msg="##### SP GTK DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
 # Running the Sonata GK Docker Images
 
 - include_tasks: gtk/val.yml

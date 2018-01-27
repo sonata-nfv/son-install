@@ -4,12 +4,15 @@
   hosts: localhost
   become: false
   connection: local
-#  vars_files:
-#    - "{{ lookup('env','PWD') }}/roles/{{ plat | default(vm) }}/vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+  vars:
+    target: localhost
+    plat: vm
+    public_ip: localhost
+    plat_hostname: "{{ lookup('env','HOSTNAME') }}"
   pre_tasks:
     - debug:
         msg: "EXTERNAL VARIABLES: -e 'plat=vm|sp|psa pop=alabs|ncsrd proj=qual|demo distro=trusty|xenial|Core nbofvms=N'"
-    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    - debug: msg="##### VM START DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M') }}"
     - file:
         path: /var/log/ansible.log
         state: touch

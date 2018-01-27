@@ -1,6 +1,8 @@
 ---
 # tasks file for openstackclients
 
+- debug: msg="##### OS CLI {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+
 - include_tasks: "{{ ansible_distribution_release }}.yml"
 
 - name: update 'os-client-config'
@@ -8,22 +10,4 @@
 
 - name: install 'shade'
   pip: name='shade' state=present
-
-
-#- include_vars: "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
-
-#- file:
-#    path: "{{ lookup('env','HOME') }}/.config/openstack/"
-#    state: directory
-#    owner: "{{ vm_user }}"
-#    group: "{{ vm_user }}"
-#    mode: 0755
-
-#- name: copy 'clouds.yaml' to the remote guest
-#  copy:
-#    src: "{{ lookup('env','HOME') }}/.config/openstack/clouds.yaml"
-#    dest: "{{ lookup('env','HOME') }}/.config/openstack/clouds.yaml"
-#    remote_src: no
-#    owner: "{{ vm_user }}"
-#    group: "{{ vm_user }}"
 

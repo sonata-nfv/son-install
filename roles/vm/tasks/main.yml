@@ -1,7 +1,7 @@
 ---
 # tasks file for vm
 
-- debug: msg="##### VM CREATION BEGIN {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+- debug: msg="##### VM CREATE {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
 
 - name: load variables per Site, Tenant and Distro
   include_vars: "{{ item }}"
@@ -22,9 +22,7 @@
 #  when: not plat | search ("docker-")
 #  when: plat.find("docker-") != 1
 
-
 - include_tasks: "{{ lookup('env','PWD') }}/roles/vm/tasks/vm.yml"
-
 
 - lineinfile:
     path: "{{ lookup('env','PWD') }}/ansible.cfg"
@@ -71,7 +69,7 @@
   delay: 10
   with_items: "{{ newvm.results }}"
 
-- debug: msg="##### VM CREATED FINISH {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+- debug: msg="##### VM CREATED FINISH {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
 
 - pause:
     minutes: 1

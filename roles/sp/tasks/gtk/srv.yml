@@ -1,6 +1,6 @@
 ---
 
-- debug: msg="##### SP GTK-SERVICES DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+- debug: msg="##### SP GTK-SERVICES DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
 
 # Ensure son-gtksrv is not present
 - name: DELETE GATEKEEPER SERVICES (GTKSRV) (Docker container)

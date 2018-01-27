@@ -1,5 +1,5 @@
 ---
-- debug: msg="##### SP MONGODB DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+- debug: msg="##### SP MONGODB DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
 
 - name: deploy MongoDB as a Container (used by Monitory)
   docker_container:

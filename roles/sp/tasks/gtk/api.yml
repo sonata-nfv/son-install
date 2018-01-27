@@ -1,5 +1,5 @@
 ---
-- debug: msg="##### SP GTK-API DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+- debug: msg="##### SP GTK-API DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
 
 # Running the Sonata GK API Docker Image
 

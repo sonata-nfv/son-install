@@ -9,7 +9,7 @@
     public_ip: localhost
     plat_hostname: "{{ lookup('env','HOSTNAME') }}"
   pre_tasks:
-    - debug: msg="##### START SP DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    - debug: msg="##### START SP DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M') }}"
     - file:
         path: /var/log/ansible.log
         state: touch
