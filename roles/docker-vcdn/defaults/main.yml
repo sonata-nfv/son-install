@@ -1,10 +1,5 @@
 ---
 # defaults file for docker-vcdn
 
-pop: alabs
-proj: demo
-distro: xenial
-plat: docker-vcdn
-
 vl_mgmt: vcdn-mgmt
 
