@@ -7,7 +7,7 @@
   vars:
     distro: '{{ ansible_distribution_release }}'
   pre_tasks:
-    - debug: msg="##### ACC PREPARE {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+    - debug: msg="##### ACC-PREPARE {{ lookup('pipe', 'date +%Y%M%D%H%M%S') }}"
     - file:
         path: "{{ lookup('env','PWD') }}/ansible.log"
         state: touch

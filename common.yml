@@ -10,7 +10,7 @@
   vars:
     distro: '{{ ansible_distribution_release }}'
   pre_tasks:
-    - debug: msg="##### STANDARDIZE {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+    - debug: msg="##### UPGRADE-PKGs {{ lookup('pipe', 'date +%Y%M%D%H%M%S') }}"
 
   roles:
     - common
