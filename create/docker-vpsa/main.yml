@@ -7,7 +7,7 @@
   remote_user: "{{ vm_user }}"
   pre_tasks:
     - debug:
-        msg: "{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+        msg: "##### DOCKER-vPSA deployment {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
 
   roles:
     - docker-vpsa
