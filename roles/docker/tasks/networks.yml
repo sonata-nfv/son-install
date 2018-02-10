@@ -5,9 +5,13 @@
   no_log: true
   register: dockernet
 
+- debug:
+    var: dockernet
+
 - name: Docker creating network
   shell: 'sudo docker network create --driver=bridge --subnet=172.20.1.0/24 --gateway=172.20.1.1 --ip-range=172.20.1.128/25 "{{ docker_network_name }}"'
   notify:
     - restart docker
   become: true
-  when: dockernet|failed
+  when: dockernet|succeeded
+

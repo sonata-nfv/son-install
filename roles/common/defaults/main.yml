@@ -1,7 +1,5 @@
 ---
 # defaults file for common
+domain_name: sonata-nfv.eu
+fqdn: "{{ plat }}.{{ pop }}.{{ domain_name }}"
 
-pop: alabs
-proj: demo
-distro: xenial
-plat: vm

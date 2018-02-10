@@ -69,11 +69,6 @@
   delay: 10
   with_items: "{{ newvm.results }}"
 
-- debug: msg="##### VM CREATED FINISH {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
-
-- pause:
-    minutes: 1
-
 - name: install Python 2.7 to the new deployed instance, if Xenial
   shell: >
     ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i {{ localhome }}/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} 'sudo apt-get update && sudo apt-get install python-minimal -y'
@@ -86,4 +81,5 @@
 
 - pause:
     minutes: 2
+  when: distro == "xenial"
 

@@ -11,5 +11,6 @@ region_name: "RegionOne"
 key_name: "son-install"
 
 # DEMO-NET
-int_net_id: "83468d84-9ed3-4b83-a2b1-ca589b927ac1" # public.dem-net
+#int_net_id: "83468d84-9ed3-4b83-a2b1-ca589b927ac1" # public.dem-net
+int_net_id: "80368028-ecdd-4bc1-ba28-3c045cffc3d4" # mgmt.dem-net
 ext_net_id: "c004d6e7-1caf-4271-a677-79ae924674d6" # provider.dem-net

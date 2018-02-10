@@ -2,9 +2,6 @@
 # defaults file for sp
 
 nbofvms: 1
-pop: alabs
-proj: demo
-distro: xenial
 
 # Docker network segment
 docker_network_name: sp-docker-net

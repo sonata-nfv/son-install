@@ -6,10 +6,6 @@ sp_user: sonata
 sp_pass: "$1$SRc2ws2Z$rSdCC/UKiatagNdfsTVuf0"
 
 nbofvms: 1
-plat: squid
-pop: alabs
-proj: dem
-distro: xenial
 
 # SONATA 5G NFV SP development/latest version
 domain_name: sonata-nfv.eu
