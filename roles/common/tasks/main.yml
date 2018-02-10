@@ -4,6 +4,3 @@
 
 - include_tasks: "{{ ansible_distribution_release }}.yml"
 
-- pause:
-    minutes: 1
-
