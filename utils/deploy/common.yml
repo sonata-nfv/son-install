@@ -1,31 +1,26 @@
 ---
 
-- name: deploy COMMON to ALL nodes (install latest operating system packages)
+- name: SONATA CMUD v3.1 - upgrade Operating System packages and install useful tools
   hosts: "{{ plat }}"
+  become: true
   connection: ssh
+  remote_user: "{{ vm_user }}"
+  vars_files:
+    - "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
   vars:
     localhome: "{{ lookup('env','PWD') }}"
-#  vars_files:
-#    - "{{ localhome }}/roles/{{ plat }}/vars/os_{{ pop }}_{{ proj }}.yml"
-  remote_user: "{{ vm_user }}"
-
+    distro: '{{ ansible_distribution_release }}'
   pre_tasks:
-    - name: "USAGE: -e plat=localhost -e vm_user=[ubuntu|centos]"
-      pause:
-        seconds: 1
-    - local_action: shell date +'%F %T'
-      register: ts
-    - debug:
-        msg: "{{ ts.stdout }}"
+    - debug: msg="##### UPGRADE-PKGs {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
 
   roles:
-    - { role: ntp, become: true }
-    - { role: common, become: true }
+    - ntp
+    - common
 
   tasks:
 
     - name: REBOOT ALL VMs
-      shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+      shell: sleep 2 && shutdown -r now "PACKAGE UPDATES FORCED RESTART"
       async: 1
       poll: 0
       ignore_errors: true

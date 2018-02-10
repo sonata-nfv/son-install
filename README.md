@@ -12,6 +12,10 @@
 All you need is a 'bash' shell with Ansible installed to run 'son-cmud.yml', ie, all the SONATA CMUD operations can be executed in a single line command
 
 
+## What's new in Release 3.1
+* accounting of deployment times
+
+
 ## What's new in Release 3.0
 * deployment of PSA pilot
 
@@ -39,15 +43,16 @@ Deploy the platform from the scratch for a specific environment (integration, qu
 
 ## Requirements
 
-* Ansible 2.3.0+
+* Ansible 2.4.0+
 
-* if you are deploying the SP to a new VM running on an Openstack VIM, considere the use of pre-build images with cloud-init package at [Get Images](https://docs.openstack.org/image-guide/obtain-images.html)
+* if you are deploying a new VM to an Openstack VIM, considere the use of pre-build images with Cloud-Init available at [Get Images](https://docs.openstack.org/image-guide/obtain-images.html)
+
 
 ## Usage
 
 The structure of 'son-install' is flexible enough to:
-* deploy and manage a single service or application to an existing machine
-* deploy, manage, upgrade, destroy a complex distributed platform
+* deploy and manage a single service or application to the local machine
+* deploy, manage, upgrade, destroy a complex distributed platform to an Openstack VIM
 
 
 ### Deploying to LOCAL machine
@@ -56,7 +61,7 @@ The structure of 'son-install' is flexible enough to:
 
 1. The SP database passwords are now encrypted, so you MUST create an external file "~/.ssh/.vault_pass" with the default "sonata" password
 
-2. You able to customize your environment by changing the SP defaults file: "roles/sp/defaults/main.yml" - eg:
+2. Customize your environment by changing the SP defaults file: "roles/sp/defaults/main.yml" - eg:
 
  pop: alabs
 
@@ -64,7 +69,7 @@ The structure of 'son-install' is flexible enough to:
 
  distro: xenial
 
- docker_network_name: son-sp
+ docker_network_name: son-sp-net
 
  sp_ver: dev
 
@@ -180,22 +185,22 @@ To deploy infrastrucutre resources to an Openstack VIM, the [Openstack command l
 
 * to Ubuntu 16.04 (Xenial)
 <p>
-sudo apt-get update
+```sudo apt-get update```
 <br>
-sudo add-apt-repository ppa:ansible/ansible
+```sudo add-apt-repository ppa:ansible/ansible```
 <br>
-ansible --version (2.4.0+)
+```ansible --version (2.4.0+)```
 </p>
 
 * to CentOS 7
 <p>
-sudo yum update
+```sudo yum update```
 <br>
-sudo yum install epel-release
+```sudo yum install epel-release```
 <br>
-sudo yum install ansible
+```sudo yum install ansible```
 <br>
-ansible --version (2.4.0+)
+```ansible --version (2.4.0+)```
 </p>
 
 
