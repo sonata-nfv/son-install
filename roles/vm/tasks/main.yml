@@ -81,4 +81,5 @@
 
 - pause:
     minutes: 2
+  when: distro == "xenial"
 
