@@ -13,5 +13,5 @@
   notify:
     - restart docker
   become: true
-  when: dockernet|succeeded
+#  when: dockernet|succeeded
 
