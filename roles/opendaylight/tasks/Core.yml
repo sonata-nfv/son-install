@@ -3,16 +3,29 @@
 - name: get ODL tarball
   get_url:
     #url: https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/integration/distribution-karaf/0.5.2-Boron-SR2/distribution-karaf-0.5.2-Boron-SR2.tar.gz
-    url: https://nexus.opendaylight.org/content/repositories/public/org/opendaylight/integration/distribution-karaf/0.6.2-Carbon/distribution-karaf-0.6.2-Carbon.tar.gz
+    #url: https://nexus.opendaylight.org/content/repositories/public/org/opendaylight/integration/distribution-karaf/0.6.2-Carbon/distribution-karaf-0.6.2-Carbon.tar.gz
+    url: https://nexus.opendaylight.org/content/repositories/public/org/opendaylight/integration/karaf/0.7.1/karaf-0.7.1.tar.gz
     dest: "/tmp"
 
 - name: unarchiving ODL tarball
   unarchive:
     #src: "/tmp/distribution-karaf-0.5.2-Boron-SR2.tar.gz"
-    src: "/tmp/distribution-karaf-0.6.2-Carbon.tar.gz"
+    #src: "/tmp/distribution-karaf-0.6.2-Carbon.tar.gz"
+    src: "/tmp/karaf-0.7.1.tar.gz"
     dest: "/tmp"
     remote_src: True
 
+- name: check if JRE is installed
+  command: java -version
+  register: jre_status
+
+- name: set JRE environ var
+  shell: "export JAVA_HOME=/usr/lib/jvm/jre-openjdk/"
+  when: jre_status|succeeded
+
 - name: install ODL
   #shell: /tmp/distribution-karaf-0.5.2-Boron-SR2/bin/karaf
-  shell: /tmp/distribution-karaf-0.6.2-Carbon/bin/karaf
+  #shell: /tmp/distribution-karaf-0.6.2-Carbon/bin/karaf
+  shell: /tmp/karaf-0.7.1/bin/karaf
+  when: jre_status|succeeded
+
