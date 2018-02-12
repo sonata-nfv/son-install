@@ -9,3 +9,7 @@
   #yum: name=java-1.8.0-openjdk state=present update_cache=yes
   yum: name=java-1.7.0-openjdk state=present update_cache=yes
 
+- name: set environment variables
+  command: "export JAVA_HOME=/usr/lib/jvm/jre-openjdk/"
+- shell: "export PATH=$PATH:/usr/lib/jvm/jre-openjdk/bin"
+
