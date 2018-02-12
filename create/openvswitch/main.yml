@@ -2,7 +2,7 @@
   become: true
   connection: ssh
   pre_tasks:
-    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+    - debug: msg="##### START-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
     - file:
         path: /var/log/ansible.log
         state: touch
@@ -12,4 +12,6 @@
       become: true
   roles:
     - openvswitch
+  post_tasks:
+    - debug: msg="##### END-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
 

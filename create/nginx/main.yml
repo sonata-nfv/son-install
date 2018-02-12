@@ -6,12 +6,11 @@
     - "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
 
   pre_tasks:
-
-    - local_action: shell date +'%F %T'
-      register: timestamp
-
-    - debug:
-        msg: "{{ timestamp.stdout }}"
+    - debug: msg="##### START-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
 
   roles:
     - nginx
+
+  post_tasks:
+    - debug: msg="##### END-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+

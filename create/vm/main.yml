@@ -21,3 +21,7 @@
 
 #  tasks:
 #    - include_tasks: "{{ lookup('env','PWD') }}/common.yml"
+
+  post_tasks:
+    - debug: msg="##### END-OF-VM-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+
