@@ -7,7 +7,7 @@
   vars:
     distro: '{{ ansible_distribution_release }}'
   pre_tasks:
-    - debug: msg="##### ACC PREPARE {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+    - debug: msg="##### START-OF-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
     - file:
         path: "{{ lookup('env','HOME') }}/ansible.log"
         state: touch
@@ -35,3 +35,7 @@
 # STEP 4 - DEPLOY SPECIFIC SOFTWARE
 - import_playbook: "{{ lookup('env','PWD') }}/{{ ops }}/{{ plat }}/main.yml"
   when: plat != 'vm'
+
+  post_tasks:
+    - debug: msg="##### END-OF-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+

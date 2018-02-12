@@ -17,13 +17,18 @@
     remote_src: True
   become: true
 
-- name: check if JRE is installed
-  command: java -version
-  register: jre_status
+- name: set JRE environ var
+  shell: "export JAVA_HOME=/usr/lib/jvm/jre-1.7.0-openjdk/"
 
 - name: set JRE environ var
-  shell: "export JAVA_HOME=/usr/lib/jvm/jre-openjdk/"
-  when: jre_status|succeeded
+  shell: "export PATH=/usr/lib/jvm/jre-1.7.0-openjdk/bin:{{ ansible_env.PATH }}"
+
+- name: check if JRE is installed
+  shell: "{{ lookup('env','JAVA_HOME') }}/bin/java -version"
+  register: jre_status
+
+- debug:
+    var: jre_status
 
 - name: running ODL
   #shell: /opt/distribution-karaf-0.5.2-Boron-SR2/bin/karaf
