@@ -1,6 +1,6 @@
 ---
 
-- debug: msg="##### UPGRADE PCKGs {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+- debug: msg="##### UPGRADE PCKGs {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
 - include_tasks: "{{ ansible_distribution_release }}.yml"
 

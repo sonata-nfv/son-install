@@ -7,7 +7,7 @@
   vars:
     distro: '{{ ansible_distribution_release }}'
   pre_tasks:
-    - debug: msg="##### START-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+    - debug: msg="##### START-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
     - file:
         path: "{{ lookup('env','HOME') }}/ansible.log"
         state: touch
@@ -37,5 +37,5 @@
   when: plat != 'vm'
 
 #  post_tasks:
-#    - debug: msg="##### END-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+#    - debug: msg="##### END-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 

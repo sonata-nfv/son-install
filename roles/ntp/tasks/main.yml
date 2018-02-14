@@ -1,6 +1,6 @@
 ---
 
-- debug: msg="##### INSTALLING NTP {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+- debug: msg="##### INSTALLING NTP {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"

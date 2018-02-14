@@ -9,16 +9,22 @@
     mode: 0644
   become_user: root
 
+- debug: msg="##### UPDATING-OS-PACKAGES {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+
 - name: previous install APTitude
   apt: name=aptitude state=present
 
 - name: upgrade all packages to the latest version
   apt: upgrade=yes update_cache=yes
 
+- name: install development libraries and tools
+  apt: name=build-essential state=latest
+
+- debug: msg="##### INSTALLING-PYTHON {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+
 - name: install required libraries and tools for PIP
   apt: name={{ item }} state=latest
   with_items:
-  - build-essential
   - python-dev
   - python-pip
   - libssl-dev
@@ -38,6 +44,8 @@
 
 - name: from Ansible 2.4, the python pyOpenSSL module is required on the ACC even if its already installed
   command: /usr/bin/easy_install pyOpenSSL
+
+- debug: msg="##### INSTALLING-OS-TOOLS {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
 - name: install useful operating system tools
   apt: name={{ item }} state=latest

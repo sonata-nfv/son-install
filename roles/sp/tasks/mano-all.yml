@@ -1,5 +1,5 @@
 ---
-- debug: msg="##### SP MANO DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+- debug: msg="##### SP MANO DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
 # Running the Sonata MANO Docker Images
 

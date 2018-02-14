@@ -1,6 +1,6 @@
 ---
 
-- debug: msg="##### SP GTK-FUNCTIONs DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+- debug: msg="##### SP GTK-FUNCTIONs DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
 # Running the Sonata GK FUNCTIONS (Docker container)
 

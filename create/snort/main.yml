@@ -8,7 +8,7 @@
   remote_user: "{{ vm_user }}"
 
   pre_tasks:
-    - debug: msg="##### START-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+    - debug: msg="##### START-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
     - include_vars: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
     - lineinfile:
         path: "/etc/hosts"
@@ -20,5 +20,5 @@
     - snort
 
   post_tasks:
-    - debug: msg="##### END-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+    - debug: msg="##### END-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 

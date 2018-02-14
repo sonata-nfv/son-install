@@ -5,6 +5,6 @@
     - "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
   remote_user: "{{ vm_user }}"
   pre_tasks:
-    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
   roles:
     - docker-graylog

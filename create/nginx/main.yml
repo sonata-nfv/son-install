@@ -6,11 +6,11 @@
     - "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
 
   pre_tasks:
-    - debug: msg="##### START-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+    - debug: msg="##### START-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
   roles:
     - nginx
 
   post_tasks:
-    - debug: msg="##### END-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+    - debug: msg="##### END-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 

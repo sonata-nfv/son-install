@@ -23,7 +23,7 @@
       poll: 0
       ignore_errors: true
 
-    - debug: msg="##### REBOOTING {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+    - debug: msg="##### REBOOTING {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
     - name: WAITING for server to come back
       local_action: wait_for host={{ ansible_host | default(inventory_hostname) }} port=22 state=started delay=10 timeout=400
