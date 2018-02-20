@@ -18,5 +18,5 @@
 - name: set 'vars' for CA
   copy:
     src: vars
-    dest: /usr/share/easy-rsa
+    dest: /usr/share/easy-rsa/vars
 
