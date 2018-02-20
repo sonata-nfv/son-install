@@ -30,7 +30,6 @@
 
 # STEP 3 - DO PACKAGE UPGRADE & TOOLS INSTALLATION TO THE REMOTE MACHINE
 - import_playbook: "{{ lookup('env','PWD') }}/utils/deploy/common.yml"
-- import_playbook: "{{ lookup('env','PWD') }}/utils/deploy/openstackclients.yml"
 
 # STEP 4 - DEPLOY SPECIFIC SOFTWARE
 - import_playbook: "{{ lookup('env','PWD') }}/{{ ops }}/{{ plat }}/main.yml"

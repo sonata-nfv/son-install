@@ -7,7 +7,7 @@
     - "{{ lookup('env','PWD') }}/group_vars/{{ plat }}/vault.yml"
   remote_user: "{{ vm_user }}"
   pre_tasks:
-    - debug: msg="##### SP-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+    - debug: msg="##### SP-DEPLOYMENT-PREPARE {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
   roles:
     #- common
