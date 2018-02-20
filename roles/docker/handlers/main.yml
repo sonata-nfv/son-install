@@ -1,13 +1,11 @@
 ---
 # handlers file for Docker to RESTART
-- pause:
-    minutes: 1
 
 - name: reload docker
-  service: name=docker state=reload sleep=2
+  service: name=docker state=reload
 
 - name: restart docker
-  service: name=docker state=started sleep=4
+  service: name=docker state=started
 
 - name: restart rsyslog
   service: name=rsyslog state=restarted

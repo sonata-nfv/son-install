@@ -1,7 +1,7 @@
 ---
 # tasks file for vm
 
-- debug: msg="##### VM CREATE {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+- debug: msg="##### CREATE-VM {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
 - name: load variables per Site, Tenant and Distro
   include_vars: "{{ item }}"
@@ -59,6 +59,8 @@
     owner: "{{ lookup('env','USER') }}"
     group: "{{ lookup('env','USER') }}"
     mode: 0644
+
+- debug: msg="##### REBOOT-WAITING {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
 - name: WAIT the SSH port listening at the new deployed instance
   command: >

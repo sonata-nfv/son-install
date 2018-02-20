@@ -8,7 +8,7 @@
     #- "{{ lookup('env','PWD') }}/roles/{{ plat | default(docker-vpsa) }}/defaults/main.yml"
     - "{{ lookup('env','PWD') }}/roles/docker-vpsa/defaults/main.yml"
   pre_tasks:
-    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
     - file:
         path: /var/log/ansible.log
         state: touch

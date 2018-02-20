@@ -1,7 +1,7 @@
 ---
 # tasks file for openstackclients
 
-- debug: msg="##### OS CLI {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+- debug: msg="##### OPENSTACK-CLI {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
 - include_tasks: "{{ ansible_distribution_release }}.yml"
 

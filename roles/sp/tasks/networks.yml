@@ -1,5 +1,5 @@
 - name: Docker User Defined Network
-  shell: 'if ! [[ "$(docker network inspect {{ docker_network_name }} 2> /dev/null)" == "" ]]; then docker network rm {{ docker_network_name }} ; fi & service docker restart'
+  shell: 'if ! [[ "$(docker network inspect {{ docker_network_name }} 2> /dev/null)" == "" ]]; then docker stop $(docker ps -a -q) && docker network rm {{ docker_network_name }} ; fi & service docker restart'
   become: true
 
 - name: Docker creating network

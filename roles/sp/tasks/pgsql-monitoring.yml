@@ -1,5 +1,5 @@
 ---
-- debug: msg="##### SP PGSQL-MONITORING DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+- debug: msg="##### SP-PGSQL-MONIT-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
 - name: deploy a PostgreSQL database server as a Container
   docker_container:

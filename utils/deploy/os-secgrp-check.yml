@@ -1,0 +1,24 @@
+- name: Openstack Security Group check
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  become: false
+  tasks:
+    - name: use Openstack command line clients to check if Security Group exists
+      shell: openstack --os-cloud os_alabs_dem security group list
+      register: os_secgrp
+
+    - debug:
+        var: os_secgrp
+      #when: '"sp-secgrp" | string in os_secgrp'
+      when: not '"sp-secgrp" in os_secgrp'
+      #when: os_secgrp | value("{{ plat }}-secgrp")
+
+    - set_fact: my_os_secgrp="{{ os_secgrp.stdout }}-"
+
+    - debug:
+        var: my_os_secgrp
+      #when: '"sp-secgrp" | string in os_secgrp'
+      when: not '"sp-secgrp" in os_secgrp'
+      #when: os_secgrp | value("{{ plat }}-secgrp")
+

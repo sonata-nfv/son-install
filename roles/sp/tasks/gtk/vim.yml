@@ -1,6 +1,6 @@
 ---
 
-- debug: msg="##### SP GTK-VIM DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+- debug: msg="##### SP GTK-VIM DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
 # Ensure son-gtkvim is not present
 - name: DELETE GATEKEEPER VIM (GTKVIM) (Docker container)

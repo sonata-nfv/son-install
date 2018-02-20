@@ -47,6 +47,11 @@
   shell: "echo 'sonata ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers.d/90-cloud-init-users"
   when: ansible_os_family == "RedHat"
 
+- include_tasks: "{{ lookup('env','PWD') }}/roles/docker/tasks/networks.yml"
+
+- pause:
+    seconds: 10
+
 - name: restart docker on Upstart (Ubuntu 14)
   service: name=docker state=restarted
   when: ansible_distribution_release == "trusty"
@@ -54,8 +59,6 @@
 - name: restart docker on Systemd (Ubuntu 16 and CentOS 7)
   systemd: name=docker state=restarted daemon_reload=yes
   when: ansible_distribution_release == "xenial" or ansible_distribution_release == "Core"
-
-#- include_tasks: "{{ lookup('env','PWD') }}/roles/docker/tasks/networks.yml"
 
 - name: force all notified handlers to run at this point, not waiting for normal sync points
   meta: flush_handlers

@@ -1,6 +1,6 @@
 ---
 
-- debug: msg="##### SP GUI DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+- debug: msg="##### SP GUI DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
 # Running the Sonata GK GUI (Docker container)
 

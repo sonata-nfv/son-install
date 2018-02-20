@@ -14,7 +14,8 @@
     - openssl-devel
     - libffi-devel
 
-# INSTALL VIA PIP - The packaged version might install older clients. If you want to make sure the latest clients are installed, you might need to install the clients with PIP.
+# INSTALL VIA PIP - The packaged version might install older clients.
+# NOTE: If you want to make sure the latest clients are installed, you might need to install the clients with PIP.
 
 - command: pip install --upgrade pip
 
@@ -48,18 +49,4 @@
     #- python-ironicclient
     #- python-troveclient
     #- python-magnumclient
-
-#- name: install RDO repos (provides RPM packages of Python Openstack command line clients)
-#  yum: name=centos-release-openstack-{{ openstack_release }} state=present 
-
-#- name: get OpenStack Client Configuration Library (os-client-config)
-#  get_url:
-#    #url: https://pypi.python.org/packages/27/13/aca5ca37a70ffefec4e6550b766c760743ccd68a7e0b9ebd1f801e7b178b/os-client-config-1.26.0.tar.gz#md5=0dd6b8d38e1375822fbff8e0df302631
-#    url: https://pypi.python.org/packages/84/18/7a950c23631fccd09aa33832df52b7bfce2cf2ea104959a14c04512b19db/os-client-config-1.28.0.tar.gz#md5=cf0bffcf349932c306fd1d81459b1a9e
-#    dest: "/tmp"
-
-#- name: install os-client-config
-#  pip: name='file:///tmp/os-client-config-1.28.0.tar.gz' state=present
-
-#- include_tasks: shade.yml
 

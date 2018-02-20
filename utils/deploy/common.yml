@@ -1,12 +1,12 @@
 ---
 
 - name: SONATA CMUD v3.1 - upgrade Operating System packages and install useful tools
-  hosts: "{{ plat }}"
+  hosts: "{{ plat | default('localhost') }}"
   become: true
   connection: ssh
-  remote_user: "{{ vm_user }}"
+  remote_user: "{{ vm_user | default('sonata') }}"
   vars_files:
-    - "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+    - "{{ lookup('env','PWD') }}/group_vars/os_{{ pop | default('alabs') }}_{{ proj | default('dem') }}_{{ distro | default('xenial') }}.yml"
   vars:
     localhome: "{{ lookup('env','PWD') }}"
     distro: '{{ ansible_distribution_release }}'
@@ -14,6 +14,7 @@
   roles:
     - ntp
     - common
+    - openstackclients
 
   tasks:
 
@@ -23,7 +24,7 @@
       poll: 0
       ignore_errors: true
 
-    - debug: msg="##### REBOOTING {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+    - debug: msg="##### REBOOTING {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
     - name: WAITING for server to come back
       local_action: wait_for host={{ ansible_host | default(inventory_hostname) }} port=22 state=started delay=10 timeout=400

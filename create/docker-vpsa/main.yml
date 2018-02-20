@@ -6,8 +6,7 @@
     - "{{ lookup('env','PWD') }}/roles/{{ plat }}/defaults/main.yml"
   remote_user: "{{ vm_user }}"
   pre_tasks:
-    - debug:
-        msg: "##### DOCKER-vPSA deployment {{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+    - debug: msg="##### START-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
   roles:
     - docker-vpsa
@@ -16,3 +15,7 @@
 #    - docker-squid
 #    - docker-snort
 #    - docker-openvpn
+
+  post_tasks:
+    - debug: msg="##### END-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+
