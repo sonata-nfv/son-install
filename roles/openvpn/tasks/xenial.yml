@@ -12,11 +12,13 @@
     - openvpn
     - easy-rsa
 
-- name: setup the CA directory
-  shell: make-cadir "{{ lookup('env','HOME') }}/openvpnca"
-
 - name: set 'vars' for CA
   copy:
-    src: vars
-    dest: /usr/share/easy-rsa/vars
+    src: "{{ lookup('env','PWD') }}/roles/openvpn/files/vars"
+    dest: /usr/share/easy-rsa/
+    remote_src: true
+  delegate_to: localhost
+
+- name: setup the CA directory
+  shell: make-cadir "{{ lookup('env','HOME') }}/openvpnca"
 
