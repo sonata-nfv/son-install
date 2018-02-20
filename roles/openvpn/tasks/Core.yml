@@ -1,0 +1,14 @@
+- debug: msg="##### INSTALLING OpenVPN {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+
+- name:  upgrade all packages to the latest version
+  yum: name='*' state=latest update_cache=yes
+
+- yum: name=epel-release state=latest
+
+- name: install OpenVPN and tools
+  yum: name={{ item }}
+  with_items:
+    - openvpn
+    - easy-rsa
+    #- iptables-services
+
