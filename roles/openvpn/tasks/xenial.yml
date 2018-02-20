@@ -12,6 +12,12 @@
     - openvpn
     - easy-rsa
 
+- name: create dir for CA
+  file:
+    path: "{{ lookup('env','HOME') }}/openvpn-ca"
+    state: directory
+    mode: 0755
+
 - name: setup the CA directory
   shell: make-cadir ~/openvpn-ca
 
