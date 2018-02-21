@@ -1,7 +1,2 @@
 ---
 # vars file for vm
-#mgmt: 
-#cpin: 
-#cpou: 
-public_ip: '172.31.6.27'
-plat_hostname: vm-alabs-dem-Core-01-1518634998

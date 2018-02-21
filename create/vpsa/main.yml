@@ -14,8 +14,8 @@
 
   roles:
     - haproxy
-    #- openvpn
+    - openvpn
     - nginx
-    #- pfsense
     - snort
     - squid
+    - firewall

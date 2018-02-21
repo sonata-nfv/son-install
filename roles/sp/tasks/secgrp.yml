@@ -8,7 +8,7 @@
     state: present
     name: "{{ plat }}-secgrp"
     description: SONATA SP ports
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 - name: create a security rule on that group to allow any SSH connection
   os_security_group_rule:
@@ -18,7 +18,7 @@
     port_range_min: 22
     port_range_max: 22
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 - name: create a security rule on that group to allow any HTTP connection
   os_security_group_rule:
@@ -28,7 +28,7 @@
     port_range_min: 80
     port_range_max: 80
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 - name: create a security rule on that group to allow any HTTPS connection
   os_security_group_rule:
@@ -38,7 +38,7 @@
     port_range_min: 443
     port_range_max: 443
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 ### GTK
 
@@ -50,7 +50,7 @@
     port_range_min: 80
     port_range_max: 80
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 - name: create a security rule on that group to allow any connection to GTK-BSS 
   os_security_group_rule:
@@ -60,7 +60,7 @@
     port_range_min: 25001
     port_range_max: 25002
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 - name: create a security rule on that group to allow any connection to GTK-FNCT 
   os_security_group_rule:
@@ -70,7 +70,7 @@
     port_range_min: 5500
     port_range_max: 5500
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 - name: create a security rule on that group to allow any connection to GTK-KPI 
   os_security_group_rule:
@@ -80,7 +80,7 @@
     port_range_min: 5400
     port_range_max: 5400
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 - name: create a security rule on that group to allow any connection to GTK-LIC 
   os_security_group_rule:
@@ -90,7 +90,7 @@
     port_range_min: 5900
     port_range_max: 5900
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 - name: create a security rule on that group to allow any connection to GTK-PKG
   os_security_group_rule:
@@ -100,7 +100,7 @@
     port_range_min: 5100
     port_range_max: 5100
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 - name: create a security rule on that group to allow any connection to GTK-REC
   os_security_group_rule:
@@ -110,7 +110,7 @@
     port_range_min: 5800
     port_range_max: 5800
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 - name: create a security rule on that group to allow any connection to GTK-SRV 
   os_security_group_rule:
@@ -120,7 +120,7 @@
     port_range_min: 5300
     port_range_max: 5300
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 - name: create a security rule on that group to allow any connection to GTK-VIM 
   os_security_group_rule:
@@ -130,7 +130,7 @@
     port_range_min: 5700
     port_range_max: 5700
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 - name: create a security rule on that group to allow any connection to GTK-API
   os_security_group_rule:
@@ -140,7 +140,7 @@
     port_range_min: 32001
     port_range_max: 32001
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 ### REPOs
 
@@ -152,7 +152,7 @@
     port_range_min: 4002
     port_range_max: 4002
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 ### MANO
 
@@ -164,7 +164,7 @@
     port_range_min: 8001
     port_range_max: 8001
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 ### MONIT
 
@@ -176,7 +176,7 @@
     port_range_min: 8086
     port_range_max: 8086
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 - name: create a security rule on that group to allow any connection to MONITMGR
   os_security_group_rule:
@@ -186,7 +186,7 @@
     port_range_min: 8000
     port_range_max: 8000
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 - name: create a security rule on that group to allow any connection to PROMETHEUS
   os_security_group_rule:
@@ -196,7 +196,7 @@
     port_range_min: 9089
     port_range_max: 9090
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 - name: create a security rule on that group to allow any connection to PUSHGW
   os_security_group_rule:
@@ -206,7 +206,7 @@
     port_range_min: 9091
     port_range_max: 9091
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"sp-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 ### IA
 

@@ -6,31 +6,31 @@
   os_security_group:
     cloud: "os_{{ pop }}_{{ proj }}"
     state: present
-    name: "ovpn-secgrp"
+    name: "{{ plat }}-secgrp"
     description: VPN server ports
-  when: not '"ovpn-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 # VPN
 
 - name: create a security rule on that group to allow client SSL connections
   os_security_group_rule:
     cloud: "os_{{ pop }}_{{ proj }}"
-    security_group: "ovpn-secgrp"
+    security_group: "{{ plat }}-secgrp"
     protocol: tcp
     port_range_min: 443
     port_range_max: 443
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"ovpn-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 - name: create a security rule on that group to allow any VPN connection
   os_security_group_rule:
     cloud: "os_{{ pop }}_{{ proj }}"
-    security_group: "ovpn-secgrp"
+    security_group: "{{ plat }}-secgrp"
     protocol: tcp
     port_range_min: 1194
     port_range_max: 1194
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"ovpn-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 # TOR ports
 
@@ -40,22 +40,22 @@
 - name: create a security rule on that group to allow PROXY client connections
   os_security_group_rule:
     cloud: "os_{{ pop }}_{{ proj }}"
-    security_group: "ovpn-secgrp"
+    security_group: "{{ plat }}-secgrp"
     protocol: tcp
     port_range_min: 3128
     port_range_max: 3128
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"ovpn-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
-- name: create a security rule on that group to allow client HTTP connections
+- name: create a security rule on that group to allow client PROXY connections
   os_security_group_rule:
     cloud: "os_{{ pop }}_{{ proj }}"
-    security_group: "ovpn-secgrp"
+    security_group: "{{ plat }}-secgrp"
     protocol: tcp
     port_range_min: 8080
     port_range_max: 8080
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"ovpn-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
 # IDS ports
 
@@ -65,10 +65,10 @@
 - name: create a security rule on that group to allow client HTTP connections
   os_security_group_rule:
     cloud: "os_{{ pop }}_{{ proj }}"
-    security_group: "ovpn-secgrp"
+    security_group: "{{ plat }}-secgrp"
     protocol: tcp
     port_range_min: 80
     port_range_max: 80
     remote_ip_prefix: 0.0.0.0/0
-  when: not '"ovpn-secgrp" in os_secgrp'
+  when: os_secgrp.stdout.find('{{ plat }}-secgrp') == -1
 
