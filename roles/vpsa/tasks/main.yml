@@ -1,9 +1,28 @@
 ---
 # tasks file for vpsa
 
-- include_tasks: squid.yml
-- include_tasks: haproxy.yml
-- include_tasks: ldap.yml
-- include_tasks: snort.yml
-- include_tasks: openvpn.yml
-- include_tasks: nginx.yml
+- debug: msg="##### DEPLOYING FW {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+- name: instanciate FW
+  include_role:
+    name: firewall
+
+- debug: msg="##### DEPLOYING NGINX {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+- name: instanciate NGINX
+  include_role:
+    name: nginx
+
+- debug: msg="##### DEPLOYING SQUID {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+- name: instanciate SQUID
+  include_role:
+    name: squid
+
+- debug: msg="##### DEPLOYING SNORT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+- name: instanciate SNORT
+  include_role:
+    name: snort
+
+- debug: msg="##### DEPLOYING OPENVPN {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+- name: instanciate OPENVPN
+  include_role:
+    name: openvpn
+
