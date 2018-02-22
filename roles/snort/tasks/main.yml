@@ -19,12 +19,6 @@
     group: root
     mode: 0755
 
-#- file:
-#    path: /usr/local/bin/pulledpork.pl
-#    owner: root
-#    group: root
-#    mode: 0755
-
 - file:
     path: /etc/snort
     state: directory
@@ -39,8 +33,10 @@
     - /tmp/pulledpork/etc/*.conf
 
 # provide feedback on the installed version
-- command: sudo snort -V
+- command: snort -V
   register: snort_ver
+  become: true
+
 - debug:
     var: snort_ver.stdout
 

@@ -14,11 +14,12 @@ All you need is a 'bash' shell with Ansible installed to run 'son-cmud.yml', ie,
 
 ## What's new in Release 3.1
 * accounting of deployment metrics with formated timestamp for Excel (YYYY-mm-dd hh:mm:ss)
+* deployment of vPSA all-in-one (a single VM running all the NS inside)
 
 
 ## What's new in Release 3.0
 * deployment of PSA pilot (based on individual VM for each VNF)
-* deployment of dockerized version of PSA pilot (based on a single VM to run the Docker conetainer for each VNF)
+* deployment of dockerized version of PSA pilot (based on a single VM to run the Docker container of each VNF)
 
 
 ## What's new in Release 2.1
