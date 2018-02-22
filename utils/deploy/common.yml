@@ -19,14 +19,17 @@
   tasks:
 
     - name: REBOOT ALL VMs
-      shell: sleep 2 && shutdown -r now "PACKAGE UPDATES FORCED RESTART"
+      shell: sleep 2 && shutdown -r now "due to PACKAGE UPDATE - FORCED RESTART"
       async: 1
       poll: 0
       ignore_errors: true
 
     - debug: msg="##### REBOOTING {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
+    - pause:
+        minutes: 2
+
     - name: WAITING for server to come back
-      local_action: wait_for host={{ ansible_host | default(inventory_hostname) }} port=22 state=started delay=10 timeout=400
+      local_action: wait_for host="{{ ansible_host | default(inventory_hostname) }} port=22 state=started delay=10 timeout=400"
       become: false
 

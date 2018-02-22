@@ -4,3 +4,11 @@
 - name: Installing NGINX
   include_tasks: "{{ ansible_os_family }}.yml"
 
+# provide feedback on the installed version
+- command: nginx -V
+  register: nginx_ver
+  become: true
+
+- debug:
+    var: nginx_ver.stdout
+
