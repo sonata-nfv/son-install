@@ -1,3 +1,0 @@
-[sp]
-[vm]
-vm-alabs-dem-Core-01-1518634998 ansible_connection=ssh ansible_user=centos ansible_ssh_private_key_file=/home/centos/.ssh/son-install.pem ansible_host=172.31.6.27 
