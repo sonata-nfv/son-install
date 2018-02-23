@@ -16,6 +16,9 @@
     - libdnet-devel 
     - tcpdump
 
+- command: ln -s /usr/lib64/libdnet.so /usr/lib64/libdnet.1
+  become: true
+
 - name: install DAG
   yum: 
     name: https://snort.org/downloads/snort/daq-2.0.6-1.centos7.x86_64.rpm
