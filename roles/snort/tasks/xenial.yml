@@ -35,13 +35,13 @@
     remote_src: true
 
 - name: install SNORT (w/ ability to packet performance monitoring)
-  #shell: cd /tmp/snort_src/snort-2.9.11.1 && ./configure --enable-sourcefire && make && make install
-  shell: "{{ item }}"
-  with_items:
-    - cd /tmp/snort_src/snort-2.9.11.1
-    - ./configure  --enable-sourcefire
-    - make
-    - make install
+  shell: cd /tmp/snort_src/snort-2.9.11.1 && ./configure --enable-sourcefire && make && make install
+  #shell: "{{ item }}"
+  #with_items:
+  #  - cd /tmp/snort_src/snort-2.9.11.1
+  #  - ./configure  --enable-sourcefire
+  #  - make
+  #  - make install
 
 - name: upload shared libraries (otherwise you will get an error when you try to run Snort)
   command: ldconfig
