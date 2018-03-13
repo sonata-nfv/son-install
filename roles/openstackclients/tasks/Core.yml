@@ -16,8 +16,12 @@
 
 # INSTALL VIA PIP - The packaged version might install older clients.
 # NOTE: If you want to make sure the latest clients are installed, you might need to install the clients with PIP.
-
-- command: pip install --upgrade pip
+#- command: pip install --upgrade pip
+- name: Upgrade PIP
+  pip:
+    name: pip
+    extra_args: --upgrade
+    state: latest
 
 - name: install required libraries for Shade (https://pypi.python.org/pypi/shade/)
   pip: name={{ item }} state=latest
