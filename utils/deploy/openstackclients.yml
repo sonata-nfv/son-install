@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: "{{ target | default ('localhost') }}"
   connection: local
   become: true
   roles:
