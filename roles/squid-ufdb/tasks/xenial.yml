@@ -1,0 +1,10 @@
+---
+- name: download ufdbGuard tarball
+  unarchive:
+    src: https://www.urlfilterdb.com/files/downloads/ufdbGuard-latest.tar.gz
+    dest: /tmp
+    remote_src: true
+
+- name: install ufdbGuard
+  shell: cd /tmp/snort_src/daq-2.0.6 && ./configure && make && make install
+

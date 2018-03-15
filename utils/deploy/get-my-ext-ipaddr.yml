@@ -1,0 +1,12 @@
+---
+
+- hosts: "localhost"
+  become: false
+  connection: local
+  tasks:
+    - name: Get my public IP from ipify.org
+      ipify_facts:
+      register: myextipaddr
+
+    - debug:
+        msg: "{{ myextipaddr }}"
