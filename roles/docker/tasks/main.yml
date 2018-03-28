@@ -19,6 +19,10 @@
     groups: docker
     append: yes
 
+- set_fact:
+    vm_user: "{{ lookup('env','USER') }}"    
+    when: target == 'localhost'
+
 - name: create a directory for Docker logging
   file:
     path: /var/log/docker
