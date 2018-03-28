@@ -1,6 +1,6 @@
 ---
 - name: "deploy Apache to the VM appliance"
-  hosts: "{{ target }}"
+  hosts: "{{ target | default(localhost) }}"
   become: true
   roles:
   - apache

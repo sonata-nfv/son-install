@@ -1,6 +1,6 @@
 ---
 - name: deploy OpenDaylight to the target machine
-  hosts: "{{ target }}"
+  hosts: "{{ target | default(localhost) }}"
   become: true
   connection: local
   environment:

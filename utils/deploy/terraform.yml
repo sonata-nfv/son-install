@@ -1,6 +1,6 @@
 ---
 - name: deploy TERRAFORM to the VM appliance
-  hosts: "{{ target }}"
+  hosts: "{{ target | default(localhost) }}"
   become: true
   tasks:
 

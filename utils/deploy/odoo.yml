@@ -1,6 +1,6 @@
 ---
 - name: "deploy ODOO (OpenERP Community Edition) to the VM appliance"
-  hosts: "{{ target }}"
+  hosts: "{{ target | default(localhost) }}"
   become: true
   connection: local
   vars:

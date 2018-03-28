@@ -1,6 +1,6 @@
 ---
 - name: "deploy JENKINS CI server to the target VM appliance"
-  #hosts: "{{ target }}"
+  #hosts: "{{ target | default(localhost) }}"
   hosts: nfvi
   become: true
   connection: ssh

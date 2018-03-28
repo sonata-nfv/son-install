@@ -1,6 +1,6 @@
 ---
 - name: "deploy OTRS 5 HelpDesk to the VM appliance"
-  hosts: "{{ target }}"
+  hosts: "{{ target | default(localhost) }}"
   sudo: yes
   roles:
   - apache

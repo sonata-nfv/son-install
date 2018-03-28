@@ -1,6 +1,6 @@
 ---
 - name: deploy GRAYLOG as a Docker container to the target machine
-  hosts: "{{ target }}"
+  hosts: "{{ target | default(localhost) }}"
   become: true
 
   pre_tasks:

@@ -7,7 +7,7 @@
     - "{{ ansible_os_family }}.yml"
     - "default.yml"
 
-- include_vars: "{{ lookup('env','PWD') }}/roles/{{ plat }}/defaults/main.yml"
+#- include_vars: "{{ lookup('env','PWD') }}/roles/{{ plat }}/defaults/main.yml"
 
 - group:
     name: docker

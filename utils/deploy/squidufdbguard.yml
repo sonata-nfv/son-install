@@ -1,6 +1,6 @@
 ---
 - name: deploy SQUID to the target machine
-  hosts: "{{ target }}"
+  hosts: "{{ target | default(localhost) }}"
   become: true
   roles:
   - squidguard
