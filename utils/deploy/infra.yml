@@ -1,43 +1,52 @@
 ---
 
-- name: deploy Infrastructure resources for specific environments
+- name: deploy Infrastructure resources for K8s cluster
   hosts: localhost
   become: false
   connection: local
   vars:
-    localhome: "{{ lookup('env','PWD') }}"
-    vm_distro: "{{ distro }}"
+    localhome: "lookup('env','PWD')"
   vars_files:
-    - "{{ localhome }}/roles/{{ plat }}/vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
-    - "{{ localhome }}/roles/{{ plat }}/vars/main.yml"
+    - "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
 
   tasks:
 
-#    - include_vars: "{{ localhome }}/environments/{{ plat }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+    - include_tasks: "{{ lookup('env','PWD') }}/roles/kubemaster/tasks/secgrp.yml"
+    - include_tasks: "{{ lookup('env','PWD') }}/roles/kubeminion/tasks/secgrp.yml"
 
     - name: launch 'N' instances
       os_server:
         # http://docs.openstack.org/developer/os-client-config/
         cloud: "os_{{ pop }}_{{ proj }}"
-        name: "{{ item.name }}"
+        name: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ ansible_date_time.epoch }}"
         state: present
-        key_name: "{{ item.key }}"
-        availability_zone: "{{ item.availability_zone }}"
-        security_groups: "{{ security_groups }}"
-        nics: "{{ item.nics }}"
-        image: "{{ item.image }}"
-        flavor: "{{ item.flavor }}"
+        key_name: "{{ key_name }}"
+        availability_zone: "{{ availability_zone }}"
+        security_groups: "{{ os_security_groups }}"
+        floating_ip_pools: "{{ ext_net_id }}"
+        nics:
+          - net-id: "{{ int_net_id }}"
+        image: "{{ image }}"
+        flavor: "{{ flavor }}"
+        userdata: "{{ localhome }}/userdata/{{ distro }}.sh"
+        meta:
+          hostname: "{{ plat }}-{{ pop }}-{{ proj }}-{{ distro }}-{{ ansible_date_time.epoch }}"
+          group: "{{ plat }}"
         timeout: 360
         wait: yes
-      with_items: "{{ servers }}"
-      register: "os_hosts"
+      with_items:
+        - { name: kubemaster00, flavor: m1.small }
+        - { name: kubeminion01, flavor: m1.small }
+        - { name: kubeminion02, flavor: m1.small }
+        - { name: kubeminion03, flavor: m1.small }
+      register: "kube_nodes"
 
     - name: create IN-MEMORY Inventory # temporary in-memory group of hosts that only persists until the end of the playbook
       add_host:
         name: "{{ item.openstack.name }}"
         groups: "{{ item.item.meta.group }}"
         ansible_host: "{{ item.openstack.accessIPv4 }}"
-      with_items: "{{ os_hosts.results }}"
+      with_items: "{{ kube_nodes.results }}"
 
     - name: create STATIC Inventory based on a provided Template ['jinja2'](http://docs.ansible.com/ansible/template_module.html)
       template: 
@@ -63,5 +72,5 @@
       until: result|success
       retries: 20
       delay: 10
-      with_items: "{{ os_hosts.results }}"
+      with_items: "{{ kube_nodes.results }}"
 
