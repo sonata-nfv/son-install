@@ -12,7 +12,7 @@
   pre_tasks:
     - debug:
         msg: "EXTERNAL VARIABLES: -e 'plat=vm|sp|psa pop=alabs|ncsrd proj=qual|demo distro=trusty|xenial|Core nbofvms=N'"
-    - debug: msg="##### VM START DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d%H%M') }}"
+    - debug: msg="##### VM START DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M%S') }}"
     - file:
         path: /var/log/ansible.log
         state: touch
@@ -25,4 +25,4 @@
     - { role: openstackclients, become: true }
     - vm
 
-- include_tasks "{{ lookup('env','PWD') }}/common.yml"
+- import_playbook: "{{ lookup('env','PWD') }}/utils/deploy/common.yml"

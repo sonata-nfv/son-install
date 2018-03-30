@@ -1,6 +1,10 @@
 ---
 
-- include_tasks: ../../infra.yml
-- include_tasks: ../../common.yml
+#- include_tasks: ../../infra.yml
+#- include_tasks: ../../common.yml
+
+- import_playbook: "{{ lookup('env','PWD') }}/utils/deploy/infra.yml"
+- import_playbook: "{{ lookup('env','PWD') }}/utils/deploy/common.yml"
+
 - include_tasks: kube.yml
 
