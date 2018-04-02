@@ -57,6 +57,6 @@
   - flanneld
   - docker
 
-- command: kubectl config set-cluster default-cluster --server=http://kube-master:8080
+- command: kubectl config set-cluster default-cluster --server=http://kubemaster00:8080
 - command: kubectl config set-context default-context --cluster=default-cluster --user=default-admin
 - command: kubectl config use-context default-context

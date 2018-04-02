@@ -34,16 +34,19 @@ Example Playbook
 ----------------
 
 To deploy a Kubernetes cluster run:
-
-* ansible-playbook kube.yml
+```
+* $ ansible-playbook kube.yml
+```
 
 To deploy a Kubertnetes Master run:
-
-* ansible-playbook kube-master.yml
+```
+* $ ansible-playbook kubemaster.yml
+```
 
 To deploy a Kubertnetes Node run:
-
-* ansible-playbook kube-nodes.yml
+```
+* $ ansible-playbook kube-nodes.yml
+```
 
 [ASCIINEMA](http://asciinema.org/a/57pdyw66gua5owa8v27vizzbm)
 

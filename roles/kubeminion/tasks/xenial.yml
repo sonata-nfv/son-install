@@ -51,5 +51,5 @@
 
 
 - name: initialize Kube Master
-  shell: 'kubeadm join --token={{ kube-mst-token }} kube-master'
+  shell: 'kubeadm join --token={{ kube-mst-token }} kubemaster00'
 
