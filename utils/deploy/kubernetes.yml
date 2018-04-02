@@ -5,6 +5,8 @@
   hosts: kube-master
   become: true
   connection: ssh
+  vars:
+    domain_name: sonata-nfv.eu
   roles:
   - ntp
   - common

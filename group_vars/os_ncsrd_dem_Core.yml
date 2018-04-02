@@ -10,6 +10,5 @@ region_name: RegionOne
 key_name: son-install
 
 # DEMO-NET
-#int_net_id: "83468d84-9ed3-4b83-a2b1-ca589b927ac1" # sonata.dem-net
-int_net_id: "80368028-ecdd-4bc1-ba28-3c045cffc3d4" # mgmt.dem-net
-ext_net_id: "53d43a3e-8c86-48e6-b1cb-f1f2c48833de" # provider
+int_net_id: "95cf5fd4-b86f-43bb-a291-d3569cf07522" # INTERNAL (192.168.10.0/24)
+ext_net_id: "c004d6e7-1caf-4271-a677-79ae924674d6" # PROVIDER (10.100.16.0/24) 
