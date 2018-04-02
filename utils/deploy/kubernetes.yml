@@ -9,10 +9,6 @@
   connection: ssh
   vars:
     domain_name: sonata-nfv.eu
-    plat: kube
-    pop: alabs
-    proj: dem
-    distro: Core
   roles:
   - ntp
   - common
@@ -24,10 +20,6 @@
   connection: ssh
   vars:
     domain_name: sonata-nfv.eu
-    plat: kube
-    pop: alabs
-    proj: dem
-    distro: Core
   roles:
   - ntp
   - common
