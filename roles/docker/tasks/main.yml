@@ -9,19 +9,21 @@
 
 #- include_vars: "{{ lookup('env','PWD') }}/roles/{{ plat }}/defaults/main.yml"
 
-- group:
+- name: create Docker group
+  group:
     name: docker
     state: present
-
-- user:
-    name: sonata
-    shell: /bin/bash
-    groups: docker
-    append: yes
 
 - set_fact:
     vm_user: "{{ lookup('env','USER') }}"    
     when: target == 'localhost'
+
+- name: add Docker group to default user
+  user:
+    name: "{{ vm_user }}"
+    shell: /bin/bash
+    groups: docker
+    append: yes
 
 - name: create a directory for Docker logging
   file:

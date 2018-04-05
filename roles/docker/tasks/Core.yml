@@ -15,7 +15,6 @@
     name: '{{ item }}'
     state: present
   with_items: 
-    #- docker-py==1.9.0
     - docker-py
     - six
 
@@ -24,12 +23,6 @@
 
 - name: install Docker on CentOS7
   yum: name=docker-engine state=present update_cache=yes
-
-- name: add user to Docker group
-  user: name=sonata shell=/bin/bash groups=docker append=yes
-
-- name: "Add default image user to group"
-  user: name="{{ vm_user }}" shell=/bin/bash groups=docker append=yes
 
 - name: add Docker configuration options
   copy: src=docker2systemd dest=/etc/sysconfig/docker owner=root group=root mode=0644
@@ -48,7 +41,4 @@
 
 - pause:
     seconds: 3
-
-- name: restart docker on Systemd (Ubuntu 16 and CentOS 7)
-  systemd: name=docker state=reloaded daemon_reload=yes
 
