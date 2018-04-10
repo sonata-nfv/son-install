@@ -1,6 +1,6 @@
 ---
 - name: deploy OpenLDAP server and libraries to the target machine
-  hosts: "{{ target }}"
+  hosts: "{{ target | default(localhost) }}"
   become: true
   connection: local
   pre_tasks:

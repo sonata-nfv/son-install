@@ -1,0 +1,4 @@
+---
+# tasks file for openvpn
+
+- include_tasks: "{{ ansible_distribution_release }}.yml"

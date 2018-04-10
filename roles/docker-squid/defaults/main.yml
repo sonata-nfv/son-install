@@ -1,14 +1,7 @@
 ---
-pop: alabs
-proj: demo
-distro: xenial
 
-#vl_enduser: "{{ 'sonata.dem-net' if pop == 'ncsrd' and proj == 'dem' else 'demo-netw' }}"
+#vl_enduser: "{{ 'sonata.dem-net' if pop == 'ncsrd' and proj == 'dem' else 'dem-netw' }}"
 
-vl_mgmt: vpsa-mgmt
-vl_enduser: vpsa-enduser
-
-vl_ids: vpsa-ids
-vl_fwin: vpsa-fwin
-vl_fwout: vpsa-fwout
+vl_prxin: vpsa-prxin
+vl_prxout: vpsa-prxout
 

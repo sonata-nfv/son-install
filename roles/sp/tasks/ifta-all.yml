@@ -1,7 +1,7 @@
 ---
 
-- debug: msg="##### SP IFTA DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+- debug: msg="##### SP IFTA DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
-- include: ifta/vim-adaptor.yml
-- include: ifta/wim-adaptor.yml
+- include_tasks: ifta/vim-adaptor.yml
+- include_tasks: ifta/wim-adaptor.yml
 

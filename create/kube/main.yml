@@ -1,6 +1,6 @@
 ---
 
-- include: ../../infra.yml
-- include: ../../common.yml
-- include: kube.yml
+- import_playbook: "{{ lookup('env','PWD') }}/utils/deploy/kube_infra.yml"
+- import_playbook: "{{ lookup('env','PWD') }}/utils/deploy/common.yml"
+- import_playbook: "{{ lookup('env','PWD') }}/create/kube/kube.yml"
 

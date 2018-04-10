@@ -1,33 +1,30 @@
----
-- hosts: "{{ plat }}"
-  become: true
-  connection: ssh
-  pre_tasks:
-    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
-    - file:
-        path: /var/log/ansible.log
-        state: touch
-        owner: "{{ lookup('env','USER') }}"
-        group: "{{ lookup('env','USER') }}"
-        mode: "u=rw,g=rw,o=rw"
-      become: true
-    - lineinfile:
-        become: true
-        path: "/etc/hosts"
-        line: "{{ public_ip }} {{ plat_hostname }}"
-        create: yes
-        state: present
+- debug: msg="##### DEPLOYING DOCKER {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+- name: install Docker
+  include_role:
+    name: docker
 
-  roles:
-    #- common
-    - docker
-    #- docker-haproxy
-    - docker-snort
-    #- docker-openldap
-    - docker-squid
-    #- docker-addblk
-    #- docker-openvpn
+- debug: msg="##### DEPLOYING UFW {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+- name: instanciate dockerized UFW
+  include_role:
+    name: docker-ufw
 
-  tasks:
-    - include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/vpsa-client.yml
+- debug: msg="##### DEPLOYING NGINX {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+- name: instanciate dockerized NGINX
+  include_role:
+    name: docker-nginx
+
+- debug: msg="##### DEPLOYING SQUID {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+- name: instanciate dockerized SQUID
+  include_role:
+    name: docker-squid
+
+- debug: msg="##### DEPLOYING SNORT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+- name: instanciate dockerized SNORT
+  include_role:
+    name: docker-snort
+
+- debug: msg="##### DEPLOYING OPENVPN {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+- name: instanciate dockerized OPENVPN
+  include_role:
+    name: docker-openvpn
 

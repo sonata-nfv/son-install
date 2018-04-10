@@ -1,0 +1,24 @@
+- debug: msg="##### INSTALLING OpenVPN {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+
+- name: previous install APTitude
+  apt: name=aptitude state=present
+
+- name: upgrade all packages to the latest version
+  apt: upgrade=yes update_cache=yes
+
+- name: install OpenVPN and tools
+  apt: name={{ item }} state=latest
+  with_items:
+    - openvpn
+    - easy-rsa
+
+- name: set 'vars' for CA
+  copy:
+    src: "{{ lookup('env','PWD') }}/roles/openvpn/files/vars"
+    dest: /usr/share/easy-rsa/
+    remote_src: true
+  delegate_to: localhost
+
+- name: setup the CA directory
+  shell: make-cadir "{{ lookup('env','HOME') }}/openvpnca"
+

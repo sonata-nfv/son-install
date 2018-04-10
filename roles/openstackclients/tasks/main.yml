@@ -1,5 +1,13 @@
 ---
 # tasks file for openstackclients
 
-- include: "{{ ansible_distribution_release }}.yml"
+- debug: msg="##### OPENSTACK-CLI {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+
+- include_tasks: "{{ ansible_distribution_release }}.yml"
+
+- name: update 'os-client-config'
+  pip: name='os-client-config' state=present
+
+- name: install 'shade'
+  pip: name='shade' state=present
 

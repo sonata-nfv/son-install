@@ -1,6 +1,6 @@
 ---
 - name: deploy HAProxy to the target machine
-  hosts: "{{ target }}"
+  hosts: "{{ target | default(localhost) }}"
   become: true
   roles:
   - firewall

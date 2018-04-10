@@ -2,7 +2,7 @@
 vm_user: centos
 nbofvms: 1
 image: ce7-cldimg
-flavor: sp-flavor
+flavor: m1.small
 os_security_groups: "{{ plat }}-secgrp"
 fip: ext_net_id
 availability_zone: nova
@@ -10,5 +10,5 @@ region_name: RegionOne
 key_name: son-install
 
 # DEMO-NET
-#int_net_id: "ea7d9c50-5b1e-4968-804d-a6ec11c318c5" # sonata.dem-net
-ext_net_id: "53d43a3e-8c86-48e6-b1cb-f1f2c48833de" # provider
+int_net_id: "95cf5fd4-b86f-43bb-a291-d3569cf07522" # INTERNAL (192.168.10.0/24)
+ext_net_id: "c004d6e7-1caf-4271-a677-79ae924674d6" # PROVIDER (10.100.16.0/24) 

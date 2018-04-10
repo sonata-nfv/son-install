@@ -1,0 +1,13 @@
+#- include_vars: "distro_{{ ansible_distribution_release }}.yml"
+vm_user: ubuntu
+image: u16-cldimg
+
+flavor: "m1.small"
+os_security_groups: "{{ plat }}-secgrp"
+fip: external
+availability_zone: nova
+region_name: RegionOne
+key_name: son-install
+int_net_id: "bd3baea8-011e-45bf-8e7c-332ac1ff2c54" # DEMO
+ext_net_id: "7572a245-482f-4887-b3d8-27701b7696cf" # FIP
+

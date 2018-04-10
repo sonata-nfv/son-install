@@ -1,6 +1,12 @@
 ---
 
-- debug: msg="##### SP GTK-LICENSING DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+- debug: msg="##### SP GTK-LICENSING DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+
+# Ensure son-gtklic is not present
+- name: DELETE GATEKEEPER LICENSE MANAGER (GTKLIC) (Docker container)
+  docker_container:
+    name: son-gtklic
+    state: absent
 
 # Ensure son-gtklic is not present
 - name: DELETE GATEKEEPER LICENSE MANAGER (GTKLIC) (Docker container)

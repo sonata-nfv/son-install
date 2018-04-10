@@ -1,0 +1,86 @@
+
+- name: Gather facts about a previously created network by name CPIN
+  os_networks_facts:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    name: cpin
+  register: netw_result
+
+- name: check that network is available
+  assert:
+    that: "netw_result.ansible_facts.openstack_networks"
+    msg: "Network CPIN is not available"
+  when: not netw_result|default(None)
+
+- name: Show openstack networks
+  debug:
+    var: openstack_networks
+
+- name: Show openstack networks (registered var)
+  debug:
+    var: netw_result
+
+- lineinfile:
+    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+    #line: 'cpin_net_id: "{{ (openstack_networks | default({})).id | default(omit) }}"'
+    line: 'cpin_net_id: "{{ openstack_networks.0.id }}"'
+    create: yes
+    state: present
+  when: openstack_networks
+
+
+- name: create CPIN network
+  os_network:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    name: cpin
+    shared: false
+    external: false
+  when: not openstack_networks
+  register: net_cpin
+
+- name: Show CP-IN network parameters
+  debug:
+    var: net_cpin
+
+- name: Show openstack networks
+  debug:
+    var: openstack_networks
+
+
+- lineinfile:
+    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+    #line: 'cpin_net_id: "{{ (net_cpin | default({})).id | default(omit) }}"'
+    line: 'cpin_net_id: "{{ net_cpin.id }}"'
+    create: yes
+    state: present
+  when: not openstack_networks
+
+- lineinfile:
+    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+    #line: 'cpin_net_id: "{{ (net_cpin | default({})).id | default(omit) }}"'
+    line: 'cpin_net_id: "{{ openstack_networks.0.id }}"'
+    create: yes
+    state: present
+  when: openstack_networks
+
+
+- name: create CPIN subnet
+  os_subnet:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    network_name: "{{ net_cpin.id }}"
+    name: subnet-cpin
+    cidr: 172.22.10.0/24
+    gateway_ip: 172.22.10.1
+    enable_dhcp: true
+    allocation_pool_start: 172.22.10.200
+    allocation_pool_end: 172.22.10.226
+    dns_nameservers:
+       - 8.8.8.7
+       - 8.8.8.8
+#    host_routes:
+#       - destination: 0.0.0.0/0
+#         nexthop: 172.22.10.1
+#  when: not netw_result|default(None)
+  when: not openstack_networks
+

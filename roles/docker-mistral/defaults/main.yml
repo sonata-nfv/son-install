@@ -1,10 +1,6 @@
 ---
 # defaults file for mistral
 
-pop: alabs
-proj: demo
-distro: xenial
-
 docker_network_name: son-sp
 
 sp_ver: dev

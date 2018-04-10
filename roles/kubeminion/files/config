@@ -1,0 +1,1 @@
+KUBE_MASTER="--master=http://kubemaster00:8080"

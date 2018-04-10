@@ -1,2 +1,7 @@
 ---
 # defaults file for docker-nginx
+
+#vl_enduser: "{{ 'sonata.dem-net' if pop == 'ncsrd' and proj == 'dem' else 'dem-netw' }}"
+
+vl_wwwin: vpsa-wwwin
+vl_wwwout: vpsa-wwwout

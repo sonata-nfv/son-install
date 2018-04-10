@@ -2,11 +2,11 @@
 # tasks file for odoo
 
 - name: installing ODOO on Redhat distros
-  include: "{{ ansible_distribution_release }}.yml"
+  include_tasks: "{{ ansible_distribution_release }}.yml"
   when: ansible_os_family == "RedHat"
 
 - name: installing ODOO on Debian distros
-  include: debian.yml
+  include_tasks: debian.yml
   when: ansible_os_family == "Debian"
 
 # Managing firewall

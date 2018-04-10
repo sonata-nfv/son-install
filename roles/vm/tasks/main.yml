@@ -1,7 +1,7 @@
 ---
 # tasks file for vm
 
-- debug: msg="##### VM CREATION {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+- debug: msg="##### CREATE-VM {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
 - name: load variables per Site, Tenant and Distro
   include_vars: "{{ item }}"
@@ -12,34 +12,17 @@
         - "defaults.yml"
       skip: true
 
-#- include: "{{ lookup('env','PWD') }}/roles/vm/tasks/privkey.yml"
+- include_vars: "{{ lookup('env','PWD') }}/roles/vm/defaults/{{ distro }}.yml"
 
-- include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/secgrp.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/secgrp.yml"
 
-- include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/networks.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/vm/tasks/privkey.yml"
 
-- include: "{{ lookup('env','PWD') }}/roles/vm/tasks/vm.yml"
+#- include_tasks: "{{ lookup('env','PWD') }}/roles/vm/tasks/networks.yml"
+#  when: not plat | search ("docker-")
+#  when: plat.find("docker-") != 1
 
-- lineinfile:
-    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
-    line: "public_ip: '{{ item.openstack.accessIPv4 }}'"
-    create: yes
-    state: present
-  with_items: "{{ newvm.results }}"
-
-- lineinfile:
-    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
-    line: "plat_hostname: {{ item.openstack.name }}"
-    create: yes
-    state: present
-  with_items: "{{ newvm.results }}"
-
-# Add private key (if it does not exist, without passing regexp)
-# https://relativkreativ.at/articles/how-to-use-ansibles-lineinfile-module-in-a-bulletproof-way
-- lineinfile:
-    path: "{{ lookup('env','PWD') }}/ansible.cfg"
-    line: 'private_key_file = ~/.ssh/{{ key_name }}.pem'
-  no_log: True
+- include_tasks: "{{ lookup('env','PWD') }}/roles/vm/tasks/vm.yml"
 
 - lineinfile:
     path: "{{ lookup('env','PWD') }}/ansible.cfg"
@@ -77,23 +60,20 @@
     group: "{{ lookup('env','USER') }}"
     mode: 0644
 
+- debug: msg="##### REBOOT-WAITING {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+
 - name: WAIT the SSH port listening at the new deployed instance
   command: >
-    ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} true
+    ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i {{ localhome }}/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} true
   register: result
   until: result|success
-  retries: 20
+  retries: 30
   delay: 10
   with_items: "{{ newvm.results }}"
 
-- debug: msg="##### VM CREATED {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
-
-- pause:
-    minutes: 2
-
 - name: install Python 2.7 to the new deployed instance, if Xenial
   shell: >
-    ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} 'sudo apt-get update && sudo apt-get install python-minimal -y'
+    ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i {{ localhome }}/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} 'sudo apt-get update && sudo apt-get install python-minimal -y'
   register: result
   until: result|success
   retries: 30
@@ -103,3 +83,5 @@
 
 - pause:
     minutes: 2
+  when: distro == "xenial"
+

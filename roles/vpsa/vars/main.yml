@@ -1,2 +1,4 @@
 ---
 # vars file for vpsa
+public_ip: '172.31.6.49'
+plat_hostname: vpsa-alabs-dem-xenial-01-1519213043

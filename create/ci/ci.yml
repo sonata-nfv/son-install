@@ -2,7 +2,7 @@
   become: true
   connection: ssh
   pre_tasks:
-    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
   roles:
   - ntp
   - common
@@ -12,5 +12,5 @@
   - jenkins
 
   post_tasks:
-    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 

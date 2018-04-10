@@ -1,0 +1,44 @@
+- name: use Openstack command line clients to check if Security Group exists
+  shell: openstack --os-cloud "os_{{ pop }}_{{ proj }}" security group list
+  register: os_secgrp
+
+- name: create a new Security Group for Kube MASTER connections
+  os_security_group:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    name: "kube-secgrp"
+    description: SSH ports
+  when: os_secgrp.stdout.find('kube-secgrp') == -1 or os_secgrp.stdout.find('ssh-secgrp') == -1
+
+- name: create a Security Rule on that group to allow SSH connections from ANY machine
+  os_security_group_rule:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    security_group: "kube-secgrp"
+    protocol: tcp
+    port_range_min: 22
+    port_range_max: 22
+    remote_ip_prefix: 0.0.0.0/0
+  when: os_secgrp.stdout.find('kube-secgrp') == -1 or os_secgrp.stdout.find('ssh-secgrp') == -1
+
+- name: create a Security Rule on that group to allow HTTP connections from ANY machine
+  os_security_group_rule:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    security_group: "kube-secgrp"
+    protocol: tcp
+    port_range_min: 8080
+    port_range_max: 8080
+    remote_ip_prefix: 0.0.0.0/0
+  when: os_secgrp.stdout.find('kube-secgrp') == -1 or os_secgrp.stdout.find('ssh-secgrp') == -1
+
+- name: create a Security Rule on that group to allow API connections from ANY machine
+  os_security_group_rule:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    security_group: "kube-secgrp"
+    protocol: tcp
+    port_range_min: 2379
+    port_range_max: 2380
+    remote_ip_prefix: 0.0.0.0/0
+  when: os_secgrp.stdout.find('kube-secgrp') == -1 or os_secgrp.stdout.find('ssh-secgrp') == -1
+
+# INCOMPLETE
+

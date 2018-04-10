@@ -1,10 +1,10 @@
 ---
 - name: deploy OVS to the target machine
-  hosts: "{{ target }}"
+  hosts: "{{ target | default(localhost) }}"
   become: true
   connection: local
   pre_tasks:
-    - debug: msg="OVS start deployment at: {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    - debug: msg="OVS start deployment at: {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
     - file:
         path: /var/log/ansible.log
         state: touch

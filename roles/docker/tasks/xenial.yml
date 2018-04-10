@@ -29,11 +29,9 @@
   - jinja2
   - PyYAML
   - setuptools
-  #- pycrypto>=2.6
   - pycrypto
   - six
   - requests
-  #- docker-py==1.9.0
   - docker-py
 
 #- name: on Trusty it is recommended to install the linux-image-extra kernel package
@@ -72,17 +70,13 @@
 - name: "Ensure Docker is started at boot"
   service: name=docker enabled=yes
 
-- name: "Add user to group"
-  user: name=sonata shell=/bin/bash groups=docker append=yes
-
 - name: "Configuring Docker Options"
   copy: src=docker2upstart dest=/etc/default/docker owner=root group=root mode=0644
-#  notify:
-#  - restart docker
 
-- name: restart docker on Systemd (Ubuntu 16.04 and CentOS 7)
-  systemd: name=docker state=restarted daemon_reload=yes
+- name: start Docker engine
+  systemd: name=docker state=started daemon_reload=yes
 
+- include_tasks: "{{ lookup('env','PWD') }}/roles/docker/tasks/networks.yml"
 
 #- name: configure RSYSLOG
 #  template:

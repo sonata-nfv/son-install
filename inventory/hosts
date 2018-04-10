@@ -1,0 +1,6 @@
+[kubemaster]
+kubemaster00 ansible_connection=ssh ansible_user=centos ansible_ssh_private_key_file=/home/centos/.ssh/son-install.pem ansible_host=172.31.6.27 
+[kubeminion]
+kubeminion01 ansible_connection=ssh ansible_user=centos ansible_ssh_private_key_file=/home/centos/.ssh/son-install.pem ansible_host=172.31.6.38 
+kubeminion02 ansible_connection=ssh ansible_user=centos ansible_ssh_private_key_file=/home/centos/.ssh/son-install.pem ansible_host=172.31.6.49 
+kubeminion03 ansible_connection=ssh ansible_user=centos ansible_ssh_private_key_file=/home/centos/.ssh/son-install.pem ansible_host=172.31.6.37 

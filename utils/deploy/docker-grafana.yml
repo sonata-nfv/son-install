@@ -1,10 +1,10 @@
 ---
 - name: deploy GRAFANA as a Docker container to the target machine
-  hosts: "{{ target }}"
+  hosts: "{{ target | default(localhost) }}"
   become: true
 
   pre_tasks:
-    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    - debug: msg="{{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
     - file:
         path: /var/log/ansible.log
         state: touch

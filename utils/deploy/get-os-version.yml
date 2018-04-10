@@ -1,0 +1,10 @@
+---
+- name: Check OS Version via /etc/issue
+  hosts: localhost
+  tasks:
+    - name: cat /etc/issue
+      #shell: cat /etc/issue
+      shell: cat /etc/os-release
+      register: etc_issue
+    - debug: msg="{{etc_issue.stdout_lines}}"
+

@@ -1,33 +1,26 @@
 ---
-- name: deploy ODL to the target machine
-  hosts: "{{ target }}"
+- name: deploy OpenDaylight to the target machine
+  hosts: "{{ target | default(localhost) }}"
   become: true
   connection: local
+  environment:
+    JAVA_HOME: "/usr/lib/jvm/jre-openjdk"
+    PATH: "/usr/lib/jvm/jre-openjdk:{{ ansible_env.PATH }}"
+
   pre_tasks:
-    - local_action: shell date +'%F %T'
-      register: ts
-    - debug:
-        msg: "ODL deployment started @ {{ ts.stdout }}"
+    - debug: msg="##### DEPLOYING OpenDaylight {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+
     - file:
-        path: /var/log/ansible.log
+        path: "{{ lookup('env','HOME') }}/ansible.log"
         state: touch
         owner: "{{ lookup('env','USER') }}"
         group: "{{ lookup('env','USER') }}"
         mode: "u=rw,g=rw,o=rw"
-    #- group:
-    #    name: odl
-    #    state: present
-    #- user:
-    #    name: odl
-    #    comment: "ODL user"
-    #    shell: /bin/bash
-    #    groups: ovs
-    #    append: yes
 
   roles:
-  - jdk
-  - opendaylight
+    - openjdk
+    - opendaylight
 
-  tasks: 
-    - debug:
-        msg: "#####"
+  post_tasks:
+    - debug: msg="##### END-OF-DEPLOYING OpenDaylight {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+

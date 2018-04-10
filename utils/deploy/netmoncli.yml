@@ -1,0 +1,188 @@
+---
+- name: 
+  hosts: "{{ target | default ('localhost') }}"
+  connection: ssh
+  become: true
+
+#1. Overall bandwidth - nload, bmon, slurm, bwm-ng, cbm, speedometer, netload
+#2. Overall bandwidth (batch style output) - vnstat, ifstat, dstat, collectl
+#3. Bandwidth per socket connection - iftop, iptraf, tcptrack, pktstat, netwatch, trafshow
+#4. Bandwidth per process - nethogs
+#   https://linoxide.com/monitoring-2/network-monitoring-tools-linux/
+
+  pre_tasks:
+
+    - debug: msg="##### START-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"    
+
+    - name:  upgrade all packages to the latest version
+      yum: name='*' state=latest update_cache=yes
+      when: ansible_os_family == "RedHat"
+
+    - name: upgrade all packages to the latest version
+      apt: upgrade=yes update_cache=yes
+      when: ansible_os_family == "Debian" or ansible_os_family == "Kali GNU/Linux"
+
+  tasks:
+
+### 
+    - name: NLOAD
+      package:
+        name: nload
+        state: present
+
+### 
+    - name: IFTOP
+      package:
+        name: iftop
+        state: present
+
+### 
+    - name: IPTRAF
+      package:
+        name: iptraf
+        state: present
+
+### 
+    - name: IPTRAFNG
+      package:
+        name: iptraf-ng
+        state: present
+
+### 
+    - name: NETHOGS
+      package:
+        name: nethogs
+        state: present
+
+### 
+    - name: BMON
+      package:
+        name: bmon
+        state: present
+
+### 
+    - name: SLURM
+      package:
+        name: slurm
+        state: present
+      when: ansible_os_family == "Debian" or ansible_os_family == "Kali GNU/Linux"
+
+### 
+    - name: Importing GPG key for 3rd party repository Psychotic Ninja
+      rpm_key:
+        state: present
+        key: http://wiki.psychotic.ninja/RPM-GPG-KEY-psychotic
+      when: ansible_os_family == "RedHat"
+    - name: Enabling Psychotic Ninja repo
+      yum:
+        name: http://packages.psychotic.ninja/7/base/x86_64/RPMS/psychotic-release-1.0.0-1.el7.psychotic.noarch.rpm
+        state: present
+      when: ansible_os_family == "RedHat"
+    - name: TCPTRACK
+      yum:
+        name: tcptrack
+        enablerepo: psychotic
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: TCPTRACK
+      apt:
+        name: tcptrack
+        state: present
+      when: ansible_os_family == "Debian" or ansible_os_family == "Kali GNU/Linux"
+
+### 
+    - name: TCPFLOW
+      package:
+        name: tcpflow
+        state: present
+
+### 
+    - name: VNSTAT
+      package:
+        name: vnstat
+        state: present
+
+### 
+    - name: BWM-NG
+      package:
+        name: bwm-ng
+        state: present
+
+### 
+    - name: CBM
+      package:
+        name: cbm
+        state: present
+      when: ansible_os_family == "Debian" or ansible_os_family == "Kali GNU/Linux"
+
+### 
+    - name: SPEEDOMETER
+      package:
+        name: speedometer
+        state: present
+      when: ansible_os_family == "Debian" or ansible_os_family == "Kali GNU/Linux"
+
+### 
+    - name: PKTSTAT
+      package:
+        name: pktstat
+        state: present
+      when: ansible_os_family == "Debian" or ansible_os_family == "Kali GNU/Linux"
+
+### 
+    - name: NETDIAG (NetWatch + TrafShow + NetLoad)
+      package:
+        name: netdiag
+        state: present
+      when: ansible_os_family == "Debian" or ansible_os_family == "Kali GNU/Linux"
+
+### 
+    - name: Importing GPG key for 3rd party repository Psychotic Ninja
+      rpm_key:
+        state: present
+        key: http://wiki.psychotic.ninja/RPM-GPG-KEY-psychotic
+      when: ansible_os_family == "RedHat"
+    - name: Enabling Psychotic Ninja repo
+      yum:
+        name: http://packages.psychotic.ninja/7/base/x86_64/RPMS/psychotic-release-1.0.0-1.el7.psychotic.noarch.rpm
+        state: present
+      when: ansible_os_family == "RedHat"
+    - name: IFSTAT
+      yum:
+        name: ifstat
+        enablerepo: psychotic
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: IFSTAT
+      apt:
+        name: ifstat
+        state: present
+      when: ansible_os_family == "Debian" or ansible_os_family == "Kali GNU/Linux"
+
+### 
+    - name: dstat
+      package:
+        name: dstat
+        state: present
+      when: ansible_os_family == "Debian" or ansible_os_family == "Kali GNU/Linux"
+
+    #  - name: COLLECTL
+    #package:
+    #  name: collectl
+    #  state: present
+
+### 
+    - name: etherape
+      package:
+        name: etherape
+        state: present
+      when: ansible_os_family == "Debian" or ansible_os_family == "Kali GNU/Linux"
+#     http://linuxpitstop.com/install-graphical-network-monitor-etherape-on-ubuntu-linux-16/
+#     https://centos.pkgs.org/7/forensics-x86_64/etherape-0.9.12-1.el7.x86_64.rpm.html
+
+  post_tasks:
+
+    - debug: msg="##### START-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"    
+

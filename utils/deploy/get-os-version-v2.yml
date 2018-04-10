@@ -1,0 +1,7 @@
+---
+- name: Check OS Version via /etc/issue
+  hosts: localhost
+  vars:
+    distro: '{{ ansible_distribution_release }}'
+  tasks:
+    - debug: msg="{{ distro }}"

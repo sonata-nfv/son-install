@@ -1,0 +1,80 @@
+
+- name: Gather facts about a previously created network by name MGMT
+  os_networks_facts:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    name: vpsa-mgmt
+  register: returnedvalues
+# NOTE: 'openstack_networks' has all the openstack facts about the networks
+
+#- name: Show MGMT network parameters
+#  debug:
+#    var: openstack_networks
+
+- name: check that network is available
+  assert:
+    that: 'returnedvalues.ansible_facts.openstack_networks.name == "vpsa-mgmt"'
+    msg: "Network MGMT is available"
+  when: openstack_networks
+
+- set_fact:
+    mgmt_net_id: "{{ returnedvalues.ansible_facts.openstack_networks.id }}"
+  when: openstack_networks
+
+###
+
+- name: create MGMT network
+  os_network:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    name: vpsa-mgmt
+    shared: false
+    external: false
+  when: not openstack_networks
+  register: net_mgmt
+
+- name: Show MGMT network parameters
+  debug:
+    var: net_mgmt
+
+- lineinfile:
+    path: "{{ lookup('env','PWD') }}/roles/{{ plat }}/vars/main.yml"
+    line: 'mgmt_net_id: "{{ (net_mgmt | default({})).id | default(omit) }}"'
+    create: yes
+    state: present
+  when: net_mgmt
+
+- set_fact:
+    mgmt_net_id: '{{ net_mgmt.id }}'
+  when: net_mgmt
+
+- name: create MGMT subnet
+  os_subnet:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    network_name: "{{ net_mgmt.id }}"
+    name: vpsa-mgmt-subnet
+    cidr: 172.22.7.0/24
+    gateway_ip: 172.22.7.1
+    enable_dhcp: true
+    allocation_pool_start: 172.22.7.200
+    allocation_pool_end: 172.22.7.226
+    dns_nameservers:
+       - 8.8.8.7
+       - 8.8.8.8
+    host_routes:
+       - destination: 0.0.0.0/0
+         nexthop: 172.22.7.1
+  when: net_mgmt
+
+#- name: create a ROUTER for the internal network
+#  os_router:
+#    cloud: 'os_{{ pop }}_admin'
+#    state: present
+#    name: int-net-router
+#    network: dem-netw
+#    external_fixed_ips:
+#      - subnet: demo-subnet
+#        #ip: 192.168.11.2
+#    interfaces:
+#      - int-net-subnet
+

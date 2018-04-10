@@ -1,0 +1,22 @@
+# tasks file for squidguard
+---
+
+- include_vars: "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
+
+- name: install 'libdb'
+  yum: name=libdb-devel state=present
+
+- name: install 'squidguard' to CentOS 7 (available at EPEL)
+  yum: name=squidGuard state=present
+
+- name: unarchiving MESD BlackList tarball (freely available) for SquidGuard
+  unarchive:
+    src: "http://squidguard.mesd.k12.or.us/blacklists.tgz"
+    dest: "/var/squidGuard/"
+    remote_src: true
+    owner: squid
+    group: squid
+
+- name: initialize blacklist (convert file to database format)
+  shell: '/usr/bin/squidGuard -C all -c /etc/squid/squidGuard.conf'
+

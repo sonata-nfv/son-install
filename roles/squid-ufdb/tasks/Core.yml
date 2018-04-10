@@ -1,0 +1,6 @@
+---
+# Squid 3.5 has a new ssl-bump mechanism to peek+bump and is only compatible with ufdbGuard 1.32.1 or later.
+- name: install the ufdbGuard rpm from a remote repo
+  yum:
+    name: https://www.urlfilterdb.com/files/downloads/ufdbGuard-1.33.4-CentOS7.x86_64.rpm
+    state: present

@@ -10,11 +10,11 @@
     - kubemaster
 
 - name: installing Kube Nodes
-  hosts: kubenodes
+  hosts: kubeminion
   become: true
   connection: ssh
   roles:
-    - kubenode
+    - kubeminion
 
   post_tasks:
     - local_action: shell date +'%F %T'

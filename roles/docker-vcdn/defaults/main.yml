@@ -1,0 +1,5 @@
+---
+# defaults file for docker-vcdn
+
+vl_mgmt: vcdn-mgmt
+

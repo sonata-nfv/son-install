@@ -1,3 +1,7 @@
+- name: use Openstack command line clients to check if Security Group exists
+  shell: openstack --os-cloud "os_{{ pop }}_{{ proj }}" security group list
+  register: os_secgrp
+
 - name: create a new security group for HA PROXY services
   os_security_group:
     cloud: "os_{{ pop }}_{{ proj }}"

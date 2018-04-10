@@ -1,7 +1,8 @@
 ---
 # tasks file for docker-snort
 
-- include_vars: "{{ lookup('env','PWD') }}/roles/docker-vpsa/defaults/main.yml"
+- include_vars: "{{ lookup('env','PWD') }}/roles/docker-snort/defaults/main.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/docker-snort/tasks/networks.yml"
 
 - name: get Snort Docker image
   docker_image:
@@ -15,22 +16,17 @@
     state: started
     network_mode: bridge
     networks:
+
       - name: "{{ vl_mgmt }}"
         aliases:
-          - son-mgmt
-      - name: "{{ vl_ids }}"
+          - vpsa-mgmt
+      - name: "{{ vl_idsin }}"
         aliases:
-          - vpsa-ids
-        links:
-          - vpsa-ids:prx-ids
-      #- name: "{{ vl_addblk_ids }}"
-      #  aliases:
-      #    - vpsa-addblk-ids
-      - name: "{{ vl_fwin }}"
+          - vpsa-idsin
+      - name: "{{ vl_idsout }}"
         aliases:
-          - vpsa-fwin
-        links:
-          - vpsa-fwin:idsfwin
+          - vpsa-idsout
+
     restart_policy: "unless-stopped"
     published_ports:
      - 0:1024

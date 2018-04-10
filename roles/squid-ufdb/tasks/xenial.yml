@@ -1,0 +1,41 @@
+---
+
+# Install pre-requirements
+
+- name: previous install APTitude
+  apt: name=aptitude state=present
+
+- name: upgrade all packages to the latest version
+  apt: upgrade=yes update_cache=yes
+
+- name: install development libraries and tools
+  apt: name=build-essential state=latest
+
+- name: install required libraries and tools for PIP
+  apt: name={{ item }} state=latest
+  with_items:
+  - gdb
+  - pstack
+
+- name: create group 'ufdb' 
+  group:
+    name: ufdb
+    state: present
+
+- name: add user 'ufdb' with nologin and superuser priviledges
+  user:
+    name: ufdb
+    comment: "UFDB system user"
+    shell: /usr/sbin/nologin 
+    group: ufdb
+    groups: sudo
+
+- name: download ufdbGuard tarball
+  unarchive:
+    src: https://www.urlfilterdb.com/files/downloads/ufdbGuard-latest.tar.gz
+    dest: /tmp
+    remote_src: true
+
+- name: install ufdbGuard
+  shell: cd /tmp/ufdbGuard-1.33.4 && ./configure && make && make install
+  become: true

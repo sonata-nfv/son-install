@@ -1,21 +1,27 @@
 ---
 # deploy KUBERNETES CLUSTER server to the existing VMs in the Inventory file
 
-- name: "deploy K8S MASTER to the designated VMs in the Inventory file"
-  hosts: kube-master
+- import_playbook: "{{ lookup('env','PWD') }}/utils/deploy/kubeinfra.yml"
+
+- name: "deploy K8s MASTER to the designated VMs in the Inventory file"
+  hosts: kubemaster
   become: true
   connection: ssh
+  vars:
+    domain_name: sonata-nfv.eu
   roles:
   - ntp
   - common
   - kubemaster
 
-- name: "deploy K8S NODES to the designated VMs in the Inventory file"
-  hosts: kube-node
+- name: "deploy K8s MINIONs to the designated VMs in the Inventory file"
+  hosts: kubeminion
   become: true
   connection: ssh
+  vars:
+    domain_name: sonata-nfv.eu
   roles:
   - ntp
   - common
-  - kubenode
+  - kubeminion
 

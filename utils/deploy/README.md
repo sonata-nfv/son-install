@@ -1,4 +1,4 @@
-Here you have a list of standalone applications ready to deploy the SP or a VNF/NS to an existing VM or host.
+Here you have a list of standalone applications ready to deploy the VNF/NS (or the SP) to an existing VM or host.
 
 
 Deploy the SP or VNF/NS to a target machine
@@ -10,19 +10,21 @@ Deploy the SP or VNF/NS to a target machine
 * 4rd run 'XXX.yml' playbook to deploy the XXX application, eg:
 
 SP deployment to the localhost
-* ansible-playbook utils/deploy/SP.yml -e 'target=localhost'
+* ansible-playbook utils/deploy/SP.yml [-e 'target=localhost']
 
 vPSA deployment 
-* ansible-playbook utils/deploy/vpsa.yml -e 'target=localhost'
+* ansible-playbook utils/deploy/vpsa.yml [-e 'target=localhost']
 
 
-Deploy a VM to an Openstack VIM
-===============================
-If you don't have yet a guest machine, then use the 'vm.yml' playbook to create one:
+Deploy a Kubernetes cluster
+===========================
 
-* ansible-playbook utils/deploy/vm.yml -e 'plat=vm pop=alabs|ncsrd proj=qual|demo distro=trusty|xenial|Core nbofvms=N'"
+* ansible-playbook utils/deploy/kubernetes.yml [-i inventory/hosts]
 
-For example, to deploy two Ubuntu 16.04 VMs on Alabs' PoP at Demo tenant:
+
+Create a single or multiple VMs on an Openstack VIM
+===================================================
+If you need to create a guest machine, then use the 'vm.yml' playbook for it. For example, to deploy two Ubuntu 16.04 VMs on Alabs' PoP at Demo tenant:
 
 * ansible-playbook utils/deploy/vm.yml -e 'plat=vm pop=alabs proj=demo distro=xenial nbofvms=2'
 

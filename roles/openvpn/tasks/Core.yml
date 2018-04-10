@@ -1,0 +1,24 @@
+- debug: msg="##### INSTALLING OpenVPN {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+
+- name:  upgrade all packages to the latest version
+  yum: name='*' state=latest update_cache=yes
+
+- yum: name=epel-release state=latest
+
+- name: install OpenVPN and tools
+  yum: name={{ item }}
+  with_items:
+    - openvpn
+    - easy-rsa
+    #- iptables-services
+
+- name: copy 'easy-rsa' script generation to OpenVPN folder
+  synchronize:
+    src: /usr/share/easy-rsa
+    dest: /etc/openvpn
+  delegate_to: "{{ inventory_hostname }}"
+
+- name: set 'vars' for CA
+  copy:
+    src: vars
+    dest: /etc/openvpn/easy-rsa/3.0.3

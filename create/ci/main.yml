@@ -1,6 +1,6 @@
 ---
 
-- include: ../../infra.yml
-- include: ../../common.yml
-- include: ci.yml
+- include_tasks: ../../infra.yml
+- include_tasks: ../../common.yml
+- include_tasks: ci.yml
 

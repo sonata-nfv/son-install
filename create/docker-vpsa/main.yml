@@ -6,18 +6,16 @@
     - "{{ lookup('env','PWD') }}/roles/{{ plat }}/defaults/main.yml"
   remote_user: "{{ vm_user }}"
   pre_tasks:
-    - debug:
-        msg: "{{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+    - debug: msg="##### START-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
   roles:
-    - docker
-    - docker-nginx
-    #- docker-pfsense
-    #- docker-openvpn
-    - docker-snort
-    #- docker-addblk
-    #- docker-openldap
-    - docker-squid
+    - docker-vpsa
+#    - docker-ufw
+#    - docker-nginx
+#    - docker-squid
+#    - docker-snort
+#    - docker-openvpn
 
-  tasks:
-    - include: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/docker-vpsa-client.yml"
+  post_tasks:
+    - debug: msg="##### END-DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+

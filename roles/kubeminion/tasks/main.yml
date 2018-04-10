@@ -1,0 +1,3 @@
+---
+# tasks file for kubeminion
+- include_tasks: "{{ ansible_distribution_release }}.yml"

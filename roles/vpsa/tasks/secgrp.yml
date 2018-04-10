@@ -1,0 +1,84 @@
+- name: use Openstack command line clients to check if Security Group exists
+  shell: openstack --os-cloud "os_{{ pop }}_{{ proj }}" security group list
+  register: os_secgrp
+
+- name: create a new security group for VPN connections
+  os_security_group:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    state: present
+    name: "vpsa-secgrp"
+    description: VPN server ports
+  when: os_secgrp.stdout.find('vpsa-secgrp') == -1
+
+- name: create a security rule on that group to allow client SSH connections
+  os_security_group_rule:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    security_group: "vpsa-secgrp"
+    protocol: tcp
+    port_range_min: 22
+    port_range_max: 22
+    remote_ip_prefix: 0.0.0.0/0
+  when: os_secgrp.stdout.find('vpsa-secgrp') == -1
+
+# VPN
+
+- name: create a security rule on that group to allow client SSL connections
+  os_security_group_rule:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    security_group: "vpsa-secgrp"
+    protocol: tcp
+    port_range_min: 443
+    port_range_max: 443
+    remote_ip_prefix: 0.0.0.0/0
+  when: os_secgrp.stdout.find('vpsa-secgrp') == -1
+
+- name: create a security rule on that group to allow any VPN connection
+  os_security_group_rule:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    security_group: "vpsa-secgrp"
+    protocol: tcp
+    port_range_min: 1194
+    port_range_max: 1194
+    remote_ip_prefix: 0.0.0.0/0
+  when: os_secgrp.stdout.find('vpsa-secgrp') == -1
+
+# TOR ports
+
+
+# PRX ports
+
+- name: create a security rule on that group to allow PROXY client connections
+  os_security_group_rule:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    security_group: "vpsa-secgrp"
+    protocol: tcp
+    port_range_min: 3128
+    port_range_max: 3128
+    remote_ip_prefix: 0.0.0.0/0
+  when: os_secgrp.stdout.find('vpsa-secgrp') == -1
+
+- name: create a security rule on that group to allow client PROXY connections
+  os_security_group_rule:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    security_group: "vpsa-secgrp"
+    protocol: tcp
+    port_range_min: 8080
+    port_range_max: 8080
+    remote_ip_prefix: 0.0.0.0/0
+  when: os_secgrp.stdout.find('vpsa-secgrp') == -1
+
+# IDS ports
+
+
+# SSP ports
+
+- name: create a security rule on that group to allow client HTTP connections
+  os_security_group_rule:
+    cloud: "os_{{ pop }}_{{ proj }}"
+    security_group: "vpsa-secgrp"
+    protocol: tcp
+    port_range_min: 80
+    port_range_max: 80
+    remote_ip_prefix: 0.0.0.0/0
+  when: os_secgrp.stdout.find('vpsa-secgrp') == -1
+

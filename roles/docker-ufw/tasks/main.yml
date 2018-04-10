@@ -1,0 +1,37 @@
+---
+# tasks file for docker-ufw
+
+- include_vars: "{{ lookup('env','PWD') }}/roles/docker-ufw/defaults/main.yml"
+- include_tasks: "{{ lookup('env','PWD') }}/roles/docker-ufw/tasks/networks.yml"
+
+- name: start UFW as a Docker container
+  docker_container:
+    name: ufw
+    image: arocha/ufw
+    #env:
+    state: started
+    network_mode: bridge
+    networks:
+
+      - name: "{{ vl_mgmt }}"
+        aliases:
+          - son-vpsa-mgmt
+
+      - name: "{{ vl_fwin }}"
+        aliases:
+          - son-vpsa-fwin
+
+      - name: "{{ vl_fwout }}"
+        aliases:
+          - son-vpsa-fwout
+
+    restart_policy: "unless-stopped"
+    #published_ports: 80:80
+    volumes:
+      - /var/log/sonata/ufw:/var/log/ufw
+    log_driver: syslog # gelf
+
+    #log_options:
+    #  syslog-address: tcp://my-syslog-server:514
+    #  syslog-facility: daemon
+

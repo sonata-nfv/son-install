@@ -62,8 +62,5 @@
   - dogpile.cache>=0.5.3
   - decorator
 
-#- name: install SHADE
-#  pip: name=shade state=present
-
-- include: shade.yml
+#- include_tasks: shade.yml
 

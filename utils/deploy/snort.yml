@@ -1,0 +1,7 @@
+---
+- name: deploy Squid to the target machine
+  hosts: "{{ target | default ('localhost') }}"
+  become: true
+  roles:
+  - firewall
+  - snort

@@ -1,0 +1,20 @@
+# tasks file for squidguard
+---
+
+- name: install 'libdb'
+  apt: name=libdb-dev state=present
+
+- name: install 'squidguard' to Ubuntu
+  apt: name=squidguard state=present
+
+- name: unarchiving MESD BlackList tarball (freely available) for SquidGuard
+  unarchive:
+    src: "http://squidguard.mesd.k12.or.us/blacklists.tgz"
+    dest: "/var/lib/squidguard/db"
+    remote_src: true
+    owner: proxy
+    group: proxy
+
+- name: initialize blacklist (convert file to DB)
+  shell: '/usr/bin/squidGuard -C all -c /etc/squidguard/squidGuard.conf'
+

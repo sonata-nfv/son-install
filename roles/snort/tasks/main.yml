@@ -1,7 +1,9 @@
 ---
 # tasks file for snort
 
-- include: "{{ ansible_distribution_release }}.yml"
+- include_tasks: "{{ ansible_distribution_release }}.yml"
+
+#- include_tasks: "{{ lookup('env','PWD') }}/roles/{{ plat }}/tasks/networks.yml"
 
 - name: Updating Snort Rule using Pulled Pork
   git: 
@@ -10,12 +12,9 @@
 
 - name: setup pulled pork
   copy:
-    remote_src: true
     src: /tmp/pulledpork/pulledpork.pl
     dest: /usr/local/bin
-
-- file:
-    path: /usr/local/bin/pulledpork.pl
+    remote_src: true
     owner: root
     group: root
     mode: 0755
@@ -34,8 +33,10 @@
     - /tmp/pulledpork/etc/*.conf
 
 # provide feedback on the installed version
-- command: sudo snort -V
+- command: snort -V
   register: snort_ver
+  become: true
+
 - debug:
     var: snort_ver.stdout
 

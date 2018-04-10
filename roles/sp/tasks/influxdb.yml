@@ -1,5 +1,5 @@
 ---
-- debug: msg="##### SP INFLUXDB DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
+- debug: msg="##### SP INFLUXDB DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
 
 - name: MONIT InfluxDB  - running Docker containers
   docker_container:

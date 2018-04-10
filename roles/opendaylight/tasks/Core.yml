@@ -2,14 +2,38 @@
 
 - name: get ODL tarball
   get_url:
-    url: https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/integration/distribution-karaf/0.5.2-Boron-SR2/distribution-karaf-0.5.2-Boron-SR2.tar.gz
-    dest: "/tmp"
+    #url: https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/integration/distribution-karaf/0.5.2-Boron-SR2/distribution-karaf-0.5.2-Boron-SR2.tar.gz
+    #url: https://nexus.opendaylight.org/content/repositories/public/org/opendaylight/integration/distribution-karaf/0.6.2-Carbon/distribution-karaf-0.6.2-Carbon.tar.gz
+    url: https://nexus.opendaylight.org/content/repositories/public/org/opendaylight/integration/karaf/0.7.1/karaf-0.7.1.tar.gz
+    dest: "/opt"
+  become: true
 
 - name: unarchiving ODL tarball
   unarchive:
-    src: "/tmp/distribution-karaf-0.5.2-Boron-SR2.tar.gz"
-    dest: "/tmp"
+    #src: "/opt/distribution-karaf-0.5.2-Boron-SR2.tar.gz"
+    #src: "/opt/distribution-karaf-0.6.2-Carbon.tar.gz"
+    src: "/opt/karaf-0.7.1.tar.gz"
+    dest: "/opt"
     remote_src: True
+  become: true
 
-- name: install ODL
-  shell: /tmp/distribution-karaf-0.5.2-Boron-SR2/bin/karaf
+- name: set JRE environ var
+  shell: "export JAVA_HOME=/usr/lib/jvm/jre-1.7.0-openjdk/"
+
+- name: set JRE environ var
+  shell: "export PATH=/usr/lib/jvm/jre-1.7.0-openjdk/bin:{{ ansible_env.PATH }}"
+
+- name: check if JRE is installed
+  shell: "{{ lookup('env','JAVA_HOME') }}/bin/java -version"
+  register: jre_status
+
+- debug:
+    var: jre_status
+
+- name: running ODL
+  #shell: /opt/distribution-karaf-0.5.2-Boron-SR2/bin/karaf
+  #shell: /opt/distribution-karaf-0.6.2-Carbon/bin/karaf
+  shell: "/opt/karaf-0.7.1/bin/start"
+  when: jre_status|succeeded
+  become: true
+
