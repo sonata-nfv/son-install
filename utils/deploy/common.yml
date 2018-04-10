@@ -6,7 +6,7 @@
   connection: ssh
   remote_user: "{{ vm_user | default('sonata') }}"
   vars_files:
-    - "{{ lookup('env','PWD') }}/group_vars/os_{{ pop | default('alabs') }}_{{ proj | default('dem') }}_{{ distro | default('xenial') }}.yml"
+    - "{{ lookup('env','PWD') }}/group_vars/os_{{ pop }}_{{ proj }}_{{ distro }}.yml"
   vars:
     localhome: "{{ lookup('env','PWD') }}"
     distro: '{{ ansible_distribution_release }}'
