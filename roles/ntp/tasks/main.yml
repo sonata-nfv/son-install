@@ -20,12 +20,12 @@
     force: yes
   when: ansible_os_family == 'Debian'
 
-- name: Install NTP
-  yum: name=ntp state=installed
+- name: Install NTP (on Redhat distros)
+  yum: name=ntp state=present
   when: ansible_os_family == 'RedHat'
 
-- name: Install NTP (Debian).
-  apt: name=ntp state=installed
+- name: Install NTP (on Debian distros)
+  apt: name=ntp state=present
   when: ansible_os_family == 'Debian'
 
 - name: Ensure NTP is running and enabled as configured.
