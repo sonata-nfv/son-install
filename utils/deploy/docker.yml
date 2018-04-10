@@ -2,6 +2,8 @@
 - name: deploy DOCKER to the target machine
   hosts: "{{ target | default('localhost') }}"
   become: true
+  vars:
+    - include_vars: "{{ lookup('env','PWD') }}/roles/docker/defaults/main.yml"
   roles:
-  - docker
+    - docker
 
