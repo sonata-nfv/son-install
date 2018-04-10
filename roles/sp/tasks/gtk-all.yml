@@ -1,17 +1,16 @@
 ---
-- debug: msg="##### SP GTK DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+- debug: msg="##### SP GTK DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
 # Running the Sonata GK Docker Images
 
-- include_tasks: gtk/val.yml
-- include_tasks: gtk/pkg.yml
-- include_tasks: gtk/srv.yml
-- include_tasks: gtk/fnct.yml
-- include_tasks: gtk/rec.yml
-- include_tasks: gtk/vim.yml
-- include_tasks: gtk/lic.yml
-#- include_tasks: gtk/keycloak.yml
-- include_tasks: gtk/kpi.yml
-- include_tasks: gtk/usr.yml
-- include_tasks: gtk/rlt.yml
-- include_tasks: gtk/api.yml
+- include: gtk/val.yml
+- include: gtk/pkg.yml
+- include: gtk/srv.yml
+- include: gtk/fnct.yml
+- include: gtk/rec.yml
+- include: gtk/vim.yml
+- include: gtk/lic.yml
+- include: gtk/kpi.yml
+- include: gtk/usr.yml
+- include: gtk/rlt.yml
+- include: gtk/api.yml
 

@@ -1,5 +1,5 @@
 ---
-- debug: msg="##### SP GTK-USER-MGMT DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S') }}"
+- debug: msg="##### SP GTK-USER-MGMT DEPLOYMENT {{ lookup('pipe', 'date +%Y%m%d-%H%M') }}"
 - name: GATEKEEPER USER MANAGEMENT (GTKUSR) (Docker container)
   docker_container:
     name: son-gtkusr
