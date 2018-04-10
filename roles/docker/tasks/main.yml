@@ -7,20 +7,35 @@
     - "{{ ansible_os_family }}.yml"
     - "default.yml"
 
-- include_vars: "{{ lookup('env','PWD') }}/roles/{{ plat }}/defaults/main.yml"
+#- include_vars: "{{ lookup('env','PWD') }}/roles/{{ plat }}/defaults/main.yml"
 
-- group:
+- name: create Docker group
+  group:
     name: docker
     state: present
 
-#- name: create a directory for Docker logging
-#  file:
-#    path: /var/log/docker
-#    state: directory
-#    owner: '{{ vm_user }}'
-#    group: docker
-#    mode: 0775
-#  become: true
+- set_fact:
+    vm_user: "{{ lookup('env','USER') }}"    
+    when: target == 'localhost'
 
-- include: "{{ ansible_distribution_release }}.yml"
+- name: add Docker group to default user
+  user:
+    name: "{{ vm_user }}"
+    shell: /bin/bash
+    groups: docker
+    append: yes
+
+- name: create a directory for Docker logging
+  file:
+    path: /var/log/docker
+    state: directory
+    owner: '{{ vm_user }}'
+    group: docker
+    mode: 0775
+  become: true
+
+- include_tasks: "{{ ansible_distribution_release }}.yml"
+
+- name: restart docker on Systemd (Ubuntu 16 and CentOS 7)
+  systemd: name=docker state=reloaded daemon_reload=yes
 
