@@ -63,7 +63,7 @@
   command: >
     ssh -oControlMaster=auto -oControlPersist=60s -oUserKnownHostsFile=/dev/null -oBatchMode=yes -oStrictHostKeyChecking=no -i ~/.ssh/{{ item.openstack.key_name }}.pem -l {{ vm_user }} {{ item.openstack.accessIPv4 }} true
   register: result
-  until: result|success
+  until: result is success
   retries: 20
   delay: 10
   with_items: "{{ newvm.results }}"
